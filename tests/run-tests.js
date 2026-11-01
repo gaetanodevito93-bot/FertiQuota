@@ -1757,6 +1757,86 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check(`sincronizzazione prezzo Catalogo → calcRighe (${s32.pzSyncCat}), costo anteprima target (${s32.ricettaTargetHaCosto}) e prezzo manuale preservato in modalità target (${s32.pzTargetPreservato})`,
     s32.pzSyncCat === 2.5 && s32.ricettaTargetHaCosto && s32.pzTargetPreservato === 9.9);
 
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S33. Ciclo di vita Splash Screen (completamento animazioni, fade-out, reduced-motion, i18n) ═══');
+  const splashProbeInit = () => {
+    window.__splashDone = new Promise((resolve) => {
+      document.addEventListener('DOMContentLoaded', () => {
+        const s = document.getElementById('splash');
+        if (!s) { resolve({ presentAtStart: false }); return; }
+        const t0 = performance.now();
+        const anims0 = s.getAnimations ? s.getAnimations({ subtree: true }) : [];
+        const st = {
+          presentAtStart: true,
+          tagText: s.querySelector('.splash-tag')?.textContent || '',
+          initialAnims: anims0.length,
+          visibleAt1100ms: false,
+          animsFinishedAtHide: false,
+          hideElapsedMs: 0,
+          removeElapsedMs: 0,
+          fadeDurationMs: 0,
+          removedFromDom: false
+        };
+        setTimeout(() => {
+          const el = document.getElementById('splash');
+          st.visibleAt1100ms = !!el && !el.classList.contains('splash-hide');
+        }, 1100);
+        const clsObs = new MutationObserver(() => {
+          if (s.classList.contains('splash-hide') && !st.hideElapsedMs) {
+            st.hideElapsedMs = performance.now() - t0;
+            const cur = (s.getAnimations ? s.getAnimations({ subtree: true }) : [])
+              .filter(a => typeof a.animationName === 'string');
+            st.animsFinishedAtHide = cur.length === 7 && cur.every(a => a.playState === 'finished');
+            clsObs.disconnect();
+          }
+        });
+        clsObs.observe(s, { attributes: true, attributeFilter: ['class'] });
+        const parent = s.parentNode;
+        const domObs = new MutationObserver(() => {
+          if (!document.getElementById('splash')) {
+            st.removeElapsedMs = performance.now() - t0;
+            st.fadeDurationMs = st.removeElapsedMs - st.hideElapsedMs;
+            st.removedFromDom = true;
+            domObs.disconnect();
+            resolve(st);
+          }
+        });
+        domObs.observe(parent, { childList: true });
+        setTimeout(() => { domObs.disconnect(); clsObs.disconnect(); resolve(st); }, 4500);
+      });
+    });
+  };
+  const [spFull, spReduce] = await Promise.all([
+    (async () => {
+      const ctx = await browser.newContext({ reducedMotion: 'no-preference' });
+      await ctx.addInitScript(splashProbeInit);
+      const pg = await ctx.newPage();
+      await pg.goto(APP);
+      const res = await pg.evaluate(() => window.__splashDone);
+      await ctx.close();
+      return res;
+    })(),
+    (async () => {
+      const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+      await ctx.addInitScript(() => { try { localStorage.setItem('fc_lang', 'en'); } catch (e) {} });
+      await ctx.addInitScript(splashProbeInit);
+      const pg = await ctx.newPage();
+      await pg.goto(APP);
+      const res = await pg.evaluate(() => window.__splashDone);
+      await ctx.close();
+      return res;
+    })()
+  ]);
+  check(`splash: tutte le 7 animazioni CSS attive all'avvio (${spFull.initialAnims}) e ancora visibile a 1,1 s (no taglio a 400 ms)`,
+    spFull.presentAtStart && spFull.initialAnims === 7 && spFull.visibleAt1100ms);
+  check(`splash: .splash-hide applicato solo a fine animazioni (finished=${spFull.animsFinishedAtHide}, t=${Math.round(spFull.hideElapsedMs)} ms ≥ 1750 ms)`,
+    spFull.animsFinishedAtHide && spFull.hideElapsedMs >= 1750);
+  check(`splash: transizione opacity .45s completata prima della rimozione dal DOM (fade=${Math.round(spFull.fadeDurationMs)} ms ≥ 420 ms, rimosso=${spFull.removedFromDom})`,
+    spFull.removedFromDom && spFull.fadeDurationMs >= 420);
+  check(`splash: prefers-reduced-motion disattiva animazioni (${spReduce.initialAnims}), traduce tag EN ("${spReduce.tagText}") e chiude rapidamente (${Math.round(spReduce.hideElapsedMs)} ms)`,
+    spReduce.presentAtStart && spReduce.initialAnims === 0 && spReduce.tagText === 'Fertigation Calculator' &&
+    spReduce.hideElapsedMs >= 450 && spReduce.hideElapsedMs < 1500 && spReduce.removedFromDom && spReduce.fadeDurationMs >= 420);
+
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
   if (failures.length) { console.log('\nFallimenti:'); failures.forEach(f => console.log('  • ' + f)); }

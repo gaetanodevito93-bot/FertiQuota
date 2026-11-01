@@ -452,11 +452,30 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 <script>
 (function(){
 var s=document.getElementById('splash');if(!s)return;
+try{if(localStorage.getItem('fc_lang')==='en'){var tg=s.querySelector('.splash-tag');if(tg)tg.textContent='Fertigation Calculator';}}catch(e){}
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-setTimeout(function(){
+var hidden=false,removed=false;
+function removeSplash(){if(removed)return;removed=true;if(s.parentNode)s.parentNode.removeChild(s);}
+function hideSplash(){
+if(hidden)return;hidden=true;
 s.classList.add('splash-hide');
-setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s)},250);
-},reduce?200:400);
+s.addEventListener('transitionend',function onEnd(e){
+if(e.target===s&&(!e.propertyName||e.propertyName==='opacity')){s.removeEventListener('transitionend',onEnd);removeSplash();}
+});
+setTimeout(removeSplash,520);
+}
+if(reduce){setTimeout(hideSplash,700);return;}
+setTimeout(hideSplash,2600);
+function waitAnims(){
+var anims=s.getAnimations?s.getAnimations({subtree:true}):[];
+if(anims&&anims.length&&typeof Promise!=='undefined'){
+Promise.all(anims.map(function(a){return a.finished&&a.finished.then?a.finished.catch(function(){}):Promise.resolve();}))
+.then(function(){setTimeout(hideSplash,200);});
+}else{
+setTimeout(hideSplash,1950);
+}
+}
+if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{waitAnims();}
 })();
 </script><header>
 <svg width="24" height="24" viewBox="0 0 26 26" fill="none"><rect x="2" y="9" width="9" height="14" rx="2" fill="#4a8c5e" stroke="#fff" stroke-width="1"/><rect x="15" y="9" width="9" height="14" rx="2" fill="#2471a3" stroke="#fff" stroke-width="1.2"/><path d="M7 9V6a2 2 0 0 1 4 0v3M20 9V6a2 2 0 0 1 8 0v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="4" r="2.5" fill="#d4660a"/></svg>
