@@ -1837,6 +1837,325 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     spReduce.presentAtStart && spReduce.initialAnims === 0 && spReduce.tagText === 'Fertigation Calculator' &&
     spReduce.hideElapsedMs >= 450 && spReduce.hideElapsedMs < 1500 && spReduce.removedFromDom && spReduce.fadeDurationMs >= 420);
 
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S34. Scorrimenti armonizzati e prevenzione salti in cima alla pagina ═══');
+  await page.setViewportSize({ width: 1024, height: 640 });
+  await resetMotore();
+  const s34 = await page.evaluate(async () => {
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const out = {};
+    out.htmlScrollBehavior = getComputedStyle(document.documentElement).scrollBehavior;
+
+    // 1. Durata armonizzata fcScrollTo (480–820 ms), progressione morbida e interruzione su wheel
+    showTab('catalogo');
+    window.scrollTo(0, 0);
+    const dur400 = fcScrollTo(400);
+    await wait(Math.round(dur400 * 0.5));
+    const midY = window.scrollY;
+    await wait(Math.round(dur400 * 0.6) + 80);
+    const endY = window.scrollY;
+    // Test interruzione immediata su wheel utente
+    const durCancel = fcScrollTo(0);
+    await wait(120);
+    window.dispatchEvent(new WheelEvent('wheel', { deltaY: 20 }));
+    const activeAfterWheel = !!(window._fcScrollMeta && window._fcScrollMeta.active);
+    const yAfterWheel = window.scrollY;
+    await wait(250);
+    const yStableAfterWheel = window.scrollY;
+    out.glide = { dur400, midY, endY, durCancel, activeAfterWheel, stopped: Math.abs(yStableAfterWheel - yAfterWheel) <= 2 && yAfterWheel > 20 };
+
+    // 2. renderCatalogo (salvataggio ingrediente) NON riporta scrollY a 0
+    window.scrollTo(0, 380);
+    const yBeforeEdit = window.scrollY;
+    editIngrediente('FeEDTA');
+    salvaIngrediente();
+    out.catPreserved = Math.abs(window.scrollY - yBeforeEdit) <= 2 && yBeforeEdit >= 300;
+
+    // 3. Memoria scroll per singola tab (Catalogo 360 -> Dati -> ritorno a Catalogo 360)
+    window.scrollTo(0, 360);
+    const yCatSaved = window.scrollY;
+    showTab('dati');
+    const yDatiFirst = window.scrollY;
+    const anchor = fcTabsAnchor();
+    showTab('catalogo');
+    const yCatRestored = window.scrollY;
+    out.tabMemory = { yCatSaved, yDatiFirst, anchor, yCatRestored };
+
+    // 4. Ricette: setLang preserva pianta/fase selezionate e scrollY; selFase mantiene visibile #card-fasi-wrap
+    showTab('ricette');
+    selPianta('pomodoro', 'builtin', { noScroll: true });
+    selFase(2, true);
+    window.scrollTo(0, 260);
+    const yBeforeLang = window.scrollY;
+    setLang('en');
+    const keptEn = piantaSel && piantaSel.id === 'pomodoro' && piantaSel.fasi.indexOf(faseSel) === 2;
+    const yDuringEn = window.scrollY;
+    setLang('it');
+    const keptIt = piantaSel && piantaSel.id === 'pomodoro' && piantaSel.fasi.indexOf(faseSel) === 2;
+    const yAfterIt = window.scrollY;
+    out.langKeep = { keptEn, keptIt, preserved: Math.abs(yDuringEn - yBeforeLang) <= 4 && Math.abs(yAfterIt - yBeforeLang) <= 4 };
+
+    // Passaggio da fase lunga (6 sali) a fase corta (4 sali): niente salto a 0 e barra fasi visibile
+    selFase(3);
+    await wait(60);
+    const fasiRect = document.getElementById('card-fasi-wrap').getBoundingClientRect();
+    out.faseSwitchNoJumpTop = window.scrollY > 50 && fasiRect.bottom > 40;
+
+    // 5. caricaRicettaCorrente da posizione scrollata in Ricette: nessun colpo di frusta ritardato a 60 ms
+    window.scrollTo(0, 340);
+    caricaRicettaCorrente();
+    const yImm = window.scrollY;
+    const activeImm = !!(window._fcScrollMeta && window._fcScrollMeta.active);
+    await wait(140);
+    const yAfter140 = window.scrollY;
+    out.caricaClean = { yImm, yAfter140, activeImm, anchor };
+
+    // 6. Azioni in-place dentro #calc-out (#volC input focus/scroll, applicaPhFinale, toggleSerbC)
+    usaSerbC = false; serbCManuale = false;
+    presetAcqua('media');
+    calcRighe = [
+      { id: 'CaN', nome: 'CaN', dose: 700, prezzo: 0.9, fixed: true },
+      { id: 'KNO3', nome: 'KNO3', dose: 400, prezzo: 1.1, fixed: true },
+      { id: 'KH2PO4', nome: 'KH2PO4', dose: 170, prezzo: 1.8, fixed: true },
+      { id: 'K2SiO3', nome: 'K2SiO3', dose: 60, prezzo: 2.0, fixed: true }
+    ];
+    renderCalcTabella();
+    calcola({ noScroll: true });
+    window.scrollTo(0, 360);
+    const yInCalc = window.scrollY;
+    const volCInp = document.getElementById('volC');
+    volCInp.focus({ preventScroll: true });
+    volCInp.value = '150';
+    volCInp.dispatchEvent(new Event('input', { bubbles: true }));
+    const focusKept = document.activeElement && document.activeElement.id === 'volC';
+    const yAfterVolC = window.scrollY;
+    applicaPhFinale(5.9);
+    const yAfterPh = window.scrollY;
+    toggleSerbC(false);
+    const yAfterSerbC = window.scrollY;
+    usaSerbC = false; serbCManuale = false;
+    document.getElementById('ph-finale').value = 5.8;
+    out.inPlace = { yInCalc, focusKept, yAfterVolC, yAfterPh, yAfterSerbC };
+    return out;
+  });
+  check(`CSS html scroll-behavior disattivato ("${s34.htmlScrollBehavior}") per evitare scatti involontari`,
+    s34.htmlScrollBehavior === 'auto');
+  check(`fcScrollTo: durata armonizzata (${s34.glide.dur400} ms ∈ [480, 820]), easing progressivo (mid=${s34.glide.midY}px → ${s34.glide.endY}px) e stop immediato su wheel utente`,
+    s34.glide.dur400 >= 480 && s34.glide.dur400 <= 820 && s34.glide.midY > 30 && s34.glide.midY < 390 &&
+    close(s34.glide.endY, 400, 3) && !s34.glide.activeAfterWheel && s34.glide.stopped);
+  check('renderCatalogo (modifica ingrediente) preserva esattamente la posizione di scorrimento',
+    s34.catPreserved);
+  check(`showTab: memoria di scorrimento per scheda (Catalogo ${s34.tabMemory.yCatSaved} → Dati ${s34.tabMemory.yDatiFirst} ≤ ${s34.tabMemory.anchor} → Catalogo ${s34.tabMemory.yCatRestored})`,
+    s34.tabMemory.yDatiFirst <= s34.tabMemory.anchor + 2 && close(s34.tabMemory.yCatRestored, s34.tabMemory.yCatSaved, 3));
+  check('setLang IT↔EN preserva coltura/fase selezionata e posizione di scorrimento, e selFase non salta in cima',
+    s34.langKeep.keptEn && s34.langKeep.keptIt && s34.langKeep.preserved && s34.faseSwitchNoJumpTop);
+  check(`caricaRicettaCorrente posiziona Calcola senza scorrimento ritardato verso l'alto (${s34.caricaClean.yImm}px → ${s34.caricaClean.yAfter140}px, anim=${s34.caricaClean.activeImm})`,
+    !s34.caricaClean.activeImm && close(s34.caricaClean.yAfter140, s34.caricaClean.yImm, 4) && s34.caricaClean.yImm <= s34.caricaClean.anchor + 2);
+  check(`azioni in-place in #calc-out preservano focus su #volC (${s34.inPlace.focusKept}) e scrollY (${s34.inPlace.yInCalc} → ${s34.inPlace.yAfterVolC}/${s34.inPlace.yAfterPh}/${s34.inPlace.yAfterSerbC})`,
+    s34.inPlace.focusKept &&
+    close(s34.inPlace.yAfterVolC, s34.inPlace.yInCalc, 3) &&
+    close(s34.inPlace.yAfterPh, s34.inPlace.yInCalc, 3) &&
+    close(s34.inPlace.yAfterSerbC, s34.inPlace.yInCalc, 3));
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S35. Verifica ricette (35 fasi IT/EN), allineamento costi e inventario scorta ═══');
+  await resetMotore();
+  const s35 = await page.evaluate(() => {
+    const out = {};
+    const parseEuro = str => { if (!str) return null; const m = str.match(/€\s*([\d.,]+)/); return m ? parseFloat(m[1].replace(/\./g, '').replace(',', '.')) : null; };
+
+    // 1. Verifica stechiometrica di tutte le 35 fasi builtin (note IT e EN vs profiloDaRighe reale)
+    const noteDiffs = [];
+    PIANTE_BUILTIN.forEach(p => {
+      p.fasi.forEach((f, fi) => {
+        const prof = profiloDaRighe(f.sali.map(s => ({ id: s.id, dose: s.g })), null);
+        const enNote = RICETTE_I18N[p.id]?.fasi?.[fi]?.note || '';
+        [['IT', f.note || ''], ['EN', enNote]].forEach(([lg, txt]) => {
+          const re = /(?:^|[\s,(.;])(Ca|Mg|K|P|N|S|Fe)\s*[=≈~]\s*(\d+(?:[.,]\d+)?)/g;
+          let m;
+          while ((m = re.exec(txt)) !== null) {
+            const el = m[1], val = parseFloat(m[2].replace(',', '.'));
+            const act = prof[el] || 0;
+            if (Math.abs(act - val) > 1.0) noteDiffs.push(`${p.id}/f${fi}/${lg}:${el}(${val}!=${act.toFixed(1)})`);
+          }
+        });
+      });
+    });
+    out.noteDiffs = noteDiffs;
+
+    // 2. normalizeImportedFase preserva S nei target e clonaPiantaInCustom deriva i target reali dei sali
+    const normS = normalizeImportedFase({ nome: 'Fase S', modo: 'target', ec: [1.8, 2.2], ph: [5.8, 6.0], targets: { N: 180, P: 45, K: 260, Ca: 150, Mg: 45, S: 65, Fe: 2 } });
+    out.normTargetS = normS && normS.targets && normS.targets.S;
+    selPianta('pomodoro', 'builtin', { noScroll: true });
+    clonaPiantaInCustom();
+    closeModal('modal-ricetta');
+    const cloned = ricetteCustom[ricetteCustom.length - 1];
+    out.clonedF2Targets = cloned ? { ...cloned.fasi[2].targets } : null;
+    ricetteCustom.pop(); saveRicette();
+
+    // 3. Allineamento 1:1 Costo / 1000L tra anteprima Ricette e Calcola (con osmosi e acqua media + acido, sia grammi sia target)
+    const checkParity = (preset, tipo, id, fi) => {
+      presetAcqua(preset);
+      document.getElementById('acido-tipo').value = 'auto';
+      document.getElementById('ph-finale').value = 5.8;
+      selPianta(id, tipo, { noScroll: true });
+      selFase(fi, true);
+      const prevTxt = document.getElementById('ricetta-out').innerText;
+      const cPrev = parseEuro((prevTxt.match(/Costo \/ 1000L[\s\S]*?€\s*[\d.,]+/) || [])[0]);
+      caricaRicettaCorrente();
+      const calcTxt = document.getElementById('calc-out').innerText;
+      const cCalc = parseEuro((calcTxt.match(/Costo per 1000 L finali\s*€\s*[\d.,]+/) || [])[0]);
+      return { cPrev, cCalc };
+    };
+    out.parityGramOsm = checkParity('osmosi', 'builtin', 'pomodoro', 1);
+    out.parityGramMedia = checkParity('media', 'builtin', 'pomodoro', 1);
+    ricetteCustom.push({
+      nome: 'Target Parity Test', emoji: '🎯', note: '',
+      fasi: [{ nome: 'T1', icon: '🌿', ec: [1.8, 2.2], ph: [5.8, 6.2], modo: 'target', targets: { N: 180, P: 45, K: 240, Ca: 150, Mg: 40, Fe: 2, Mn: 0.5, B: 0.3, Zn: 0.1, Cu: 0.03, Mo: 0.03 } }]
+    });
+    out.parityTargetMedia = checkParity('media', 'custom', ricetteCustom.length - 1, 0);
+    ricetteCustom.pop(); saveRicette();
+
+    // 4. Prezzo equivalenti €/L per liquidi in Catalogo + nome e costo sale __custom in Calcola
+    out.liqBadgeK2SiO3 = fmtPrezzoCat(getSale('K2SiO3'));
+    out.liqBadgeHNO3 = fmtPrezzoCat(getSale('HNO3'));
+    presetAcqua('osmosi');
+    resetStatoCalc(null);
+    document.getElementById('volA').value = 100;
+    document.getElementById('volB').value = 100;
+    document.getElementById('diluizione').value = 100;
+    calcRighe = [
+      { id: 'KNO3', nome: 'KNO3', dose: 300, prezzo: 1.0, fixed: true },
+      { id: '__custom', nome: '', nomeCustom: '', dose: 200, prezzo: 4.5, fixed: false }
+    ];
+    renderCalcTabella();
+    const inpCustomName = document.querySelector('#calc-tbody input[data-campo="nomeCustom"]');
+    inpCustomName.value = 'Biostimolante Alghe';
+    inpCustomName.dispatchEvent(new Event('input', { bubbles: true }));
+    calcola({ noScroll: true });
+    const txtCustomCalc = document.getElementById('calc-out').innerText;
+    out.customNameRendered = /Biostimolante Alghe/.test(txtCustomCalc) && !/Personalizzato/.test(txtCustomCalc);
+    out.customMilleCost = parseEuro((txtCustomCalc.match(/Costo per 1000 L finali\s*€\s*[\d.,]+/) || [])[0]); // 0.3*1.0 + 0.2*4.5 = 1.20
+
+    // 5. Inventario / Scorta: nuovo custom auto-in-scorta, validazioni composizione/densità, eliminazione senza ID fantasma, filtro DOM
+    const alerts = [];
+    const origAlert = window.alert;
+    window.alert = msg => alerts.push(msg);
+    // Tentativo non valido (>100%)
+    openNuovoIngrediente();
+    document.getElementById('ing-nome').value = 'Sale Impossibile';
+    document.getElementById('ing-N').value = 60;
+    document.getElementById('ing-K').value = 55;
+    salvaIngrediente();
+    const lenAfterInvalidSum = catalogo.length;
+    // Tentativo liquido con densità 0
+    openNuovoIngrediente();
+    document.getElementById('ing-nome').value = 'Liquido Senza Densita';
+    document.getElementById('ing-N').value = 10;
+    document.getElementById('ing-liquid').checked = true;
+    document.getElementById('ing-density').disabled = false;
+    document.getElementById('ing-density').value = 0;
+    salvaIngrediente();
+    const lenAfterInvalidDens = catalogo.length;
+    window.alert = origAlert;
+
+    // Creazione custom valido → subito in scorta
+    openNuovoIngrediente();
+    document.getElementById('ing-nome').value = 'Calcio Magnesio Custom';
+    document.getElementById('ing-Ca').value = 12;
+    document.getElementById('ing-Mg').value = 4;
+    document.getElementById('ing-N').value = 10;
+    document.getElementById('ing-prezzo').value = 1.6;
+    salvaIngrediente();
+    const added = catalogo[catalogo.length - 1];
+    const inScortaSubito = scorta.has(added.id) && scorta.size === catalogo.length;
+
+    // Filtro inventario in Catalogo (Mancanti vs Tutti)
+    toggleScortaUI('MgSO4', false);
+    setCatalogoFiltro('out');
+    const rowMgDisp = document.getElementById('cat-row-MgSO4')?.style.display;
+    const rowKno3Disp = document.getElementById('cat-row-KNO3')?.style.display;
+    setCatalogoFiltro('all');
+    toggleScortaUI('MgSO4', true);
+
+    // Eliminazione custom → rimosso anche da scorta e da calcRighe (mai 23/22)
+    calcRighe = [{ id: added.id, nome: added.nome, dose: 100, prezzo: 1.6, fixed: true }, { id: 'KNO3', nome: 'KNO3', dose: 200, prezzo: 1.1, fixed: true }];
+    renderCalcTabella();
+    eliminaIngrediente(added.id);
+    eseguiElimina();
+    const deletedClean = !scorta.has(added.id) && scorta.size === catalogo.length &&
+      !calcRighe.some(r => r.id === added.id) &&
+      document.getElementById('stat-scorta').textContent === `${catalogo.length} / ${catalogo.length}`;
+
+    out.inv = {
+      alertsCount: alerts.length,
+      rejectedInvalid: lenAfterInvalidSum === SALI_DEFAULT.length && lenAfterInvalidDens === SALI_DEFAULT.length,
+      inScortaSubito,
+      filterWorks: rowMgDisp === '' && rowKno3Disp === 'none',
+      deletedClean
+    };
+    return out;
+  });
+
+  // 6. Test round-trip backup FertiControl: ripristina anche gli ingredienti NON in scorta e unisce i custom locali
+  const s35ExportJson = await page.evaluate(() => {
+    toggleScortaUI('MgSO4', false);
+    toggleScortaUI('CaCl2', false);
+    openNuovoIngrediente();
+    document.getElementById('ing-nome').value = 'Custom Backup A';
+    document.getElementById('ing-K').value = 30;
+    salvaIngrediente();
+    let captured = null;
+    const origCreate = URL.createObjectURL, origRevoke = URL.revokeObjectURL;
+    URL.createObjectURL = blob => { captured = blob; return 'blob:s35'; };
+    URL.revokeObjectURL = () => {};
+    esportaDati();
+    URL.createObjectURL = origCreate; URL.revokeObjectURL = origRevoke;
+    return captured ? captured.text() : null;
+  });
+  await page.evaluate(() => {
+    eseguiReset();
+    // Aggiungiamo un ingrediente custom locale DIVERSO prima dell'import: deve essere mantenuto (merge)
+    openNuovoIngrediente();
+    document.getElementById('ing-nome').value = 'Custom Locale B';
+    document.getElementById('ing-Mg').value = 9;
+    salvaIngrediente();
+  });
+  const tmpS35 = path.join(os.tmpdir(), 'fc-s35-scorta.json');
+  fs.writeFileSync(tmpS35, s35ExportJson);
+  await page.setInputFiles('#ie-file-input', tmpS35);
+  await page.waitForTimeout(400);
+  const s35ImportRes = await page.evaluate(() => {
+    const res = {
+      hasCustomA: catalogo.some(s => s.nome === 'Custom Backup A'),
+      hasLocalB: catalogo.some(s => s.nome === 'Custom Locale B'),
+      mgOutRestored: !scorta.has('MgSO4'),
+      cacl2OutRestored: !scorta.has('CaCl2'),
+      localBInScorta: scorta.has(catalogo.find(s => s.nome === 'Custom Locale B')?.id),
+      scortaValidBound: scorta.size <= catalogo.length
+    };
+    eseguiReset();
+    return res;
+  });
+
+  check(`tutte le 35 fasi builtin (IT e EN) hanno note coerenti coi mg/L stechiometrici dei sali (scostamenti=${s35.noteDiffs.length})`,
+    s35.noteDiffs.length === 0, s35.noteDiffs.join(', '));
+  check(`normalizeImportedFase preserva targets.S (${s35.normTargetS}) e clonaPiantaInCustom deriva i target reali dei sali (Ca=${s35.clonedF2Targets?.Ca}, K=${s35.clonedF2Targets?.K}, N=${s35.clonedF2Targets?.N})`,
+    s35.normTargetS === 65 && s35.clonedF2Targets &&
+    s35.clonedF2Targets.Ca === 180 && s35.clonedF2Targets.K === 325 && s35.clonedF2Targets.P === 42 && s35.clonedF2Targets.N === 250);
+  check(`allineamento 1:1 Costo / 1000L tra Ricette e Calcola: osmosi (${s35.parityGramOsm.cPrev} = ${s35.parityGramOsm.cCalc}), acqua media + acido (${s35.parityGramMedia.cPrev} = ${s35.parityGramMedia.cCalc}), target + acqua media (${s35.parityTargetMedia.cPrev} = ${s35.parityTargetMedia.cCalc})`,
+    s35.parityGramOsm.cPrev === s35.parityGramOsm.cCalc &&
+    s35.parityGramMedia.cPrev === s35.parityGramMedia.cCalc &&
+    s35.parityTargetMedia.cPrev === s35.parityTargetMedia.cCalc);
+  check(`prodotti liquidi mostrano €/kg e ≈ €/L ("${s35.liqBadgeK2SiO3}") e sale __custom usa nomeCustom e costo corretto (${s35.customMilleCost} €/1000L)`,
+    /\/kg\s*\(≈\s*€\s*2,80\/L\)/.test(s35.liqBadgeK2SiO3) && /\/L\)/.test(s35.liqBadgeHNO3) &&
+    s35.customNameRendered && close(s35.customMilleCost, 1.20, 0.01));
+  check('inventario: validazione composizione/densità, nuovo custom subito in scorta, filtro Mancanti e pulizia scorta/calcRighe su eliminazione',
+    s35.inv.alertsCount === 2 && s35.inv.rejectedInvalid && s35.inv.inScortaSubito && s35.inv.filterWorks && s35.inv.deletedClean);
+  check('import backup FertiControl: unisce i custom locali esistenti e ripristina fedelmente anche gli ingredienti segnati mancanti in scorta',
+    s35ImportRes.hasCustomA && s35ImportRes.hasLocalB && s35ImportRes.mgOutRestored &&
+    s35ImportRes.cacl2OutRestored && s35ImportRes.localBInScorta && s35ImportRes.scortaValidBound);
+
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
   if (failures.length) { console.log('\nFallimenti:'); failures.forEach(f => console.log('  • ' + f)); }

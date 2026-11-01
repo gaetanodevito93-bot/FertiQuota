@@ -31,7 +31,7 @@
 --transition:all 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 ::selection{background:rgba(74,140,94,.2);color:var(--tx)}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:var(--cs);border-radius:4px}
@@ -279,7 +279,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 --disp:var(--mono);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
+html{scroll-behavior:auto;scroll-padding-top:64px}
 html,body{width:100%;max-width:100%;overflow-x:clip}
 body{
 font-family:var(--sans);color:var(--tx);min-height:100vh;font-size:14px;
@@ -464,7 +464,7 @@ if(e.target===s&&(!e.propertyName||e.propertyName==='opacity')){s.removeEventLis
 });
 setTimeout(removeSplash,520);
 }
-if(reduce){setTimeout(hideSplash,700);return;}
+if(reduce){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(hideSplash,600);},{once:true});else setTimeout(hideSplash,600);return;}
 setTimeout(hideSplash,2600);
 function waitAnims(){
 var anims=s.getAnimations?s.getAnimations({subtree:true}):[];
@@ -1229,15 +1229,31 @@ function t(key) {
 return expandElementRefs((TRANSLATIONS[currentLang] || TRANSLATIONS.it)[key] || (TRANSLATIONS.it[key] || key));
 }
 function setLang(lang) {
+fcPreserveScroll(()=>{
+const prevTipo = tipoRicettaSel;
+const prevPiantaId = prevTipo==='builtin' ? (piantaSel && piantaSel.id) : (piantaSel ? ricetteCustom.indexOf(piantaSel) : -1);
+const prevFaseIdx = (piantaSel && faseSel) ? piantaSel.fasi.indexOf(faseSel) : -1;
+const infoOpen = document.getElementById('info-tecniche')?.style.display === 'block';
 currentLang = lang;
 localStorage.setItem('fc_lang', lang);
 document.getElementById('html-root').lang = lang;
 applyLang();
 renderCatalogo();
 renderRicetteCustom();
-if(calcRighe.length) renderCalcTabella();
-if(document.getElementById('calc-out').querySelector('#risultato-stampa')) calcola();
+if(prevTipo && prevPiantaId!==null && prevPiantaId!==-1 && (prevTipo==='builtin' || ricetteCustom[prevPiantaId])){
+selPianta(prevPiantaId, prevTipo, {noScroll:true});
+if(prevFaseIdx>0 && piantaSel && piantaSel.fasi[prevFaseIdx]) selFase(prevFaseIdx, true);
+}
+if(calcRighe.length){
+calcRighe.forEach(r=>{ if(r && r.id && r.id!=='__custom'){ const inf=getSale(r.id); if(inf) r.nome=salNome(inf); } });
+renderCalcTabella();
+}
+if(document.getElementById('calc-out').querySelector('#risultato-stampa')){
+calcola({noScroll:true});
+if(infoOpen) toggleInfoTecniche(true);
+}
 aggiornaStat();
+});
 }
 function applyLang() {
 document.getElementById('html-root').lang = currentLang;
@@ -1623,7 +1639,9 @@ ricetteCustom = (Array.isArray(ricetteCustom)?ricetteCustom:[])
 .filter(r=>r && Array.isArray(r.fasi))
 .map(r=>({...r, nome:stripTags(r.nome), note:stripTags(r.note),
 fasi:r.fasi.map(f=>f ? {...f, nome:stripTags(f.nome), note:stripTags(f.note)} : f)}));
-let scorta = new Set(safeParse('fc_scorta', null) || SALI_DEFAULT.map(s=>s.id));
+const _rawScorta = safeParse('fc_scorta', null);
+const _initCatIds = new Set(catalogo.map(s=>s.id));
+let scorta = new Set(Array.isArray(_rawScorta) ? _rawScorta.filter(id=>_initCatIds.has(id)) : catalogo.map(s=>s.id));
 function saveScorta(){ try{ localStorage.setItem('fc_scorta', JSON.stringify([...scorta])); }catch(e){ console.warn('Salvataggio scorta fallito:', e.message); } }
 function isDisponibile(id){ return scorta.has(id); }
 let calcRighe = [];
@@ -1656,7 +1674,7 @@ const PIANTE_BUILTIN = [
 note:"Ca e K elevati in fruttificazione. pH 5.8-6.2. Drain EC = EC input + 0.5.",
 fasi:[
 {nome:"Trapianto / Radicamento",icon:"🌱",ec:[1.0,1.2],ph:[5.8,6.2],
-note:"Ca=90 K=130 P=30 Mg=28 N≈124 mg/L. EC 1.0-1.2. Radici giovani, nessun NH₄.",
+note:"Ca=90 K=130 P=30 Mg=28 N≈128 mg/L. EC 1.0-1.2. Radici giovani, nessun NH₄.",
 sali:[{id:"CaN",g:530},{id:"KNO3",g:240},{id:"KH2PO4",g:132},{id:"MgNO3",g:295},{id:"MixCh",g:15}]},
 {nome:"Vegetativo (1°-3° truss)",icon:"🌿",ec:[2.0,2.5],ph:[5.8,6.2],
 note:"Ca=140 K=254 P=39 Mg=30 N≈204 mg/L. Profilo standard pomodoro.",
@@ -1704,7 +1722,7 @@ sali:[{id:"CaN",g:559},{id:"KNO3",g:258},{id:"KH2PO4",g:140},{id:"MgNO3",g:295},
 note:"Ca=145 K=230 P=40 Mg=42 N≈213 mg/L. N e Ca bilanciati.",
 sali:[{id:"CaN",g:853},{id:"KNO3",g:465},{id:"KH2PO4",g:175},{id:"MgNO3",g:442},{id:"MixCh",g:25}]},
 {nome:"Fioritura e Fruttificazione",icon:"🫑",ec:[2.5,3.0],ph:[5.8,6.2],
-note:"Ca=165 K=300 P=42 Mg=48 N≈235 mg/L. K alto per allegagione. Ca contro BER.",
+note:"Ca=165 K=304 P=42 Mg=48 N≈235 mg/L. K alto per allegagione. Ca contro BER.",
 sali:[{id:"CaN",g:971},{id:"KNO3",g:474},{id:"KH2PO4",g:184},{id:"MgNO3",g:505},{id:"K2SO4",g:150},{id:"MixCh",g:28}]},
 ]},
 { id:"cetriolo", nome:"Cetriolo", emoji:"🥒",
@@ -1714,7 +1732,7 @@ fasi:[
 note:"Ca=120 K=200 P=38 Mg=38 N≈181 mg/L.",
 sali:[{id:"CaN",g:706},{id:"KNO3",g:393},{id:"KH2PO4",g:167},{id:"MgNO3",g:400},{id:"MixCh",g:20}]},
 {nome:"Vegetativo / Fioritura",icon:"🌸",ec:[2.0,2.8],ph:[5.8,6.0],
-note:"Ca=155 K=265 P=43 Mg=48 N≈239 mg/L. K elevato. Ca contro punta amara.",
+note:"Ca=155 K=266 P=43 Mg=48 N≈239 mg/L. K elevato. Ca contro punta amara.",
 sali:[{id:"CaN",g:912},{id:"KNO3",g:548},{id:"KH2PO4",g:189},{id:"MgNO3",g:505},{id:"MixCh",g:25}]},
 {nome:"Produzione piena",icon:"🥒",ec:[2.5,3.0],ph:[5.8,6.0],
 note:"Ca=170 K=300 P=46 Mg=52 N≈232 mg/L. Refresh ogni 7-10 gg.",
@@ -1740,10 +1758,10 @@ fasi:[
 note:"EC 0.8-1.2. Ca=90 K=130 P=30 Mg=28 mg/L. Radici molto sensibili.",
 sali:[{id:"CaN",g:530},{id:"KNO3",g:240},{id:"KH2PO4",g:132},{id:"MgNO3",g:295},{id:"MixCh",g:15}]},
 {nome:"Vegetativo (sett. 2-5)",icon:"🌿",ec:[1.8,2.5],ph:[5.8,6.2],
-note:"Ca=165 K=280 P=43 Mg=52 N≈255 mg/L. N molto alto, Ca e Mg per struttura.",
+note:"Ca=165 K=286 P=43 Mg=52 N≈257 mg/L. N molto alto, Ca e Mg per struttura.",
 sali:[{id:"CaN",g:971},{id:"KNO3",g:600},{id:"KH2PO4",g:189},{id:"MgNO3",g:547},{id:"MixCh",g:28}]},
 {nome:"Stretch / Early Flora",icon:"🌸",ec:[2.0,2.8],ph:[5.8,6.2],
-note:"Ca=155 K=295 P=46 Mg=50 N≈235 mg/L. Ridurre N, aumentare P e K.",
+note:"Ca=155 K=295 P=46 Mg=50 N≈237 mg/L. Ridurre N, aumentare P e K.",
 sali:[{id:"CaN",g:912},{id:"KNO3",g:525},{id:"KH2PO4",g:202},{id:"MgNO3",g:526},{id:"K2SO4",g:75},{id:"MixCh",g:26}]},
 {nome:"Fioritura piena (sett. 4-7)",icon:"🌺",ec:[2.5,3.2],ph:[5.8,6.2],
 note:"Ca=165 K=310 P=52 Mg=48 N≈235 mg/L. P e K alti, N moderato rispetto a K.",
@@ -1788,7 +1806,7 @@ sali:[{id:"CaN",g:471},{id:"KNO3",g:233},{id:"KH2PO4",g:140},{id:"MgNO3",g:263},
 note:"Ca=130 K=220 P=45 Mg=40 N≈194 mg/L. N molto alto per accumulo fogliare.",
 sali:[{id:"CaN",g:765},{id:"KNO3",g:420},{id:"KH2PO4",g:197},{id:"MgNO3",g:421},{id:"MixCh",g:20}]},
 {nome:"Pre-raccolta",icon:"🏁",ec:[1.0,1.5],ph:[5.5,6.5],
-note:"Ca=68 K=102 P=20 Mg=14 N≈95 mg/L. Ridurre EC. Fe micronutriente mantenuto.",
+note:"Ca=68 K=102 P=20 Mg=14 N≈91 mg/L. Ridurre EC. Fe micronutriente mantenuto.",
 sali:[{id:"CaN",g:400},{id:"KNO3",g:200},{id:"KH2PO4",g:88},{id:"MgNO3",g:147},{id:"FeEDTA",g:12}]},
 ]},
 { id:"rucola", nome:"Rucola", emoji:"🥗",
@@ -1798,7 +1816,7 @@ fasi:[
 note:"Ca=110 K=164 P=35 Mg=30 N≈153 mg/L. Ciclo unico, crescita rapida.",
 sali:[{id:"CaN",g:647},{id:"KNO3",g:311},{id:"KH2PO4",g:154},{id:"MgNO3",g:316},{id:"MixCh",g:15}]},
 {nome:"Pre-raccolta (5 gg)",icon:"🏁",ec:[0.8,1.5],ph:[5.8,6.2],
-note:"Ca=70 K=100 P=22 Mg=19 N≈97 mg/L. Ridurre EC per intensificare aromi.",
+note:"Ca=70 K=100 P=22 Mg=19 N≈96 mg/L. Ridurre EC per intensificare aromi.",
 sali:[{id:"CaN",g:412},{id:"KNO3",g:185},{id:"KH2PO4",g:96},{id:"MgNO3",g:200},{id:"MixCh",g:10}]},
 ]},
 ];
@@ -1828,7 +1846,7 @@ K2SiO3:{nome:"Potassium Silicate K₂SiO₃ (sol. ~49%)",note:"Commercial liquid
 };
 const RICETTE_I18N = {
 pomodoro: {nome:"Tomato", note:"High Ca and K in fruiting. pH 5.8-6.2. Drain EC = input EC + 0.5.", fasi:[
-{nome:"Transplant / Rooting", note:"Ca=90 K=130 P=30 Mg=28 N≈124 mg/L. EC 1.0-1.2. Young roots, no NH₄."},
+{nome:"Transplant / Rooting", note:"Ca=90 K=130 P=30 Mg=28 N≈128 mg/L. EC 1.0-1.2. Young roots, no NH₄."},
 {nome:"Vegetative (1st-3rd truss)", note:"Ca=140 K=254 P=39 Mg=30 N≈204 mg/L. Standard tomato profile."},
 {nome:"Fruiting (4th+ truss)", note:"Ca=180 K=325 P=42 Mg=45 N≈250 mg/L. K/Ca = 1.8 (range 1.5-2.0). High Ca against BER."},
 {nome:"End of cycle / Flush", note:"Ca=65 K=90 P=20 Mg=18 N≈89 mg/L. Reduce EC. Flush substrate at EC 0.5."},
@@ -1846,11 +1864,11 @@ basilico: {nome:"Basil", note:"High Mg for essential oil synthesis. Moderate N. 
 peperone: {nome:"Pepper", note:"High K in fruiting. Sensitive to Ca deficiency (BER). pH 5.8-6.2.", fasi:[
 {nome:"Transplant", note:"Ca=95 K=140 P=32 Mg=28 N≈134 mg/L. Sensitive to NH₄ at the young stage."},
 {nome:"Vegetative", note:"Ca=145 K=230 P=40 Mg=42 N≈213 mg/L. Balanced N and Ca."},
-{nome:"Flowering and Fruiting", note:"Ca=165 K=300 P=42 Mg=48 N≈235 mg/L. High K for fruit set. Ca against BER."},
+{nome:"Flowering and Fruiting", note:"Ca=165 K=304 P=42 Mg=48 N≈235 mg/L. High K for fruit set. Ca against BER."},
 ]},
 cetriolo: {nome:"Cucumber", note:"High K demand. Fast growth. pH 5.8-6.0. Drainage ≥30%.", fasi:[
 {nome:"Young", note:"Ca=120 K=200 P=38 Mg=38 N≈181 mg/L."},
-{nome:"Vegetative / Flowering", note:"Ca=155 K=265 P=43 Mg=48 N≈239 mg/L. High K. Ca against bitter tip."},
+{nome:"Vegetative / Flowering", note:"Ca=155 K=266 P=43 Mg=48 N≈239 mg/L. High K. Ca against bitter tip."},
 {nome:"Full production", note:"Ca=170 K=300 P=46 Mg=52 N≈232 mg/L. Refresh every 7-10 days."},
 ]},
 fragola: {nome:"Strawberry", note:"High Ca for fruit structure. Medium-low EC. pH 5.8-6.2.", fasi:[
@@ -1860,8 +1878,8 @@ fragola: {nome:"Strawberry", note:"High Ca for fruit structure. Medium-low EC. p
 ]},
 cannabis: {nome:"Cannabis / Hemp", note:"Intensive nutrition. High N in vegetative, high P and K in flowering. pH 5.8-6.2.", fasi:[
 {nome:"Germination / Clones", note:"EC 0.8-1.2. Ca=90 K=130 P=30 Mg=28 mg/L. Very sensitive roots."},
-{nome:"Vegetative (weeks 2-5)", note:"Ca=165 K=280 P=43 Mg=52 N≈255 mg/L. Very high N, Ca and Mg for structure."},
-{nome:"Stretch / Early Flower", note:"Ca=155 K=295 P=46 Mg=50 N≈235 mg/L. Reduce N, increase P and K."},
+{nome:"Vegetative (weeks 2-5)", note:"Ca=165 K=286 P=43 Mg=52 N≈257 mg/L. Very high N, Ca and Mg for structure."},
+{nome:"Stretch / Early Flower", note:"Ca=155 K=295 P=46 Mg=50 N≈237 mg/L. Reduce N, increase P and K."},
 {nome:"Full flowering (weeks 4-7)", note:"Ca=165 K=310 P=52 Mg=48 N≈235 mg/L. High P and K, N moderate relative to K."},
 {nome:"Ripening / Flush", note:"EC 0.5-1.0. Coco flush. Residual Ca + Mg to prevent leaf yellowing."},
 ]},
@@ -1878,11 +1896,11 @@ zucchina: {nome:"Zucchini", note:"Fast growth, high N and K demand. Short cycle.
 spinacio: {nome:"Spinach", note:"Highest N among vegetable crops. pH 5.5-6.5. EC 1.5-3.0.", fasi:[
 {nome:"Sprout / Seedling", note:"Ca=80 K=130 P=32 Mg=25 N≈117 mg/L. Light solution."},
 {nome:"Growth", note:"Ca=130 K=220 P=45 Mg=40 N≈194 mg/L. Very high N for leaf accumulation."},
-{nome:"Pre-harvest", note:"Ca=68 K=102 P=20 Mg=14 N≈95 mg/L. Reduce EC. Fe micronutrient maintained."},
+{nome:"Pre-harvest", note:"Ca=68 K=102 P=20 Mg=14 N≈91 mg/L. Reduce EC. Fe micronutrient maintained."},
 ]},
 rucola: {nome:"Arugula", note:"Very short cycle (25-35 days). Moderate EC. pH 5.8-6.2.", fasi:[
 {nome:"Growth", note:"Ca=110 K=164 P=35 Mg=30 N≈153 mg/L. Single cycle, fast growth."},
-{nome:"Pre-harvest (5 days)", note:"Ca=70 K=100 P=22 Mg=19 N≈97 mg/L. Reduce EC to intensify aromas."},
+{nome:"Pre-harvest (5 days)", note:"Ca=70 K=100 P=22 Mg=19 N≈96 mg/L. Reduce EC to intensify aromas."},
 ]},
 };
 function salNome(s){ if(currentLang==='en' && s){ const tr=SALI_I18N[s.id]; if(tr&&tr.nome) return tr.nome; } return s?(s.nome||''):''; }
@@ -1944,23 +1962,139 @@ function M(s){ return expandElementRefs((currentLang==='en' && s && MOTORE_TR[s]
 let piantaSel = null, faseSel = null;
 let tipoRicettaSel = null;
 function getSale(id){ return catalogo.find(s=>s.id===id) }
-function showTab(id){
+// ── Motore di scorrimento armonizzato (anti-scatto e anti-ritorno in cima) ──
+let _fcScrollRaf = 0;
+let _fcScrollActive = false;
+const _tabScrollY = Object.create(null);
+window._fcScrollMeta = { start:0, dest:0, dur:0, active:false };
+function fcCancelScroll(){
+if(_fcScrollRaf){ cancelAnimationFrame(_fcScrollRaf); _fcScrollRaf = 0; }
+_fcScrollActive = false;
+if(window._fcScrollMeta) window._fcScrollMeta.active = false;
+}
+(function initFcScrollInterrupts(){
+const stop = ()=>{ if(_fcScrollActive) fcCancelScroll(); };
+window.addEventListener('wheel', stop, {passive:true});
+window.addEventListener('touchmove', stop, {passive:true});
+window.addEventListener('keydown', e=>{
+if(!_fcScrollActive) return;
+const tag = (e.target && e.target.tagName) || '';
+if(tag==='INPUT' || tag==='TEXTAREA' || tag==='SELECT') return;
+if(['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(e.key)) fcCancelScroll();
+}, {passive:true});
+})();
+function fcMaxScroll(){
+const docH = Math.max(document.documentElement.scrollHeight||0, document.body ? document.body.scrollHeight||0 : 0);
+return Math.max(0, docH - (window.innerHeight || document.documentElement.clientHeight || 0));
+}
+function fcStickyOffset(extra=12){
+const tabs = document.querySelector('.tabs');
+return (tabs ? tabs.getBoundingClientRect().height : 48) + extra;
+}
+function fcTabsAnchor(){
+const hdr = document.querySelector('header');
+return hdr ? hdr.offsetHeight : 0;
+}
+function fcScrollTo(targetY, opts){
+opts = opts || {};
+fcCancelScroll();
+const dest = Math.max(0, Math.min(fcMaxScroll(), Math.round(targetY)));
+const start = window.scrollY || window.pageYOffset || 0;
+const delta = dest - start;
+const dist = Math.abs(delta);
+if(dist < 4) return 0;
+const reduceMotion = !!(opts.instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches));
+if(reduceMotion){
+window.scrollTo(0, dest);
+window._fcScrollMeta = { start, dest, dur:0, active:false };
+return 0;
+}
+const dur = opts.duration ? opts.duration : Math.round(Math.min(820, Math.max(480, 380 + Math.sqrt(dist) * 13)));
+const t0 = performance.now();
+_fcScrollActive = true;
+window._fcScrollMeta = { start, dest, dur, active:true };
+const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+const step = now => {
+if(!_fcScrollActive) return;
+const p = Math.min(1, (now - t0) / dur);
+window.scrollTo(0, Math.round(start + delta * ease(p)));
+if(p < 1){
+_fcScrollRaf = requestAnimationFrame(step);
+} else {
+_fcScrollRaf = 0;
+_fcScrollActive = false;
+window._fcScrollMeta.active = false;
+}
+};
+_fcScrollRaf = requestAnimationFrame(step);
+return dur;
+}
+function fcReveal(elOrId, opts){
+const el = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+if(!el) return 0;
+opts = opts || {};
+const sticky = fcStickyOffset(opts.offset != null ? opts.offset : 12);
+const rect = el.getBoundingClientRect();
+const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+const curY = window.scrollY || window.pageYOffset || 0;
+const mode = opts.mode || 'alignTop';
+if(mode === 'nudgeIntoView'){
+const minVis = opts.minVisible != null ? opts.minVisible : 220;
+const targetVis = opts.targetVisible != null ? opts.targetVisible : 300;
+if(rect.top <= vh - minVis) return 0;
+let dest = curY + Math.min(rect.top - sticky, rect.top - (vh - targetVis));
+if(opts.keepVisibleEl){
+const kRect = opts.keepVisibleEl.getBoundingClientRect();
+const maxDest = curY + kRect.top - sticky;
+if(maxDest >= curY) dest = Math.min(dest, maxDest);
+}
+return dest > curY + 4 ? fcScrollTo(dest, opts) : 0;
+}
+const comfort = opts.comfortRatio != null ? opts.comfortRatio : 0.5;
+if(!opts.force && rect.top >= sticky - 8 && rect.top <= vh * comfort) return 0;
+return fcScrollTo(curY + rect.top - sticky, opts);
+}
+function fcPreserveScroll(fn){
+const prevY = window.scrollY || window.pageYOffset || 0;
+const wasActive = _fcScrollActive;
+const res = fn();
+if(!wasActive && !_fcScrollActive){
+const clamped = Math.max(0, Math.min(prevY, fcMaxScroll()));
+if(Math.abs((window.scrollY || 0) - clamped) > 1) window.scrollTo(0, clamped);
+}
+return res;
+}
+function showTab(id, opts){
+opts = opts || {};
+const prevPanel = document.querySelector('.panel.active');
+const prevId = prevPanel ? prevPanel.id.replace(/^tab-/, '') : null;
+fcCancelScroll();
+if(prevId && prevId !== id) _tabScrollY[prevId] = window.scrollY || window.pageYOffset || 0;
 document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
 document.querySelectorAll('.tab').forEach(t=>{ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-document.getElementById('tab-'+id).classList.add('active');
+const nextPanel = document.getElementById('tab-'+id);
+if(nextPanel) nextPanel.classList.add('active');
 const tab=document.querySelector('.tab[aria-controls="tab-'+id+'"]');
 if(tab){ tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
+if(id==='ricette' && piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
 if(id==='dati'||id==='catalogo') setTimeout(aggiornaStat,0);
+const anchor = fcTabsAnchor();
+const curY = window.scrollY || window.pageYOffset || 0;
+if(opts.resetTop){
+const nextY = curY > anchor ? anchor : curY;
+window.scrollTo(0, Math.min(nextY, fcMaxScroll()));
+_tabScrollY[id] = window.scrollY || 0;
+} else if(prevId && prevId !== id){
+if(_tabScrollY[id] !== undefined){
+window.scrollTo(0, Math.min(_tabScrollY[id], fcMaxScroll()));
+} else if(curY > anchor){
+window.scrollTo(0, Math.min(anchor, fcMaxScroll()));
 }
-// Riporta la vista in cima al calcolatore dopo aver caricato una ricetta,
-// cosi' il pulsante "Calcola Dosaggi" resta piu' in basso nella schermata.
+}
+}
 function scrollCalcolaInCima(){
-setTimeout(()=>{
-const tc=document.getElementById('tab-calcola');
-const tabs=document.querySelector('.tabs');
-const y=tc ? Math.max(0, tc.offsetTop - (tabs?tabs.offsetHeight:48) - 4) : 0;
-window.scrollTo({top:y,behavior:'smooth'});
-},60);
+const anchor = fcTabsAnchor();
+if((window.scrollY || 0) > anchor + 16) fcScrollTo(anchor);
 }
 function saveCatalogo(){ try{ localStorage.setItem('fc_catalogo', JSON.stringify(catalogo)); }catch(e){ console.warn('Salvataggio catalogo fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 function saveRicette(){ try{ localStorage.setItem('fc_ricette', JSON.stringify(ricetteCustom)); }catch(e){ console.warn('Salvataggio ricette fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
@@ -2039,6 +2173,7 @@ function caricaProfiloAcqua(i){
 const p=acquaProfili[i]; if(!p) return;
 AQ_FIELDS.forEach(k=>{ const el=document.getElementById('aq-'+k); if(el && p.valori[k]!==undefined) el.value=p.valori[k]; });
 saveAcqua();
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
 showToast(TT(`Acqua: profilo "${p.nome}" caricato`,`Water: profile "${p.nome}" loaded`));
 }
 function eliminaProfiloAcqua(i){
@@ -2082,7 +2217,7 @@ note: sanitizeName(f.note)
 if(modo==='target'){
 fase.targetUnit = f.targetUnit==='mol' ? 'mol' : 'mg';
 fase.targets = {};
-['N','P','K','Ca','Mg','Fe','Mn','B','Zn','Cu','Mo'].forEach(k=>{
+['N','P','K','Ca','Mg','S','Fe','Mn','B','Zn','Cu','Mo'].forEach(k=>{
 const v = cleanNum(f.targets && f.targets[k], 0, 0, 10000);
 if(v>0) fase.targets[k]=v;
 });
@@ -2128,7 +2263,8 @@ saveRicette();
 renderRicetteCustom();
 showToast(t('js.ricettaEliminata'));
 }
-function selPianta(id, tipo){
+function selPianta(id, tipo, opts){
+const _noScroll = !!(opts && opts.noScroll);
 tipoRicettaSel = tipo;
 if(tipo === 'builtin'){
 piantaSel = PIANTE_BUILTIN.find(p=>p.id===id);
@@ -2167,7 +2303,7 @@ document.getElementById('card-fasi-wrap').style.display='block';
 document.getElementById('tab-ricette').classList.remove('fasi-focus');
 if(piantaSel && piantaSel.fasi && piantaSel.fasi.length){
 selFase(0, true);
-setTimeout(()=>document.getElementById('card-fasi-wrap').scrollIntoView({behavior:'smooth',block:'start'}),60);
+if(!_noScroll) requestAnimationFrame(()=>fcReveal('card-fasi-wrap', {mode:'alignTop', comfortRatio:0.52}));
 } else {
 document.getElementById('ricetta-out-wrap').style.display='none';
 }
@@ -2175,10 +2311,44 @@ document.getElementById('ricetta-out-wrap').style.display='none';
 function selFase(i, noScroll){
 faseSel = piantaSel.fasi[i];
 document.querySelectorAll('.fase-btn').forEach(b=>b.classList.toggle('active',+b.dataset.i===i));
+fcPreserveScroll(()=>{
 renderRicettaOut(piantaSel, faseSel, tipoRicettaSel);
 document.getElementById('tab-ricette').classList.remove('fasi-focus');
 document.getElementById('ricetta-out-wrap').style.display='block';
-if(!noScroll) setTimeout(()=>document.getElementById('ricetta-out-wrap').scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+});
+if(!noScroll) requestAnimationFrame(()=>fcReveal('ricetta-out-wrap', {mode:'nudgeIntoView', minVisible:220, targetVisible:300, keepVisibleEl:document.getElementById('card-fasi-wrap')}));
+}
+// Stima pura (senza effetti collaterali) del costo per 1000 L finali con l'acqua
+// e il pH attualmente configurati, allineata 1:1 con "Costo per 1000 L finali" in Calcola.
+function stimaCostoRicettaPerMille(fase){
+const aqRaw = getAcqua();
+const phPrev = numInput('ph-finale', PH_DEFAULT);
+const aq = aqRaw ? {...aqRaw} : null;
+if(aq && aq.acido === 'auto'){
+const ctx = fase.modo==='target'
+? {targets: fase.targets||{}}
+: {righe: (fase.sali||[]).map(s=>({id:s.id, dose:s.g}))};
+const sc = scegliAcido(aq, phPrev, ctx);
+aq.acido = sc ? sc.tipo : 'HNO3';
+}
+let righeNet = [];
+if(fase.modo==='target'){
+righeNet = solverTarget(fase.targets||{}, 100, 100, 100, aq, phPrev);
+} else {
+const righeBase = (fase.sali||[]).map(s=>{ const inf=getSale(s.id); return {id:s.id, dose:s.g, prezzo:inf?inf.prezzo:0}; });
+righeNet = aq ? correggiDosi(righeBase, aq, {phFinale:phPrev}).righe : righeBase;
+}
+const costoSali = righeNet.reduce((sum,r)=>{
+const pzU = r.prezzo!==undefined ? (+r.prezzo||0) : (getSale(r.id)?.prezzo||0);
+return sum + (+r.dose||0)*pzU/1000;
+}, 0);
+const acidoG = (aq && aq.hco3 > 0) ? calcolaGrammiAcido(aq, phPrev, aq.acido) : 0;
+const acidoPz = (aq && aq.hco3 > 0) ? (getSale(aq.acido==='H3PO4'?'H3PO4':'HNO3')?.prezzo || 0) : 0;
+const costoAcido = costoSali > 0 ? (acidoG * acidoPz / 1000) : 0;
+const sub = costoAcido > 0
+? TT('sali + acido','salts + acid')
+: (aq ? TT('sol. finale (con acqua)','final sol. (with water)') : TT('sol. finale','final sol.'));
+return { tot: costoSali + costoAcido, sali: costoSali, acido: costoAcido, sub };
 }
 function renderRicettaOut(pianta, fase, tipo){
 const fi = pianta.fasi.indexOf(fase);
@@ -2186,14 +2356,14 @@ const pNome = ricNome(pianta), pNote = ricNote(pianta)||'—';
 const fNome = faseNome(pianta, fi, fase), fNote = faseNote(pianta, fi, fase)||'—';
 document.getElementById('ricetta-out-title').textContent=`🔬 ${pNome} — ${fNome}`;
 document.getElementById('note-agronomiche').innerHTML=
-`<strong>${pNome}:</strong> ${pNote}<br><br><strong>${fNome}:</strong> ${fNote}`;
+`<strong>${esc(pNome)}:</strong> ${pNote}<br><br><strong>${esc(fNome)}:</strong> ${fNote}`;
 if(fase.modo==='target'){
-const tg=fase.targets||{}; const _rStima=solverTarget(tg,100,100,100,null,PH_DEFAULT); const totCostoTarget=_rStima.reduce((s,r)=>s+(+r.dose||0)*(r.prezzo||0)/1000,0);
+const tg=fase.targets||{}; const stimaT=stimaCostoRicettaPerMille(fase); const totCostoTarget=stimaT.tot;
 let html=`<div class="alert al-inf" style="margin-bottom:10px"><strong>${t('js.targetMode')}</strong> ${t('js.targetDesc')}</div>`;
 html+=`<div class="ri-grid">
       <div class="ri-box"><div class="ri-lbl">EC target</div><div class="ri-val">${fase.ec[0]}–${fase.ec[1]}</div><div class="ri-sub">mS/cm</div></div>
       <div class="ri-box"><div class="ri-lbl">pH target</div><div class="ri-val">${fase.ph[0]}–${fase.ph[1]}</div><div class="ri-sub">${currentLang==='en'?'pH units':'unità pH'}</div></div>
-      <div class="ri-box"><div class="ri-lbl">${totCostoTarget>0?TT('Costo / 1000L','Cost / 1000L'):(currentLang==='en'?'Mode':'Modalità')}</div><div class="ri-val"${totCostoTarget>0?'':' style="font-size:.7rem"'}>${totCostoTarget>0?fmtEuro(totCostoTarget):'Target'}</div><div class="ri-sub">${totCostoTarget>0?TT('sol. finale','final sol.'):'mg/L'}</div></div>
+      <div class="ri-box"><div class="ri-lbl">${totCostoTarget>0?TT('Costo / 1000L','Cost / 1000L'):(currentLang==='en'?'Mode':'Modalità')}</div><div class="ri-val"${totCostoTarget>0?'':' style="font-size:.7rem"'}>${totCostoTarget>0?fmtEuro(totCostoTarget):'Target'}</div><div class="ri-sub">${totCostoTarget>0?stimaT.sub:'mg/L'}</div></div>
     </div>`;
 html+=`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('js.elemento')}</th><th style="text-align:right">${t('js.targetMgL')}</th><th style="text-align:right">${TT('Equivalente molare','Molar equivalent')}</th></tr></thead><tbody>`;
 Object.entries(tg).filter(([,v])=>v>0).forEach(([el,v])=>{
@@ -2208,23 +2378,25 @@ return;
 }
 const saliFase = fase.sali||[];
 const perX = saliFase.filter(s=>!getSale(s.id));
-const totCosto = saliFase.reduce((s,r)=>{ const i=getSale(r.id); return s+(i&&i.prezzo?i.prezzo*(r.g/1000):0); },0);
+const stimaG = stimaCostoRicettaPerMille(fase);
+const totCosto = stimaG.tot;
 const profBase = profiloDaRighe(saliFase.map(s=>({id:s.id, dose:s.g})), null);
+const stripEls = (profBase.S||0)>=1 ? ['N','P','K','Ca','Mg','S'] : ['N','P','K','Ca','Mg'];
 let html=`<div class="ri-grid" style="margin-bottom:8px">
     <div class="ri-box"><div class="ri-lbl">EC target</div><div class="ri-val">${fase.ec[0]}–${fase.ec[1]}</div><div class="ri-sub">mS/cm</div></div>
     <div class="ri-box"><div class="ri-lbl">pH target</div><div class="ri-val">${fase.ph[0]}–${fase.ph[1]}</div><div class="ri-sub">${t('js.unitaPh')}</div></div>
-    <div class="ri-box"><div class="ri-lbl">${totCosto>0?TT('Costo / 1000L','Cost / 1000L'):t('js.componenti')}</div><div class="ri-val">${totCosto>0?fmtEuro(totCosto):saliFase.length}</div><div class="ri-sub">${totCosto>0?TT('sol. finale','final sol.'):t('js.sali')}</div></div>
+    <div class="ri-box"><div class="ri-lbl">${totCosto>0?TT('Costo / 1000L','Cost / 1000L'):t('js.componenti')}</div><div class="ri-val">${totCosto>0?fmtEuro(totCosto):saliFase.length}</div><div class="ri-sub">${totCosto>0?stimaG.sub:t('js.sali')}</div></div>
   </div>`;
 html+=`<button class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-bottom:8px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
 html+=`<div style="display:flex;gap:6px;flex-wrap:wrap;background:var(--cs);border-radius:var(--r);padding:7px 10px;margin-bottom:8px;font-size:.73rem;align-items:center">
     <span style="font-weight:700;color:var(--ts);text-transform:uppercase;font-size:.64rem;letter-spacing:.04em">${TT('Target mg/L:','Target mg/L:')}</span>
-    ${['N','P','K','Ca','Mg'].map(el=>`<span style="background:#fff;border:1px solid var(--bd);border-radius:4px;padding:2px 7px;font-family:'JetBrains Mono',monospace"><strong>${el}</strong> ${(profBase[el]||0).toFixed(0)}</span>`).join('')}
+    ${stripEls.map(el=>`<span style="background:#fff;border:1px solid var(--bo);border-radius:4px;padding:2px 7px;font-family:'JetBrains Mono',monospace"><strong>${el}</strong> ${(profBase[el]||0).toFixed(0)}</span>`).join('')}
   </div>`;
 html+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px">`;
 saliFase.forEach(s=>{
 const info=getSale(s.id); if(!info)return; const c=CAT[info.cat]||{bg:'#555'};
 html+=`<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;padding:6px 9px;background:#fff;border:1px solid var(--cs);border-radius:4px;font-size:.75rem">
-    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span class="bcat" style="background:${c.bg}">${CAT[info.cat]?.label||'?'}</span> ${salNome(info)}</span>
+    <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span class="bcat" style="background:${c.bg}">${CAT[info.cat]?.label||'?'}</span> ${esc(salNome(info))}</span>
     <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--vs);white-space:nowrap">${fmtGram(s.g)}<small style="font-weight:400;color:var(--ts)">/1000L</small></span>
   </div>`;
 });
@@ -2232,7 +2404,7 @@ html+=`</div>`;
 if((fase.sali||[]).some(s=>s.id==='K2SiO3'))
 html+=`<div class="alert al-err" style="margin-top:6px"><span>⚠️</span><span>${t('js.silicatoWarn')}</span></div>`;
 if(perX.length){
-html+=`<div class="alert al-inf" style="margin-top:6px">⚠️ ${perX.length} ${t('js.idNonTrovato')}: ${perX.map(s=>s.id||s.nome||'?').join(', ')}.</div>`;
+html+=`<div class="alert al-inf" style="margin-top:6px">⚠️ ${perX.length} ${t('js.idNonTrovato')}: ${perX.map(s=>esc(s.id||s.nome||'?')).join(', ')}.</div>`;
 }
 document.getElementById('ricetta-out').innerHTML=html;
 }
@@ -2268,9 +2440,8 @@ document.getElementById('lbl-modo-caricato').style.display='inline';
 document.getElementById('lbl-modo-caricato').innerHTML=`<span class="bcat" style="background:var(--vm);color:#fff">${t('js.ricettaFissaG')}</span>`;
 renderCalcTabella();
 setSaliPrepCollapsed(getMancanti().length===0);
-showTab('calcola');
+showTab('calcola', {resetTop:true});
 calcola({noScroll:true});
-scrollCalcolaInCima();
 }
 function renderRicetteCustom(){
 piantaSel = null; faseSel = null; tipoRicettaSel = null;
@@ -2282,11 +2453,15 @@ aggiornaStat();
 }
 function clonaPiantaInCustom(){
 if(!piantaSel || tipoRicettaSel!=='builtin') return;
+const nomeOrig = ricNome(piantaSel) || piantaSel.nome;
 const clone = {
 nome: piantaSel.nome + ' (modifica)',
 emoji: piantaSel.emoji,
 note: piantaSel.note,
-fasi: piantaSel.fasi.map(f=>({
+fasi: piantaSel.fasi.map(f=>{
+const pr = profiloDaRighe((f.sali||[]).map(s=>({id:s.id, dose:s.g})), null);
+const rnd = (v, d)=>Math.round((v||0)*d)/d;
+return {
 nome: f.nome,
 icon: f.icon,
 ec: [...f.ec],
@@ -2294,14 +2469,16 @@ ph: [...f.ph],
 note: f.note||'',
 modo: 'grammi',
 sali: (f.sali||[]).map(s=>({...s})),
-targets: {N:150,P:40,K:200,Ca:160,Mg:40,Fe:2,Mn:0.5,B:0.3,Zn:0.1,Cu:0.05,Mo:0.05}
-}))
+targets: {N:rnd(pr.N,1),P:rnd(pr.P,1),K:rnd(pr.K,1),Ca:rnd(pr.Ca,1),Mg:rnd(pr.Mg,1),S:0,Fe:rnd(pr.Fe,100)||2,Mn:rnd(pr.Mn,100)||0.5,B:rnd(pr.B,100)||0.3,Zn:rnd(pr.Zn,1000)||0.1,Cu:rnd(pr.Cu,1000)||0.03,Mo:rnd(pr.Mo,1000)||0.03}
+};
+})
 };
 ricetteCustom.push(clone);
 saveRicette();
 renderRicetteCustom();
+selPianta(ricetteCustom.length-1, 'custom', {noScroll:true});
 editRicetta(ricetteCustom.length-1);
-showToast(`"${piantaSel.nome}" ${t('js.ricettaCopiata')}`);
+showToast(`"${nomeOrig}" ${t('js.ricettaCopiata')}`);
 }
 function caricaCustomInCalcola(ri,fi){
 const ric=ricetteCustom[ri]; const f=ric.fasi[fi];
@@ -2323,9 +2500,8 @@ document.getElementById('calc-tbody').innerHTML=`<tr><td colspan="5" style="padd
 window._targetAttivo=null;
 resetStatoCalc(f.modo==='target' ? {targets:{...(f.targets||{})}, pianta:ric.nome, fase:f.nome} : null);
 setSaliPrepCollapsed(f.modo==='target' || getMancanti().length===0);
-showTab('calcola');
+showTab('calcola', {resetTop:true});
 calcola({noScroll:true});
-scrollCalcolaInCima();
 }
 function eliminaRicetta(ri){
 window._pendingDelete={tipo:'ricetta',ri};
@@ -2340,7 +2516,15 @@ if(p.tipo==='ricetta'){
 ricetteCustom.splice(p.ri,1);
 } else if(p.tipo==='ingrediente'){
 catalogo=catalogo.filter(s=>s.id!==p.id);
-saveCatalogo(); renderCatalogo(); window._pendingDelete=null; return;
+if(scorta.delete(p.id)) saveScorta();
+if(calcRighe.some(r=>r.id===p.id)){
+calcRighe=calcRighe.filter(r=>r.id!==p.id);
+renderCalcTabella();
+}
+saveCatalogo(); renderCatalogo();
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
+if(document.getElementById('risultato-stampa') && (calcRighe.length || statoCalc.target)) calcola({noScroll:true});
+window._pendingDelete=null; return;
 } else if(p.tipo==='profiloAcqua'){
 acquaProfili.splice(p.i,1);
 saveAcquaProfili(); renderProfiliAcqua(); window._pendingDelete=null; return;
@@ -2511,6 +2695,7 @@ function buildSelectCalc(selId){
 return buildSelectOpts(selId)+`<option value="__custom"${selId==='__custom'?' selected':''}>${t('js.personalizzato')}</option>`;
 }
 function renderCalcTabella(){
+return fcPreserveScroll(()=>{
 const tb=document.getElementById('calc-tbody');
 tb.innerHTML='';
 if(!calcRighe.length){
@@ -2532,7 +2717,7 @@ tr.innerHTML=`<td style="min-width:180px">
         <select onchange="cambioSaleCalc(${i},this.value)" style="width:100%;font-size:.75rem;padding:5px 6px;background:#fff">
           ${buildSelectCalc(r.id||'__custom')}
         </select>
-        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" value="${esc(r.nomeCustom)}" onchange="calcRighe[${i}].nomeCustom=this.value" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
+        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" value="${esc(r.nomeCustom)}" data-riga="${i}" data-campo="nomeCustom" oninput="calcRighe[${i}].nomeCustom=this.value" onchange="calcRighe[${i}].nomeCustom=this.value" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
         ${info&&info.el?`<div class="el-txt">${elPctList(info.el)}</div>`:''}
       </td>
       <td style="vertical-align:top;padding-top:20px">
@@ -2547,6 +2732,7 @@ tr.innerHTML=`<td style="min-width:180px">
 tb.appendChild(tr);
 });
 updateRicalcolaBar();
+});
 }
 function setSaliPrepCollapsed(collapsed){
 const body=document.getElementById('sali-prep-body');
@@ -2597,7 +2783,7 @@ function cambioSaleCalc(i,id){
 syncDomCalc();
 segnaModificaManuale();
 if(id==='__custom'){
-calcRighe[i]={id:'__custom',nome:'Personalizzato',dose:0,prezzo:0,fixed:false,nomeCustom:''};
+calcRighe[i]={id:'__custom',nome:'',dose:0,prezzo:0,fixed:false,nomeCustom:''};
 } else {
 const info=getSale(id);
 if(info) calcRighe[i]={id:info.id,nome:salNome(info),dose:info.dose,prezzo:info.prezzo||0,fixed:true};
@@ -2605,11 +2791,11 @@ if(info) calcRighe[i]={id:info.id,nome:salNome(info),dose:info.dose,prezzo:info.
 renderCalcTabella();
 }
 function syncDomCalc(){
-document.querySelectorAll('#calc-tbody input[type="number"]').forEach(inp=>{
+document.querySelectorAll('#calc-tbody input[data-riga]').forEach(inp=>{
 const rigaIdx = parseInt(inp.dataset.riga);
 const campo = inp.dataset.campo;
 if(isNaN(rigaIdx) || !calcRighe[rigaIdx] || !campo) return;
-calcRighe[rigaIdx][campo] = +inp.value;
+calcRighe[rigaIdx][campo] = campo==='nomeCustom' ? inp.value : +inp.value;
 });
 }
 function gaussSolve(A, b) {
@@ -2937,13 +3123,14 @@ return { righe:nuove, mancanti:mancanti.map(r => r.nome || r.id), modifiche, agg
 }
 function ricalcolaConDisponibili(){
 syncDomCalc();
-if(!getMancanti().length){ calcola(); return; }
+if(!getMancanti().length){ calcola({noScroll:true}); fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.65}); return; }
 const rep = sostituisciNonDisponibili(calcRighe);
 calcRighe = rep.righe;
 statoCalc.target = null;
 window._ricalcoloReport = rep;
 renderCalcTabella();
-calcola();
+calcola({noScroll:true});
+fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.65});
 }
 function getAcqua(){
 const ec   = parseFloat(document.getElementById('aq-ec')?.value)  ||0;
@@ -2976,6 +3163,7 @@ personalizzata:{ec:0.3,ph:7.2,ca:80,mg:20,k:5,na:30,so4:40,cl:50,hco3:150,no3:10
 const v=map[tipo]; if(!v)return;
 Object.entries(v).forEach(([k,val])=>{ const el=document.getElementById('aq-'+k); if(el) el.value=val; });
 saveAcqua();
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
 }
 function aggiornaDiluizioneWarning(){
 const dil=numInput('diluizione',100);
@@ -3013,7 +3201,7 @@ let serbCManuale = false;
 function toggleSerbC(checked){
 usaSerbC = checked;
 serbCManuale = true;
-calcola();
+calcola({noScroll:true});
 }
 function calcolaIoniDaSali(righe){
 const c = {Ca:0,Mg:0,K:0,N_total:0,N_NH4:0,P:0,SO4:0,Cl:0,Fe:0,Mn:0,Zn:0,B:0,Cu:0,Mo:0,EC_finale:0};
@@ -3807,7 +3995,7 @@ let h=`<div class="alert al-err" style="margin-top:12px"><span>🚫</span><div><
 erroriInput.forEach(e=>h+=`<li>${e}</li>`);
 h+=`</ul></div></div>`;
 document.getElementById('calc-out').innerHTML=h;
-document.getElementById('calc-out').scrollIntoView({behavior:'smooth',block:'start'});
+if(!_noScroll) fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.55});
 return;
 }
 let correzioniAcqua=[], fedeltaAcqua=null;
@@ -3955,7 +4143,8 @@ html+=`<div style="padding:12px;color:var(--ts);font-size:.78rem">${t('js.nessun
 righeSerb.forEach(r=>{
 const g=grConc(r.dose,vol); const pzUnit=r.prezzo!==undefined?(+r.prezzo||0):(getSale(r.id)?.prezzo||0); const pz=pzUnit*(g/1000); costoSerb+=pz; costoTot+=pz;
 const infoR=getSale(r.id);
-html+=`<div class="sale-row"><span class="sale-nome">${esc(r.nome||r.nomeCustom||r.id)}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtDose(infoR,g)}</span>${pz?`<br><span class="costo-txt">${fmtEuro(pz,2)}</span>`:''}</div></div>`;
+const _lblSale = r.nomeCustom || r.nome || (r.id==='__custom' ? t('js.personalizzato') : r.id);
+html+=`<div class="sale-row"><span class="sale-nome">${esc(_lblSale)}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtDose(infoR,g)}</span>${pz?`<br><span class="costo-txt">${fmtEuro(pz,2)}</span>`:''}</div></div>`;
 });
 sObj.costoSerb=costoSerb; html+=`<div class="sale-row tot-row"><span>${t('js.totale')}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtTotaleSerb(righeSerb,vol)}</span>${costoSerb>0?`<br><span class="costo-txt" style="font-weight:700;color:var(--ar)">${fmtEuro(costoSerb,2)}</span>`:''}</div></div>`;
 }
@@ -4478,6 +4667,11 @@ html+=`<div><div class="no-print" style="display:flex;gap:8px;margin:16px 0 12px
   </div>
   <div id="info-tecniche" style="display:none;margin-bottom:24px"></div></div>`;
 html+=`</div>`;
+const _prevCalcScrollY = window.scrollY || window.pageYOffset || 0;
+const _actEl = document.activeElement;
+const _wasVolC = !!(_actEl && _actEl.id === 'volC');
+const _volCSelStart = _wasVolC ? _actEl.selectionStart : null;
+const _volCSelEnd = _wasVolC ? _actEl.selectionEnd : null;
 document.getElementById('calc-out').innerHTML=html;
 // Le schede tecniche (apporti totali, fedeltà alla ricetta, verifiche chimiche,
 // report del bilanciamento automatico, bilancio ionico, rapporti agronomici,
@@ -4489,18 +4683,34 @@ document.getElementById('calc-out').innerHTML=html;
 const pannello = document.getElementById('info-tecniche');
 document.querySelectorAll('#risultato-stampa .tech-info').forEach(c=>pannello.appendChild(c));
 }
-if(!_noScroll) document.getElementById('calc-out').scrollIntoView({behavior:'smooth', block:'start'});
+if(_wasVolC){
+const newVolC = document.getElementById('volC');
+if(newVolC){
+try{
+newVolC.focus({preventScroll:true});
+if(_volCSelStart!=null) newVolC.setSelectionRange(_volCSelStart, _volCSelEnd);
+}catch(e){}
+}
+}
+if(_noScroll){
+if(!_fcScrollActive){
+const clampedY = Math.max(0, Math.min(_prevCalcScrollY, fcMaxScroll()));
+if(Math.abs((window.scrollY||0) - clampedY) > 1) window.scrollTo(0, clampedY);
+}
+} else {
+fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.55});
+}
 } catch(err) {
 console.error('Errore in calcola():', err);
 document.getElementById('calc-out').innerHTML=`
       <div class="alert al-err" style="margin-top:12px">
         <span>⚠️</span>
         <div><strong>${TT('Errore interno nel calcolo.','Internal calculation error.')}</strong><br>
-        <code style="font-size:.72rem;background:#fff;padding:3px 6px;border-radius:3px;display:inline-block;margin-top:5px">${err.message}</code><br>
+        <code style="font-size:.72rem;background:#fff;padding:3px 6px;border-radius:3px;display:inline-block;margin-top:5px">${esc(err.message)}</code><br>
         <span style="font-size:.75rem;color:#666;margin-top:4px;display:block">${TT('Controlla la console per dettagli. Riprova con valori diversi o ricarica la pagina.','Check the console for details. Try again with different values or reload the page.')}</span>
         </div>
       </div>`;
-document.getElementById('calc-out').scrollIntoView({behavior:'smooth', block:'start'});
+if(!_noScroll) fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.55});
 }
 }
 function stampaMiscela(){
@@ -4767,8 +4977,8 @@ if(!items.length) return;
 let righe='';
 items.forEach(s=>{
 const elStr = elPctList(s.el);
-const prezzo = s.prezzo?`€${s.prezzo}/kg`:'—';
-righe += `<tr><td>${salNome(s)}</td><td>${elStr}</td><td class="r">${prezzo}</td></tr>`;
+const prezzo = fmtPrezzoCat(s) || '—';
+righe += `<tr><td>${esc(salNome(s))}</td><td>${elStr}</td><td class="r">${prezzo}</td></tr>`;
 });
 html += `<div class="grp"><div class="gt">${CAT_LBL[cat]||cat.toUpperCase()}</div>`+
 `<table><thead><tr><th>${TT('Ingrediente','Ingredient')}</th><th>${TT('Composizione','Composition')}</th><th class="r">${TT('Prezzo','Price')}</th></tr></thead><tbody>${righe}</tbody></table></div>`;
@@ -4778,8 +4988,8 @@ if(altre.length){
 let righe='';
 altre.forEach(s=>{
 const elStr = elPctList(s.el);
-const prezzo = s.prezzo?`€${s.prezzo}/kg`:'—';
-righe += `<tr><td>${salNome(s)}</td><td>${elStr}</td><td class="r">${prezzo}</td></tr>`;
+const prezzo = fmtPrezzoCat(s) || '—';
+righe += `<tr><td>${esc(salNome(s))}</td><td>${elStr}</td><td class="r">${prezzo}</td></tr>`;
 });
 html += `<div class="grp"><div class="gt">${TT('Altro','Other')}</div><table><tbody>${righe}</tbody></table></div>`;
 }
@@ -4845,13 +5055,22 @@ function toggleInfoTecniche(forza){
 const pannello = document.getElementById('info-tecniche');
 const btn = document.getElementById('btn-info-tecniche');
 if(!pannello) return;
-const apri = typeof forza === 'boolean' ? forza : pannello.style.display === 'none';
+const isInteractive = typeof forza !== 'boolean';
+const apri = !isInteractive ? forza : pannello.style.display === 'none';
+const btnTopBefore = (!apri && btn) ? btn.getBoundingClientRect().top : null;
 pannello.style.display = apri ? 'block' : 'none';
 if(btn){
 btn.setAttribute('aria-expanded', apri ? 'true' : 'false');
 btn.textContent = apri ? TT('🔬 Nascondi info tecniche','🔬 Hide technical info') : TT('🔬 Info tecniche','🔬 Technical info');
 }
-if(apri) pannello.scrollIntoView({behavior:'smooth', block:'start'});
+if(apri && isInteractive){
+requestAnimationFrame(()=>fcReveal(pannello, {mode:'nudgeIntoView', minVisible:200, targetVisible:280, keepVisibleEl:btn}));
+} else if(!apri && isInteractive && btn && btnTopBefore !== null){
+const curY = window.scrollY || 0;
+const btnTopAfter = btn.getBoundingClientRect().top;
+const targetY = Math.max(0, Math.min(fcMaxScroll(), Math.round(curY + (btnTopAfter - btnTopBefore))));
+if(Math.abs(targetY - curY) > 2) window.scrollTo(0, targetY);
+}
 }
 function mostraErrCalc(msg){
 document.getElementById('calc-out').innerHTML=`<div class="alert al-err" style="margin-top:12px"><span>🚫</span><span>${msg}</span></div>`;
@@ -4859,12 +5078,12 @@ document.getElementById('calc-out').innerHTML=`<div class="alert al-err" style="
 function applicaDiluizione(nuovaDil){
 const inp = document.getElementById('diluizione');
 if(inp){ inp.value=nuovaDil; aggiornaDiluizioneWarning(); }
-calcola();
+calcola({noScroll:true});
 }
 function applicaPhFinale(nuovoPh){
 const inp = document.getElementById('ph-finale');
 if(inp) inp.value = nuovoPh;
-calcola();
+calcola({noScroll:true});
 }
 function calcolaBilanciato(){
 syncDomCalc();
@@ -4883,7 +5102,7 @@ window._bilanciaRighe = report.righe; window._bilanciaPendingRighe = report.righ
 window._bilanciaReport = report;
 window._bilanciaOrigSnapshot = origSnapshot;
 statoCalc.saltaBilanciamento = false;
-calcola();
+calcola({noScroll:true});
 }
 function renderBilanciaReport(report, autoApplied){
 if(!report) return '';
@@ -4978,7 +5197,7 @@ renderCalcTabella();
 window._bilanciaRighe = null;
 window._bilanciaReport = null;
 window._bilanciaOrigSnapshot = null;
-calcola();
+calcola({noScroll:true});
 showToast(t('js.toastBilanciate'));
 }
 function ripristinaEricalcola(){ window._bilanciaPendingRighe = null;
@@ -4989,7 +5208,7 @@ renderCalcTabella();
 window._bilanciaRighe = null;
 window._bilanciaReport = null;
 window._bilanciaOrigSnapshot = null;
-calcola();
+calcola({noScroll:true});
 }
 function ripristinaDosiOriginali(){
 // Le dosi originali sono quelle inserite (prima della correzione acqua):
@@ -5003,11 +5222,60 @@ statoCalc.saltaBilanciamento = true;
 autoBalanceApplied = false;
 origDosiSnapshot = null;
 bilanciaReportData = null;
-calcola();
+calcola({noScroll:true});
 showToast(t('js.toastDosi'));
 }
 const _PRECIP_RULES_RIMOSSO = true;
+let catalogoFiltro = 'all';
+function fmtPrezzoCat(s){
+if(!s || !(+s.prezzo > 0)) return '';
+const base = `${fmtEuro(+s.prezzo, 2)}/kg`;
+if(s.isLiquid && +s.density > 0) return `${base} (≈ ${fmtEuro(+s.prezzo * +s.density, 2)}/L)`;
+return base;
+}
+function setCatalogoFiltro(f){
+catalogoFiltro = ['all','in','out'].includes(f) ? f : 'all';
+applicaFiltroCatalogoDOM();
+}
+function setAllScorta(presenti){
+if(presenti) catalogo.forEach(s=>scorta.add(s.id));
+else scorta.clear();
+saveScorta();
+renderCatalogo();
+if(calcRighe.length) renderCalcTabella();
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
+if(statoCalc.target && document.getElementById('risultato-stampa')) calcola({noScroll:true});
+}
+function applicaFiltroCatalogoDOM(){
+const nTot = catalogo.length;
+const nIn = catalogo.filter(s=>isDisponibile(s.id)).length;
+const nOut = nTot - nIn;
+const bar = document.getElementById('catalogo-inv-bar');
+if(bar){
+const btnStyle = active => `padding:4px 10px;font-size:.72rem;border-radius:16px;border:1px solid ${active?'var(--vs)':'var(--bo)'};background:${active?'var(--vs)':'#fff'};color:${active?'#fff':'var(--tx)'};cursor:pointer;font-weight:600`;
+bar.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;width:100%">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+    <button type="button" onclick="setCatalogoFiltro('all')" style="${btnStyle(catalogoFiltro==='all')}">${TT('Tutti','All')} (${nTot})</button>
+    <button type="button" onclick="setCatalogoFiltro('in')" style="${btnStyle(catalogoFiltro==='in')}">✓ ${TT('In scorta','In stock')} (${nIn})</button>
+    <button type="button" onclick="setCatalogoFiltro('out')" style="${btnStyle(catalogoFiltro==='out')}">✗ ${TT('Mancanti','Missing')} (${nOut})</button>
+  </div>
+  ${nOut>0?`<button type="button" class="btn btn-se btn-sm" style="font-size:.7rem;padding:4px 9px" onclick="setAllScorta(true)">✓ ${TT('Segna tutti presenti','Mark all in stock')}</button>`:''}
+</div>`;
+}
+document.querySelectorAll('#catalogo-list .cat-group-card').forEach(card=>{
+let vis = 0;
+card.querySelectorAll('.cat-row').forEach(row=>{
+const id = row.dataset.saleId;
+const disp = isDisponibile(id);
+const show = catalogoFiltro==='all' || (catalogoFiltro==='in' ? disp : !disp);
+row.style.display = show ? '' : 'none';
+if(show) vis++;
+});
+card.style.display = vis > 0 ? '' : 'none';
+});
+}
 function renderCatalogo(){
+return fcPreserveScroll(()=>{
 const wrap=document.getElementById('catalogo-list');
 wrap.innerHTML='';
 const legendDiv=document.createElement('div');
@@ -5015,12 +5283,16 @@ legendDiv.className='alert al-blu';
 legendDiv.style.marginBottom='10px';
 legendDiv.innerHTML=t('catalogo.legenda');
 wrap.appendChild(legendDiv);
+const invBar=document.createElement('div');
+invBar.id='catalogo-inv-bar';
+invBar.style.cssText='background:var(--cs);border:1px solid var(--bo);border-radius:var(--r);padding:8px 12px;margin-bottom:12px';
+wrap.appendChild(invBar);
 let lastCat='';
 let currentGroup=null;
 catalogo.forEach((s,i)=>{
 if(s.cat!==lastCat){
 const cardEl=document.createElement('div');
-cardEl.className='card'; cardEl.style.marginBottom='14px';
+cardEl.className='card cat-group-card'; cardEl.style.marginBottom='14px';
 const chEl=document.createElement('div');
 chEl.className='ch';
 chEl.style.cssText='font-size:.65rem';
@@ -5035,16 +5307,18 @@ const disp=isDisponibile(s.id);
 const row=document.createElement('div');
 row.className='cat-row '+(disp?'row-dispon':'row-manca');
 row.id='cat-row-'+s.id;
+row.dataset.saleId=s.id;
 const c=CAT[s.cat]||{bg:'#555',label:'?'};
 const elStr=elPctList(s.el, ', ');
 const isCustom=!SALI_DEFAULT.find(x=>x.id===s.id);
+const pzStr=fmtPrezzoCat(s);
 row.innerHTML=`
       <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;flex:1;min-width:0;margin:0">
         <input type="checkbox" class="flag-check" ${disp?'checked':''} onchange="toggleScortaUI('${s.id}',this.checked)" style="margin-top:2px">
         <div style="flex:1;min-width:0">
           <div class="cat-nome">
-            <span class="bcat" style="background:${c.bg}">${c.label}</span> ${salNome(s)}
-            ${s.prezzo?`<span class="prezzo-badge">€${s.prezzo}/kg</span>`:''}
+            <span class="bcat" style="background:${c.bg}">${c.label}</span> ${esc(salNome(s))}
+            ${pzStr?`<span class="prezzo-badge">${pzStr}</span>`:''}
             <span class="${disp?'badge-ok':'badge-no'}" id="badge-${s.id}">${disp?t('js.hoBadge'):t('js.mancaBadge')}</span>
           </div>
           ${elStr?`<div class="cat-meta">${elStr}</div>`:''}
@@ -5057,7 +5331,9 @@ row.innerHTML=`
       </div>`;
 currentGroup.appendChild(row);
 });
+applicaFiltroCatalogoDOM();
 aggiornaStat();
+});
 }
 function toggleScortaUI(id, checked){
 if(checked) scorta.add(id); else scorta.delete(id);
@@ -5066,7 +5342,11 @@ const row=document.getElementById('cat-row-'+id);
 const badge=document.getElementById('badge-'+id);
 if(row){ row.className='cat-row '+(checked?'row-dispon':'row-manca'); }
 if(badge){ badge.className=checked?'badge-ok':'badge-no'; badge.textContent=checked?t('js.hoBadge'):t('js.mancaBadge'); }
+applicaFiltroCatalogoDOM();
+aggiornaStat();
 if(calcRighe.length) renderCalcTabella();
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
+if(statoCalc.target && document.getElementById('risultato-stampa')) calcola({noScroll:true});
 }
 function openNuovoIngrediente(){
 editIngId=null;
@@ -5103,23 +5383,49 @@ const nome=sanitizeName(document.getElementById('ing-nome').value.trim());
 if(!nome){ alert(t('js.nomeIngrediente')); return; }
 const el={};
 ['N','P','K','Ca','Mg','S','Fe','Mn','Zn','B','Cu','Mo'].forEach(f=>{ const v=parseFloat(document.getElementById('ing-'+f).value)||0; if(v>0)el[f]=v; });
+const sommaEl = Object.values(el).reduce((a,b)=>a+b,0);
+if(sommaEl > 100){
+alert(TT(`La somma delle percentuali elementari (${sommaEl.toFixed(1)}%) supera il 100%. Correggi la composizione.`,`The sum of elemental percentages (${sommaEl.toFixed(1)}%) exceeds 100%. Fix the composition.`));
+return;
+}
 const serb = (el.Ca && !el.P && !el.S && !el.Fe) ? 'B' : 'A';
 const nh4Frac = el.N ? Math.min(100, Math.max(0, parseFloat(document.getElementById('ing-nh4').value)||0)) : 0;
 const isLiquid = document.getElementById('ing-liquid').checked;
 const density = isLiquid ? Math.max(0, parseFloat(document.getElementById('ing-density').value)||0) : 0;
+if(isLiquid && !(density > 0 && density <= 3.5)){
+alert(TT('Per un prodotto liquido inserisci una densità valida (es. 1.20 kg/L, range 0.1–3.5).','For a liquid product enter a valid density (e.g. 1.20 kg/L, range 0.1–3.5).'));
+return;
+}
 const s={
 id: editIngId || ('custom_'+Date.now()),
 nome, cat:document.getElementById('ing-cat').value,
 serb, el, note:sanitizeName(document.getElementById('ing-note').value.trim()),
-prezzo:parseFloat(document.getElementById('ing-prezzo').value)||0,
-dose:parseFloat(document.getElementById('ing-dose').value)||0,
+prezzo:Math.max(0, parseFloat(document.getElementById('ing-prezzo').value)||0),
+dose:Math.max(0, parseFloat(document.getElementById('ing-dose').value)||0),
 ecC:stimaEcC(el, nh4Frac)
 };
 if(nh4Frac>0) s.nh4Frac=nh4Frac;
 if(isLiquid && density>0){ s.isLiquid=true; s.density=density; }
 if(editIngId){ const idx=catalogo.findIndex(x=>x.id===editIngId); if(idx>-1) catalogo[idx]=s; }
-else { catalogo.push(s); }
-saveCatalogo(); sincronizzaPrezziDaCatalogo(s.id, s.prezzo); renderCatalogo(); closeModal('modal-ing'); } function sincronizzaPrezziDaCatalogo(idSpecifico, nuovoPrezzo){ if(!Array.isArray(calcRighe)||!calcRighe.length) return; syncDomCalc(); let changed=false; calcRighe.forEach(r=>{ if(!r||!r.id||r.id==='__custom') return; if(idSpecifico){ if(r.id===idSpecifico){ r.prezzo=nuovoPrezzo; changed=true; } } else { const s=getSale(r.id); if(s&&s.prezzo!==undefined){ r.prezzo=s.prezzo; changed=true; } } }); if(changed){ renderCalcTabella(); if(document.getElementById('risultato-stampa')) calcola({noScroll:true}); }
+else { catalogo.push(s); scorta.add(s.id); saveScorta(); }
+saveCatalogo(); sincronizzaPrezziDaCatalogo(s.id, s.prezzo);
+if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
+if(statoCalc.target && document.getElementById('risultato-stampa')) calcola({noScroll:true});
+renderCatalogo(); closeModal('modal-ing');
+}
+function sincronizzaPrezziDaCatalogo(idSpecifico, nuovoPrezzo){
+if(!Array.isArray(calcRighe)||!calcRighe.length) return;
+syncDomCalc(); let changed=false;
+calcRighe.forEach(r=>{
+if(!r||!r.id||r.id==='__custom') return;
+const s=getSale(r.id);
+if(idSpecifico){
+if(r.id===idSpecifico){ r.prezzo=nuovoPrezzo; if(s) r.nome=salNome(s); changed=true; }
+} else if(s&&s.prezzo!==undefined){
+r.prezzo=s.prezzo; r.nome=salNome(s); changed=true;
+}
+});
+if(changed){ renderCalcTabella(); if(document.getElementById('risultato-stampa')) calcola({noScroll:true}); }
 }
 function eliminaIngrediente(id){
 window._pendingDelete={tipo:'ingrediente',id};
@@ -5217,7 +5523,11 @@ return out;
 })
 .filter(s=>Object.keys(s.el).length>0);
 const scartati = custom.length - nuoviCustom.length;
-catalogo = [...base, ...nuoviCustom]; sincronizzaPrezziDaCatalogo();
+const importedCustomIds = new Set(nuoviCustom.map(s=>s.id));
+const localCustomKept = catalogo.filter(s=>!defaultIds.has(s.id) && !importedCustomIds.has(s.id));
+catalogo = [...base, ...localCustomKept, ...nuoviCustom];
+if(!Array.isArray(data.scorta)) nuoviCustom.forEach(s=>scorta.add(s.id));
+sincronizzaPrezziDaCatalogo();
 saveCatalogo();
 msg.push(TT(`Catalogo: ${catalogo.length} ingredienti`,`Catalog: ${catalogo.length} ingredients`)+(scartati>0?TT(` (${scartati} scartati: schema non valido)`,` (${scartati} discarded: invalid schema)`):''));
 }
@@ -5243,7 +5553,18 @@ msg.push(TT('Ricette: ','Recipes: ')+(rParts.join(', ') || TT('nessuna novità',
 }
 if(Array.isArray(data.scorta)){
 const catalogoIds = new Set(catalogo.map(s=>s.id));
-data.scorta.filter(id=>isSafeId(id) && catalogoIds.has(id)).forEach(id => scorta.add(id));
+const validScorta = new Set(data.scorta.filter(id=>isSafeId(id) && catalogoIds.has(id)));
+const isFullBackup = !!(data._meta && data._meta.app === 'FertiControl');
+if(isFullBackup){
+const coveredIds = (Array.isArray(data.catalogo) && data.catalogo.length > 0)
+? new Set(data.catalogo.filter(s=>s && isSafeId(s.id)).map(s=>s.id))
+: catalogoIds;
+coveredIds.forEach(id=>{ if(catalogoIds.has(id)) scorta.delete(id); });
+validScorta.forEach(id=>scorta.add(id));
+} else {
+validScorta.forEach(id=>scorta.add(id));
+}
+[...scorta].forEach(id=>{ if(!catalogoIds.has(id)) scorta.delete(id); });
 saveScorta();
 msg.push(TT(`Scorta: ${scorta.size} ingredienti`,`Stock: ${scorta.size} ingredients`));
 }
