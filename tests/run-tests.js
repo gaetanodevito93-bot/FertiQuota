@@ -2751,6 +2751,37 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     firstTab.focus();
     firstTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
     out.kbdNavAcqua = document.getElementById('tab-acqua').classList.contains('active') && window.scrollY === 0;
+
+    // 8. Verifica rigorosa affiliazione: ogni link «Vedi su Amazon» e di acquisto contiene tag=aitane93-21
+    showTab('attrezzatura');
+    const gearAmazonLinks = [...document.querySelectorAll('#attrezzatura-grid a.btn-amazon')];
+    const gearLinksAllHaveTag = gearAmazonLinks.length >= 18 && gearAmazonLinks.every(a => a.href.includes('tag=aitane93-21'));
+    const phmetroLink = gearAmazonLinks.find(a => a.href.includes('B0BY7XTB5Y'));
+    const phmetroHasAsinAndTag = !!(phmetroLink && phmetroLink.href.includes('dp/B0BY7XTB5Y') && phmetroLink.href.includes('tag=aitane93-21'));
+
+    showTab('catalogo');
+    const catAmazonLinks = [...document.querySelectorAll('#catalogo-list a.btn-cat-buy')];
+    const catLinksAllHaveTag = catAmazonLinks.length >= 20 && catAmazonLinks.every(a => a.href.includes('tag=aitane93-21'));
+
+    showTab('calcola');
+    const calcAmazonLinks = [...document.querySelectorAll('#calc-gear-strip a.btn-cat-buy')];
+    const calcLinksAllHaveTag = calcAmazonLinks.length >= 3 && calcAmazonLinks.every(a => a.href.includes('tag=aitane93-21'));
+
+    const allDocAmazonLinks = [...document.querySelectorAll('a[href*="amazon."]')];
+    const globalLinksAllTagged = allDocAmazonLinks.length > 0 && allDocAmazonLinks.every(a => a.href.includes('tag=aitane93-21'));
+
+    out.affiliateValidation = {
+      gearCount: gearAmazonLinks.length,
+      gearLinksAllHaveTag,
+      phmetroHasAsinAndTag,
+      catCount: catAmazonLinks.length,
+      catLinksAllHaveTag,
+      calcCount: calcAmazonLinks.length,
+      calcLinksAllHaveTag,
+      totalAmazonLinks: allDocAmazonLinks.length,
+      globalLinksAllTagged
+    };
+
     showTab('guide');
     return out;
   });
@@ -2772,6 +2803,14 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     s38.footer.hasFooter && s38.footer.adHiddenDefault, JSON.stringify(s38.footer));
   check('S38.7: navigazione tastiera ArrowRight su tablist cambia tab senza scorrimenti indesiderati',
     s38.kbdNavAcqua);
+  check('S38.8: ogni link «Vedi su Amazon» e di acquisto contiene rigorosamente tag=aitane93-21 e ASIN YINMIK verificato',
+    s38.affiliateValidation &&
+    s38.affiliateValidation.gearLinksAllHaveTag &&
+    s38.affiliateValidation.phmetroHasAsinAndTag &&
+    s38.affiliateValidation.catLinksAllHaveTag &&
+    s38.affiliateValidation.calcLinksAllHaveTag &&
+    s38.affiliateValidation.globalLinksAllTagged,
+    JSON.stringify(s38.affiliateValidation));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
