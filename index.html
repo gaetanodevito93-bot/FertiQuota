@@ -60,10 +60,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="FertiControl">
 <title>FertiControl — Calcolatore Fertirrigazione</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- Google Search Console: dopo aver verificato il dominio su search.google.com/search-console, decommenta e incolla il codice:
+<meta name="google-site-verification" content="INSERISCI_CODICE_GSC">
+-->
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url(./fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url(./fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(./fonts/jetbrains-mono-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(./fonts/jetbrains-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
 --vs:#0f3528; --vm:#1c5740; --vc:#3f9268;
 --cr:#f7f4ec; --cs:#ece4d5; --bl:#ffffff;
@@ -309,7 +313,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 body{padding-bottom:env(safe-area-inset-bottom)}
 }
 @media print{
-.no-print,.tabbar,.topbar,header,.tabs,#fc-footer,#adsense-bottom-wrap{display:none!important}
+.no-print,.tabbar,.topbar,header,.tabs,#fc-footer,#adsense-bottom-wrap,#gdpr-banner,dialog.gdpr-dialog{display:none!important}
 body{background:#fff!important}
 .card{break-inside:avoid;box-shadow:none!important;border-color:#ccc}
 }
@@ -507,6 +511,55 @@ body:has(#tab-guide.active) #fc-footer{max-width:1080px}
 .fc-footer-link:hover{border-color:var(--vc);background:rgba(63,146,104,.08)}
 .adsense-slot-wrap{margin-bottom:14px;padding:10px;border:1px solid var(--bo);border-radius:var(--r);background:#fff;text-align:center}
 .adsense-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ts);margin-bottom:6px}
+.fc-legal-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--cs)}
+.fc-legal-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fc-legal-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;min-block-size:32px;border-radius:var(--r);border:1px solid var(--bo);background:#fff;color:var(--vs);font-family:var(--mono);font-size:.67rem;font-weight:700;cursor:pointer;transition:var(--transition)}
+.fc-legal-btn:hover{border-color:var(--vc);background:rgba(63,146,104,.08)}
+.fc-legal-btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.fc-consent-pill{font-family:var(--mono);font-size:.64rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--cs);color:var(--ts)}
+#gdpr-banner{position:fixed;inset-block-end:14px;inset-inline:12px;max-inline-size:960px;margin-inline:auto;z-index:900;background:#fff;border:1.5px solid var(--vs);border-radius:14px;box-shadow:0 18px 48px rgba(15,53,40,.24);padding:16px 18px;color:var(--tx)}
+#gdpr-banner[hidden]{display:none!important}
+.gdpr-b-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.gdpr-b-title{font-family:var(--sans);font-size:.92rem;font-weight:700;color:var(--vs);display:flex;align-items:center;gap:7px}
+.gdpr-b-close{flex-shrink:0;inline-size:32px;block-size:32px;border-radius:8px;border:1px solid var(--bo);background:var(--cr);color:var(--vs);font-size:.92rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:var(--transition)}
+.gdpr-b-close:hover{background:var(--cs);border-color:var(--ts)}
+.gdpr-b-close:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.gdpr-b-text{font-size:.8rem;line-height:1.58;color:var(--ts);max-inline-size:84ch;margin-bottom:14px;text-wrap:pretty}
+.gdpr-b-link{background:none;border:none;padding:0;color:var(--vm);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer}
+.gdpr-b-link:hover{color:var(--ar)}
+.gdpr-b-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.gdpr-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;min-block-size:40px;border-radius:8px;font-family:var(--sans);font-size:.79rem;font-weight:700;cursor:pointer;transition:var(--transition);border:1.5px solid transparent}
+.gdpr-btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.gdpr-btn-reject{background:#fff;color:var(--vs);border-color:var(--vs)}
+.gdpr-btn-reject:hover{background:var(--cr)}
+.gdpr-btn-prefs{background:var(--cs);color:var(--vs);border-color:var(--bo)}
+.gdpr-btn-prefs:hover{background:#e4dac7;border-color:var(--ts)}
+.gdpr-btn-accept{background:var(--vs);color:#fff;border-color:var(--vs)}
+.gdpr-btn-accept:hover{background:var(--vm);border-color:var(--vm)}
+dialog.gdpr-dialog{border:none;border-radius:14px;padding:0;inline-size:min(94vw,680px);max-block-size:min(88dvh,760px);margin:auto;background:#fff;color:var(--tx);box-shadow:0 24px 64px rgba(15,53,40,.34);overflow:auto}
+dialog.gdpr-dialog[open]{display:flex;flex-direction:column}
+dialog.gdpr-dialog:modal{overscroll-behavior:contain}
+dialog.gdpr-dialog::backdrop{background:rgba(11,41,31,.58);backdrop-filter:blur(4px);overflow:hidden;overscroll-behavior:contain}
+.gdpr-d-head{position:sticky;inset-block-start:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:linear-gradient(120deg,var(--vs) 0%,var(--vm) 100%);color:#fff}
+.gdpr-d-head h2{font-family:var(--sans);font-size:1rem;font-weight:700;line-height:1.25;margin:0}
+.gdpr-d-x{inline-size:34px;block-size:34px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-size:1rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.gdpr-d-x:hover{background:rgba(255,255,255,.24)}
+.gdpr-d-x:focus-visible{outline:2px solid var(--as);outline-offset:2px}
+.gdpr-d-body{padding:20px;overflow-y:auto;flex:1;font-size:.84rem;line-height:1.68;color:var(--tx)}
+.gdpr-d-body h3{font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--vs);margin:16px 0 6px}
+.gdpr-d-body h3:first-child{margin-top:0}
+.gdpr-d-body p{margin-bottom:10px;text-wrap:pretty}
+.gdpr-d-body ul{margin:0 0 12px 18px}
+.gdpr-d-body li{margin-bottom:5px}
+.gdpr-d-foot{position:sticky;inset-block-end:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center;padding:14px 20px;background:#faf8f2;border-top:1px solid var(--bo)}
+.gdpr-cat{padding:14px 16px;border-radius:10px;border:1px solid var(--bo);background:#faf8f2;margin-bottom:12px}
+.gdpr-cat-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:6px}
+.gdpr-cat-lbl{font-weight:700;font-size:.86rem;color:var(--vs);cursor:pointer;display:flex;align-items:center;gap:8px;flex:1}
+.gdpr-cat-badge{font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(63,146,104,.16);color:var(--vs)}
+.gdpr-cat-desc{font-size:.77rem;line-height:1.55;color:var(--ts);margin:0}
+input.gdpr-switch[type="checkbox"]{accent-color:var(--vm);inline-size:20px;block-size:20px;margin:0;cursor:pointer;flex-shrink:0}
+input.gdpr-switch[type="checkbox"]:focus-visible{outline:3px solid var(--ar);outline-offset:3px}
+.gdpr-meta-box{margin-top:10px;padding:10px 12px;border-radius:8px;background:#fff;border:1px dashed var(--bo);font-family:var(--mono);font-size:.7rem;color:var(--ts);line-height:1.55}
 @media(prefers-reduced-motion:no-preference){
 .guide-item>summary::before{transition:rotate .2s ease,background-color .2s ease,color .2s ease}
 .guide-item::details-content{transition:block-size .28s ease-in-out,content-visibility .28s ease-in-out,display .28s ease-in-out;transition-behavior:allow-discrete}
@@ -1178,14 +1231,84 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <button type="button" class="fc-footer-link" onclick="showTab('attrezzatura')" data-i18n="tab.attrezzatura">🛒 Attrezzatura</button>
 <button type="button" class="fc-footer-link" onclick="showTab('dati')" data-i18n="tab.dati">💾 Dati</button>
 </div>
-<details style="margin-top:6px">
-<summary style="cursor:pointer;font-weight:600;color:var(--vm)" data-i18n="footer.privacyTitle">Privacy, Cookie e Dati Locali</summary>
-<p style="margin-top:6px" data-i18n="footer.privacyBody">
-I calcoli, le ricette personalizzate, l'analisi dell'acqua e l'inventario restano salvati esclusivamente nel localStorage del tuo browser. I link Amazon rimandano ad Amazon solo quando ci clicchi. Eventuali annunci Google AdSense vengono attivati solo su dominio configurato e previo consenso GDPR.
-</p>
-</details>
+<div class="fc-legal-bar">
+<div class="fc-legal-actions">
+<button type="button" class="fc-legal-btn" onclick="openPrivacyDialog()" data-i18n="footer.privacyPolicy">🔒 Privacy &amp; Cookie Policy</button>
+<button type="button" class="fc-legal-btn" onclick="openCookiePrefsDialog()" data-i18n="footer.manageCookies">🍪 Gestisci Cookie</button>
+</div>
+<span class="fc-consent-pill" id="fc-consent-status">Cookie: solo necessari</span>
+</div>
 </div>
 </footer>
+
+<aside id="gdpr-banner" class="no-print" role="region" aria-labelledby="gdpr-b-heading" hidden>
+<div class="gdpr-b-top">
+<div class="gdpr-b-title" id="gdpr-b-heading" data-i18n="gdpr.bannerTitle">🍪 Informativa Cookie &amp; Privacy (GDPR)</div>
+<button type="button" class="gdpr-b-close" onclick="gdprSaveConsent({analytics:false,ads:false})" aria-label="Chiudi e rifiuta cookie non essenziali" data-i18n-aria="gdpr.closeReject">✕</button>
+</div>
+<p class="gdpr-b-text">
+<span data-i18n="gdpr.bannerBody">FertiControl salva le tue ricette e l'analisi acqua solo in locale sul tuo dispositivo (archiviazione tecnica necessaria). Con il tuo consenso attiviamo statistiche aggregate di visita (Google Analytics 4) ed eventuali spazi pubblicitari (Google AdSense). Chiudendo con ✕ prosegui con i soli strumenti tecnici.</span>
+<button type="button" class="gdpr-b-link" onclick="openPrivacyDialog()" data-i18n="gdpr.readPolicy">Leggi Privacy &amp; Cookie Policy</button>.
+</p>
+<div class="gdpr-b-actions">
+<button type="button" class="gdpr-btn gdpr-btn-reject" onclick="gdprSaveConsent({analytics:false,ads:false})" data-i18n="gdpr.rejectAll">Rifiuta tutto</button>
+<button type="button" class="gdpr-btn gdpr-btn-prefs" onclick="openCookiePrefsDialog()" data-i18n="gdpr.customize">Personalizza</button>
+<button type="button" class="gdpr-btn gdpr-btn-accept" onclick="gdprSaveConsent({analytics:true,ads:true})" data-i18n="gdpr.acceptAll">Accetta tutto</button>
+</div>
+</aside>
+
+<dialog id="dlg-cookie-prefs" class="gdpr-dialog" closedby="any" aria-labelledby="dlg-cookie-title">
+<div class="gdpr-d-head">
+<h2 id="dlg-cookie-title" data-i18n="gdpr.prefsTitle">🍪 Preferenze Cookie e Privacy</h2>
+<button type="button" class="gdpr-d-x" onclick="document.getElementById('dlg-cookie-prefs').close()" aria-label="Chiudi" data-i18n-aria="btn.chiudi">✕</button>
+</div>
+<div class="gdpr-d-body">
+<p data-i18n="gdpr.prefsIntro">Scegli quali categorie autorizzare. I servizi opzionali restano bloccati preventivamente finché non attivi il consenso (Google Consent Mode v2). Puoi modificare o revocare la tua scelta in qualsiasi momento dal footer.</p>
+
+<div class="gdpr-cat">
+<div class="gdpr-cat-row">
+<label class="gdpr-cat-lbl" for="sw-gdpr-nec"><span data-i18n="gdpr.catNec">Archiviazione tecnica necessaria</span><span class="gdpr-cat-badge" data-i18n="gdpr.alwaysOn">Sempre attiva</span></label>
+<input id="sw-gdpr-nec" class="gdpr-switch" type="checkbox" switch checked disabled>
+</div>
+<p class="gdpr-cat-desc" data-i18n="gdpr.catNecDesc">Salva esclusivamente nel localStorage del tuo browser: analisi dell'acqua, ricette personalizzate, scorte catalogo, lingua scelta e la tua preferenza GDPR. Nessun dato viene inviato a server esterni.</p>
+</div>
+
+<div class="gdpr-cat">
+<div class="gdpr-cat-row">
+<label class="gdpr-cat-lbl" for="sw-gdpr-analytics"><span data-i18n="gdpr.catAna">Statistiche visite (Google Analytics 4)</span></label>
+<input id="sw-gdpr-analytics" class="gdpr-switch" type="checkbox" switch autofocus>
+</div>
+<p class="gdpr-cat-desc" data-i18n="gdpr.catAnaDesc">Ci aiuta a contare quanti utenti visitano FertiControl ogni giorno e quali guide sono più utili (con Google Consent Mode v2 e IP anonimizzato). Senza consenso nessuno script Analytics viene caricato.</p>
+</div>
+
+<div class="gdpr-cat">
+<div class="gdpr-cat-row">
+<label class="gdpr-cat-lbl" for="sw-gdpr-ads"><span data-i18n="gdpr.catAds">Pubblicità (Google AdSense)</span></label>
+<input id="sw-gdpr-ads" class="gdpr-switch" type="checkbox" switch>
+</div>
+<p class="gdpr-cat-desc" data-i18n="gdpr.catAdsDesc">Mostra spazi pubblicitari non invasivi a fondo pagina per mantenere FertiControl gratuito (attivo solo quando configurato sul dominio). Disattivato di default senza consenso.</p>
+</div>
+
+<div class="gdpr-meta-box" id="gdpr-prefs-meta"></div>
+</div>
+<div class="gdpr-d-foot">
+<button type="button" class="gdpr-btn gdpr-btn-reject" onclick="gdprSaveConsent({analytics:false,ads:false}, true)" data-i18n="gdpr.rejectAll">Rifiuta tutto</button>
+<button type="button" class="gdpr-btn gdpr-btn-prefs" onclick="gdprSaveFromSwitches()" data-i18n="gdpr.savePrefs">Salva preferenze</button>
+<button type="button" class="gdpr-btn gdpr-btn-accept" onclick="gdprSaveConsent({analytics:true,ads:true}, true)" data-i18n="gdpr.acceptAll">Accetta tutto</button>
+</div>
+</dialog>
+
+<dialog id="dlg-privacy" class="gdpr-dialog" closedby="any" aria-labelledby="dlg-privacy-title">
+<div class="gdpr-d-head">
+<h2 id="dlg-privacy-title" data-i18n="gdpr.policyTitle">🔒 Privacy &amp; Cookie Policy (GDPR)</h2>
+<button type="button" class="gdpr-d-x" onclick="document.getElementById('dlg-privacy').close()" aria-label="Chiudi" data-i18n-aria="btn.chiudi" autofocus>✕</button>
+</div>
+<div class="gdpr-d-body" id="dlg-privacy-content"></div>
+<div class="gdpr-d-foot">
+<button type="button" class="gdpr-btn gdpr-btn-prefs" onclick="document.getElementById('dlg-privacy').close();openCookiePrefsDialog()" data-i18n="footer.manageCookies">🍪 Gestisci Cookie</button>
+<button type="button" class="gdpr-btn gdpr-btn-accept" onclick="document.getElementById('dlg-privacy').close()" data-i18n="btn.chiudi">Chiudi</button>
+</div>
+</dialog>
 <div class="modal-bg" id="modal-ing" role="dialog" aria-modal="true" aria-labelledby="modal-ing-title">
 <div class="modal">
 <div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra">✕</button></div>
@@ -1325,6 +1448,27 @@ it: {
 'attr.empty': 'Nessuno strumento trovato per questo filtro. Prova a cambiare categoria o parola chiave.',
 'footer.adLabel': 'Spazio sponsorizzato',
 'footer.affiliate': 'Amazon Affiliate',
+'footer.privacyPolicy': '🔒 Privacy & Cookie Policy',
+'footer.manageCookies': '🍪 Gestisci Cookie',
+'btn.chiudi': 'Chiudi',
+'gdpr.bannerTitle': '🍪 Informativa Cookie & Privacy (GDPR)',
+'gdpr.closeReject': 'Chiudi e rifiuta cookie non essenziali',
+'gdpr.bannerBody': 'FertiControl salva le tue ricette e l\'analisi acqua solo in locale sul tuo dispositivo (archiviazione tecnica necessaria). Con il tuo consenso attiviamo statistiche aggregate di visita (Google Analytics 4) ed eventuali spazi pubblicitari (Google AdSense). Chiudendo con ✕ prosegui con i soli strumenti tecnici.',
+'gdpr.readPolicy': 'Leggi Privacy & Cookie Policy',
+'gdpr.rejectAll': 'Rifiuta tutto',
+'gdpr.customize': 'Personalizza',
+'gdpr.acceptAll': 'Accetta tutto',
+'gdpr.savePrefs': 'Salva preferenze',
+'gdpr.prefsTitle': '🍪 Preferenze Cookie e Privacy',
+'gdpr.prefsIntro': 'Scegli quali categorie autorizzare. I servizi opzionali restano bloccati preventivamente finché non attivi il consenso (Google Consent Mode v2). Puoi modificare o revocare la tua scelta in qualsiasi momento dal footer.',
+'gdpr.catNec': 'Archiviazione tecnica necessaria',
+'gdpr.alwaysOn': 'Sempre attiva',
+'gdpr.catNecDesc': 'Salva esclusivamente nel localStorage del tuo browser: analisi dell\'acqua, ricette personalizzate, scorte catalogo, lingua scelta e la tua preferenza GDPR. Nessun dato viene inviato a server esterni.',
+'gdpr.catAna': 'Statistiche visite (Google Analytics 4)',
+'gdpr.catAnaDesc': 'Ci aiuta a contare quanti utenti visitano FertiControl ogni giorno e quali guide sono più utili (con Google Consent Mode v2 e IP anonimizzato). Senza consenso nessuno script Analytics viene caricato.',
+'gdpr.catAds': 'Pubblicità (Google AdSense)',
+'gdpr.catAdsDesc': 'Mostra spazi pubblicitari non invasivi a fondo pagina per mantenere FertiControl gratuito (attivo solo quando configurato sul dominio). Disattivato di default senza consenso.',
+'gdpr.policyTitle': '🔒 Privacy & Cookie Policy (GDPR)',
 'footer.privacyTitle': 'Privacy, Cookie e Dati Locali',
 'footer.privacyBody': 'I calcoli, le ricette personalizzate, l\'analisi dell\'acqua e l\'inventario restano salvati esclusivamente nel localStorage del tuo browser. I link Amazon rimandano ad Amazon solo quando ci clicchi. Eventuali annunci Google AdSense vengono attivati solo su dominio configurato e previo consenso GDPR.',
 'acqua.title': '💧 Acqua di Partenza',
@@ -1588,6 +1732,27 @@ en: {
 'attr.empty': 'No tools match this filter. Try another category or keyword.',
 'footer.adLabel': 'Sponsored',
 'footer.affiliate': 'Amazon Affiliate',
+'footer.privacyPolicy': '🔒 Privacy & Cookie Policy',
+'footer.manageCookies': '🍪 Manage Cookies',
+'btn.chiudi': 'Close',
+'gdpr.bannerTitle': '🍪 Cookie & Privacy Notice (GDPR)',
+'gdpr.closeReject': 'Close and reject non-essential cookies',
+'gdpr.bannerBody': 'FertiControl saves your recipes and water analysis locally on your device only (strictly necessary storage). With your consent, we enable aggregated visit statistics (Google Analytics 4) and optional ads (Google AdSense). Closing with ✕ continues with strictly necessary storage only.',
+'gdpr.readPolicy': 'Read Privacy & Cookie Policy',
+'gdpr.rejectAll': 'Reject all',
+'gdpr.customize': 'Customize',
+'gdpr.acceptAll': 'Accept all',
+'gdpr.savePrefs': 'Save preferences',
+'gdpr.prefsTitle': '🍪 Cookie & Privacy Preferences',
+'gdpr.prefsIntro': 'Choose which categories to allow. Optional services stay blocked until you grant consent (Google Consent Mode v2). You can change or withdraw consent anytime from the footer.',
+'gdpr.catNec': 'Strictly necessary local storage',
+'gdpr.alwaysOn': 'Always active',
+'gdpr.catNecDesc': 'Stored exclusively in your browser localStorage: water analysis, custom recipes, catalog stock, selected language and your GDPR choice. No data is sent to external servers.',
+'gdpr.catAna': 'Visit statistics (Google Analytics 4)',
+'gdpr.catAnaDesc': 'Helps us count daily visitors and see which guides are most useful (via Google Consent Mode v2 with IP anonymization). No Analytics script loads without consent.',
+'gdpr.catAds': 'Advertising (Google AdSense)',
+'gdpr.catAdsDesc': 'Displays non-intrusive ads at the bottom of the page to keep FertiControl free (only active once configured on the domain). Off by default without consent.',
+'gdpr.policyTitle': '🔒 Privacy & Cookie Policy (GDPR)',
 'footer.privacyTitle': 'Privacy, Cookies & Local Storage',
 'footer.privacyBody': 'Calculations, custom recipes, water profiles and stock are stored exclusively in your browser localStorage. Amazon links only navigate to Amazon when clicked. Any Google AdSense units are loaded only on a configured domain after GDPR consent.',
 'acqua.title': '💧 Source Water',
@@ -1828,6 +1993,9 @@ el.innerHTML = t(el.dataset.i18nHtml);
 document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
 el.placeholder = t(el.dataset.i18nPlaceholder);
 });
+document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+el.setAttribute('aria-label', t(el.dataset.i18nAria));
+});
 document.querySelectorAll('.lang-btn').forEach(btn => {
 btn.classList.toggle('active', btn.dataset.lang === currentLang);
 });
@@ -1840,6 +2008,7 @@ ingCat.options[2].textContent = t('cat.ph');
 if(typeof updateSaliPrepBadge==='function') updateSaliPrepBadge();
 if(typeof renderGuidesLang==='function') renderGuidesLang();
 if(typeof renderAttrezzatura==='function') renderAttrezzatura();
+if(typeof updateGdprUi==='function') updateGdprUi();
 }
 const MM={Ca:40.078,Mg:24.305,K:39.098,N:14.007,Na:22.990,Cl:35.453,S:32.06,P:30.974,Si:28.085,
 Fe:55.845,Mn:54.938,Zn:65.38,B:10.811,Cu:63.546,Mo:95.95};
@@ -6986,6 +7155,28 @@ aggiornaStat();
 showToast(t('js.toastReset'));
 }
 // ============================================================
+// PRIVACY, GDPR & GOOGLE ANALYTICS 4 (CONSENT MODE v2)
+// ============================================================
+// 1. Compila controllerName, controllerEmail e siteDomain con i tuoi dati reali prima del lancio.
+// 2. Per contare le visite giornaliere gratis con Google Analytics 4:
+//    - Crea una proprietà su analytics.google.com → Stream di dati Web → copia il Measurement ID ('G-XXXXXXXXXX')
+//    - Inseriscilo qui sotto in ga4.measurementId e imposta ga4.enabled = true.
+//    - Lo script GA4 viene bloccato preventivamente finché l'utente non accetta "Statistiche" nel banner GDPR.
+const PRIVACY_CONFIG = {
+  siteName: 'FertiControl',
+  siteDomain: 'tuodominio.it',
+  controllerName: 'Titolare FertiControl (inserisci Nome e Cognome)',
+  controllerEmail: 'privacy@tuodominio.it',
+  hostingProvider: 'GitHub Pages / Cloudflare',
+  lastUpdated: '21/11/2026',
+  consentVersion: 1,
+  consentMaxDays: 180,
+  ga4: {
+    enabled: true,
+    measurementId: 'G-WTB1MD5227'
+  }
+};
+// ============================================================
 // MONETIZZAZIONE: CONFIGURAZIONE AFFILIAZIONE AMAZON & ADSENSE
 // ============================================================
 // 1. Sostituisci 'INSERISCI_TUO_TAG-21' con il tuo Store ID Amazon.it (es. 'ferticontrol-21').
@@ -7532,12 +7723,90 @@ function renderGuidesLang(){
     if(e.target && e.target.matches('details.guide-item')) updateGuidesToggleBtn();
   }, { capture: true });
 })();
-function initAdSenseBottom(){
+// ============================================================
+// MOTORE GDPR + GOOGLE CONSENT MODE v2 + GA4 + ADSENSE GATE
+// ============================================================
+const GDPR_STORAGE_KEY = 'fc_gdpr_consent';
+window.dataLayer = window.dataLayer || [];
+function gtag(){ window.dataLayer.push(arguments); }
+window.gtag = gtag;
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  analytics_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  wait_for_update: 500
+});
+let _ga4LoadedId = '';
+
+function gdprLoadConsent(){
+  try {
+    const raw = localStorage.getItem(GDPR_STORAGE_KEY);
+    if(!raw) return null;
+    const obj = JSON.parse(raw);
+    if(!obj || obj.v !== PRIVACY_CONFIG.consentVersion) return null;
+    if(typeof obj.exp !== 'number' || Date.now() > obj.exp) return null;
+    return {
+      v: obj.v,
+      ts: obj.ts || '',
+      exp: obj.exp,
+      necessary: true,
+      analytics: !!obj.analytics,
+      ads: !!obj.ads
+    };
+  } catch(e){ return null; }
+}
+
+function gdprPurgeTrackingCookies(){
+  try {
+    const names = document.cookie.split(';').map(c => c.split('=')[0].trim()).filter(n => /^(_ga|_gid|_gat|__gads|__gpi)/i.test(n));
+    const host = location.hostname || '';
+    const parts = host.split('.');
+    const domains = ['', host];
+    if(parts.length >= 2) domains.push('.' + parts.slice(-2).join('.'));
+    names.forEach(name => {
+      domains.forEach(dom => {
+        const dAttr = dom ? `; domain=${dom}` : '';
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=/${dAttr}`;
+      });
+    });
+  } catch(e){}
+}
+
+function initGA4(consent){
+  const cfg = PRIVACY_CONFIG.ga4;
+  const id = (cfg && cfg.measurementId || '').trim();
+  const validId = /^G-[A-Z0-9]{6,}$/i.test(id) && !/X{4,}/i.test(id);
+  const allowed = !!(consent && consent.analytics && cfg && cfg.enabled && validId && location.protocol.indexOf('http') === 0);
+  if(!allowed){
+    if(validId) window['ga-disable-' + id] = true;
+    gdprPurgeTrackingCookies();
+    return;
+  }
+  window['ga-disable-' + id] = false;
+  if(_ga4LoadedId === id) return;
+  _ga4LoadedId = id;
+  if(!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){
+    const sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+    document.head.appendChild(sc);
+  }
+  gtag('js', new Date());
+  gtag('config', id, {
+    anonymize_ip: true,
+    allow_google_signals: !!(consent && consent.ads),
+    allow_ad_personalization_signals: !!(consent && consent.ads)
+  });
+}
+
+function initAdSenseBottom(consent){
   const cfg = AFFILIATE_CONFIG.adsense;
   const wrap = document.getElementById('adsense-bottom-wrap');
   const cont = document.getElementById('adsense-bottom-container');
   if(!wrap || !cont) return;
-  if(!cfg || !cfg.enabled || !/^ca-pub-\d{10,}$/.test(cfg.client || '') || location.protocol.indexOf('http') !== 0){
+  const adsAllowed = !!(consent && consent.ads);
+  if(!adsAllowed || !cfg || !cfg.enabled || !/^ca-pub-\d{10,}$/.test(cfg.client || '') || location.protocol.indexOf('http') !== 0){
     wrap.hidden = true;
     return;
   }
@@ -7561,6 +7830,165 @@ function initAdSenseBottom(){
   }
   try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
 }
+
+function gdprApplyConsent(consent){
+  const ana = !!(consent && consent.analytics);
+  const ads = !!(consent && consent.ads);
+  gtag('consent', 'update', {
+    analytics_storage: ana ? 'granted' : 'denied',
+    ad_storage: ads ? 'granted' : 'denied',
+    ad_user_data: ads ? 'granted' : 'denied',
+    ad_personalization: ads ? 'granted' : 'denied'
+  });
+  initGA4({ analytics: ana, ads: ads });
+  initAdSenseBottom({ analytics: ana, ads: ads });
+}
+
+function renderPrivacyPolicy(){
+  const box = document.getElementById('dlg-privacy-content');
+  if(!box) return;
+  const p = PRIVACY_CONFIG;
+  const isEn = currentLang === 'en';
+  if(isEn){
+    box.innerHTML = `
+      <h3>1. Data Controller</h3>
+      <p><strong>${esc(p.controllerName)}</strong> — Website: <code>${esc(p.siteDomain)}</code> · Contact email: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Last updated: ${esc(p.lastUpdated)}.</p>
+      <h3>2. Data Processed &amp; Strictly Local Storage</h3>
+      <p>FertiControl is a client-side web application with no user registration or database. Your water analyses, custom recipes, catalog prices, stock checkboxes and language preference are stored exclusively in your browser's <code>localStorage</code> and never leave your device. The hosting provider (<strong>${esc(p.hostingProvider)}</strong>) may process standard technical server logs (IP address, timestamp) solely for security and delivery (Art. 6(1)(f) GDPR).</p>
+      <h3>3. Locally Hosted Fonts (Zero Google Fonts Tracking)</h3>
+      <p>The <em>Inter</em> and <em>JetBrains Mono</em> typefaces are self-hosted directly on this domain (<code>/fonts/</code>). No connection or IP address is sent to Google Fonts servers.</p>
+      <h3>4. Visit Measurement (Google Analytics 4 &amp; Google Search Console)</h3>
+      <ul>
+        <li><strong>Google Analytics 4 (optional, consent required — Art. 6(1)(a) GDPR):</strong> uses Google Consent Mode v2 with strict preventive blocking. No script loads and no analytics cookies are set unless you explicitly opt in to <em>Visit statistics</em>. IP anonymization is enabled.</li>
+        <li><strong>Google Search Console:</strong> aggregates anonymous search queries directly on Google Search without installing scripts or cookies on this website.</li>
+      </ul>
+      <h3>5. Affiliate Links (Amazon) &amp; Voluntary Tips (PayPal)</h3>
+      <p>Links in <em>Gear &amp; Tools</em>, <em>Catalog</em> and the <em>Calculate</em> strip point to Amazon (Amazon Affiliate program, Store ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). No cookies are placed while browsing FertiControl; clicking an external link takes you to Amazon EU S.à r.l. or PayPal (Europe) S.à r.l., governed by their own privacy policies.</p>
+      <h3>6. Advertising (Google AdSense)</h3>
+      <p>Optional ads at the bottom of the page load strictly after explicit consent for the <em>Advertising</em> category and only when enabled on the live domain.</p>
+      <h3>7. Retention &amp; Your GDPR Rights (Arts. 15–22)</h3>
+      <p>Your cookie choice is stored locally for <strong>${p.consentMaxDays} days</strong> (6 months). You may change or withdraw consent at any time via <strong>Manage Cookies</strong> in the footer, clear local data via <em>Data → Reset</em>, request access/erasure by emailing <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>, or lodge a complaint with your EU Data Protection Authority.</p>
+    `;
+  } else {
+    box.innerHTML = `
+      <h3>1. Titolare del trattamento (Art. 13 GDPR)</h3>
+      <p><strong>${esc(p.controllerName)}</strong> — Sito web: <code>${esc(p.siteDomain)}</code> · Email di contatto: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Ultimo aggiornamento: ${esc(p.lastUpdated)}.</p>
+      <h3>2. Dati trattati e salvataggio esclusivamente locale</h3>
+      <p>FertiControl è una web app che funziona interamente sul tuo dispositivo senza registrazione né database remoto. Profili acqua, ricette personalizzate, prezzi, scorte e lingua restano nel <code>localStorage</code> del tuo browser (archiviazione tecnica necessaria, esente da consenso). Il fornitore di hosting (<strong>${esc(p.hostingProvider)}</strong>) può trattare log tecnici di sicurezza (indirizzo IP, data/ora richiesta) per legittimo interesse alla sicurezza del servizio (Art. 6(1)(f) GDPR).</p>
+      <h3>3. Font ospitati in locale (zero invio IP a Google Fonts)</h3>
+      <p>I caratteri tipografici <em>Inter</em> e <em>JetBrains Mono</em> sono caricati direttamente in locale da questo dominio (cartella <code>/fonts/</code>): nessuna connessione e nessun indirizzo IP viene inviato ai server di Google Fonts.</p>
+      <h3>4. Conteggio visite giornaliere (Google Analytics 4 &amp; Google Search Console)</h3>
+      <ul>
+        <li><strong>Google Analytics 4 (facoltativo, solo previo consenso — Art. 6(1)(a) GDPR):</strong> configurato con <strong>Google Consent Mode v2</strong> e blocco preventivo. Nessuno script e nessun cookie analitico viene caricato finché non attivi esplicitamente <em>Statistiche visite</em>. L'anonimizzazione IP è attiva e puoi revocare il consenso in ogni momento.</li>
+        <li><strong>Google Search Console:</strong> mostra dati aggregati delle ricerche su Google senza installare alcuno script né cookie su questo sito.</li>
+      </ul>
+      <h3>5. Link affiliati Amazon e contributi PayPal</h3>
+      <p>I pulsanti di acquisto nelle sezioni <em>Attrezzatura</em>, <em>Catalogo</em> e <em>Calcola</em> sono link esterni affiliati (Programma Affiliazione Amazon, ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). Durante la navigazione su FertiControl non viene installato alcun cookie Amazon o PayPal; solo cliccando sul link esterno si accede ai siti di Amazon EU S.à r.l. o PayPal (Europe) S.à r.l., regolati dalle rispettive informative privacy.</p>
+      <h3>6. Pubblicità (Google AdSense)</h3>
+      <p>Eventuali spazi pubblicitari a fondo pagina vengono caricati esclusivamente su dominio configurato e solo dopo consenso esplicito alla categoria <em>Pubblicità</em>.</p>
+      <h3>7. Conservazione e diritti dell'interessato (Artt. 15–22 GDPR)</h3>
+      <p>La tua preferenza sui cookie viene memorizzata localmente per <strong>${p.consentMaxDays} giorni</strong> (6 mesi, secondo le Linee guida del Garante Privacy). Puoi modificare o revocare il consenso in qualsiasi momento cliccando <strong>🍪 Gestisci Cookie</strong> nel footer, cancellare i dati locali da <em>Dati → Ripristina</em>, esercitare i diritti di accesso/cancellazione scrivendo a <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>, o proporre reclamo al <strong>Garante per la protezione dei dati personali</strong> (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer">garanteprivacy.it</a>).</p>
+    `;
+  }
+}
+
+function updateGdprUi(){
+  const saved = gdprLoadConsent();
+  const statusEl = document.getElementById('fc-consent-status');
+  if(statusEl){
+    if(!saved || (!saved.analytics && !saved.ads)){
+      statusEl.textContent = currentLang === 'en' ? 'Cookies: strictly necessary' : 'Cookie: solo necessari';
+    } else if(saved.analytics && saved.ads){
+      statusEl.textContent = currentLang === 'en' ? 'Cookies: analytics + ads active' : 'Cookie: statistiche + annunci';
+    } else if(saved.analytics){
+      statusEl.textContent = currentLang === 'en' ? 'Cookies: analytics active' : 'Cookie: statistiche attive';
+    } else {
+      statusEl.textContent = currentLang === 'en' ? 'Cookies: ads active' : 'Cookie: annunci attivi';
+    }
+  }
+  const swAna = document.getElementById('sw-gdpr-analytics');
+  const swAds = document.getElementById('sw-gdpr-ads');
+  if(swAna) swAna.checked = !!(saved && saved.analytics);
+  if(swAds) swAds.checked = !!(saved && saved.ads);
+  const metaEl = document.getElementById('gdpr-prefs-meta');
+  if(metaEl){
+    const gaActive = PRIVACY_CONFIG.ga4.enabled && /^G-[A-Z0-9]{6,}$/i.test(PRIVACY_CONFIG.ga4.measurementId || '') && !/X{4,}/i.test(PRIVACY_CONFIG.ga4.measurementId || '');
+    const adsActive = AFFILIATE_CONFIG.adsense.enabled && /^ca-pub-\d{10,}$/.test(AFFILIATE_CONFIG.adsense.client || '');
+    const savedTxt = saved && saved.ts
+      ? (currentLang === 'en' ? `Saved choice: ${new Date(saved.ts).toLocaleDateString('en-GB')} (valid 180 days)` : `Scelta salvata il ${new Date(saved.ts).toLocaleDateString('it-IT')} (valida 180 giorni)`)
+      : (currentLang === 'en' ? 'No choice saved yet (all optional services blocked by default).' : 'Nessuna scelta salvata (tutti i servizi opzionali bloccati di default).');
+    const cfgTxt = currentLang === 'en'
+      ? `GA4: ${gaActive ? PRIVACY_CONFIG.ga4.measurementId : 'ready (insert G-ID in PRIVACY_CONFIG)'} · AdSense: ${adsActive ? 'active' : 'off'}`
+      : `GA4: ${gaActive ? PRIVACY_CONFIG.ga4.measurementId : 'pronto (inserisci ID G- in PRIVACY_CONFIG)'} · AdSense: ${adsActive ? 'attivo' : 'disattivo'}`;
+    metaEl.textContent = savedTxt + ' — ' + cfgTxt;
+  }
+  renderPrivacyPolicy();
+}
+
+function gdprSaveConsent(opts, closeDialog){
+  const record = {
+    v: PRIVACY_CONFIG.consentVersion,
+    ts: new Date().toISOString(),
+    exp: Date.now() + PRIVACY_CONFIG.consentMaxDays * 86400 * 1000,
+    necessary: true,
+    analytics: !!(opts && opts.analytics),
+    ads: !!(opts && opts.ads)
+  };
+  try { localStorage.setItem(GDPR_STORAGE_KEY, JSON.stringify(record)); } catch(e){}
+  const banner = document.getElementById('gdpr-banner');
+  if(banner) banner.hidden = true;
+  if(closeDialog){
+    const dlg = document.getElementById('dlg-cookie-prefs');
+    if(dlg && dlg.open) dlg.close();
+  }
+  gdprApplyConsent(record);
+  updateGdprUi();
+  if(typeof showToast === 'function'){
+    showToast(currentLang === 'en' ? 'Privacy preferences saved' : 'Preferenze privacy salvate');
+  }
+}
+
+function gdprSaveFromSwitches(){
+  const swAna = document.getElementById('sw-gdpr-analytics');
+  const swAds = document.getElementById('sw-gdpr-ads');
+  gdprSaveConsent({ analytics: !!(swAna && swAna.checked), ads: !!(swAds && swAds.checked) }, true);
+}
+
+function openCookiePrefsDialog(){
+  updateGdprUi();
+  const dlg = document.getElementById('dlg-cookie-prefs');
+  if(dlg && !dlg.open) dlg.showModal();
+}
+
+function openPrivacyDialog(){
+  renderPrivacyPolicy();
+  const dlg = document.getElementById('dlg-privacy');
+  if(dlg && !dlg.open) dlg.showModal();
+}
+
+function initGdpr(){
+  if(!('closedBy' in HTMLDialogElement.prototype)){
+    const outside = (e, dialog) => {
+      const r = dialog.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    document.querySelectorAll('dialog[closedby="any"]').forEach(dialog => {
+      let pressedOutside = false;
+      dialog.addEventListener('pointerdown', e => { pressedOutside = outside(e, dialog); });
+      dialog.addEventListener('pointerup', e => { if(pressedOutside && outside(e, dialog)) dialog.close(); });
+    });
+  }
+  const saved = gdprLoadConsent();
+  const banner = document.getElementById('gdpr-banner');
+  if(saved){
+    if(banner) banner.hidden = true;
+    gdprApplyConsent(saved);
+  } else {
+    if(banner) banner.hidden = false;
+    gdprApplyConsent({ analytics: false, ads: false });
+  }
+  updateGdprUi();
+}
 initPiante();
 loadAcqua();
 initAcquaPersist();
@@ -7571,7 +7999,7 @@ renderRicetteCustom();
 renderCalcTabella();
 setTimeout(aggiornaStat, 0);
 applyLang();
-initAdSenseBottom();
+initGdpr();
 </script><div class="modal-bg" id="modal-del">
 <div class="modal">
 <div class="modal-h" style="background:var(--ro)">

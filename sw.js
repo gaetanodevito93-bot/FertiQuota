@@ -7,13 +7,17 @@
  * ⚠️ Ad ogni modifica del file dell'app, incrementa CACHE_VERSION: forza
  *    l'aggiornamento della cache e il ricaricamento della nuova versione.
  */
-const CACHE_VERSION = 'v2.4.1';
+const CACHE_VERSION = 'v2.4.2';
 const CACHE_NAME = 'ferticontrol-' + CACHE_VERSION;
 
 // Risorse dell'app shell (percorsi relativi allo scope del SW).
 const APP_SHELL = [
   'index.html',
   'manifest.webmanifest',
+  'fonts/inter-latin.woff2',
+  'fonts/inter-latin-ext.woff2',
+  'fonts/jetbrains-mono-latin.woff2',
+  'fonts/jetbrains-mono-latin-ext.woff2',
   'icons/apple-touch-icon.png',
   'icons/icon-192.png',
   'icons/icon-512.png',

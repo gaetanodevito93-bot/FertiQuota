@@ -2812,6 +2812,91 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     s38.affiliateValidation.globalLinksAllTagged,
     JSON.stringify(s38.affiliateValidation));
 
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S39. Conformità GDPR, Google Consent Mode v2 (GA4/AdSense), Font Locali e Policy ═══');
+  const fontFiles = ['inter-latin.woff2', 'inter-latin-ext.woff2', 'jetbrains-mono-latin.woff2', 'jetbrains-mono-latin-ext.woff2'];
+  const allFontsExist = fontFiles.every(f => fs.existsSync(path.join(APPDIR, 'fonts', f)));
+  const swSrc39 = fs.readFileSync(path.join(APPDIR, 'sw.js'), 'utf8');
+  const idxSrc39 = fs.readFileSync(path.join(APPDIR, 'index.html'), 'utf8');
+  const noExternalGoogleFonts = !/fonts\.googleapis\.com|fonts\.gstatic\.com/i.test(idxSrc39.split('<script>')[0]);
+  const swCachesFonts = fontFiles.every(f => swSrc39.includes('fonts/' + f));
+  check('S39.1: zero chiamate esterne a Google Fonts; tutti i 4 font WOFF2 sono locali e in cache sw.js',
+    noExternalGoogleFonts && allFontsExist && swCachesFonts,
+    `noExt=${noExternalGoogleFonts} exist=${allFontsExist} sw=${swCachesFonts}`);
+
+  const s39 = await page.evaluate(() => {
+    const out = {};
+    // Reset consenso per testare primo accesso
+    localStorage.removeItem('fc_gdpr_consent');
+    initGdpr();
+    const banner = document.getElementById('gdpr-banner');
+    const dl = Array.isArray(window.dataLayer) ? window.dataLayer.map(a => [...a]) : [];
+    const defaultCall = dl.find(a => a[0] === 'consent' && a[1] === 'default');
+    out.consentDefaultDenied = !!(defaultCall && defaultCall[2] &&
+      defaultCall[2].ad_storage === 'denied' &&
+      defaultCall[2].analytics_storage === 'denied' &&
+      defaultCall[2].ad_user_data === 'denied' &&
+      defaultCall[2].ad_personalization === 'denied');
+    out.noTrackingScriptBeforeConsent = !document.querySelector('script[src*="googletagmanager.com"]') &&
+      !document.querySelector('script[src*="googlesyndication.com"]');
+    out.bannerVisibleFirstVisit = !!(banner && !banner.hidden &&
+      banner.querySelector('.gdpr-btn-reject') &&
+      banner.querySelector('.gdpr-btn-prefs') &&
+      banner.querySelector('.gdpr-btn-accept') &&
+      banner.querySelector('.gdpr-b-close'));
+
+    // Chiusura con X rifiuta cookie non essenziali (Linee guida Garante Privacy) e salva per 180 giorni
+    banner.querySelector('.gdpr-b-close').click();
+    const afterX = gdprLoadConsent();
+    const daysValid = afterX ? Math.round((afterX.exp - Date.now()) / (86400 * 1000)) : 0;
+    out.closeXRejectsAndPersists180d = !!(banner.hidden && afterX && afterX.necessary === true &&
+      afterX.analytics === false && afterX.ads === false && daysValid >= 179 && daysValid <= 181);
+
+    // Modale Preferenze Cookie (<dialog> nativo senza role/aria-modal ridondanti) + switch granulari + revoca
+    openCookiePrefsDialog();
+    const dlgPrefs = document.getElementById('dlg-cookie-prefs');
+    const nativeModalClean = !!(dlgPrefs && dlgPrefs.open && !dlgPrefs.hasAttribute('role') && !dlgPrefs.hasAttribute('aria-modal'));
+    document.getElementById('sw-gdpr-analytics').checked = true;
+    document.getElementById('sw-gdpr-ads').checked = false;
+    gdprSaveFromSwitches();
+    const afterGranular = gdprLoadConsent();
+    const updates = window.dataLayer.map(a => [...a]).filter(a => a[0] === 'consent' && a[1] === 'update');
+    const lastGranular = updates[updates.length - 1];
+    const granularOk = !!(afterGranular && afterGranular.analytics === true && afterGranular.ads === false &&
+      lastGranular && lastGranular[2].analytics_storage === 'granted' && lastGranular[2].ad_storage === 'denied' &&
+      !dlgPrefs.open);
+    // Revoca
+    gdprSaveConsent({ analytics: false, ads: false }, true);
+    const updatesRev = window.dataLayer.map(a => [...a]).filter(a => a[0] === 'consent' && a[1] === 'update');
+    const lastRev = updatesRev[updatesRev.length - 1];
+    const revokeOk = !!(lastRev && lastRev[2].analytics_storage === 'denied' &&
+      /solo necessari/i.test(document.getElementById('fc-consent-status').textContent));
+    out.prefsAndRevoke = { nativeModalClean, granularOk, revokeOk };
+
+    // Modale Privacy & Cookie Policy IT + EN
+    openPrivacyDialog();
+    const dlgPriv = document.getElementById('dlg-privacy');
+    const privIt = document.getElementById('dlg-privacy-content').innerText;
+    const privItOk = !!(dlgPriv && dlgPriv.open && /Art\. 13 GDPR/i.test(privIt) && /Consent Mode v2/i.test(privIt) && /Garante/i.test(privIt) && /\/fonts\//i.test(privIt));
+    setLang('en');
+    const privEn = document.getElementById('dlg-privacy-content').innerText;
+    const privEnOk = /Data Controller/i.test(privEn) && /Consent Mode v2/i.test(privEn) && /Arts\. 15/i.test(privEn);
+    dlgPriv.close();
+    setLang('it');
+    out.policy = { privItOk, privEnOk };
+    return out;
+  });
+
+  check('S39.2: Google Consent Mode v2 default tutto "denied" e blocco preventivo script GA4/AdSense',
+    s39.consentDefaultDenied && s39.noTrackingScriptBeforeConsent, JSON.stringify(s39));
+  check('S39.3: banner GDPR non bloccante con Rifiuta/Personalizza/Accetta e ✕ che rifiuta salvando per 180 giorni',
+    s39.bannerVisibleFirstVisit && s39.closeXRejectsAndPersists180d, JSON.stringify(s39));
+  check('S39.4: <dialog> Preferenze Cookie nativo con consenso granulare e revoca immediata',
+    s39.prefsAndRevoke.nativeModalClean && s39.prefsAndRevoke.granularOk && s39.prefsAndRevoke.revokeOk,
+    JSON.stringify(s39.prefsAndRevoke));
+  check('S39.5: <dialog> Privacy & Cookie Policy completa IT/EN (Art. 13 GDPR, Consent Mode v2, font locali, Garante)',
+    s39.policy.privItOk && s39.policy.privEnOk, JSON.stringify(s39.policy));
+
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
   if (failures.length) { console.log('\nFallimenti:'); failures.forEach(f => console.log('  • ' + f)); }
