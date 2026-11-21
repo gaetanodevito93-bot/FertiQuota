@@ -38,6 +38,7 @@
 //   S34. Scorrimenti armonizzati e focus in-place
 //   S35. Coerenza 35 fasi IT/EN, parità costi Ricette↔Calcola, inventario
 //   S36. Audit motori v2.3 (C1–C4, A1–A8, M1–M6, SW, CSS, XSS stampa)
+//   S37. Motore v2.4 (PHREEQC/MINTEQ benchmark, coppie ioniche, SIT, Mix/H₂SO₄, bilancio protonico, ACP/OCP/Brucite, chelati Ca²⁺/Fe³⁺)
 //
 // Uso:  node tests/run-tests.js   (in automatico: hook tests/hooks/pre-commit e GitHub Actions)
 // Requisiti: Playwright + Chromium (vedi tests/README.md)
@@ -1134,7 +1135,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   const rip = await page.evaluate(() => {
     presetAcqua('osmosi');
     // gesso sovrasaturo nella soluzione finale: non risolvibile col pH → bilanciamento
-    calcRighe = [{ id: 'CaN', nome: 'CaN', dose: 3000, prezzo: 0 }, { id: 'MgSO4', nome: 'MgSO4', dose: 3000, prezzo: 0 }, { id: 'K2SO4', nome: 'K2SO4', dose: 2000, prezzo: 0 }];
+    calcRighe = [{ id: 'CaN', nome: 'CaN', dose: 4500, prezzo: 0 }, { id: 'MgSO4', nome: 'MgSO4', dose: 4000, prezzo: 0 }, { id: 'K2SO4', nome: 'K2SO4', dose: 2000, prezzo: 0 }];
     renderCalcTabella();
     calcola();
     const bilanciato = autoBalanceApplied || !!bilanciaReportData;
@@ -1145,7 +1146,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   });
   check('caso sovrasaturo: l\'auto-bilanciamento interviene', rip.bilanciato);
   check(`ripristina → dosi inserite (${rip.dosi.join(', ')}) e nessun nuovo auto-bilanciamento`,
-    JSON.stringify(rip.dosi) === '[3000,3000,2000]' && !rip.rebilanciato && rip.salta);
+    JSON.stringify(rip.dosi) === '[4500,4000,2000]' && !rip.rebilanciato && rip.salta);
 
   // ────────────────────────────────────────────────
   console.log('\n═══ S28. 3 soluzioni madri, pH di default 5.8, acido automatico ═══');
@@ -1556,7 +1557,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     // con acqua dura l'H₃PO₄ manderebbe CaHPO₄ in sovrasaturazione (SI > 0), quindi prevale la sicurezza → HNO₃
     const rSenzaN = R([['KH2PO4', 200], ['MgSO4', 400], ['K2SO4', 300]]);
     out.senzaNMedia = scegli(rSenzaN, ACQUE.media, 5.8);
-    out.senzaNDura = scegli(rSenzaN, ACQUE.dura, 5.8);
+    out.senzaNDura = scegli(rSenzaN, ACQUE.dura, 6.0);
 
     // E. La scelta è fatta sulle stesse dosi che Calcola userà: il solver a target non dipende da volumi e diluizione
     const tgt = profiloDaRighe(PIANTE_BUILTIN[0].fasi[1].sali.map(s => ({ id: s.id, dose: s.g })), null);
@@ -1613,12 +1614,12 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
       { nome: 'lattuga trapianto, acqua lieve', righe: fase('lattuga', 0), aq: { ec: 0.15, ph: 7.0, temp: 20, ca: 25, mg: 6, k: 2, na: 10, so4: 10, cl: 15, hco3: 80, no3: 3, fe: 0.02 } },
       { nome: 'pomodoro vegetativo, acqua dura', righe: fase('pomodoro', 1), aq: AQ_DURA },
       { nome: 'ricetta senza P, N basso, acqua media', righe: R([['CaN', 100], ['K2SO4', 500], ['MgSO4', 400]]), aq: AQ_MEDIA },
-      { nome: 'ricetta senza N (PK+Mg), acqua dura', righe: R([['KH2PO4', 200], ['MgSO4', 400], ['K2SO4', 300]]), aq: AQ_DURA },
+      { nome: 'ricetta senza N (PK+Mg), acqua dura', righe: R([['KH2PO4', 200], ['MgSO4', 400], ['K2SO4', 300]]), aq: AQ_DURA, ph: 6.0 },
     ];
     document.getElementById('ph-finale').value = 5.8;
-    const res = CASI.map(c => {
+    const res = CASI.map(c => { const phC = c.ph || 5.8; document.getElementById('ph-finale').value = phC;
       setAq(c.aq);
-      const sc = scegliAcido({ ...getAcqua(), acido: 'auto' }, 5.8, { righe: c.righe });
+      const sc = scegliAcido({ ...getAcqua(), acido: 'auto' }, phC, { righe: c.righe });
       const auto = calc(c.righe, 'auto');
       const forzato = calc(c.righe, sc.tipo);
       const perc = (auto.msg.match(/scostamento complessivo (\d+)% contro (\d+)%/) || []).slice(1).map(Number);
@@ -1769,8 +1770,9 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
       document.addEventListener('DOMContentLoaded', () => {
         const s = document.getElementById('splash');
         if (!s) { resolve({ presentAtStart: false }); return; }
-        const t0 = performance.now();
         const anims0 = s.getAnimations ? s.getAnimations({ subtree: true }) : [];
+        const starts = anims0.map(a => a.startTime).filter(v => typeof v === 'number' && isFinite(v));
+        const t0 = starts.length ? Math.min(...starts) : performance.now();
         const st = {
           presentAtStart: true,
           tagText: s.querySelector('.splash-tag')?.textContent || '',
@@ -2326,13 +2328,13 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
       { id: 'KNO3', nome: 'KNO3', dose: 400, serb: 'B' },
     ], aqOsm, 100, { phFinale: 5.8 });
     const bilDup  = autoBilanciaSali([
-      { id: 'CaN', nome: 'CaN 1', dose: 2500, serb: 'B' },
-      { id: 'CaN', nome: 'CaN 2', dose: 1500, serb: 'B' },
-      { id: 'MgSO4', nome: 'MgSO4', dose: 4500, serb: 'A' },
+      { id: 'CaN', nome: 'CaN 1', dose: 3500, serb: 'B' },
+      { id: 'CaN', nome: 'CaN 2', dose: 2500, serb: 'B' },
+      { id: 'MgSO4', nome: 'MgSO4', dose: 5000, serb: 'A' },
     ], aqOsm, 100, { phFinale: 5.8 });
     out.a6 = {
       concConverged: bilConc.converged && bilConc.righe[2].dose === 400 && (bilConc.righe[0].dose < 100 || bilConc.righe[1].dose < 100),
-      dupConverged: bilDup.converged && bilDup.deviations.length >= 1 && bilDup.deviations.every(d => d.id !== 'CaN' || d.doseOrig === 2500 || d.doseOrig === 1500),
+      dupConverged: bilDup.converged && bilDup.deviations.length >= 1 && bilDup.deviations.every(d => d.id !== 'CaN' || d.doseOrig === 3500 || d.doseOrig === 2500),
     };
 
     // A7: stimaPhSerbatoio & invalidazione ultimoAcidoChiave
@@ -2428,14 +2430,14 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     return out;
   });
 
-  // File checks: CSS singolo, scrollbar visibile, badge v2.3, header SVG, sw.js
+  // File checks: CSS singolo, scrollbar visibile, badge v2.4, header SVG, sw.js
   const idxSrc36 = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const swSrc36 = fs.readFileSync(path.join(__dirname, '..', 'sw.js'), 'utf8');
   const styleTags = (idxSrc36.split('</head>')[0].match(/<style>/g) || []).length;
   const hasHideScroll = /html\s*,\s*body\s*\{\s*scrollbar-width\s*:\s*none/i.test(idxSrc36);
-  const hasV23 = /<div class="hbadge">v2\.3<\/div>/.test(idxSrc36);
+  const hasV24 = /<div class="hbadge">v2\.4<\/div>/.test(idxSrc36);
   const hasCleanSvg = /M4\.5 9V6a2 2 0 0 1 4 0v3M17\.5 9V6a2 2 0 0 1 4 0v3/.test(idxSrc36);
-  const swOk36 = /CACHE_VERSION\s*=\s*'v2\.3\.0'/.test(swSrc36) &&
+  const swOk36 = /CACHE_VERSION\s*=\s*'v2\.4\.0'/.test(swSrc36) &&
     /'icons\/apple-touch-icon\.png'/.test(swSrc36) &&
     (swSrc36.match(/if\s*\(\s*res\s*&&\s*res\.ok\s*\)/g) || []).length >= 2;
 
@@ -2465,9 +2467,186 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('S36.M1-M5: UI Cl/Si/Na, _elCustom in merge, eseguiReset completo, guard tank-B, costo acido isolato, validaInput',
     s36.m.el15Saved && s36.m.k2Untouched && s36.m.customMerged && s36.m.resetOk && s36.m.expOk && s36.m.hasCostAcidOnly && s36.m.valInputOk,
     JSON.stringify(s36.m));
-  check('S36.M6: singolo <style>, scrollbar desktop attiva, badge v2.3, SVG header corretto e sw.js v2.3.0 con guard res.ok',
-    styleTags === 1 && !hasHideScroll && hasV23 && hasCleanSvg && swOk36,
-    `styles=${styleTags} hideScroll=${hasHideScroll} v23=${hasV23} svg=${hasCleanSvg} sw=${swOk36}`);
+  check('S36.M6: singolo <style>, scrollbar desktop attiva, badge v2.4, SVG header corretto e sw.js v2.4.0 con guard res.ok',
+    styleTags === 1 && !hasHideScroll && hasV24 && hasCleanSvg && swOk36,
+    `styles=${styleTags} hideScroll=${hasHideScroll} v24=${hasV24} svg=${hasCleanSvg} sw=${swOk36}`);
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S37. Motore v2.4: Benchmark PHREEQC/MINTEQ, coppie ioniche, SIT, Mix/H₂SO₄, bilancio protonico, ACP/OCP/Brucite, chelati Ca²⁺/Fe³⁺ ═══');
+  await resetMotore();
+  const s37 = await page.evaluate(() => {
+    const out = {};
+
+    // S37.1: PHREEQC Gypsum 15.3 mM @ 25°C + bilancio di massa coppie ioniche
+    const profGyp = { Ca: 15.3 * MM.Ca, S: 15.3 * MM.S, Mg: 0, K: 0, Na: 0, NO3: 0, Cl: 0, P: 0, NH4: 0, HCO3meq: 0 };
+    const spGyp = speciateFull(profGyp, 7.0, 25);
+    const siGyp = siForIons(profGyp, 7.0, 25);
+    const caTot = 15.3 / 1000, so4Tot = 15.3 / 1000;
+    const caSum = spGyp.free.Ca + spGyp.pairs.CaSO4 + spGyp.pairs.CaHCO3 + spGyp.pairs.CaCO3 + spGyp.pairs.CaH2PO4 + spGyp.pairs.CaHPO4;
+    const so4Sum = spGyp.free.SO4 + spGyp.pairs.CaSO4 + spGyp.pairs.MgSO4 + spGyp.pairs.KSO4 + spGyp.pairs.NaSO4;
+    const gypPairFrac = spGyp.pairs.CaSO4 / caTot;
+    out.s1 = {
+      siCaSO4: siGyp.CaSO4,
+      pairFrac: gypPairFrac,
+      massBalOk: Math.abs(caSum - caTot) < 1e-6 && Math.abs(so4Sum - so4Tot) < 1e-6,
+    };
+
+    // S37.2: Acqua dura — coppie CaSO₄⁰ + MgSO₄⁰ riducono sovrastima EC
+    presetAcqua('dura');
+    const aqD = getAcqua();
+    const profAqD = profiloDaRighe([], aqD, null);
+    const spAqD = speciateFull(profAqD, aqD.ph, aqD.temp);
+    const ecAqD = ecFromIons(profAqD, aqD.ph, aqD.temp);
+    const catTotD = profAqD.Ca / 1000 / MM.Ca + profAqD.Mg / 1000 / MM.Mg;
+    const pairDivFracD = (spAqD.pairs.CaSO4 + spAqD.pairs.MgSO4) / catTotD;
+    out.s2 = { ecAqD, presetEc: aqD.ec, pairDivFracD };
+
+    // S37.3: Debye-Hückel A(T) & modello SIT ad alta forza ionica (concentrati 1:200)
+    const dh5 = debyeHuckelA(5), dh25 = debyeHuckelA(25), dh40 = debyeHuckelA(40);
+    const profBlend = { Ca: 1200, Mg: 600, K: 2500, NO3: 2000, S: 400, P: 200, Na: 0, Cl: 0, NH4: 0, HCO3meq: 0 };
+    const spBlend = speciateFull(profBlend, 5.5, 20);
+    const profSIT = { Ca: 1800 * 0.17 * 200, NO3: 1800 * 0.118 * 200, Mg: 0, K: 0, Na: 0, Cl: 0, S: 0, P: 0, NH4: 0, HCO3meq: 0 };
+    const spSIT = speciateFull(profSIT, 6.0, 20);
+    out.s3 = {
+      dhMono: dh5 < dh25 && dh25 < dh40 && Math.abs(dh25 - 0.509) < 0.003,
+      blendOk: spBlend.I > 0.15 && spBlend.I < 0.50 && spBlend.model === 'Davies-SIT',
+      sitOk: spSIT.I > 0.50 && spSIT.model === 'SIT' && isFinite(spSIT.gamma.Ca) && spSIT.gamma.Ca > 0.05 && spSIT.gamma.Ca < 2.0 && spSIT.gamma.NO3 > 0.2 && spSIT.gamma.NO3 < 1.5,
+      gCaSIT: spSIT.gamma.Ca,
+      I_SIT: spSIT.I,
+    };
+
+    // S37.4: pKa(T) + Risolutore pH serbatoio per bilancio protonico
+    const pkaMono = pkaNH4(10) > pkaNH4(30) && pkwTemp(10) > pkwTemp(30) && pka1Carb(10) > pka1Carb(25);
+    const phKNO3 = stimaPhSerbatoio([{ id: 'KNO3', dose: 400 }], 100, 20);
+    const phHNO3_100 = stimaPhSerbatoio([{ id: 'HNO3', dose: 100 }], 100, 20);
+    const phHNO3_200 = stimaPhSerbatoio([{ id: 'HNO3', dose: 100 }], 200, 20);
+    const phHNO3_50  = stimaPhSerbatoio([{ id: 'HNO3', dose: 100 }], 50, 20);
+    const phH3PO4 = stimaPhSerbatoio([{ id: 'H3PO4', dose: 100 }], 100, 20);
+    const phKH2PO4 = stimaPhSerbatoio([{ id: 'KH2PO4', dose: 200 }], 100, 20);
+    const phMAP = stimaPhSerbatoio([{ id: 'MAP', dose: 200 }], 100, 20);
+    const phKOH = stimaPhSerbatoio([{ id: 'KOH', dose: 50 }], 100, 20);
+    const phSi = stimaPhSerbatoio([{ id: 'K2SiO3', dose: 100 }], 100, 20);
+    const phBuf = stimaPhSerbatoio([{ id: 'KH2PO4', dose: 200 }, { id: 'KOH', dose: 10 }], 100, 20);
+    out.s4 = {
+      pkaMono,
+      phsOk: phKNO3 === 6.0 && phHNO3_100 < 2.0 && phHNO3_200 < phHNO3_50
+        && phH3PO4 >= 1.1 && phH3PO4 <= 2.3
+        && phKH2PO4 >= 4.1 && phKH2PO4 <= 4.7
+        && phMAP >= 4.0 && phMAP <= 4.7
+        && phKOH > 12.0 && phSi >= 11.0 && phSi <= 12.8
+        && phBuf >= 5.0 && phBuf <= 6.5,
+      vals: { phKNO3, phHNO3_100, phH3PO4, phKH2PO4, phMAP, phKOH, phSi, phBuf },
+    };
+
+    // S37.5: SI ACP, OCP, Brucite Mg(OH)₂
+    const profHighP = { Ca: 200, Mg: 50, K: 250, NO3: 180, S: 80, P: 60, NH4: 10, Na: 20, Cl: 20, HCO3meq: 0.8 };
+    const si58 = siForIons(profHighP, 5.8, 20);
+    const si75 = siForIons(profHighP, 7.5, 20);
+    const si112 = siForIons(profHighP, 11.2, 20);
+    const secACP = verificaSicurezza([{ id: 'CaN', dose: 1000 }, { id: 'KH2PO4', dose: 250 }], 100, null, 6.5);
+    const secBrucite = verificaSicurezza([{ id: 'MgSO4', dose: 500 }], 100, null, 11.2);
+    out.s5 = {
+      safe58: si58.CaHPO4 < 0 && si58.ACP < -2 && si58.OCP < -1 && si58.MgOH2 < -7,
+      sup75: si75.ACP > 0 && si75.OCP > 2 && si75.CaHPO4 > 0,
+      bru112: si112.MgOH2 > 0 && !secBrucite.sicuro && secBrucite.critici.some(c => /Brucite/i.test(c.titolo)),
+      auditAcp: secACP.audit.some(a => a.check.includes('Ca₃(PO₄)₂') && /SI ACP/i.test(a.dettaglio) && /SI OCP/i.test(a.dettaglio)),
+    };
+
+    // S37.6: Acid Mix (H₃PO₄ + HNO₃), H₂SO₄ 38%, tampone fosfato & parità costo
+    const aqMix = { ec: 1.28, ph: 7.8, temp: 20, ca: 170, mg: 42, k: 8, na: 50, so4: 255, cl: 112, hco3: 340, no3: 17, fe: 0.2, acido: 'mix', mixPTarget: 40 };
+    const acMix = acidoPrescritto(aqMix, 5.8);
+    const acMix0 = acidoPrescritto({ ...aqMix, mixPTarget: 0 }, 5.8);
+    const acH2SO4 = acidoPrescritto({ ...aqMix, acido: 'H2SO4' }, 5.8);
+    const acHNO3 = acidoPrescritto({ ...aqMix, acido: 'HNO3' }, 5.8);
+    const avBuf = calcAcidVolume(aqMix, 1, 6.2, { pSaltsMgL: 60 });
+    const aqSCont = contributoAcqua(aqMix, acH2SO4);
+    const aq0Cont = contributoAcqua(aqMix, null);
+    // Parità costi stimaCostoRicettaPerMille vs calcola per mix e H2SO4
+    document.getElementById('acido-tipo').value = 'mix';
+    selPianta('pomodoro', 'builtin'); selFase(1);
+    const stimaMix = stimaCostoRicettaPerMille(faseSel).tot;
+    caricaRicettaCorrente(); calcola({ noScroll: true });
+    const txtMix = document.getElementById('calc-out').innerText;
+    const mMixCost = txtMix.match(/Costo per 1000 L finali[^\d]*([\d.,]+)/);
+    const costCalcMix = mMixCost ? parseFloat(mMixCost[1].replace(',', '.')) : null;
+    document.getElementById('acido-tipo').value = 'H2SO4';
+    const stimaH2S = stimaCostoRicettaPerMille(faseSel).tot;
+    calcola({ noScroll: true });
+    const txtH2S = document.getElementById('calc-out').innerText;
+    const mH2SCost = txtH2S.match(/Costo per 1000 L finali[^\d]*([\d.,]+)/);
+    const costCalcH2S = mH2SCost ? parseFloat(mH2SCost[1].replace(',', '.')) : null;
+    out.s6 = {
+      mixOk: acMix && acMix.tipo === 'MIX' && Math.abs(acMix.P - 40) < 0.5 && Math.abs((acMix.meqP + acMix.meqN) - acMix.meq) < 1e-9 && Math.abs(acMix.meq - acHNO3.meq) < 1e-9 && acMix.N > 0,
+      mixZeroP: acMix0 && acMix0.volH3PO4 === 0 && acMix0.P === 0 && Math.abs(acMix0.meq - acHNO3.meq) < 1e-9,
+      h2so4Ok: acH2SO4 && acH2SO4.tipo === 'H2SO4' && acH2SO4.N === 0 && acH2SO4.P === 0 && acH2SO4.S > 30 && acH2SO4.volH2SO4 > 0 && isFinite(acidoDeltaEc(acH2SO4)) && aqSCont.S > aq0Cont.S + 30,
+      bufOk: avBuf.pBufferMeq > 0.1 && avBuf.meqNettoTamponeP < avBuf.meq,
+      costParityMix: costCalcMix !== null && Math.abs(stimaMix - costCalcMix) <= 0.02,
+      costParityH2S: costCalcH2S !== null && Math.abs(stimaH2S - costCalcH2S) <= 0.02,
+    };
+
+    // S37.7: Solubilità ione comune estesa (KNO₃, KH₂PO₄) & freddo notturno 10°C
+    const solKNO3ci = verificaSolubilitaSerb([{ id: 'KNO3', nome: 'KNO₃', dose: 2500 }, { id: 'K2SO4', nome: 'K₂SO₄', dose: 1200 }], 100, 20);
+    const solKH2PO4ci = verificaSolubilitaSerb([{ id: 'MAP', nome: 'MAP', dose: 2000 }, { id: 'KNO3', nome: 'KNO₃', dose: 1800 }], 100, 20);
+    const solCold = verificaSolubilitaSerb([{ id: 'K2SO4', nome: 'K₂SO₄', dose: 500 }], 200, 20);
+    const secCold = verificaSicurezza([{ id: 'CaN', dose: 500, serb: 'B' }, { id: 'K2SO4', nome: 'K₂SO₄', dose: 500, serb: 'A' }], 200, { ec: 0.03, ph: 6.5, temp: 20, ca: 2, mg: 1, k: 0, na: 2, so4: 3, cl: 2, hco3: 8, no3: 1, fe: 0 }, 5.8);
+    out.s7 = {
+      kno3CI: solKNO3ci.problemi.some(p => p.id === 'KNO3_CI' && p.tipo === 'ioneComune'),
+      kh2po4CI: solKH2PO4ci.problemi.some(p => p.id === 'KH2PO4_CI' && p.tipo === 'ioneComune'),
+      coldWarn: solCold.problemi.some(p => p.tipo === 'freddoNotturno' && p.gravita === 'A' && p.tempCheck === 10),
+      coldNonBlocking: secCold.sicuro && secCold.avvisi.some(a => /10°C|notturn/i.test(a.titolo + ' ' + a.dettaglio)),
+    };
+
+    // S37.8: Stabilità competitiva Ca²⁺ ↔ Fe³⁺ sui chelati
+    const stLoCa = valutaStabilitaChelatoFe('FeEDTA', 6.4, 50);
+    const stHiCa = valutaStabilitaChelatoFe('FeEDTA', 6.4, 300);
+    const feSelLo = saleSingoloMicro('Fe', 6.4, 50);
+    const feSelHi = saleSingoloMicro('Fe', 6.4, 300);
+    const secFeCa = verificaSicurezza([{ id: 'CaN', dose: 1200, serb: 'B' }, { id: 'FeEDTA', nome: 'Fe-EDTA', dose: 20, serb: 'A' }], 100, { ec: 0.5, ph: 7.0, temp: 20, ca: 100, mg: 15, k: 4, na: 20, so4: 40, cl: 30, hco3: 40, no3: 5, fe: 0 }, 6.4);
+    out.s8 = {
+      compOk: stLoCa.stabile === true && stHiCa.stabile === false && stHiCa.suggerito === 'FeDTPA',
+      selOk: feSelLo?.id === 'FeEDTA' && feSelHi?.id === 'FeDTPA',
+      auditFeCa: secFeCa.audit.some(a => /Stabilità chelati Fe/i.test(a.check) && a.esito === 'AVVISO') && secFeCa.avvisi.some(a => /Ca²⁺/.test(a.dettaglio)),
+    };
+
+    // S37.9: E2E UI — Anti-precipitazione mostra ACP/OCP/Brucite + eseguiReset ripristina #acido-tipo
+    document.getElementById('acido-tipo').value = 'mix';
+    presetAcqua('dura'); selPianta('pomodoro', 'builtin'); selFase(1); caricaRicettaCorrente();
+    calcola({ noScroll: true });
+    toggleInfoTecniche(true);
+    const uiMixTxt = document.getElementById('calc-out').innerText;
+    eseguiReset();
+    const afterResetAcido = document.getElementById('acido-tipo').value;
+    out.s9 = {
+      hasMixText: /Mix 2 acidi|Mix H₃PO₄ \+ HNO₃/i.test(uiMixTxt),
+      hasPhases: /ACP/.test(uiMixTxt) && /OCP/.test(uiMixTxt) && /Brucite/.test(uiMixTxt),
+      hasIonModel: /coppie ioniche/i.test(uiMixTxt),
+      resetAcido: afterResetAcido === 'auto',
+    };
+
+    return out;
+  });
+
+  check(`S37.1: PHREEQC Gypsum 15.3 mM @ 25°C (SI=${s37.s1.siCaSO4.toFixed(3)} ≈ 0, coppia CaSO₄⁰=${(s37.s1.pairFrac * 100).toFixed(1)}%, bilancio esatto)`,
+    Math.abs(s37.s1.siCaSO4) < 0.08 && s37.s1.pairFrac >= 0.27 && s37.s1.pairFrac <= 0.38 && s37.s1.massBalOk);
+  check(`S37.2: acqua dura — coppie CaSO₄⁰+MgSO₄⁰ ${(s37.s2.pairDivFracD * 100).toFixed(1)}% dei cationi divalenti, EC ionica ${s37.s2.ecAqD.toFixed(2)} vs preset ${s37.s2.presetEc}`,
+    s37.s2.pairDivFracD > 0.10 && s37.s2.ecAqD < 1.48);
+  check(`S37.3: Debye-Hückel A(T) monotona e modello SIT attivo nei concentrati (I=${s37.s3.I_SIT.toFixed(2)} M, γCa=${s37.s3.gCaSIT.toFixed(3)})`,
+    s37.s3.dhMono && s37.s3.blendOk && s37.s3.sitOk);
+  check(`S37.4: pKa(T) + risolutore bilancio protonico stimaPhSerbatoio (${JSON.stringify(s37.s4.vals)})`,
+    s37.s4.pkaMono && s37.s4.phsOk);
+  check('S37.5: indici termodinamici ACP, OCP e Brucite Mg(OH)₂ coerenti con pH e verificati in sicurezza',
+    s37.s5.safe58 && s37.s5.sup75 && s37.s5.bru112 && s37.s5.auditAcp);
+  check('S37.6: Mix automatico (H₃PO₄+HNO₃), H₂SO₄ 38% (zero N/P), tampone fosfato e parità 1:1 costi',
+    s37.s6.mixOk && s37.s6.mixZeroP && s37.s6.h2so4Ok && s37.s6.bufOk && s37.s6.costParityMix && s37.s6.costParityH2S,
+    JSON.stringify(s37.s6));
+  check('S37.7: ione comune KNO₃/KH₂PO₄ e avviso freddo notturno 10°C (non bloccante)',
+    s37.s7.kno3CI && s37.s7.kh2po4CI && s37.s7.coldWarn && s37.s7.coldNonBlocking,
+    JSON.stringify(s37.s7));
+  check('S37.8: stabilità competitiva Ca²⁺↔Fe³⁺ (FeEDTA→FeDTPA ad alto Ca) e segnalazione in verificaSicurezza',
+    s37.s8.compOk && s37.s8.selOk && s37.s8.auditFeCa);
+  check('S37.9: UI end-to-end Mix/ACP/OCP/Brucite/coppie ioniche e eseguiReset ripristina auto',
+    s37.s9.hasMixText && s37.s9.hasPhases && s37.s9.hasIonModel && s37.s9.resetAcido,
+    JSON.stringify(s37.s9));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);

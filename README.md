@@ -6,11 +6,11 @@
 
 *Dalla ricetta nutritiva alle soluzioni madri concentrate — con verifica chimica quantitativa, compatibilità dei serbatoi e scheda operativa stampabile.*
 
-[![Version](https://img.shields.io/badge/versione-v2.3-2d5a3d)](index.html)
+[![Version](https://img.shields.io/badge/versione-v2.4-2d5a3d)](index.html)
 [![License: MIT](https://img.shields.io/badge/licenza-MIT-blue.svg)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
-[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S36-2471a3)](tests)
+[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S37-2471a3)](tests)
 [![i18n](https://img.shields.io/badge/lingue-IT%20%C2%B7%20EN-d4660a)](#-internazionalizzazione)
 
 [Funzionalità](#-funzionalità) · [Come si usa](#-come-si-usa) · [Struttura](#-struttura-del-progetto) · [Test](#-test) · [Documentazione](MANUALE_TECNICO.md)
@@ -39,10 +39,10 @@ Il calcolo tiene conto di:
 
 | Area | Cosa fa |
 |---|---|
-| **Motore chimico** | Speciazione ionica in funzione del pH, indici di saturazione termodinamici (Ksp), correzione di attività (Davies), stima EC e bilancio ionico in meq/L. |
-| **Solver a target (NNLS)** | Raggiunge i target di elementi in mg/L con minimi quadrati non negativi (Lawson-Hanson), pesi per elemento, vincolo NH₄ ≤ 10% e solo ingredienti in scorta. Lo stesso solver ribilancia le ricette in grammi per l'acqua di partenza e sostituisce gli ingredienti mancanti preservando il profilo. |
-| **Compatibilità serbatoi** | Matrice di incompatibilità tra gruppi ionici, assegnazione automatica ai serbatoi A/B/C, rilevamento coppie critiche (es. Ca + fosfati). Quando servono **3 soluzioni madri** il Serbatoio C si attiva da solo. |
-| **Auto-risoluzione** | Sposta i sali, sceglie da solo l'acido più adatto per i bicarbonati (HNO₃ o H₃PO₄, modificabile dall'utente) e ribilancia le dosi quando la soluzione esce dalla zona sicura. |
+| **Motore chimico** | Speciazione accoppiata (`speciateFull`) con 12 coppie ioniche Ca/Mg/SO₄/PO₄/CO₃, indici di saturazione termodinamici (`CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP`, brucite `Mg(OH)₂`), modello ibrido `Davies` → `SIT` dipendente da T (`debyeHuckelA(T)`), `pKa(T)`, stima EC e bilancio in meq/L. |
+| **Solver a target (NNLS)** | Raggiunge i target di elementi in mg/L con minimi quadrati non negativi (Lawson-Hanson), pesi per elemento, vincolo NH₄ ≤ 10%, stabilità competitiva Ca²⁺↔Fe³⁺ sui chelati e solo ingredienti in scorta. Lo stesso solver ribilancia le ricette in grammi per l'acqua di partenza e sostituisce gli ingredienti mancanti preservando il profilo. |
+| **Compatibilità serbatoi** | Matrice di incompatibilità tra gruppi ionici, assegnazione automatica ai serbatoi A/B/C, risolutore di pH per bilancio protonico nei serbatoi, solubilità estesa (ione comune K₂SO₄/KNO₃/KH₂PO₄ + check freddo notturno 10 °C). Quando servono **3 soluzioni madri** il Serbatoio C si attiva da solo. |
+| **Auto-risoluzione** | Sposta i sali, sceglie da solo l'acido migliore (`Automatico`), gestisce il **Mix 2 acidi** (`H₃PO₄ + HNO₃`) e **H₂SO₄ 38%**, e ribilancia le dosi quando la soluzione esce dalla zona sicura. |
 | **Verifica di sicurezza** | Controlla precipitazioni, rapporti antagonisti, soglie NH₄/Na/Cl e segnala rischi agronomici. |
 | **Catalogo ingredienti** | 22 sali predefiniti + fertilizzanti custom, con composizione, prezzo, note e gestione della **scorta** reale in magazzino. |
 | **Ricette** | 11 colture builtin (pomodoro, lattuga, cetriolo, fragola…) con fasi di crescita; editor per ricette e target personalizzati. |
@@ -89,7 +89,7 @@ FertiControl è anche una **Progressive Web App**. Quando è **servita via HTTPS
 ├── index.html              # L'applicazione completa (CSS + markup + JS in un solo file)
 ├── MANUALE_TECNICO.md      # Manuale tecnico: architettura, motore chimico, solver, sicurezza
 └── tests/
-    ├── run-tests.js        # Suite Playwright (S1–S36) sull'app reale in Chromium headless
+    ├── run-tests.js        # Suite Playwright (S1–S37) sull'app reale in Chromium headless
     ├── hooks/pre-commit    # Esegue la suite a ogni commit che tocca app o test
     └── README.md           # Cosa copre ogni sezione di test
 .github/workflows/test.yml  # Stessa suite su GitHub Actions a ogni push/PR
@@ -113,7 +113,7 @@ Interfaccia completa **italiano / inglese** con architettura a tre livelli: mark
 
 ## 🧪 Test
 
-La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza e UI — 36 sezioni (S1–S36) che includono golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
+La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza e UI — 37 sezioni (S1–S37) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
 
 ```bash
 # Requisiti: Node.js ≥ 18
@@ -178,7 +178,7 @@ Everything lives in **a single HTML file** — no install, no backend, no accoun
 
 **Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Water → Recipes → Calculate** (with **Catalog** and **Data** as support).
 
-**Tests:** a Playwright suite (S1–S36) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
+**Tests:** a Playwright suite (S1–S37) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
 
 ```bash
 npm install playwright && npx playwright install chromium

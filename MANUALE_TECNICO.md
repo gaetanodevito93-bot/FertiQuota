@@ -1,6 +1,6 @@
 # FertiControl — Manuale Tecnico
 
-**Versione applicazione:** v2.3
+**Versione applicazione:** v2.4
 **File:** `index.html`
 
 Questo documento spiega com'è pensato FertiControl, come è costruito e quali funzionalità offre. È rivolto a chi riceve il file e vuole capirne la logica interna: utenti avanzati, sviluppatori e chiunque voglia modificarlo o estenderlo.
@@ -49,7 +49,7 @@ A differenza dei semplici calcolatori di dosi, FertiControl include un **motore 
 
 ### 2.1 Un solo file, nessuna dipendenza
 
-L'intera applicazione vive in **un unico file HTML** (~5.900 righe, ~390 KB) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
+L'intera applicazione vive in **un unico file HTML** (~6.360 righe, ~425 KB) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
 
 - **Zero installazione**: si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
 - **Zero backend**: nessun server, nessun account, nessuna trasmissione di dati. Tutto gira in locale.
@@ -65,18 +65,18 @@ Il file è ordinato in blocchi riconoscibili:
 
 | Sezione | Contenuto | Zona indicativa |
 |---|---|---|
-| `<head>` + `<style>` | Meta tag, favicon SVG inline, CSS unificato (variabili tema, componenti, media query, stili stampa) | righe 1–320 |
-| Markup | Header, splash screen, barra tab, i 5 pannelli, i modali (ingrediente, ricetta, conferme) | righe 320–720 |
-| i18n | Dizionari IT/EN e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 721–1179 |
-| Costanti chimiche | Masse molari `MM`, conduttività `LAMBDA`, `PH_DEFAULT` | righe 1180–1184 |
-| Motore chimico | Ksp, speciazione con attività, Davies, SI, EC, bilancio meq, profilo, acido (`molaritaAcido`, `h3po4EqPerMol`, `calcAcidVolume`, `acidoPrescritto`), pH e solubilità concentrati (`stimaPhSerbatoio`, `SOLUBILITA_G_L`, `verificaSolubilitaSerb`) | righe 1185–1560 |
-| Dati di fabbrica & stato | `SALI_DEFAULT` (catalogo), `mergeCatalogoDefaults`, `PIANTE_BUILTIN` (ricette), `localStorage`, `statoCalc`, traduzioni dati | righe 1561–2270 |
-| UI Ricette & editor | `initPiante`, selezione pianta/fase, editor ricette custom, editor target, `renderCalcTabella` | righe 2271–2835 |
-| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `risolviMicro`, `solverTarget`, `sostituisciNonDisponibili`, `ricalcolaConDisponibili` | righe 2836–3287 |
-| Compatibilità | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `capNH4NO3`, `autoRisolvi`, `autoBilanciaSali`, `checkNeedSerbC` | righe 3288–3807 |
-| Verifica e calcolo | `verificaSicurezza`, `correggiDosi`, `validaInput`, `calcola` e rendering risultati | righe 3808–4863 |
-| Stampa | `stampaMiscela`, `stampaMiscelaDaRisultato` (con escaping XSS), `stampaCatalogo`, iframe di stampa | righe 4864–5428 |
-| Catalogo e Dati | `renderBilanciaReport`, `renderCatalogo`, CRUD ingredienti (15 elementi + `_elCustom`), scorta, export/import/reset | righe 5429–5915 |
+| `<head>` + `<style>` | Meta tag, favicon SVG inline, CSS unificato (variabili tema, componenti, media query, stili stampa) | righe 1–319 |
+| Markup | Header, splash screen, barra tab, i 5 pannelli, i modali (ingrediente, ricetta, conferme) | righe 320–722 |
+| i18n | Dizionari IT/EN e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 723–1185 |
+| Costanti chimiche | Masse molari `MM`, conduttività `LAMBDA` (incluse coppie ioniche 1:1), `PH_DEFAULT` | righe 1186–1207 |
+| Motore chimico | `debyeHuckelA(T)`, `vantHoffPka`/`LogK`, Ksp(`CaCO₃`, `CaSO₄`, brushite, struvite, `ACP`, `OCP`, brucite), `speciate`, `speciateFull` (12 coppie ioniche), `SIT_EPS`/`sitGamma`/`gammaIon`, SI, EC, bilancio meq, acido (`molaritaAcido`, `h3po4EqPerMol`, `calcAcidVolume`, `acidoPrescritto` con `mix`/`H₂SO₄`), `stimaPhSerbatoio` (bilancio protonico), `SOLUBILITA_G_L`, `verificaSolubilitaSerb` (`K₂SO₄`/`KNO₃`/`KH₂PO₄` + 10 °C) | righe 1208–1889 |
+| Dati di fabbrica & stato | `SALI_DEFAULT` (catalogo), `mergeCatalogoDefaults`, `PIANTE_BUILTIN` (ricette), `localStorage`, `statoCalc`, traduzioni dati | righe 1890–2599 |
+| UI Ricette & editor | `initPiante`, selezione pianta/fase, editor ricette custom, editor target, `renderCalcTabella` | righe 2600–3167 |
+| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `valutaStabilitaChelatoFe`, `risolviMicro`, `solverTarget`, `sostituisciNonDisponibili`, `ricalcolaConDisponibili` | righe 3168–3651 |
+| Compatibilità | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `capNH4NO3`, `autoRisolvi`, `autoBilanciaSali`, `checkNeedSerbC` | righe 3652–4180 |
+| Verifica e calcolo | `verificaSicurezza`, `correggiDosi`, `validaInput`, `calcola` e rendering risultati | righe 4181–5307 |
+| Stampa | `stampaMiscela`, `stampaMiscelaDaRisultato` (con escaping XSS), `stampaCatalogo`, iframe di stampa | righe 5308–5704 |
+| Catalogo e Dati | `renderBilanciaReport`, `renderCatalogo`, CRUD ingredienti (15 elementi + `_elCustom`), scorta, export/import/reset | righe 5705–6359 |
 
 ### 2.3 Convenzioni
 
@@ -204,8 +204,8 @@ Quando una fase target viene caricata in Calcola, la variabile `window._targetAt
 
 - **Volume Serbatoio A e B** (litri) — e **C** se attivato.
 - **Fattore di diluizione 1:X** — 1 L di concentrato produce X L di soluzione finale. Più X è alto, più la madre è concentrata e più cresce il rischio di precipitazione: il campo ha un warning dinamico (`aggiornaDiluizioneWarning`) e il motore può **suggerire la diluizione massima sicura** in base alle dosi.
-- **Acido per i bicarbonati** — HNO₃ (apporta N) o H₃PO₄ (apporta P): il motore conteggia l'elemento apportato e riduce di conseguenza i sali.
-- **pH soluzione finale** — il pH mantenuto in coltura (default **5.8**, `PH_DEFAULT`). È l'input chiave della verifica anti-precipitazione dei fosfati (a pH ≤ 6 il fosfato di calcio resta in soluzione; sopra 6.3 tende a precipitare) e **dimensiona la dose di acido** prescritta per i bicarbonati. Se già esiste un risultato, cambiare il pH ricalcola al volo: le dosi dei sali restano invariate per scelta (i fabbisogni nutritivi non dipendono dal pH), mentre cambiano gli indici di saturazione, gli avvisi e i mL di acido.
+- **Acido per i bicarbonati** — **Automatico** (sceglie HNO₃ o H₃PO₄), **Mix automatico (`H₃PO₄ + HNO₃`)** (dosa H₃PO₄ fino a coprire il P della ricetta e completa con HNO₃), oppure singolo acido forzato (**HNO₃ 38%**, **H₃PO₄ 75%**, **H₂SO₄ 38%** a zero N/P): il motore conteggia N, P o S apportati e riduce di conseguenza i sali.
+- **pH soluzione finale** — il pH mantenuto in coltura (default **5.8**, `PH_DEFAULT`). È l'input chiave della verifica anti-precipitazione dei fosfati (a pH ≤ 6 il fosfato di calcio resta in soluzione; sopra 6.3 tende a precipitare), **dimensiona la dose di acido** prescritta per i bicarbonati (con stima opzionale del tampone fosfato da `H₂PO₄⁻` dei sali, `pBufferMeq`) e determina la stabilità competitiva dei chelati di ferro. Se già esiste un risultato, cambiare il pH ricalcola al volo: le dosi dei sali restano invariate per scelta (i fabbisogni nutritivi non dipendono dal pH), mentre cambiano gli indici di saturazione, gli avvisi e i mL di acido.
 
 ### 6.2 Tabella "Sali da Preparare"
 
@@ -245,49 +245,43 @@ La scheda risultato comprende:
 
 ## Capitolo 7 — Il motore chimico
 
-È la parte che distingue FertiControl da un foglio di calcolo. Tutto il motore è nelle righe 1180–1560 e usa la termodinamica delle soluzioni, non soglie empiriche.
+È la parte che distingue FertiControl da un foglio di calcolo. Tutto il motore è nelle righe 1186–1889 e usa la termodinamica delle soluzioni con benchmark verso PHREEQC/Visual MINTEQ, non soglie empiriche.
 
-### 7.1 Costanti
+### 7.1 Costanti e dipendenza dalla temperatura
 
 - `MM` — masse molari degli elementi (Ca 40.078, Mg 24.305, K 39.098, N 14.007, P 30.974, S 32.06…).
-- `LAMBDA` — conduttività molari limite degli ioni (Kohlrausch) per il calcolo EC.
-- `PH_DEFAULT` = 5.8 e costanti acido-base integrate nei calcoli: pKa₂ fosfato 7.20, pKa₃ fosfato 12.35, pKa₁ carbonato 6.35, pKa₂ carbonato 10.33; coefficiente Davies A = 0.509.
+- `LAMBDA` — conduttività molari limite degli ioni (Kohlrausch) **e delle coppie ioniche cariche 1:1** (`KSO4`, `NaSO4`, `CaHCO3`, `MgHCO3`, `CaH2PO4`, `MgH2PO4`) per il calcolo EC.
+- `PH_DEFAULT` = 5.8 e costanti acido-base integrate nei calcoli: pKa₁ fosfato 2.15, pKa₂ 7.20, pKa₃ 12.35, pKa₁ carbonato 6.35, pKa₂ 10.33, pKa NH₄⁺ 9.25, pKw 14.00 — tutte dotate di helper van 't Hoff dipendenti dalla temperatura (`pka1Phos(T)`, `pka2Phos(T)`, `pka3Phos(T)`, `pka1Carb(T)`, `pka2Carb(T)`, `pkaNH4(T)`, `pkwTemp(T)`). Parametro Debye-Hückel `debyeHuckelA(T)` calcolato da permittività dielettrica e densità dell'acqua (`≈ 0.509` a 25 °C).
 
-### 7.2 Speciazione ionica (`speciate`)
+### 7.2 Speciazione ionica accoppiata (`speciate` & `speciateFull`)
 
-Converte il profilo in ppm in **molarità per specie**, ripartendo:
+Converte il profilo in ppm in **molarità per specie libera**, risolvendo in modo autoconsistente (`speciateFull`, iterazione smorzata a 25 passi):
 
-- il fosforo tra H₂PO₄⁻ / HPO₄²⁻ / PO₄³⁻ secondo il pH. Il pH misura l'**attività** di H⁺, quindi i rapporti seguono i pKa termodinamici corretti per i coefficienti di attività: `[HPO₄²⁻]/[H₂PO₄⁻] = 10^(pH−pKa₂)·γ₁/γ₂`. Forza ionica e γ vengono iterati fino a convergenza. Ignorare γ₁/γ₂ (come nelle versioni precedenti) sottostimava HPO₄²⁻, e quindi il rischio brushite, di un fattore ~1.6 nella soluzione finale e 2–3 nei concentrati;
-- i carbonati tra HCO₃⁻ / CO₃²⁻ (stessa correzione di attività);
-- l'azoto tra NO₃⁻ e NH₄⁺ (in base al sale di provenienza: NH₄NO₃ = 50/50, MAP = tutto ammoniacale).
+- il fosforo tra `H₃PO₄` / `H₂PO₄⁻` / `HPO₄²⁻` / `PO₄³⁻` e i carbonati tra `HCO₃⁻` / `CO₃²⁻` tramite pKa termodinamici a `T` corretta sulle attività: `[HPO₄²⁻]/[H₂PO₄⁻] = 10^(pH−pKa₂(T))·γ₁/γ₂`;
+- **12 coppie ioniche accoppiate** (`CaSO₄⁰`, `MgSO₄⁰`, `KSO₄⁻`, `NaSO₄⁻`, `CaHCO₃⁺`, `MgHCO₃⁺`, `CaCO₃⁰`, `MgCO₃⁰`, `CaH₂PO₄⁺`, `MgH₂PO₄⁺`, `CaHPO₄⁰`, `MgHPO₄⁰`) con `logK(25°C)` e `ΔH` da NIST / PHREEQC `phreeqc.dat` / `minteq.v4`. Su acque dure o ricche di gesso (`15.3 mM CaSO₄`), circa il 32% del Ca²⁺ è complessato come `CaSO₄⁰`, riducendo i falsi positivi di precipitazione e la sovrastima dell'EC ionica;
+- l'azoto tra `NO₃⁻` e `NH₄⁺` (NH₄NO₃ = 50/50, MAP = 100%, o `nh4Frac`). La funzione `speciate(s, ph)` senza coppie ioniche è preservata per verifiche analitiche e bilancio di massa sui totali.
 
-### 7.3 Attività: equazione di Davies
+### 7.3 Attività: modello ibrido Davies → SIT
 
-Le concentrazioni non bastano nelle soluzioni concentrate: gli ioni si "schermano" a vicenda. `ionicStrength` calcola la forza ionica I e `davies(I, z)` il coefficiente di attività γ per carica z:
+Le concentrazioni non bastano nelle soluzioni reali né tantomeno nei concentrati: `ionicStrength` e `speciateFull` calcolano forza ionica `I` e coefficienti di attività `γ` tramite `gammaIon(ion, z, I, freeIons, T)`:
 
-```
-log γ = −A·z²·( √I/(1+√I) − 0.3·I )
-```
-
-Tutti gli indici di saturazione usano **attività** (γ·c), non concentrazioni: questo evita sia falsi allarmi sia falsi negativi nelle madri concentrate.
+- **`I ≤ 0.15 mol/L`**: equazione di **Davies** dipendente dalla temperatura (`debyeHuckelA(T)`);
+- **`I ≥ 0.50 mol/L`**: **Specific Ion Interaction Theory (SIT, Ciavatta / PHREEQC `sit.dat`)** `log₁₀ γ = −A(T)·z²·√I/(1+1.5·√I) + Σ ε(ion, j)·m_j`, catturando le interazioni specifiche ad alta salinità nelle madri 1:100–1:200;
+- **`0.15 < I < 0.50`**: fusione log-lineare continua tra Davies e SIT; per le specie neutre vale il termine Setschenow (`10^(0.1·min(I,4))`).
 
 ### 7.4 Prodotti di solubilità dipendenti dalla temperatura
 
-- **Calcite (CaCO₃)**: correlazione di Plummer-Busenberg completa (`kspCalcite`, esotermica).
-- **CaHPO₄ (brushite)**: correlazione sperimentale a tre termini di Gregory, Moreno & Brown (1970) `ln Ksp = −8403.5/T + 41.863 − 0.096787·T` (`kspCaHPO4`, massimo di solubilità attorno a ~21.5 °C).
-- **CaSO₄ (gesso) e struvite (MgNH₄PO₄)**: Ksp a 25 °C corretti con **van 't Hoff** (`vantHoff`, per la struvite dissoluzione endotermica con `Ksp(25°C) = 4.365e-14` e `ΔH = +22.6 kJ/mol`).
+- **Calcite (`CaCO₃`)**: correlazione di Plummer-Busenberg (`kspCalcite`, esotermica).
+- **Brushite (`CaHPO₄·2H₂O`)**: correlazione di Gregory, Moreno & Brown (1970) `ln Ksp = −8403.5/T + 41.863 − 0.096787·T` (`kspCaHPO4`).
+- **Gesso (`CaSO₄·2H₂O`)**: `Ksp(25°C) = 2.63×10⁻⁵` (`log Ksp = −4.58`, `ΔH = −0.45 kJ/mol`, allineato a PHREEQC con speciazione `CaSO₄⁰`).
+- **Struvite (`MgNH₄PO₄`)**: dissoluzione endotermica (`Ksp = 4.365×10⁻¹⁴`, `ΔH = +22.6 kJ/mol`).
+- **Fasi fosfatiche alcaline/concentrate e idrossidi**: **ACP** (`Ca₃(PO₄)₂(am)`, `log Ksp = −25.5`), **OCP** (`Ca₄H(PO₄)₃·2.5H₂O`, `log Ksp = −46.9`) e **Brucite** (`Mg(OH)₂`, `log Ksp = −11.16`), calcolati in spazio `log₁₀` per evitare underflow numerici.
 
-### 7.5 Indice di saturazione (SI) e solubilità nei concentrati
+### 7.5 Indice di saturazione (SI), pH bilancio protonico e solubilità nei concentrati
 
-Per ogni sale a rischio: `SI = log₁₀(IAP / Ksp)` dove IAP è il prodotto delle attività ioniche.
-
-- **SI < −0.5** → ampio margine, sicuro;
-- **−0.5 ≤ SI < 0** → metastabile, avviso;
-- **SI > 0** → sovrasaturo, precipita.
-
-Il SI viene calcolato **in tre contesti distinti**: (a) per singolo serbatoio concentrato (`serbSIs` — solo i sali di quel serbatoio × diluizione, pH stimato in base al contenuto via `stimaPhSerbatoio` [~2.5 con acidi forti, 11.0 con KOH/silicato, 4.6 con fosfati acidi, 6.0 neutro], temperatura dell'acqua); (b) il peggiore tra i serbatoi (`worstSerbSI`); (c) nella **soluzione finale diluita** al pH operativo scelto (`siFinaleSoluzione`), sempre alla temperatura impostata. Questa separazione è concettualmente importante: un composto può essere a rischio nel concentrato ma non nella finale (gestibile con pulizia tank o 3° serbatoio) o viceversa (grave: precipita nei gocciolatori).
-
-In aggiunta, `SOLUBILITA_G_L` e `verificaSolubilitaSerb` verificano la solubilità in grammi/litro di ogni sale del concentrato (interpolata per temperatura tra 0 e 40 °C, con soglia avviso >80% e critica >100%) e controllano l'**effetto ione comune di K₂SO₄** (precipitazione da eccesso congiunto di K⁺ e SO₄²⁻, es. da KNO₃ + MgSO₄).
+Per ogni fase: `SI = log₁₀(IAP / Ksp(T))` sulle attività libere da `speciateFull`.
+- `stimaPhSerbatoio(righeSerb, dil, Tc)` risolve per **bisezione il bilancio protonico reale** (`totH` rispetto a `H₂O, H₂PO₄⁻, NH₄⁺, H₃BO₃, H₄SiO₄` con `pKa(T)` e `γ`) nei singoli serbatoi concentrati (restituendo `6.0` per soli sali neutri, `~1.3–2.3` con `HNO₃/H₃PO₄/H₂SO₄`, `~4.3–4.5` con `KH₂PO₄/MAP`, `>11.5` con `KOH/K₂SiO₃`).
+- `verificaSolubilitaSerb` verifica la solubilità singola (`SOLUBILITA_G_L`), lo **ione comune esteso** per **`K₂SO₄`**, **`KNO₃`** e **`KH₂PO₄`**, ed esegue un **controllo notturno a 10 °C** segnalando con avviso non bloccante i concentrati che cristallizzerebbero col raffreddamento notturno in serra.
 
 ### 7.6 EC e bilancio ionico
 
@@ -382,7 +376,7 @@ Ogni riga è pesata con `priorità / √max(target, 10)`: lo schema *variance-st
 - **Solo sali in scorta**: macro, Mix Chelati, chelati e micro singoli vengono scelti tra gli ingredienti disponibili.
 - **CaCl₂ è escluso** dal pool del solver: matematicamente sarebbe una fonte di Ca "gratis" (senza N), ma scaricherebbe 150–200 mg/L di cloruro fitotossico. Resta un supplemento manuale.
 - **Acido coerente**: l'N (HNO₃) o il P (H₃PO₄) dell'acido prescritto al pH della soluzione finale vengono sottratti dai target.
-- **Micro** (`risolviMicro`): il **Mix Chelati** è dimensionato in modo che **nessun** micro (incluso Fe, cappato a `1.25×` del target) superi il proprio target né la soglia di tossicità (Mn 2, Zn 0.5, B 0.5, Cu 0.15 mg/L). I deficit residui (>10%) vengono colmati con i sali singoli più convenienti per mg di elemento: per il Fe `saleSingoloMicro` sceglie il chelato stabile al `phFinale` impostato (`FeEDDHA` a pH > 7.5, `FeDTPA`/`FeEDDHA` a pH > 6.5, `FeEDTA` a pH ≤ 6.5) prima del `FeSO₄`; ciò che nessun sale in scorta fornisce (tipicamente il Cu se manca `MixCh`) viene segnalato con una riga ⚠️.
+- **Micro** (`risolviMicro` + `valutaStabilitaChelatoFe`): il **Mix Chelati** è dimensionato in modo che **nessun** micro (incluso Fe, cappato a `1.25×` del target) superi il proprio target né la soglia di tossicità (Mn 2, Zn 0.5, B 0.5, Cu 0.15 mg/L). I deficit residui (>10%) vengono colmati con i sali singoli più convenienti per mg di elemento: per il Fe `saleSingoloMicro` calcola la **stabilità competitiva `Ca²⁺ ↔ Fe³⁺`** (`pH_max(EDTA) = 6.50 − 0.35·log₁₀(max(1, Ca/100))`, `pH_max(DTPA) = 7.50 − 0.25·log₁₀(max(1, Ca/100))`, `EDDHA = 9.0`) e seleziona il chelato stabile al `phFinale` e al `Ca²⁺` della ricetta prima del `FeSO₄`.
 
 ---
 
@@ -393,13 +387,14 @@ Ogni riga è pesata con `priorità / √max(target, 10)`: lo schema *variance-st
 | # | Controllo | Metodo |
 |---|---|---|
 | 1 | Coppie incompatibili per serbatoio | Matrice ID + gruppi ionici (`getSale(r.id) \|\| r`), tutte le coppie (con dose > 0) di ogni tank |
-| 2 | SI CaSO₄ per serbatoio | siForIons con Davies, Ksp(T) e `stimaPhSerbatoio` |
-| 2b | SI e solubilità sali nel concentrato | `worstSerbSI` (`CaSO₄`/`CaHPO₄`/struvite) + `verificaSolubilitaSerb` (solubilità singola `SOLUBILITA_G_L` ed effetto ione comune `K₂SO₄`) + avviso acqua dura per riempimento tank madre |
-| 2c | SI nella soluzione finale al pH operativo | `siFinaleSoluzione`; per i composti pH-dipendenti (`CaHPO₄`, struvite, `CaCO₃`) suggerisce il pH sicuro (`richiedeAzionePh` attiva il banner/badge `warn`) invece del taglio dosi |
+| 2 | SI CaSO₄ per serbatoio | `siForIons` con `speciateFull` (coppie ioniche + Davies/SIT), `Ksp(T)` e `stimaPhSerbatoio` per bilancio protonico |
+| 2b | SI e solubilità sali nel concentrato | `worstSerbSI` (`CaSO₄`/`CaHPO₄`/struvite/brucite) + `verificaSolubilitaSerb` (`SOLUBILITA_G_L`, ione comune `K₂SO₄`/`KNO₃`/`KH₂PO₄` + avviso freddo notturno 10 °C) + avviso acqua dura per riempimento tank madre |
+| 2c | SI nella soluzione finale (incl. ACP/OCP/Brucite) | `siFinaleSoluzione`: oltre a `CaSO₄`, `CaHPO₄`, struvite e `CaCO₃`, calcola SI quantitativi di **ACP** (`Ca₃(PO₄)₂(am)`), **OCP** (`Ca₄H(PO₄)₃`) e **Brucite** (`Mg(OH)₂`); suggerisce pH sicuro (`richiedeAzionePh`) invece del taglio dosi |
 | 3 | CaCO₃ dai bicarbonati dell'acqua | IAP vs Ksp calcite(T) su acqua **e** `siFin.CaCO3` nella finale; "GESTITO" solo se l'acido è prescritto e `siFin.CaCO3 ≤ 0`, altrimenti AVVISO |
 | 4 | EC del concentrato | Informativo (sali × diluizione + EC dell'acqua): "la sicurezza la fanno gli SI, non soglie EC arbitrarie" |
 | 5 | Rapporto NH₄⁺/N totale | Sull'N totale (sali + acqua + acido); oltre il 10% è un AVVISO esplicito |
 | 6 | Tossicità micronutrienti | Soglie da letteratura: Mn > 2, Zn > 0.5, B > 0.5, Cu > 0.15 mg/L; oltre 3× la soglia è **critico** (un errore di dosaggio, non una sfumatura) |
+| 6b | Stabilità competitiva chelati Fe | `valutaStabilitaChelatoFe`: segnala `AVVISO` se `FeEDTA`/`MixCh` o `FeDTPA` supera il proprio `pH_max` ridotto dall'antagonismo col `Ca²⁺` totale |
 | 7 | Salinità Na/Cl | Acqua + sali (il Cl del CaCl₂ è incluso); limiti coco Na ~50, Cl ~100 mg/L |
 
 Esiti possibili per check: **OK**, **AVVISO** (gravità A), **CONFLITTO** (gravità C, bloccante per il giudizio "sicuro"), **GESTITO** (problema presente ma già risolto da una prescrizione, es. acido per i bicarbonati), **INFO**.
@@ -436,7 +431,7 @@ Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare i
 
 ## Capitolo 12 — Scheda Dati
 
-- **⬇ Esporta**: scarica un JSON (`_meta.version: "2.3"`) con catalogo, scorta, ricette personalizzate, analisi acqua corrente e profili acqua salvati — backup o condivisione della configurazione tra dispositivi/utenti.
+- **⬇ Esporta**: scarica un JSON (`_meta.version: "2.4"`) con catalogo, scorta, ricette personalizzate, analisi acqua corrente e profili acqua salvati — backup o condivisione della configurazione tra dispositivi/utenti.
 - **⬆ Importa**: carica un JSON esportato. Le ricette e gli ingredienti custom vengono **uniti** agli esistenti; i valori numerici sui sali default vengono sanificati con `cleanNum` e le eventuali personalizzazioni `_elCustom` validate con `normalizeImportedEl`. Ogni campo importato è normalizzato e sanificato (`normalizeImportedEl`, `normalizeImportedFase`, `stripTags`, `isSafeId`).
 - **↺ Reset**: ripristino completo ai valori di fabbrica (catalogo default, scorta piena, zero ricette custom, **cancellazione profili acqua salvati**, ripristino acqua `media`, azzeramento `fc_acido`→`auto` e Serbatoio C→off) con doppia conferma.
 - **📊 Stato attuale**: contatori live (ingredienti, disponibili in scorta, ricette custom, ricette predefinite).
@@ -470,7 +465,7 @@ Tutto in `localStorage` del browser — nessun dato lascia il dispositivo:
 | `fc_catalogo_v` | Versione del catalogo per la migrazione |
 | `fc_ricette` | Ricette personalizzate |
 | `fc_scorta` | ID degli ingredienti disponibili in magazzino |
-| `fc_acido` | Acido scelto per i bicarbonati (`HNO3` / `H3PO4`) |
+| `fc_acido` | Acido scelto per i bicarbonati (`auto` / `mix` / `HNO3` / `H3PO4` / `H2SO4`) |
 
 Attenzione: `localStorage` è **per browser e per origine** — aprendo il file da un percorso diverso o in un altro browser i dati non seguono. Per trasferirli si usa l'export JSON.
 
@@ -479,7 +474,7 @@ Attenzione: `localStorage` è **per browser e per origine** — aprendo il file 
 - **`safeParse`**: ogni lettura da localStorage è protetta — un dato corrotto degrada ai default invece di bloccare lo script a livello top-level (che lascerebbe l'app vuota).
 - **Sanificazione**: `stripTags` rimuove `<`, `>`, `"` da tutti i testi salvati/importati; `esc` fa l'escape in rendering; `sanitizeName` e `isSafeId` validano nomi e ID importati. Obiettivo: nessuna injection HTML da un JSON malevolo o da vecchi dati.
 - **Immutabilità degli input**: la pipeline di calcolo lavora su copie (`wRighe`); i dati di fabbrica (`SALI_DEFAULT`, `PIANTE_BUILTIN`) non vengono mai mutati.
-- **Test a ogni modifica del motore**: la suite (`tests/run-tests.js`, S1–S36) gira in ~10 s con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
+- **Test a ogni modifica del motore**: la suite (`tests/run-tests.js`, S1–S37) gira in ~10 s con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
 - **Nessun tracking**: nessuno script di analytics (rimosso esplicitamente nella storia del progetto).
 
 ---
@@ -499,9 +494,9 @@ La lingua scelta persiste in `fc_lang` e si cambia dall'header senza ricaricare.
 ## Capitolo 16 — Limiti, assunzioni e avvertenze
 
 - **Orientamento coco coir**: le soglie (NH₄ ≤ 10% dell'N, Na ~50 mg/L, Cl ~100 mg/L, note sull'accumulo di solfati) e le ricette sono calibrate per coco. Per NFT/lana di roccia/suolo i profili vanno adattati.
-- **Davies oltre il suo campo di validità**: nei concentrati 1:100 la forza ionica arriva a 1–1.5 mol/L, dove Davies è un'approssimazione (il termine lineare è attenuato sopra 0.5 M). Le coppie ioniche (CaSO₄°, MgSO₄°, CaH₂PO₄⁺) non sono modellate: lo SI del gesso è sovrastimato (errore prudente).
+- **Modello di attività e forze ioniche estreme**: fino a `I = 0.15 mol/L` si applica l'equazione di Davies con parametro `debyeHuckelA(T)`; oltre `0.50 mol/L` subentra la **Specific Ion Interaction Theory (SIT)** (`SIT_EPS`, Ciavatta/PHREEQC) con fusione fluida nell'intervallo `0.15–0.50 M` e 12 coppie ioniche accoppiate (`CaSO₄⁰`, `MgSO₄⁰`, `CaHPO₄⁰`, ecc.). Per salamoie industriali estreme (`I > 4–6 mol/L`), un modello Pitzer completo resta più accurato del SIT troncato.
 - **Limiti fisici della correzione acqua**: se l'acqua apporta già tutto il Ca (o il Mg) della ricetta, l'N che i nitrati di Ca/Mg avrebbero portato si recupera solo con KNO₃ (vincolato dal K) e NH₄ (≤ 10%); con acque molto dure l'N può restare 20–30% sotto la ricetta. La tabella di fedeltà lo mostra.
-- **pH del concentrato stimato per contenuto** (`stimaPhSerbatoio`): anziché un pH fisso 6.0 uguale per tutti, `serbSIs` stima il pH del concentrato per serbatoio (2.5 con acidi forti, 11.0 con KOH/silicato, 4.6 con fosfati acidi, 6.0 neutro) — resta comunque una euristica di classe anziché una titolazione acido-base completa del concentrato. La **temperatura** alimenta tutti i Ksp e le solubilità dei sali; resta l'assunzione che serbatoi e soluzione finale siano alla stessa temperatura dell'acqua dichiarata.
+- **pH del concentrato per bilancio protonico** (`stimaPhSerbatoio`): il motore risolve l'equilibrio acido-base reale per singolo serbatoio (`HNO₃`, `H₃PO₄`, `H₂SO₄`, `KOH`, `K₂SiO₃`, `KH₂PO₄`, `MAP`, `NH₄⁺`, `H₃BO₃`) con `pKa(T)`; resta l'assunzione che il concentrato venga preparato con acqua a bassa alcalinità (eventualmente RO) alla stessa temperatura dell'acqua dichiarata (con controllo preventivo notturno a 10 °C in `verificaSolubilitaSerb`).
 - **La cinetica non è modellata**: SI > 0 indica sovrasaturazione termodinamica; i tempi reali di precipitazione dipendono da nucleazione, agitazione e impurezze. Il margine −0.5 esiste proprio per questo.
 - **EC stimata**: i coefficienti (tabellati per i sali di fabbrica, stimati dalla composizione per i custom) sono accurati per le miscele tipiche ma l'EC reale va sempre verificata col conduttimetro.
 - **Distinzione NH₄/NO₃**: per i sali di fabbrica la ripartizione è nota per ID (NH₄NO₃ 50%, MAP 100%); per i sali custom vale il campo "% N ammoniacale" dichiarato dall'utente — se lasciato a 0, l'N viene trattato come nitrico.
@@ -532,4 +527,4 @@ La lingua scelta persiste in `fc_lang` e si cambia dall'header senza ricaricare.
 
 ---
 
-*Manuale generato per la versione v2.3 del file `index.html`. In caso di modifiche al codice, aggiornare i riferimenti alle righe indicati nel Capitolo 2.*
+*Manuale generato per la versione v2.4 del file `index.html`. In caso di modifiche al codice, aggiornare i riferimenti alle righe indicati nel Capitolo 2.*
