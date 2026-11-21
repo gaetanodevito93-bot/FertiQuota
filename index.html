@@ -21,249 +21,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
---vs:#1a3a2a;--vm:#2d5a3d;--vc:#4a8c5e;
---cr:#f8f6f1;--cs:#efe9de;--bl:#ffffff;
---ar:#d4660a;--as:#f5a65b;
---tx:#1a2018;--ts:#5a6550;--bo:#ddd7cc;
---ro:#c0392b;--az:#2471a3;--vi:#7b3f9e;
---sa:#2471a3;--sb:#1e8449;
---r:10px;--sh:0 4px 20px rgba(26,58,42,.08);
---transition:all 0.2s cubic-bezier(0.4,0,0.2,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:auto}
-::selection{background:rgba(74,140,94,.2);color:var(--tx)}
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:var(--cs);border-radius:4px}
-::-webkit-scrollbar-thumb{background:var(--bo);border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:var(--ts)}
-html,body{width:100%;max-width:100%;overflow-x:clip}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--cr) 0%,#f0ece4 100%);color:var(--tx);min-height:100vh;font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-header{background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ar);width:100%;box-shadow:0 4px 16px rgba(26,58,42,.2)}
-header h1{font-size:.95rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
-header span{font-size:.7rem;opacity:.7;font-weight:300}
-.hbadge{margin-left:auto;flex-shrink:0;background:linear-gradient(135deg,var(--ar) 0%,var(--as) 100%);color:#fff;font-size:.6rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 8px rgba(212,102,10,.3)}
-.tabs{display:flex;background:var(--vs);border-bottom:2px solid var(--ar);padding:0 8px;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:12px 18px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(242,237,228,.5);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:var(--transition);white-space:nowrap}
-.tab:hover{color:var(--cr);background:rgba(255,255,255,.05)}
-.tab.active{color:var(--cr);border-bottom:3px solid var(--ar);background:rgba(255,255,255,.12);box-shadow:inset 0 -3px 0 var(--ar)}
-.panel{display:none;padding:14px 12px 40px;width:100%;max-width:900px;margin:0 auto}
-.panel.active{display:block}
-.card{background:var(--bl);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--bo);overflow:hidden;margin-bottom:16px;width:100%;transition:var(--transition)}
-.card:hover{box-shadow:0 8px 32px rgba(26,58,42,.12)}
-.ch{background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);padding:12px 16px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.cb{padding:16px}
-label{display:block;font-size:.68rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-input[type="number"],input[type="text"],select,textarea{width:100%;padding:10px 12px;border:2px solid var(--bo);border-radius:var(--r);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:.85rem;color:var(--tx);background:var(--bl);transition:var(--transition);-moz-appearance:textfield;-webkit-appearance:none;box-shadow:0 2px 8px rgba(0,0,0,.04) inset}
-input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);background:#fff;box-shadow:0 0 0 3px rgba(74,140,94,.15)}
-.field{margin-bottom:14px}
-.urow{display:flex;gap:6px;align-items:flex-end}
-.urow>*:first-child{flex:1}
-.utag{background:var(--vs);color:var(--cr);border-radius:var(--r);padding:8px 10px;font-size:.72rem;font-weight:600;white-space:nowrap;flex-shrink:0}
-.sep{height:1px;background:var(--cs);margin:12px 0}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:var(--r);font-size:.8rem;font-weight:700;cursor:pointer;border:none;transition:var(--transition);letter-spacing:.03em;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.btn:active{transform:scale(.97);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-.btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
-.btn-pr{background:linear-gradient(135deg,var(--ar) 0%,#b8530a 100%);color:#fff;width:100%;box-shadow:0 4px 12px rgba(212,102,10,.25)}
-.btn-pr:hover{background:linear-gradient(135deg,#b8530a 0%,var(--ar) 100%);box-shadow:0 6px 20px rgba(212,102,10,.35)}
-.btn-se{background:transparent;border:2px solid var(--vc);color:var(--vc)}
-.btn-se:hover{background:var(--vc);color:#fff;box-shadow:0 4px 12px rgba(74,140,94,.3)}
-.btn-del{background:transparent;border:1.5px solid var(--bo);color:var(--ro);padding:6px 12px;font-size:.8rem}
-.btn-del:hover{background:var(--ro);color:#fff;border-color:var(--ro);box-shadow:0 4px 12px rgba(192,57,43,.3)}
-.btn-sm{padding:6px 12px;font-size:.72rem}
-.ba{background:linear-gradient(135deg,var(--sa) 0%,#1a5a8a 100%);color:#fff;border-radius:6px;padding:3px 8px;font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(36,113,163,.2)}
-.bb{background:linear-gradient(135deg,var(--sb) 0%,#145a32 100%);color:#fff;border-radius:6px;padding:3px 8px;font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(30,132,73,.2)}
-.bcat{border-radius:4px;padding:2px 6px;font-size:.6rem;font-weight:700;color:#fff}
-.tag-fix{font-size:.6rem;color:var(--ts);margin-top:3px;text-align:center}
-.el-txt{font-size:.65rem;color:var(--vi);font-family:'JetBrains Mono',monospace;margin-top:3px}
-@media print{
-.no-print,.tabbar,.topbar,header{display:none!important}
-body{background:#fff!important}
-.card{break-inside:avoid;box-shadow:none!important}
-}
-@media(max-width:600px){
-header{padding:12px 14px}
-header h1{font-size:.85rem}
-.tabs{gap:0}
-.tab{padding:10px 12px;font-size:.68rem}
-.panel{padding:12px 10px 40px}
-.cb{padding:14px}
-.btn{padding:12px 16px;font-size:.82rem}
-.modal{margin:10px;border-radius:12px}
-.modal-h{padding:14px 16px;border-radius:12px 12px 0 0}
-.modal-b{padding:16px}
-.modal-f{padding:12px 16px;border-radius:0 0 12px 12px}
-.pianta-grid{gap:8px;padding:10px}
-.fase-row{gap:6px;padding:10px}
-.serb-grid{gap:10px}
-.ri-grid{gap:8px}
-.target-grid{gap:8px}
-.row2,.row3{gap:8px}
-}
-@media(hover:none)and(pointer:coarse){
-.btn{min-height:44px;min-width:44px}
-.tab{min-height:44px}
-.pianta-btn,.fase-btn{min-height:48px}
-.cat-row{min-height:48px}
-input[type="number"],input[type="text"],select,textarea{min-height:44px}
-}
-@supports(padding:env(safe-area-inset-bottom)){
-body{padding-bottom:env(safe-area-inset-bottom)}
-}
-.alert{border-radius:var(--r);padding:12px 14px;font-size:.78rem;margin-bottom:10px;display:flex;width:100%;gap:10px;align-items:flex-start;line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.al-err{background:#f8d7da;border-left:4px solid var(--ro);color:#721c24}
-.al-ok{background:#d4edda;border-left:4px solid var(--vc);color:#155724}
-.al-inf{background:#fff3cd;border-left:4px solid #f0a500;color:#856404}
-.al-blu{background:#d1ecf1;border-left:4px solid #0c7b8e;color:#0c5460}
-.pianta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
-@media(min-width:500px){.pianta-grid{grid-template-columns:repeat(4,1fr)}}
-.pianta-btn{background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:12px 8px;text-align:center;cursor:pointer;transition:var(--transition);font-size:.75rem;font-weight:600;color:var(--tx);line-height:1.3;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.pianta-btn:hover,.pianta-btn.active{border-color:var(--vc);background:#fff;color:var(--vm);box-shadow:0 4px 16px rgba(74,140,94,.15);transform:translateY(-2px)}
-.pianta-btn .em{font-size:1.5rem;display:block;margin-bottom:4px}
-.fase-row{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
-.fase-btn{flex:1;min-width:110px;background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--ts);transition:var(--transition);line-height:1.4;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.fase-btn:hover,.fase-btn.active{border-color:var(--ar);background:#fff;color:var(--ar);box-shadow:0 4px 16px rgba(212,102,10,.15);transform:translateY(-2px)}
-.serb-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:14px;width:100%}
-@media(min-width:768px){.serb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.serb-grid-3{grid-template-columns:1fr 1fr 1fr}}
-#calc-out{display:block;width:100%}
-#calc-out>#risultato-stampa{display:block!important;width:100%}
-#calc-out>#risultato-stampa>*{display:block!important;width:100%!important;min-width:0!important;box-sizing:border-box}
-.serb-card{border-radius:var(--r);overflow:hidden;border:2px solid;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:var(--transition)}
-.serb-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
-.serb-card.a{border-color:var(--sa)}
-.serb-card.b{border-color:var(--sb)}
-.serb-card.c{border-color:#7b3f9e}
-.serb-title{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff}
-.serb-card.a .serb-title{background:linear-gradient(135deg,var(--sa) 0%,#1a5a8a 100%)}
-.serb-card.b .serb-title{background:linear-gradient(135deg,var(--sb) 0%,#145a32 100%)}
-.sale-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 14px;border-bottom:1px solid var(--cs);font-size:.78rem;gap:8px;flex-wrap:wrap;transition:background 0.15s ease}
-.sale-row:hover{background:rgba(0,0,0,.02)}
-.sale-row:last-child{border-bottom:none}
-.sale-nome{flex:1;min-width:0;word-break:break-word}
-.gr-a{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sa);white-space:nowrap;flex-shrink:0}
-.gr-b{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sb);white-space:nowrap;flex-shrink:0}
-.tot-row{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);font-weight:700}
-.costo-txt{font-size:.65rem;color:var(--ts);white-space:nowrap}
-.eco-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:.78rem;border-bottom:1px solid var(--cs);gap:8px;flex-wrap:wrap}
-.eco-row:last-child{border-bottom:none}
-.eco-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;color:var(--ar);flex-shrink:0}
-.steps{list-style:none;counter-reset:sc}
-.steps li{counter-increment:sc;display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--cs);font-size:.78rem;line-height:1.6}
-.steps li:last-child{border-bottom:none}
-.steps li::before{content:counter(sc);background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);border-radius:50%;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0;margin-top:2px;box-shadow:0 2px 6px rgba(26,58,42,.2)}
-.ri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.ri-box{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);border-radius:var(--r);padding:12px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:var(--transition)}
-.ri-box:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.ri-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;color:var(--ts);letter-spacing:.05em;margin-bottom:4px}
-.ri-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;color:var(--vm)}
-.ri-sub{font-size:.6rem;color:var(--ts);margin-top:2px}
-.tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r)}
-.tbl{width:100%;border-collapse:collapse;font-size:.78rem;min-width:480px}
-.tbl th{background:linear-gradient(135deg,var(--cs) 0%,#e0d9cc 100%);padding:10px 12px;text-align:left;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ts);white-space:nowrap;border-bottom:2px solid var(--bo)}
-.tbl td{padding:10px 12px;border-bottom:1px solid var(--cs);vertical-align:top;transition:background 0.15s ease}
-.tbl tr:hover td{background:rgba(74,140,94,.03)}
-.tbl tr:last-child td{border-bottom:none}
-.tbl td input,.tbl td select{padding:6px 8px;font-size:.78rem;background:#fff;min-width:60px;border-radius:6px}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-start;justify-content:center;padding:20px 12px;overflow-y:auto;backdrop-filter:blur(4px)}
-.modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:16px;width:100%;max-width:520px;box-shadow:0 24px 80px rgba(0,0,0,.3);margin:auto;animation:modalSlideIn 0.3s ease-out}
-@keyframes modalSlideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-.modal-h{background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:16px 16px 0 0}
-.modal-h h3{font-size:.85rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.modal-close{background:rgba(255,255,255,.15);border:none;color:var(--cr);font-size:1.2rem;cursor:pointer;padding:6px 10px;line-height:1;border-radius:8px;transition:var(--transition)}
-.modal-close:hover{background:rgba(255,255,255,.25)}
-.modal-b{padding:20px}
-.modal-f{padding:14px 20px;background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);display:flex;gap:10px;justify-content:flex-end;border-radius:0 0 16px 16px;flex-wrap:wrap}
-.mode-toggle{display:flex;border:2px solid var(--bo);border-radius:var(--r);overflow:hidden;margin-bottom:14px;background:var(--cs)}
-.mode-btn{flex:1;padding:10px 10px;text-align:center;font-size:.72rem;font-weight:700;cursor:pointer;background:transparent;color:var(--ts);transition:var(--transition);border:none;line-height:1.3}
-.mode-btn:hover{background:rgba(74,140,94,.1)}
-.mode-btn.active{background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:#fff;box-shadow:0 2px 8px rgba(26,58,42,.2)}
-.cat-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--cs);gap:10px;flex-wrap:wrap;transition:var(--transition)}
-.cat-row:hover{background:rgba(74,140,94,.03)}
-.cat-row:last-child{border-bottom:none}
-.cat-nome{font-size:.82rem;font-weight:500;flex:1;min-width:120px;word-break:break-word}
-.cat-meta{font-size:.65rem;color:var(--vi);font-family:'JetBrains Mono',monospace;margin-top:3px}
-.cat-note{font-size:.65rem;color:var(--ts);margin-top:3px;line-height:1.5}
-.cat-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
-.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(min-width:400px){.target-grid{grid-template-columns:repeat(3,1fr)}}
-.tg-box{background:var(--cs);border-radius:var(--r);padding:10px;transition:var(--transition)}
-.tg-box:hover{background:#e8e1d4}
-.tg-lbl{font-size:.62rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
-.tg-unit{font-weight:400;font-size:.58rem;color:var(--ts);opacity:.7;text-transform:none}
-.tg-name{font-weight:500;font-size:.56rem;color:var(--ts);opacity:.85;text-transform:none;letter-spacing:0;margin-left:4px}
-.tg-box input{padding:6px 8px;font-size:.82rem;text-align:right;background:#fff;border-radius:6px}
-.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
-.sec-h h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--vs)}
-.ricetta-card{border:2px solid var(--bo);border-radius:var(--r);margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:var(--transition)}
-.ricetta-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.ricetta-card-h{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;cursor:pointer;transition:var(--transition)}
-.ricetta-card-h:hover{background:linear-gradient(135deg,#dbd4c8 0%,#d0c9bc 100%)}
-.ricetta-card-nome{font-size:.82rem;font-weight:700}
-.ricetta-card-meta{font-size:.68rem;color:var(--ts)}
-.ricetta-card-body{padding:12px 14px;display:none}
-.ricetta-card.open .ricetta-card-body{display:block}
-.prezzo-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap;box-shadow:0 2px 6px rgba(212,102,10,.2)}
-.costo-totale{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--ar);font-weight:700}
-.tw{position:relative;display:inline-block;vertical-align:middle}
-.tw .tip{visibility:hidden;opacity:0;background:var(--tx);color:#fff;border-radius:8px;padding:8px 12px;font-size:.68rem;width:220px;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);transition:var(--transition);pointer-events:none;line-height:1.5;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2)}
-.tw:hover .tip{visibility:visible;opacity:1}
-.ii{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--bo);color:var(--ts);font-size:.6rem;font-weight:700;cursor:default;margin-left:4px;transition:var(--transition)}
-.ii:hover{background:var(--vc);color:#fff}
-.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;color:var(--ts);text-align:center;gap:12px;min-height:200px}
-.ph p{font-size:.82rem;line-height:1.7;max-width:280px}
-.flag-check{width:20px;height:20px;cursor:pointer;accent-color:var(--vc);flex-shrink:0;transition:var(--transition)}
-.flag-check:hover{transform:scale(1.1)}
-.row-dispon{border-left:4px solid var(--vc);transition:var(--transition)}
-.row-manca {border-left:4px solid var(--ro);background:#fff8f8}
-.row-manca .cat-nome{opacity:.7}
-.badge-ok{background:linear-gradient(135deg,var(--vc) 0%,#3a7a4e 100%);color:#fff;border-radius:6px;padding:2px 8px;font-size:.62rem;font-weight:700;margin-left:6px;box-shadow:0 2px 6px rgba(74,140,94,.2)}
-.badge-no{background:linear-gradient(135deg,var(--ro) 0%,#a52818 100%);color:#fff;border-radius:6px;padding:2px 8px;font-size:.62rem;font-weight:700;margin-left:6px;box-shadow:0 2px 6px rgba(192,57,43,.2)}
-.row-calc-miss{background:#fff0f0 !important}
-.row-calc-miss td{opacity:.8}
-.miss-tag{display:inline-block;background:linear-gradient(135deg,var(--ro) 0%,#a52818 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(192,57,43,.2)}
-.miss-alt{display:inline-block;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(212,102,10,.2)}
-.ie-toast{display:none;font-size:.78rem;font-weight:700;animation:fadeout 3s forwards;padding:10px 14px;border-radius:var(--r);background:var(--vc);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-@keyframes fadeout{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
-.gauge-wrap{margin-bottom:12px}
-.gauge{margin-bottom:10px}
-.gauge .gtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.gauge .gname{font-size:.78rem;font-weight:700}
-.gauge .gname small{color:var(--ts);font-weight:400;font-family:'JetBrains Mono',monospace;font-size:.65rem}
-.gauge .gval{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700}
-.gauge .track2{position:relative;height:8px;border-radius:5px;background:linear-gradient(90deg,#dff0e7 0%,#dff0e7 55%,#fbf3e2 75%,#fbeae8 100%)}
-.gauge .center-line{position:absolute;top:-2px;bottom:-2px;left:75%;width:2px;background:#9aa89f}
-.gauge .center-line::after{content:"sat.";position:absolute;top:-14px;left:-9px;font-size:8px;color:#9aa89f;font-family:'JetBrains Mono',monospace}
-.gauge .marker{position:absolute;top:-2px;width:4px;height:12px;border-radius:2px;background:var(--tx);transform:translateX(-50%)}
-.gauge .gnote{font-size:.72rem;margin-top:3px;line-height:1.4}
-.si-rows{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.si-row{display:flex;align-items:center;gap:8px;font-size:.76rem}
-.si-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.si-row .nm{flex:1}
-.si-row .v{font-family:'JetBrains Mono',monospace;font-weight:700}
-.charge-bar{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.78rem}
-.charge-bar .bar-wrap{flex:1;height:8px;background:var(--cs);border-radius:4px;overflow:hidden;position:relative}
-.charge-bar .bar-fill{height:100%;border-radius:4px;transition:width .3s ease}
-.charge-bar .bar-label{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.82rem;min-width:60px;text-align:right}
-.ratio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:6px}
-.ratio-box{background:var(--cs);border-radius:var(--r);padding:10px;text-align:center}
-.ratio-box .rl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:3px}
-.ratio-box .rv{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;color:var(--vm)}
-.ratio-box .rn{font-size:.6rem;color:var(--ts);margin-top:2px}
-.ion-profile{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:6px}
-.ion-profile th{background:var(--cs);padding:6px 8px;text-align:left;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);white-space:nowrap}
-.ion-profile td{padding:6px 8px;border-bottom:1px solid var(--cs);font-family:'JetBrains Mono',monospace}
-.ion-profile td.dev-ok{color:var(--vc)}
-.ion-profile td.dev-warn{color:var(--ar)}
-.ion-profile td.dev-bad{color:var(--ro)}
-.ion-profile tr:last-child td{border-bottom:none}
-</style>
-<style>
-:root{
 --vs:#0f3528; --vm:#1c5740; --vc:#3f9268;
 --cr:#f7f4ec; --cs:#ece4d5; --bl:#ffffff;
 --ar:#d96a2b; --as:#f3a35e;
@@ -297,8 +54,6 @@ background-attachment:fixed;
 ::-webkit-scrollbar-track{background:var(--cs);border-radius:4px}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--ts)}
-html,body{scrollbar-width:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 header{
 position:relative;overflow:hidden;width:100%;
 display:flex;align-items:center;gap:14px;padding:18px 22px;color:var(--cr);
@@ -350,6 +105,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .btn-sm{padding:6px 12px;font-size:.72rem}
 .ba{background:linear-gradient(135deg,var(--sa),#1a5a8a);color:#fff;border-radius:var(--r);padding:3px 8px;font-family:var(--mono);font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(36,113,163,.2)}
 .bb{background:linear-gradient(135deg,var(--sb),#145a32);color:#fff;border-radius:var(--r);padding:3px 8px;font-family:var(--mono);font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(30,132,73,.2)}
+.bcat{border-radius:4px;padding:2px 6px;font-size:.6rem;font-weight:700;color:#fff}
+.tag-fix{font-size:.6rem;color:var(--ts);margin-top:3px;text-align:center}
+.el-txt{font-size:.65rem;color:var(--vi);font-family:'JetBrains Mono',monospace;margin-top:3px}
 .badge-ok{background:linear-gradient(135deg,var(--vc),#3a7a4e);color:#fff;border-radius:var(--r);padding:2px 8px;font-family:var(--mono);font-size:.62rem;font-weight:700}
 .badge-no{background:linear-gradient(135deg,var(--ro),#a52818);color:#fff;border-radius:var(--r);padding:2px 8px;font-family:var(--mono);font-size:.62rem;font-weight:700}
 .alert{display:flex;gap:10px;align-items:flex-start;width:100%;margin-bottom:10px;padding:12px 14px;border-radius:var(--r);font-size:.78rem;line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.05)}
@@ -357,12 +115,132 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .al-ok {background:#d4edda;border-left:4px solid var(--vc);color:#155724}
 .al-inf{background:#fff3cd;border-left:4px solid #f0a500;color:#856404}
 .al-blu{background:#d1ecf1;border-left:4px solid #0c7b8e;color:#0c5460}
+.pianta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+@media(min-width:500px){.pianta-grid{grid-template-columns:repeat(4,1fr)}}
+.pianta-btn{background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:12px 8px;text-align:center;cursor:pointer;transition:var(--transition);font-size:.75rem;font-weight:600;color:var(--tx);line-height:1.3;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.pianta-btn:hover,.pianta-btn.active{border-color:var(--vc);background:#fff;color:var(--vm);box-shadow:0 4px 16px rgba(74,140,94,.15);transform:translateY(-2px)}
+.pianta-btn .em{font-size:1.5rem;display:block;margin-bottom:4px}
+.fase-row{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
+.fase-btn{flex:1;min-width:110px;background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--ts);transition:var(--transition);line-height:1.4;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.fase-btn:hover,.fase-btn.active{border-color:var(--ar);background:#fff;color:var(--ar);box-shadow:0 4px 16px rgba(212,102,10,.15);transform:translateY(-2px)}
+.serb-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:14px;width:100%}
+@media(min-width:768px){.serb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.serb-grid-3{grid-template-columns:1fr 1fr 1fr}}
+#calc-out{display:block;width:100%}
+#calc-out>#risultato-stampa{display:block!important;width:100%}
+#calc-out>#risultato-stampa>*{display:block!important;width:100%!important;min-width:0!important;box-sizing:border-box}
+.serb-card{border-radius:var(--r);overflow:hidden;border:2px solid;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:var(--transition)}
+.serb-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.serb-card.a{border-color:var(--sa)}
+.serb-card.b{border-color:var(--sb)}
+.serb-card.c{border-color:#7b3f9e}
+.serb-title{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff}
+.serb-card.a .serb-title{background:linear-gradient(135deg,var(--sa) 0%,#1a5a8a 100%)}
+.serb-card.b .serb-title{background:linear-gradient(135deg,var(--sb) 0%,#145a32 100%)}
+.sale-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 14px;border-bottom:1px solid var(--cs);font-size:.78rem;gap:8px;flex-wrap:wrap;transition:background 0.15s ease}
+.sale-row:hover{background:rgba(0,0,0,.02)}
+.sale-row:last-child{border-bottom:none}
+.sale-nome{flex:1;min-width:0;word-break:break-word}
+.gr-a{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sa);white-space:nowrap;flex-shrink:0}
+.gr-b{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sb);white-space:nowrap;flex-shrink:0}
+.tot-row{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);font-weight:700}
+.costo-txt{font-size:.65rem;color:var(--ts);white-space:nowrap}
+.eco-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:.78rem;border-bottom:1px solid var(--cs);gap:8px;flex-wrap:wrap}
+.eco-row:last-child{border-bottom:none}
+.eco-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;color:var(--ar);flex-shrink:0}
+.steps{list-style:none;counter-reset:sc}
+.steps li{counter-increment:sc;display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--cs);font-size:.78rem;line-height:1.6}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(sc);background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);border-radius:50%;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0;margin-top:2px;box-shadow:0 2px 6px rgba(26,58,42,.2)}
+.ri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ri-box{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);border-radius:var(--r);padding:12px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:var(--transition)}
+.ri-box:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.ri-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;color:var(--ts);letter-spacing:.05em;margin-bottom:4px}
+.ri-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;color:var(--vm)}
+.ri-sub{font-size:.6rem;color:var(--ts);margin-top:2px}
 .tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r)}
 .tbl{width:100%;border-collapse:collapse;font-size:.78rem;min-width:480px}
 .tbl th{background:linear-gradient(135deg,var(--cs),#e0d9cc);padding:10px 12px;text-align:left;font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ts);white-space:nowrap;border-bottom:2px solid var(--bo)}
 .tbl td{padding:10px 12px;border-bottom:1px solid var(--cs);vertical-align:top;transition:background .15s ease}
 .tbl tr:hover td{background:rgba(63,146,104,.03)}
 .tbl tr:last-child td{border-bottom:none}
+.tbl td input,.tbl td select{padding:6px 8px;font-size:.78rem;background:#fff;min-width:60px;border-radius:6px}
+.mode-toggle{display:flex;border:2px solid var(--bo);border-radius:var(--r);overflow:hidden;margin-bottom:14px;background:var(--cs)}
+.mode-btn{flex:1;padding:10px 10px;text-align:center;font-size:.72rem;font-weight:700;cursor:pointer;background:transparent;color:var(--ts);transition:var(--transition);border:none;line-height:1.3}
+.mode-btn:hover{background:rgba(74,140,94,.1)}
+.mode-btn.active{background:linear-gradient(135deg,var(--vs) 0%,var(--vm) 100%);color:#fff;box-shadow:0 2px 8px rgba(26,58,42,.2)}
+.cat-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--cs);gap:10px;flex-wrap:wrap;transition:var(--transition)}
+.cat-row:hover{background:rgba(74,140,94,.03)}
+.cat-row:last-child{border-bottom:none}
+.cat-nome{font-size:.82rem;font-weight:500;flex:1;min-width:120px;word-break:break-word}
+.cat-meta{font-size:.65rem;color:var(--vi);font-family:'JetBrains Mono',monospace;margin-top:3px}
+.cat-note{font-size:.65rem;color:var(--ts);margin-top:3px;line-height:1.5}
+.cat-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:400px){.target-grid{grid-template-columns:repeat(3,1fr)}}
+.tg-box{background:var(--cs);border-radius:var(--r);padding:10px;transition:var(--transition)}
+.tg-box:hover{background:#e8e1d4}
+.tg-lbl{font-size:.62rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+.tg-unit{font-weight:400;font-size:.58rem;color:var(--ts);opacity:.7;text-transform:none}
+.tg-name{font-weight:500;font-size:.56rem;color:var(--ts);opacity:.85;text-transform:none;letter-spacing:0;margin-left:4px}
+.tg-box input{padding:6px 8px;font-size:.82rem;text-align:right;background:#fff;border-radius:6px}
+.ricetta-card{border:2px solid var(--bo);border-radius:var(--r);margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:var(--transition)}
+.ricetta-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.ricetta-card-h{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;cursor:pointer;transition:var(--transition)}
+.ricetta-card-h:hover{background:linear-gradient(135deg,#dbd4c8 0%,#d0c9bc 100%)}
+.ricetta-card-nome{font-size:.82rem;font-weight:700}
+.ricetta-card-meta{font-size:.68rem;color:var(--ts)}
+.ricetta-card-body{padding:12px 14px;display:none}
+.ricetta-card.open .ricetta-card-body{display:block}
+.prezzo-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap;box-shadow:0 2px 6px rgba(212,102,10,.2)}
+.costo-totale{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--ar);font-weight:700}
+.tw{position:relative;display:inline-block;vertical-align:middle}
+.tw .tip{visibility:hidden;opacity:0;background:var(--tx);color:#fff;border-radius:8px;padding:8px 12px;font-size:.68rem;width:220px;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);transition:var(--transition);pointer-events:none;line-height:1.5;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.tw:hover .tip{visibility:visible;opacity:1}
+.ii{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--bo);color:var(--ts);font-size:.6rem;font-weight:700;cursor:default;margin-left:4px;transition:var(--transition)}
+.ii:hover{background:var(--vc);color:#fff}
+.flag-check{width:20px;height:20px;cursor:pointer;accent-color:var(--vc);flex-shrink:0;transition:var(--transition)}
+.flag-check:hover{transform:scale(1.1)}
+.row-dispon{border-left:4px solid var(--vc);transition:var(--transition)}
+.row-manca {border-left:4px solid var(--ro);background:#fff8f8}
+.row-manca .cat-nome{opacity:.7}
+.row-calc-miss{background:#fff0f0 !important}
+.row-calc-miss td{opacity:.8}
+.miss-tag{display:inline-block;background:linear-gradient(135deg,var(--ro) 0%,#a52818 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+.miss-alt{display:inline-block;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(212,102,10,.2)}
+.ie-toast{display:none;font-size:.78rem;font-weight:700;animation:fadeout 3s forwards;padding:10px 14px;border-radius:var(--r);background:var(--vc);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+@keyframes fadeout{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+.gauge-wrap{margin-bottom:12px}
+.gauge{margin-bottom:10px}
+.gauge .gtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.gauge .gname{font-size:.78rem;font-weight:700}
+.gauge .gname small{color:var(--ts);font-weight:400;font-family:'JetBrains Mono',monospace;font-size:.65rem}
+.gauge .gval{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700}
+.gauge .track2{position:relative;height:8px;border-radius:5px;background:linear-gradient(90deg,#dff0e7 0%,#dff0e7 55%,#fbf3e2 75%,#fbeae8 100%)}
+.gauge .center-line{position:absolute;top:-2px;bottom:-2px;left:75%;width:2px;background:#9aa89f}
+.gauge .center-line::after{content:"sat.";position:absolute;top:-14px;left:-9px;font-size:8px;color:#9aa89f;font-family:'JetBrains Mono',monospace}
+.gauge .marker{position:absolute;top:-2px;width:4px;height:12px;border-radius:2px;background:var(--tx);transform:translateX(-50%)}
+.gauge .gnote{font-size:.72rem;margin-top:3px;line-height:1.4}
+.si-rows{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.si-row{display:flex;align-items:center;gap:8px;font-size:.76rem}
+.si-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.si-row .nm{flex:1}
+.si-row .v{font-family:'JetBrains Mono',monospace;font-weight:700}
+.charge-bar{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.78rem}
+.charge-bar .bar-wrap{flex:1;height:8px;background:var(--cs);border-radius:4px;overflow:hidden;position:relative}
+.charge-bar .bar-fill{height:100%;border-radius:4px;transition:width .3s ease}
+.charge-bar .bar-label{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.82rem;min-width:60px;text-align:right}
+.ratio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:6px}
+.ratio-box{background:var(--cs);border-radius:var(--r);padding:10px;text-align:center}
+.ratio-box .rl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:3px}
+.ratio-box .rv{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;color:var(--vm)}
+.ratio-box .rn{font-size:.6rem;color:var(--ts);margin-top:2px}
+.ion-profile{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:6px}
+.ion-profile th{background:var(--cs);padding:6px 8px;text-align:left;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);white-space:nowrap}
+.ion-profile td{padding:6px 8px;border-bottom:1px solid var(--cs);font-family:'JetBrains Mono',monospace}
+.ion-profile td.dev-ok{color:var(--vc)}
+.ion-profile td.dev-warn{color:var(--ar)}
+.ion-profile td.dev-bad{color:var(--ro)}
+.ion-profile tr:last-child td{border-bottom:none}
 .mono,code,.num{font-family:var(--mono)}
 .sec-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .sec-h h4{font-family:var(--disp);font-size:.92rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--vs)}
@@ -381,6 +259,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .modal-f{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:14px 20px;background:linear-gradient(135deg,var(--cs),#e8e1d4);border-radius:0 0 var(--r-lg) var(--r-lg)}
 .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:200px;padding:48px 24px;text-align:center;color:var(--ts)}
 .ph p{max-width:280px;font-size:.82rem;line-height:1.7}
+@supports(padding:env(safe-area-inset-bottom)){
+body{padding-bottom:env(safe-area-inset-bottom)}
+}
 @media print{
 .no-print,.tabbar,.topbar,header,.tabs{display:none!important}
 body{background:#fff!important}
@@ -389,15 +270,23 @@ body{background:#fff!important}
 @media(max-width:600px){
 header{padding:14px 16px}
 header h1{font-size:.9rem}
+.tabs{gap:0}
 .tab{padding:8px 12px;font-size:.68rem}
 .panel{padding:12px 10px 40px}
 .cb{padding:14px}
 .btn{padding:12px 16px;font-size:.78rem}
+.pianta-grid{gap:8px;padding:10px}
+.fase-row{gap:6px;padding:10px}
+.serb-grid{gap:10px}
+.ri-grid{gap:8px}
+.target-grid{gap:8px}
 .row2,.row3{gap:8px}
 }
 @media(hover:none)and(pointer:coarse){
 .btn{min-height:44px;min-width:44px}
 .tab{min-height:44px}
+.pianta-btn,.fase-btn{min-height:48px}
+.cat-row{min-height:48px}
 input[type="number"],input[type="text"],select,textarea{min-height:44px}
 }
 .lang-selector{display:flex;gap:0;border-radius:7px;overflow:hidden;border:1.5px solid rgba(255,255,255,.25);flex-shrink:0;margin-right:2px}
@@ -478,13 +367,13 @@ setTimeout(hideSplash,1950);
 if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{waitAnims();}
 })();
 </script><header>
-<svg width="24" height="24" viewBox="0 0 26 26" fill="none"><rect x="2" y="9" width="9" height="14" rx="2" fill="#4a8c5e" stroke="#fff" stroke-width="1"/><rect x="15" y="9" width="9" height="14" rx="2" fill="#2471a3" stroke="#fff" stroke-width="1.2"/><path d="M7 9V6a2 2 0 0 1 4 0v3M20 9V6a2 2 0 0 1 8 0v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="4" r="2.5" fill="#d4660a"/></svg>
+<svg width="24" height="24" viewBox="0 0 26 26" fill="none"><rect x="2" y="9" width="9" height="14" rx="2" fill="#4a8c5e" stroke="#fff" stroke-width="1"/><rect x="15" y="9" width="9" height="14" rx="2" fill="#2471a3" stroke="#fff" stroke-width="1.2"/><path d="M4.5 9V6a2 2 0 0 1 4 0v3M17.5 9V6a2 2 0 0 1 4 0v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="4" r="2.5" fill="#d4660a"/></svg>
 <div><h1>FertiControl <span data-i18n="header.subtitle">— Calcolatore soluzioni madri per fertirrigazione </span></h1></div>
 <div class="lang-selector" id="lang-selector">
 <button class="lang-btn active" data-lang="it" onclick="setLang('it')">IT</button>
 <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
 </div>
-<div class="hbadge">v2.0</div>
+<div class="hbadge">v2.3</div>
 </header>
 <div class="alert al-blu" style="margin:8px 12px;padding:7px 12px;width:auto;cursor:pointer;align-items:center" onclick="const b=document.getElementById('howto-full'),a=document.getElementById('howto-arr');if(b){const open=b.style.display!=='none';b.style.display=open?'none':'block';if(a)a.textContent=open?'▼':'▲';}">
 <span>📖</span>
@@ -514,7 +403,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="row3" style="margin-bottom:8px">
 <div class="tg-box">
 <div class="tg-lbl"><span data-i18n="acqua.ec">EC acqua</span> <span class="tg-unit">mS/cm</span></div>
-<input type="number" id="aq-ec" value="0.3" min="0" step="0.01">
+<input type="number" id="aq-ec" value="0.52" min="0" step="0.01">
 </div>
 <div class="tg-box">
 <div class="tg-lbl" data-i18n="acqua.ph">pH acqua</div>
@@ -527,13 +416,13 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div style="font-size:.65rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px" data-i18n="acqua.ions">Ioni presenti (mg/L)</div>
 <div class="row3">
-<div class="tg-box"><div class="tg-lbl"><span>Ca²⁺<span class="tg-name" data-i18n="ion.ca">Calcio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-ca" value="80" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Mg²⁺<span class="tg-name" data-i18n="ion.mg">Magnesio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-mg" value="20" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>K⁺<span class="tg-name" data-i18n="ion.k">Potassio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-k" value="5" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Na⁺<span class="tg-name" data-i18n="ion.na">Sodio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-na" value="30" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>SO₄²⁻<span class="tg-name" data-i18n="ion.so4">Solfati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-so4" value="40" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Cl⁻<span class="tg-name" data-i18n="ion.cl">Cloruri</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-cl" value="50" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>HCO₃⁻<span class="tg-name" data-i18n="ion.hco3">Bicarbonati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-hco3" value="150" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>Ca²⁺<span class="tg-name" data-i18n="ion.ca">Calcio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-ca" value="60" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>Mg²⁺<span class="tg-name" data-i18n="ion.mg">Magnesio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-mg" value="15" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>K⁺<span class="tg-name" data-i18n="ion.k">Potassio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-k" value="4" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>Na⁺<span class="tg-name" data-i18n="ion.na">Sodio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-na" value="20" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>SO₄²⁻<span class="tg-name" data-i18n="ion.so4">Solfati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-so4" value="60" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>Cl⁻<span class="tg-name" data-i18n="ion.cl">Cloruri</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-cl" value="42" min="0" step="1"></div>
+<div class="tg-box"><div class="tg-lbl"><span>HCO₃⁻<span class="tg-name" data-i18n="ion.hco3">Bicarbonati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-hco3" value="160" min="0" step="1"></div>
 <div class="tg-box"><div class="tg-lbl"><span>NO₃⁻<span class="tg-name" data-i18n="ion.no3">Nitrati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-no3" value="10" min="0" step="1"></div>
 <div class="tg-box"><div class="tg-lbl"><span>Fe<span class="tg-name" data-i18n="ion.fe">Ferro</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-fe" value="0.1" min="0" step="0.01"></div>
 </div>
@@ -783,6 +672,9 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="field"><label data-i18n="ing.el.B">% B (boro)</label><input type="number" id="ing-B" value="0" min="0" max="100" step="0.01"></div>
 <div class="field"><label data-i18n="ing.el.Cu">% Cu (rame)</label><input type="number" id="ing-Cu" value="0" min="0" max="100" step="0.01"></div>
 <div class="field"><label data-i18n="ing.el.Mo">% Mo (molibdeno)</label><input type="number" id="ing-Mo" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label data-i18n="ing.el.Cl">% Cl (cloro)</label><input type="number" id="ing-Cl" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label data-i18n="ing.el.Si">% Si (silicio)</label><input type="number" id="ing-Si" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label data-i18n="ing.el.Na">% Na (sodio)</label><input type="number" id="ing-Na" value="0" min="0" max="100" step="0.1"></div>
 </div>
 <div class="field"><label><span data-i18n="modal.ing.nh4">% N ammoniacale (quota su N totale)</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="modal.ing.nh4.tip">Percentuale dell'azoto dichiarato che è in forma ammoniacale (NH₄⁺). Es: nitrato d'ammonio = 50, MAP = 100, solfato ammonico = 100, nitrato di calcio = 0. Serve per il limite NH₄ ≤ 10% dell'N in coco e per il rischio struvite.</span></span></label><input type="number" id="ing-nh4" value="0" min="0" max="100" step="1"></div>
 <div class="row2">
@@ -933,7 +825,7 @@ it: {
 'modal.del.warn': 'Questa azione non è reversibile.',
 'modal.del.btn': '🗑️ Elimina',
 'modal.reset.title': '↺ Ripristina valori di fabbrica',
-'modal.reset.warn': '<strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate, ripristinerà il catalogo ai valori originali e azzererà la scorta. L\'operazione non è reversibile.',
+'modal.reset.warn': '<strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate e i profili acqua salvati, ripristinerà catalogo, acqua e scorta ai valori di fabbrica. L\'operazione non è reversibile.',
 'modal.reset.desc': 'Esporta un backup dalla sezione <strong>💾 Dati → Scarica JSON</strong> prima di procedere se vuoi conservare i dati attuali.',
 'modal.reset.btn': '↺ Sì, ripristina tutto',
 'btn.annulla': 'Annulla',
@@ -1022,6 +914,9 @@ it: {
 'ing.el.B': '% B (boro)',
 'ing.el.Cu': '% Cu (rame)',
 'ing.el.Mo': '% Mo (molibdeno)',
+'ing.el.Cl': '% Cl (cloro)',
+'ing.el.Si': '% Si (silicio)',
+'ing.el.Na': '% Na (sodio)',
 'ion.ca': 'Calcio', 'ion.mg': 'Magnesio', 'ion.k': 'Potassio', 'ion.na': 'Sodio',
 'ion.so4': 'Solfati', 'ion.cl': 'Cloruri', 'ion.hco3': 'Bicarbonati', 'ion.no3': 'Nitrati', 'ion.fe': 'Ferro',
 },
@@ -1131,7 +1026,7 @@ en: {
 'modal.del.warn': 'This action cannot be undone.',
 'modal.del.btn': '🗑️ Delete',
 'modal.reset.title': '↺ Restore factory defaults',
-'modal.reset.warn': '<strong>Warning:</strong> this will delete all custom recipes, restore the catalog to original values and clear stock. This action is irreversible.',
+'modal.reset.warn': '<strong>Warning:</strong> this will delete all custom recipes and saved water profiles, and restore the catalog, water settings and stock to factory defaults. This action is irreversible.',
 'modal.reset.desc': 'Export a backup from <strong>💾 Data → Download JSON</strong> before proceeding if you want to keep current data.',
 'modal.reset.btn': '↺ Yes, reset everything',
 'btn.annulla': 'Cancel',
@@ -1220,6 +1115,9 @@ en: {
 'ing.el.B': '% B (boron)',
 'ing.el.Cu': '% Cu (copper)',
 'ing.el.Mo': '% Mo (molybdenum)',
+'ing.el.Cl': '% Cl (chlorine)',
+'ing.el.Si': '% Si (silicon)',
+'ing.el.Na': '% Na (sodium)',
 'ion.ca': 'Calcium', 'ion.mg': 'Magnesium', 'ion.k': 'Potassium', 'ion.na': 'Sodium',
 'ion.so4': 'Sulfates', 'ion.cl': 'Chlorides', 'ion.hco3': 'Bicarbonates', 'ion.no3': 'Nitrates', 'ion.fe': 'Iron',
 }
@@ -1282,15 +1180,13 @@ if(typeof updateSaliPrepBadge==='function') updateSaliPrepBadge();
 const MM={Ca:40.078,Mg:24.305,K:39.098,N:14.007,Na:22.990,Cl:35.453,S:32.06,P:30.974,Si:28.085,
 Fe:55.845,Mn:54.938,Zn:65.38,B:10.811,Cu:63.546,Mo:95.95};
 const LAMBDA={Ca:59.5,Mg:53.1,K:73.5,NH4:73.5,Na:50.1,NO3:71.4,SO4:80.0,Cl:76.3,H2PO4:33,HPO4:57,HCO3:44.5};
-const OXIDE={NO3:{lab:"N-NO₃",f:1},NH4:{lab:"N-NH₄",f:1},P:{lab:"P₂O₅",f:2.2914},K:{lab:"K₂O",f:1.2046},
-Ca:{lab:"CaO",f:1.3992},Mg:{lab:"MgO",f:1.6581},S:{lab:"SO₃",f:2.4969},Si:{lab:"SiO₂",f:2.1392}};
 const PKA2_PHOS=7.20, PKA3_PHOS=12.35, PKA2_CARB=10.33, DAVIES_A=0.509, RESID_HCO3_MEQ=0.5;
 const MW_SO4=96.06, MW_NO3=62.00;
 function kspCalcite(Tc){var T=Tc+273.15;var l=-171.9065-0.077993*T+2839.319/T+71.595*(Math.log(T)/Math.LN10);return Math.pow(10,l);}
 function vantHoff(ksp25,dHkJ,Tc){var T=Tc+273.15,R=8.314;return ksp25*Math.exp(-dHkJ*1000/R*(1/T-1/298.15));}
 function kspCaSO4(Tc){return vantHoff(3.14e-5,1.0,Tc);}
-function kspCaHPO4(Tc){return vantHoff(2.49e-7,-23.0,Tc);}
-function kspStruvite(Tc){return vantHoff(2.5e-13,-22.0,Tc);}
+function kspCaHPO4(Tc){var T=Tc+273.15;return Math.exp(-8403.5/T+41.863-0.096787*T);}
+function kspStruvite(Tc){return vantHoff(4.365e-14,22.6,Tc);}
 // Speciazione: il pH misura l'ATTIVITÀ di H⁺, quindi i rapporti tra specie
 // protonate seguono i pKa termodinamici sulle attività:
 //   [HPO₄²⁻]/[H₂PO₄⁻] = 10^(pH−pKa₂)·γ₁/γ₂
@@ -1349,16 +1245,16 @@ var an=i.NO3+i.SO4*2+i.Cl+i.H2PO4+i.HPO4*2+i.HCO3+i.PO4*3+i.CO3*2;
 return {cat:cat*1000,an:an*1000};
 }
 function fracNH4(id, info){
+if(info && info.nh4Frac != null) return Math.min(100, Math.max(0, +info.nh4Frac || 0)) / 100;
 if(id==='NH4NO3') return 0.5;
 if(id==='MAP') return 1;
-const f = (info && info.nh4Frac) || 0;
-return Math.min(100, Math.max(0, f)) / 100;
+return 0;
 }
 // Profilo elementare finale in mg/L. Con `aq` somma l'acqua di partenza; con
 // `acido` (da acidoPrescritto) somma anche l'N o il P dell'acido dosato per i
 // bicarbonati e ne toglie l'alcalinità neutralizzata.
 function profiloDaRighe(righe, aq, acido){
-const p={Ca:0,Mg:0,K:0,N:0,NO3:0,NH4:0,P:0,S:0,Fe:0,Mn:0,Zn:0,B:0,Cu:0,Mo:0,Na:0,Cl:0,HCO3:0};
+const p={Ca:0,Mg:0,K:0,N:0,NO3:0,NH4:0,P:0,S:0,Si:0,Fe:0,Mn:0,Zn:0,B:0,Cu:0,Mo:0,Na:0,Cl:0,HCO3:0};
 righe.forEach(r=>{
 const info=getSale(r.id); if(!info||!info.el) return;
 const g=r.dose;
@@ -1374,6 +1270,8 @@ if(el.Mg) p.Mg+=g*el.Mg/100;
 if(el.K)  p.K+=g*el.K/100;
 if(el.P)  p.P+=g*el.P/100;
 if(el.S)  p.S+=g*el.S/100;
+if(el.Si) p.Si+=g*el.Si/100;
+if(el.Na) p.Na+=g*el.Na/100;
 if(el.Cl) p.Cl+=g*el.Cl/100;
 if(el.Fe) p.Fe+=g*el.Fe/100;
 if(el.Mn) p.Mn+=g*el.Mn/100;
@@ -1395,11 +1293,28 @@ p.HCO3meq=Math.max(0, acido.residuoMeq);
 return p;
 }
 const PKA1_CARB = 6.35;
+function molaritaAcido(tipo){
+const s = (typeof catalogo !== 'undefined' && typeof getSale === 'function') ? getSale(tipo) : null;
+if(tipo === 'HNO3'){
+if(s && s.el && s.el.N > 0 && s.density > 0) return (s.el.N / 100) * s.density * 1000 / MM.N;
+return 7.47;
+}
+if(tipo === 'H3PO4'){
+if(s && s.el && s.el.P > 0 && s.density > 0) return (s.el.P / 100) * s.density * 1000 / MM.P;
+return 12.1;
+}
+return 18.0;
+}
+function h3po4EqPerMol(phTarget){
+if(!phTarget) return 1;
+const r = Math.pow(10, phTarget - PKA2_PHOS);
+return 1 + r / (1 + r);
+}
 // Dose di acido per portare l'acqua al pH target. Sistema chiuso: alla CO₂
 // già disciolta al pH dell'acqua (H₂CO₃ = HCO₃⁻·10^(pKa₁−pH)) si somma quella
 // prodotta dall'acido, quindi serve meno acido della semplice frazione H-H.
 function calcAcidVolume(aq, prodL, phTarget){
-if(!aq||!aq.hco3) return {meq:0,residuo:0,volHNO3:0,volH3PO4:0};
+if(!aq||!aq.hco3) return {meq:0,residuo:0,volHNO3:0,volH3PO4:0,pMgL_H3PO4:0,h3po4EqPerMol:1};
 const hco3meq=aq.hco3/61.0;
 let acidMeq;
 if(phTarget){
@@ -1414,13 +1329,17 @@ acidMeq = Math.max(0, Math.min(fabbisogno, hco3meq - RESID_HCO3_MEQ));
 } else {
 acidMeq = Math.max(0, hco3meq - RESID_HCO3_MEQ);
 }
-const molPerL={nitric:7.47,phosphoric:12.1,sulfuric:18.0};
+const eqP = h3po4EqPerMol(phTarget);
+const molP = acidMeq / eqP;
+const mN = molaritaAcido('HNO3');
+const mP = molaritaAcido('H3PO4');
 return {
 meq:acidMeq,
 residuo:hco3meq-acidMeq,
-volHNO3:acidMeq/1000.0*prodL/molPerL.nitric*1000.0,
-volH3PO4:acidMeq/1000.0*prodL/molPerL.phosphoric*1000.0,
-pMgL_H3PO4:acidMeq * MM.P
+volHNO3:acidMeq/1000.0*prodL/mN*1000.0,
+volH3PO4:molP/1000.0*prodL/mP*1000.0,
+pMgL_H3PO4:molP * MM.P,
+h3po4EqPerMol:eqP
 };
 }
 // pH di default della soluzione finale (campo "pH soluzione finale" in Calcola).
@@ -1436,7 +1355,7 @@ const av = calcAcidVolume(aq, 1, phTarget || PH_DEFAULT);
 if(!(av.meq > 0.01)) return null;
 const tipo = aq.acido === 'H3PO4' ? 'H3PO4' : 'HNO3';
 return { tipo, meq:av.meq, residuoMeq:av.residuo,
-N: tipo==='HNO3' ? av.meq*MM.N : 0, P: tipo==='H3PO4' ? av.meq*MM.P : 0,
+N: tipo==='HNO3' ? av.meq*MM.N : 0, P: tipo==='H3PO4' ? av.pMgL_H3PO4 : 0,
 volHNO3:av.volHNO3, volH3PO4:av.volH3PO4 };
 }
 // Apporto dell'acqua (e dell'acido) agli elementi gestiti dal solver, mg/L.
@@ -1506,13 +1425,21 @@ if(t !== tipo){ tipo = t; motivo = 'precipitazione'; }
 return { tipo, punteggi, motivo, esito };
 }
 // Con il selettore su "Automatico" fissa aq.acido sull'acido scelto. Senza ctx
-// (dosi già nette, es. dopo "Bilancia") riusa l'ultima scelta: quelle dosi
-// sono state calcolate con quell'acido.
-let ultimoAcidoAuto = null, ultimoCtxAcido = null;
+// (dosi già nette, es. dopo "Bilancia") riusa l'ultima scelta solo se acqua e pH
+// non sono cambiati; altrimenti rivaluta l'acido sulle dosi correnti.
+let ultimoAcidoAuto = null, ultimoCtxAcido = null, ultimoAcidoChiave = null;
+function chiaveAcido(aq, phFinale){
+if(!aq) return '';
+return [aq.hco3||0, aq.ph||7, aq.ca||0, +(phFinale||PH_DEFAULT)].join('|');
+}
 function risolviAcidoAuto(aq, phFinale, ctx){
 if(!aq || aq.acido !== 'auto') return null;
-if(ctx) ultimoCtxAcido = ctx; const effCtx = ctx || (!ultimoAcidoAuto ? ultimoCtxAcido : null); const scelta = effCtx ? scegliAcido(aq, phFinale, effCtx) : ultimoAcidoAuto;
-if(effCtx) ultimoAcidoAuto = scelta;
+const ch = chiaveAcido(aq, phFinale);
+if(ctx) ultimoCtxAcido = ctx;
+const stessoContesto = ultimoAcidoAuto && ultimoAcidoChiave === ch;
+const effCtx = ctx || (stessoContesto ? null : (ultimoCtxAcido || {righe: (typeof calcRighe!=='undefined' ? calcRighe : [])}));
+const scelta = effCtx ? scegliAcido(aq, phFinale, effCtx) : ultimoAcidoAuto;
+if(effCtx){ ultimoAcidoAuto = scelta; ultimoAcidoChiave = ch; }
 aq.acido = scelta ? scelta.tipo : 'HNO3';
 return scelta;
 }
@@ -1526,27 +1453,115 @@ el.textContent = acido
 }
 const SERB_SI_PH = 6.0, SERB_SI_TC = 20;
 function tcAcqua(aq){ return (aq && isFinite(aq.temp) && aq.temp>=1 && aq.temp<=45) ? aq.temp : SERB_SI_TC; }
+function stimaPhSerbatoio(righeSerb){
+const attive = (righeSerb||[]).filter(r => r && r.id && r.id!=='__custom' && (+r.dose||0) > 0);
+if(attive.some(r => r.id==='HNO3' || r.id==='H3PO4')) return 2.5;
+if(attive.some(r => {
+const s = getSale(r.id) || r;
+return r.id==='KOH' || r.id==='K2SiO3' || (s.el && s.el.Si > 0);
+})) return 11.0;
+if(attive.some(r => {
+const s = getSale(r.id) || r;
+return r.id==='KH2PO4' || r.id==='MAP' || (s.el && s.el.P > 0 && !(s.el.Ca > 0));
+})) return 4.6;
+return SERB_SI_PH;
+}
 function serbSIs(righeSerb, aq, dil){
 const p = profiloDaRighe(righeSerb, null);
 const pc = {};
 for(const k in p) pc[k] = (p[k]||0) * (dil||1);
-return siForIons(pc, SERB_SI_PH, tcAcqua(aq));
+const phSerb = stimaPhSerbatoio(righeSerb);
+const si = siForIons(pc, phSerb, tcAcqua(aq));
+si.phSerb = phSerb;
+return si;
 }
-function worstSerbSI(workingRighe, aq, dil){
+function worstSerbSIDettaglio(workingRighe, aq, dil){
 const serbs = (typeof usaSerbC!=='undefined' && usaSerbC) ? ['A','B','C'] : ['A','B'];
-const worst = {CaSO4:-Infinity, CaHPO4:-Infinity, struvite:-Infinity, CaCO3:-Infinity};
+const det = {
+CaSO4:{si:-Infinity,serb:null},
+CaHPO4:{si:-Infinity,serb:null},
+struvite:{si:-Infinity,serb:null},
+CaCO3:{si:-Infinity,serb:null}
+};
 serbs.forEach(s=>{
-const righeS = workingRighe.filter(r=>r.serb===s);
+const righeS = workingRighe.filter(r=>r.serb===s && (+r.dose||0)>0);
 if(!righeS.length) return;
 const si = serbSIs(righeS, aq, dil);
-for(const k in worst) worst[k] = Math.max(worst[k], si[k]);
+for(const k in det){
+if(si[k] > det[k].si){ det[k].si = si[k]; det[k].serb = s; }
+}
 });
-return worst;
+return det;
+}
+function worstSerbSI(workingRighe, aq, dil){
+const det = worstSerbSIDettaglio(workingRighe, aq, dil);
+return { CaSO4:det.CaSO4.si, CaHPO4:det.CaHPO4.si, struvite:det.struvite.si, CaCO3:det.CaCO3.si };
+}
+const SOLUBILITA_G_L = {
+K2SO4:  {0:74,10:92,20:111,30:130},
+KNO3:   {0:133,10:209,20:316,30:458},
+KH2PO4: {0:148,10:183,20:226,30:280},
+MAP:    {0:227,10:295,20:370,30:464},
+MgSO4:  {0:520,10:620,20:710,30:820},
+CaN:    {0:1020,10:1150,20:1290,30:1520},
+MgNO3:  {0:1100,10:1180,20:1250,30:1350},
+NH4NO3: {0:1180,10:1500,20:1920,30:2420},
+CaCl2:  {0:790,10:860,20:990,30:1300},
+H3BO3:  {0:27,10:36,20:47,30:67},
+FeSO4:  {0:280,10:380,20:480,30:600},
+MnSO4:  {0:530,10:590,20:630,30:660},
+ZnSO4:  {0:740,10:840,20:960,30:1080},
+NaMoO4: {0:520,10:650,20:650,30:670}
+};
+function solubilitaSale(id, Tc){
+const tab = SOLUBILITA_G_L[id];
+if(!tab) return null;
+const T = Math.min(40, Math.max(0, isFinite(Tc) ? Tc : 20));
+if(T <= 10) return tab[0] + (tab[10] - tab[0]) * (T / 10);
+if(T <= 20) return tab[10] + (tab[20] - tab[10]) * ((T - 10) / 10);
+if(T <= 30) return tab[20] + (tab[30] - tab[20]) * ((T - 20) / 10);
+return tab[30] + (tab[30] - tab[20]) * ((T - 30) / 10);
+}
+function verificaSolubilitaSerb(righeSerb, dil, Tc){
+const problemi = [];
+let dilMaxSicura = Infinity;
+const d = Math.max(1, dil || 1);
+const attive = (righeSerb||[]).filter(r => r && r.id && r.id!=='__custom' && (+r.dose||0) > 0);
+attive.forEach(r => {
+const sMax = solubilitaSale(r.id, Tc);
+if(!sMax) return;
+const concGL = r.dose * d / 1000;
+const ratio = concGL / sMax;
+const dm = Math.floor(sMax * 1000 / r.dose);
+if(ratio > 1.0){
+problemi.push({ tipo:'singolo', id:r.id, nome:r.nome||r.id, concGL, sMax, ratio, gravita:'C', dilMax:dm });
+dilMaxSicura = Math.min(dilMaxSicura, dm);
+} else if(ratio > 0.80){
+problemi.push({ tipo:'singolo', id:r.id, nome:r.nome||r.id, concGL, sMax, ratio, gravita:'A', dilMax:dm });
+}
+});
+const p = profiloDaRighe(attive, null);
+if(p.K > 0 && p.S > 0){
+const sK2SO4 = solubilitaSale('K2SO4', Tc);
+const mK1x = (p.K / 1000) / MM.K;
+const mS1x = (p.S / 1000) / MM.S;
+const prod1x = mK1x * mK1x * mS1x;
+const satProd = 4 * Math.pow(sK2SO4 / 174.26, 3);
+const prod = prod1x * d * d * d;
+const ratio = satProd > 0 ? prod / satProd : 0;
+if(ratio > 0.80){
+const dm = prod1x > 0 ? Math.floor(Math.cbrt(satProd / prod1x)) : Infinity;
+const gravita = ratio > 1.0 ? 'C' : 'A';
+problemi.push({ tipo:'ioneComune', id:'K2SO4', nome:'K₂SO₄ (effetto ione comune K⁺)', concGL:p.S*d/1000, sMax:sK2SO4, ratio, gravita, dilMax:dm });
+if(gravita === 'C') dilMaxSicura = Math.min(dilMaxSicura, dm);
+}
+}
+return { problemi, dilMaxSicura };
 }
 const SALI_DEFAULT = [
 {id:"CaN",   nome:"Nitrato di Calcio Ca(NO₃)₂·4H₂O", cat:"macro",serb:"B",
 el:{N:11.8,Ca:17},  ecC:0.98, dose:945, prezzo:0.9,
-note:"Serbatoio B obbligatorio: precipita con fosfati e solfati nel concentrato. Sciogliere in acqua tiepida."},
+note:"Serbatoio B obbligatorio: precipita con fosfati e solfati nel concentrato. Sciogliere in acqua tiepida. Profilo per tetraidrato puro Ca(NO₃)₂·4H₂O (N 11.8%, Ca 17%); per nitrato di calcio commerciale tipo Calcinit (N 15.5% di cui ~1.1% NH₄, Ca 19%) modificare in Catalogo o creare una voce dedicata."},
 {id:"KNO3",  nome:"Nitrato di Potassio KNO₃",          cat:"macro",serb:"A",
 el:{N:13.8,K:38.7}, ecC:1.27, dose:810, prezzo:1.1,
 note:"Prima scelta per K e N nitrico. Altamente solubile."},
@@ -1560,13 +1575,13 @@ note:"Sale Epsom. Economico ma apporta S: moderare in coco per evitare accumulo 
 el:{P:22.8,K:28.7}, ecC:0.70, dose:340, prezzo:1.8,
 note:"P + K, abbassa il pH. Forma CaHPO₄ precipitato se incontra calcio: sempre in A."},
 {id:"MAP",   nome:"Fosfato Monoammonico MAP NH₄H₂PO₄",cat:"macro",serb:"A",
-el:{N:12,P:26.9},   ecC:0.82, dose:230, prezzo:1.2,
+el:{N:12,P:26.9}, nh4Frac:100, ecC:0.82, dose:230, prezzo:1.2,
 note:"Fonte P con N-NH₄. Max 10% dell'N totale in coco per evitare tossicità da ammonio."},
 {id:"K2SO4", nome:"Solfato di Potassio K₂SO₄",         cat:"macro",serb:"A",
 el:{K:44.9,S:18.4}, ecC:1.50, dose:400, prezzo:1.3,
 note:"K senza azoto: ideale in fioritura. Aggiunge S."},
 {id:"NH4NO3",nome:"Nitrato di Ammonio NH₄NO₃",          cat:"macro",serb:"A",
-el:{N:35},           ecC:1.60, dose:80,  prezzo:0.7,
+el:{N:35}, nh4Frac:50, ecC:1.60, dose:80,  prezzo:0.7,
 note:"NH₄ max 5% N totale in coco. Evitare in estate."},
 {id:"CaCl2", nome:"Cloruro di Calcio CaCl₂·2H₂O",      cat:"macro",serb:"B",
 el:{Ca:27.3,Cl:48.2}, ecC:1.60, dose:0,  prezzo:0.6,
@@ -1602,7 +1617,7 @@ note:"Il micro in quantità minore. Preparare soluzione madre 1 g/L e dosare da 
 el:{N:8.45},            ecC:1.40,    dose:0,   prezzo:0.8, isLiquid:true, density:1.24,
 note:"Correttore pH verso il basso. DPI obbligatori. Sempre in A."},
 {id:"H3PO4", nome:"Acido Fosforico H₃PO₄ 75%",           cat:"ph",   serb:"A",
-el:{P:23},            ecC:1.30,    dose:0,   prezzo:1.2, isLiquid:true, density:1.58,
+el:{P:23.7},            ecC:1.30,    dose:0,   prezzo:1.2, isLiquid:true, density:1.58,
 note:"Più sicuro dell'HNO₃. Non mescolare con Ca nel concentrato."},
 {id:"KOH",   nome:"Idrossido Potassio KOH 50%",           cat:"ph",   serb:"A",
 el:{K:35},            ecC:2.42,    dose:0,   prezzo:1.5, isLiquid:true, density:1.52,
@@ -1613,20 +1628,27 @@ note:"Prodotto commerciale liquido ~49% K₂SiO₃ (pH 11-12). Silicio (Si) raff
 ];
 const CAT={macro:{label:"Macro",bg:"#2d5a3d"},micro:{label:"Micro",bg:"#7b3f9e"},ph:{label:"pH/Add",bg:"#b8530a"}};
 const CALCIO_IDS=["CaN","CaCl2"];
-const INCOMPAT_CON_CA=["KH2PO4","MAP","MgSO4","K2SO4","FeSO4","MnSO4","ZnSO4","FeEDTA","FeDTPA","FeEDDHA","MixCh","H3PO4"];
 function safeParse(key, fallback){
 try{ const v = JSON.parse(localStorage.getItem(key)||'null'); return v===null ? fallback : v; }
 catch(e){ console.warn('Dati corrotti in '+key+', uso i default:', e.message); return fallback; }
 }
 function stripTags(s){ return typeof s==='string' ? s.replace(/[<>"]/g,'') : s; }
-const CATALOG_VERSION = 3;
+const CATALOG_VERSION = 4;
 function mergeCatalogoDefaults(saved){
 const defaultIds = new Set(SALI_DEFAULT.map(s=>s.id));
 const base = SALI_DEFAULT.map(d=>{
 const s = saved.find(x=>x && x.id===d.id);
-return s ? {...d, prezzo:s.prezzo??d.prezzo, note:s.note!=null?stripTags(s.note):d.note, dose:s.dose??d.dose} : {...d};
+if(!s) return {...d};
+const customEl = s._elCustom && s.el && typeof s.el==='object';
+return {
+...d,
+prezzo:s.prezzo??d.prezzo,
+note:s.note!=null?stripTags(s.note):d.note,
+dose:s.dose??d.dose,
+...(customEl ? { el:s.el, nh4Frac:s.nh4Frac, ecC:s.ecC??d.ecC, _elCustom:true, ...(s.isLiquid?{isLiquid:true,density:s.density}:{}) } : {})
+};
 });
-const custom = saved.filter(s=>s && typeof s.id==='string' && !defaultIds.has(s.id) && s.el && typeof s.el==='object');
+const custom = saved.filter(s=>s && isSafeId(s.id) && !defaultIds.has(s.id) && s.el && typeof s.el==='object');
 return [...base, ...custom];
 }
 let catalogo = safeParse('fc_catalogo', null);
@@ -1653,7 +1675,7 @@ let calcRighe = [];
 //  saltaBilanciamento → l'utente ha ripristinato le dosi originali: niente
 //            auto-bilanciamento finché non cambia ricetta o lo richiede.
 let statoCalc = { target:null, nette:false, saltaBilanciamento:false };
-function resetStatoCalc(target){ statoCalc = { target: target || null, nette: !!target, saltaBilanciamento:false }; }
+function resetStatoCalc(target){ statoCalc = { target: target || null, nette: !!target, saltaBilanciamento:false }; ultimoAcidoAuto = null; ultimoCtxAcido = null; ultimoAcidoChiave = null; }
 function segnaModificaManuale(){
 if(statoCalc.target){
 statoCalc.target = null;
@@ -1821,7 +1843,7 @@ sali:[{id:"CaN",g:412},{id:"KNO3",g:185},{id:"KH2PO4",g:96},{id:"MgNO3",g:200},{
 ]},
 ];
 const SALI_I18N = {
-CaN:   {nome:"Calcium Nitrate Ca(NO₃)₂·4H₂O",     note:"Tank B mandatory: precipitates with phosphates and sulfates in the concentrate. Dissolve in lukewarm water."},
+CaN:   {nome:"Calcium Nitrate Ca(NO₃)₂·4H₂O",     note:"Tank B mandatory: precipitates with phosphates and sulfates in the concentrate. Dissolve in lukewarm water. Profile for pure tetrahydrate Ca(NO₃)₂·4H₂O (11.8% N, 17% Ca); for commercial calcium nitrate such as Calcinit (15.5% N incl. ~1.1% NH₄, 19% Ca) edit in Catalog or create a dedicated entry."},
 KNO3:  {nome:"Potassium Nitrate KNO₃",            note:"First choice for K and nitric N. Highly soluble."},
 MgNO3: {nome:"Magnesium Nitrate Mg(NO₃)₂·6H₂O",   note:"Preferable to sulfate in coco to avoid sulfur buildup. Provides Mg and N without S."},
 MgSO4: {nome:"Magnesium Sulfate MgSO₄·7H₂O",      note:"Epsom salt. Cheap but adds S: moderate in coco to avoid sulfate buildup."},
@@ -1917,6 +1939,8 @@ const MOTORE_TR = {
 'Degrado chelati':'Chelate degradation', 'Idrossido ferrico':'Ferric hydroxide',
 'Neutralizzazione':'Neutralization', 'Fosfato ferroso':'Ferrous phosphate',
 'Degrado chelato':'Chelate degradation', 'Molibdato metallico':'Metal molybdate',
+'Idrossido di Magnesio':'Magnesium hydroxide', 'Idrossido di Calcio':'Calcium hydroxide',
+'Sviluppo NH₃':'Ammonia gas release', 'Reazione acido-base':'Acid-base reaction',
 'Ca²⁺ + fosfati → CaHPO₄/Ca₃(PO₄)₂ insolubili.':'Ca²⁺ + phosphates → insoluble CaHPO₄/Ca₃(PO₄)₂.',
 'Ca²⁺ + SO₄²⁻ → CaSO₄ (verifica IAP nel concentrato).':'Ca²⁺ + SO₄²⁻ → CaSO₄ (check IAP in the concentrate).',
 'Ca²⁺ + silicato → CaSiO₃ insolubile.':'Ca²⁺ + silicate → insoluble CaSiO₃.',
@@ -1925,13 +1949,27 @@ const MOTORE_TR = {
 'Silicato + acido → gel di acido silicico.':'Silicate + acid → silicic acid gel.',
 'pH 11-12 del silicato distrugge i chelati.':'Silicate pH 11-12 destroys chelates.',
 'Silicato precipita Fe(OH)₃.':'Silicate precipitates Fe(OH)₃.',
+'pH >10 del silicato precipita Mg(OH)₂/MgSiO₃ insolubile.':'Silicate pH >10 precipitates insoluble Mg(OH)₂/MgSiO₃.',
 'Base forte + acido forte → reazione violenta.':'Strong base + strong acid → violent reaction.',
+'Base forte + Ca²⁺ → precipita Ca(OH)₂ insolubile.':'Strong base + Ca²⁺ → precipitates insoluble Ca(OH)₂.',
+'Base forte + Mg²⁺ → precipita Mg(OH)₂ insolubile.':'Strong base + Mg²⁺ → precipitates insoluble Mg(OH)₂.',
+'Base forte + NH₄⁺ → libera NH₃ gassosa (tossica e perdita di N).':'Strong base + NH₄⁺ → releases NH₃ gas (toxic and N loss).',
+'Base forte + fosfati acidi → reazione acido-base esotermica.':'Strong base + acid phosphates → exothermic acid-base reaction.',
+'Base forte + Fe²⁺ → precipita Fe(OH)₃.':'Strong base + Fe²⁺ → precipitates Fe(OH)₃.',
+'pH estremo della base forte degrada i chelati.':'Extreme pH of strong base degrades chelates.',
 'Fe²⁺ + fosfati → FePO₄/vivianite.':'Fe²⁺ + phosphates → FePO₄/vivianite.',
 'Fe²⁺ libero compete col chelato.':'Free Fe²⁺ competes with the chelate.',
 'MoO₄²⁻ + micro-solfati → co-precipitazione.':'MoO₄²⁻ + micro-sulfates → co-precipitation.',
 'Polimeri Si':'Si polymers', 'Reaz. acido-base':'Acid-base reaction',
 'Degr. chelato':'Chelate degr.', 'Degr. chelati':'Chelate degr.', 'Reaz. violenta':'Violent reaction',
 'Stesso.':'Same.',
+'A pH >10 precipita idrossido/silicato di Magnesio insolubile.':'At pH >10 insoluble magnesium hydroxide/silicate precipitates.',
+'Base forte + fosfato acido → reazione esotermica e formazione fosfati insolubili.':'Strong base + acid phosphate → exothermic reaction and insoluble phosphate formation.',
+'Base forte + NH₄⁺ → sviluppo di ammoniaca gassosa (NH₃).':'Strong base + NH₄⁺ → ammonia gas (NH₃) evolution.',
+'Base forte + Mg²⁺ → precipita Mg(OH)₂ istantaneamente.':'Strong base + Mg²⁺ → precipitates Mg(OH)₂ instantly.',
+'Base forte + Ca²⁺ → precipita Ca(OH)₂.':'Strong base + Ca²⁺ → precipitates Ca(OH)₂.',
+'pH alcalino estremo di KOH degrada i chelati.':'Extreme alkaline pH of KOH degrades chelates.',
+'pH estremo di KOH precipita Fe(OH)₃.':'Extreme pH of KOH precipitates Fe(OH)₃.',
 'Ca²⁺ + H₂PO₄⁻ → CaHPO₄ insolubile (Ksp=2.7e-7). Precipita a qualsiasi concentrazione.':'Ca²⁺ + H₂PO₄⁻ → insoluble CaHPO₄ (Ksp=2.7e-7). Precipitates at any concentration.',
 'Ca²⁺ + H₂PO₄⁻ da MAP → CaHPO₄. NH₄⁺ aggrava il blocco radicale.':'Ca²⁺ + H₂PO₄⁻ from MAP → CaHPO₄. NH₄⁺ worsens root lock-out.',
 'Ca²⁺ + H₃PO₄ → Ca₃(PO₄)₂. Aggiungere H₃PO₄ solo all\'acqua diluita, mai nel concentrato Ca.':'Ca²⁺ + H₃PO₄ → Ca₃(PO₄)₂. Add H₃PO₄ only to diluted water, never to the Ca concentrate.',
@@ -2091,10 +2129,6 @@ window.scrollTo(0, Math.min(_tabScrollY[id], fcMaxScroll()));
 window.scrollTo(0, Math.min(anchor, fcMaxScroll()));
 }
 }
-}
-function scrollCalcolaInCima(){
-const anchor = fcTabsAnchor();
-if((window.scrollY || 0) > anchor + 16) fcScrollTo(anchor);
 }
 function saveCatalogo(){ try{ localStorage.setItem('fc_catalogo', JSON.stringify(catalogo)); }catch(e){ console.warn('Salvataggio catalogo fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 function saveRicette(){ try{ localStorage.setItem('fc_ricette', JSON.stringify(ricetteCustom)); }catch(e){ console.warn('Salvataggio ricette fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
@@ -2344,7 +2378,7 @@ return sum + (+r.dose||0)*pzU/1000;
 }, 0);
 const acidoG = (aq && aq.hco3 > 0) ? calcolaGrammiAcido(aq, phPrev, aq.acido) : 0;
 const acidoPz = (aq && aq.hco3 > 0) ? (getSale(aq.acido==='H3PO4'?'H3PO4':'HNO3')?.prezzo || 0) : 0;
-const costoAcido = costoSali > 0 ? (acidoG * acidoPz / 1000) : 0;
+const costoAcido = acidoG * acidoPz / 1000;
 const sub = costoAcido > 0
 ? TT('sali + acido','salts + acid')
 : (aq ? TT('sol. finale (con acqua)','final sol. (with water)') : TT('sol. finale','final sol.'));
@@ -2356,7 +2390,7 @@ const pNome = ricNome(pianta), pNote = ricNote(pianta)||'—';
 const fNome = faseNome(pianta, fi, fase), fNote = faseNote(pianta, fi, fase)||'—';
 document.getElementById('ricetta-out-title').textContent=`🔬 ${pNome} — ${fNome}`;
 document.getElementById('note-agronomiche').innerHTML=
-`<strong>${esc(pNome)}:</strong> ${pNote}<br><br><strong>${esc(fNome)}:</strong> ${fNote}`;
+`<strong>${esc(pNome)}:</strong> ${esc(pNote)}<br><br><strong>${esc(fNome)}:</strong> ${esc(fNote)}`;
 if(fase.modo==='target'){
 const tg=fase.targets||{}; const stimaT=stimaCostoRicettaPerMille(fase); const totCostoTarget=stimaT.tot;
 let html=`<div class="alert al-inf" style="margin-bottom:10px"><strong>${t('js.targetMode')}</strong> ${t('js.targetDesc')}</div>`;
@@ -2574,8 +2608,9 @@ const keys = Object.keys(EL_NAME).sort((a,b)=>b.length-a.length).join('|');
 const boundary = 'A-Za-zÀ-ÖØ-öø-ÿ0-9₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻';
 return s.replace(new RegExp(`(^|[^${boundary}])(${keys})(?!\\s*\\()(?=$|[^${boundary}])`,'g'), (m, pre, el, off)=>{
 const next = s[off+m.length];
-const before = s.slice(Math.max(0, off-14), off+pre.length);
-if(/(serb\.?|serbatoi\w*|tanks?)\s+$/i.test(before)) return m;
+const before = s.slice(Math.max(0, off-18), off+pre.length);
+if(el === 'B' && /(?:serb\.?|serbatoi\w*|tanks?|vasc\w*|\bA\s*(?:,|\/|e|and|o|or))\s*$/i.test(before)) return m;
+if(/(?:serb\.?|serbatoi\w*|tanks?)\s+$/i.test(before)) return m;
 if(pre==='/' || pre==='-' || next==='/' || next==='-') return m;
 if(pre==='(') return m;
 return pre+elLabel(el);
@@ -2717,7 +2752,7 @@ tr.innerHTML=`<td style="min-width:180px">
         <select onchange="cambioSaleCalc(${i},this.value)" style="width:100%;font-size:.75rem;padding:5px 6px;background:#fff">
           ${buildSelectCalc(r.id||'__custom')}
         </select>
-        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" value="${esc(r.nomeCustom)}" data-riga="${i}" data-campo="nomeCustom" oninput="calcRighe[${i}].nomeCustom=this.value" onchange="calcRighe[${i}].nomeCustom=this.value" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
+        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" value="${esc(r.nomeCustom)}" data-riga="${i}" data-campo="nomeCustom" oninput="calcRighe[${i}].nomeCustom=this.value" onchange="calcRighe[${i}].nomeCustom=sanitizeName(this.value);this.value=calcRighe[${i}].nomeCustom" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
         ${info&&info.el?`<div class="el-txt">${elPctList(info.el)}</div>`:''}
       </td>
       <td style="vertical-align:top;padding-top:20px">
@@ -2795,7 +2830,7 @@ document.querySelectorAll('#calc-tbody input[data-riga]').forEach(inp=>{
 const rigaIdx = parseInt(inp.dataset.riga);
 const campo = inp.dataset.campo;
 if(isNaN(rigaIdx) || !calcRighe[rigaIdx] || !campo) return;
-calcRighe[rigaIdx][campo] = campo==='nomeCustom' ? inp.value : +inp.value;
+calcRighe[rigaIdx][campo] = campo==='nomeCustom' ? sanitizeName(inp.value) : +inp.value;
 });
 }
 function gaussSolve(A, b) {
@@ -2914,7 +2949,7 @@ const w = SOLVER_EL.map(el => (el === 'S' && sLibero ? SOLVER_PRIO_S_LIBERO : SO
 const MU = x0.size ? 0.08 : 0.02;
 const fissi = new Map();
 let dosi = new Map();
-for (let giro = 0; giro < 3; giro++) {
+for (let giro = 0; giro < 5; giro++) {
 const liberi = pool.filter(s => !fissi.has(s.id));
 const daFissi = el => [...fissi].reduce((s, [id, g]) => s + g * ((pool.find(p => p.id === id).el[el] || 0) / 100), 0);
 const A = SOLVER_EL.map((el, i) => liberi.map(s => (s.el[el] || 0) / 100 * w[i]));
@@ -2931,16 +2966,20 @@ liberi.forEach((s, k) => dosi.set(s.id, x[k]));
 const nTot = (base.N || 0) + pool.reduce((s, p) => s + (dosi.get(p.id) || 0) * (p.el.N || 0) / 100, 0);
 const nh4 = (base.NH4 || 0) + pool.reduce((s, p) => s + nh4DaSale(p, dosi.get(p.id) || 0), 0);
 if (nTot <= 0 || nh4 <= nh4Max * nTot + 1e-6) break;
-const portatori = pool.filter(p => !fissi.has(p.id) && fracNH4(p.id, p) > 0 && (dosi.get(p.id) || 0) > 0);
+const altriLiberi = pool.filter(p => !fissi.has(p.id) && fracNH4(p.id, p) === 0);
+const haAlternativa = p => SOLVER_EL.filter(e => e !== 'N' && e !== 'S' && (p.el[e] || 0) > 0)
+  .every(e => altriLiberi.some(a => (a.el[e] || 0) > 0));
+const portatori = pool.filter(p => fracNH4(p.id, p) > 0 && (dosi.get(p.id) || 0) > 1e-6 && (!fissi.has(p.id) || (fissi.get(p.id) > 1e-6 && haAlternativa(p))));
 if (!portatori.length) break;
-// Scala i portatori di NH₄ di un fattore f tale che
-//   (NH₄ altri + f·NH₄ port) ≤ cap·(N tot − (1−f)·N port)
-// (scalando un NH₄NO₃ si perde anche il suo nitrato: va messo in conto).
-const nh4Port = portatori.reduce((s, p) => s + nh4DaSale(p, dosi.get(p.id)), 0);
-const nPort = portatori.reduce((s, p) => s + dosi.get(p.id) * (p.el.N || 0) / 100, 0);
+const secondari = portatori.filter(haAlternativa);
+const targetPort = secondari.length > 0 ? secondari : portatori;
+// Scala prima i portatori di NH₄ non essenziali per altri elementi (es. NH₄NO₃),
+// preservando il budget ammoniacale per fonti insostituibili (es. MAP per P).
+const nh4Port = targetPort.reduce((s, p) => s + nh4DaSale(p, dosi.get(p.id)), 0);
+const nPort = targetPort.reduce((s, p) => s + dosi.get(p.id) * (p.el.N || 0) / 100, 0);
 const den = nh4Port - nh4Max * nPort;
 const f = den > 0 ? Math.max(0, Math.min(1, (nh4Max * (nTot - nPort) - (nh4 - nh4Port)) / den)) : 0;
-portatori.forEach(p => fissi.set(p.id, dosi.get(p.id) * f));
+targetPort.forEach(p => fissi.set(p.id, dosi.get(p.id) * f));
 }
 const ottenuto = {};
 SOLVER_EL.forEach(el => { ottenuto[el] = (base[el] || 0) + pool.reduce((s, p) => s + (dosi.get(p.id) || 0) * (p.el[el] || 0) / 100, 0); });
@@ -2984,13 +3023,19 @@ const FE_CHELATI = ['FeEDTA','FeDTPA','FeEDDHA'];
 function microElementi(sale){ return MICRO_EL.filter(e => ((sale && sale.el && sale.el[e]) || 0) > 0); }
 function arrotondaDose(g){ return g < 1 ? Math.round(g*100)/100 : Math.round(g*10)/10; }
 // Sale "singolo" (un solo micro) più conveniente per mg di elemento, tra quelli
-// in scorta. Per il Fe i chelati hanno la precedenza sul FeSO₄ (instabile).
-function saleSingoloMicro(el){
+// in scorta. Per il Fe i chelati seguono la stabilità al pH finale scelto.
+function saleSingoloMicro(el, phFinale){
 const cand = catalogo.filter(s => s.el && (s.el[el]||0) > 0 && s.id !== 'MixCh' && s.cat !== 'macro'
 && isDisponibile(s.id) && microElementi(s).length === 1);
 const costo = s => ((s.prezzo||0) > 0 ? s.prezzo : 50) / s.el[el];
+const ph = phFinale || PH_DEFAULT;
+const rankFe = id => {
+if(ph > 7.5) return id==='FeEDDHA' ? 0 : id==='FeDTPA' ? 1 : id==='FeEDTA' ? 2 : 3;
+if(ph > 6.5) return (id==='FeDTPA' || id==='FeEDDHA') ? 0 : id==='FeEDTA' ? 1 : 2;
+return FE_CHELATI.includes(id) ? 0 : 1;
+};
 cand.sort((a, b) => {
-if(el === 'Fe'){ const ca = FE_CHELATI.includes(a.id) ? 0 : 1, cb = FE_CHELATI.includes(b.id) ? 0 : 1; if(ca !== cb) return ca - cb; }
+if(el === 'Fe'){ const ra = rankFe(a.id), rb = rankFe(b.id); if(ra !== rb) return ra - rb; }
 return costo(a) - costo(b);
 });
 return cand[0] || null;
@@ -3006,12 +3051,17 @@ const righe = [], scoperti = [];
 const ott = {}; MICRO_EL.forEach(e => { ott[e] = 0; });
 const mix = opts.usaMix === false ? null : catalogo.find(s => s.id === 'MixCh' && s.el && isDisponibile(s.id));
 if(mix){
-const els = microElementi(mix).filter(e => e !== 'Fe');
-const richiesti = els.filter(e => (t[e]||0) > 0);
+const elsAll = microElementi(mix);
+const elsNoFe = elsAll.filter(e => e !== 'Fe');
+const richiesti = elsNoFe.filter(e => (t[e]||0) > 0);
 if(richiesti.length){
-const cap = e => (t[e]||0) > 0 ? Math.min(t[e]*1.25, MICRO_TOX[e] != null ? MICRO_TOX[e] : Infinity) : (MICRO_TOX[e] != null ? MICRO_TOX[e] : Infinity);
+const cap = e => {
+const lim = e === 'Fe' ? Infinity : (MICRO_TOX[e] != null ? MICRO_TOX[e] : Infinity);
+return (t[e]||0) > 0 ? Math.min(t[e]*1.25, lim) : lim;
+};
+const cappedEls = elsAll.filter(e => e !== 'Fe' || (t.Fe||0) > 0);
 const gMax = Math.max(...richiesti.map(e => t[e] / (mix.el[e]/100)));
-const gMix = Math.min(gMax, ...els.map(e => cap(e) / (mix.el[e]/100)));
+const gMix = Math.min(gMax, ...cappedEls.map(e => cap(e) / (mix.el[e]/100)));
 if(gMix > 0.05){
 const g = arrotondaDose(gMix);
 righe.push({ id:'MixCh', nome:salNome(mix), dose:g, prezzo:mix.prezzo||0, fixed:true,
@@ -3024,7 +3074,7 @@ MICRO_EL.forEach(e => {
 const req = t[e] || 0;
 const def = req - ott[e];
 if(req <= 0 || def <= Math.max(0.1*req, 0.002)) return;
-const s = saleSingoloMicro(e);
+const s = saleSingoloMicro(e, opts.phFinale);
 if(!s){ scoperti.push({ el:e, deficit:def }); return; }
 const g = arrotondaDose(def / (s.el[e]/100));
 if(!(g > 0)) return;
@@ -3059,7 +3109,7 @@ if (dose > 0.5) righe.push({ id:s.id, nome:salNome(s), dose, prezzo:s.prezzo||0,
 }
 const tMicro = {};
 MICRO_EL.forEach(el => { tMicro[el] = Math.max(0, (+targets[el] || 0) - (el === 'Fe' ? base.Fe : 0)); });
-const mic = risolviMicro(tMicro);
+const mic = risolviMicro(tMicro, { phFinale: phFinale || PH_DEFAULT });
 righe.push(...mic.righe);
 mic.scoperti.forEach(sc => righe.push(rigaMicroScoperto(sc)));
 return righe;
@@ -3105,7 +3155,7 @@ if (dose >= 1) { nuove.push({ id:s.id, nome:salNome(s), dose, prezzo:s.prezzo||0
 const pNuove = profiloDaRighe(nuove, null);
 const deficit = {};
 MICRO_EL.forEach(e => { deficit[e] = Math.max(0, (ricetta[e] || 0) - (pNuove[e] || 0)); });
-const mic = risolviMicro(deficit, { usaMix:false });
+const mic = risolviMicro(deficit, { usaMix: !disp.some(r => r.id === 'MixCh') && isDisponibile('MixCh') });
 mic.righe.forEach(r => { const gia = nuove.find(x => x.id === r.id); if (gia) { const prima = +gia.dose || 0; gia.dose = arrotondaDose(prima + r.dose); if (Math.abs(gia.dose - prima) > 0.01) modifiche.push({ nome:gia.nome || gia.id, prima, dopo:gia.dose }); } else { nuove.push({ ...r, _sostituto:true }); aggiunti.push({ nome:r.nome, dose:r.dose }); } });
 const finale = profiloDaRighe(nuove, null);
 const confronto = [...SOLVER_EL, ...MICRO_EL]
@@ -3153,12 +3203,12 @@ return {ec, ph, temp, ca, mg, k, na, so4, cl, hco3, no3, fe, acido};
 }
 function presetAcqua(tipo){
 const map={
-ottima: {ec:0.1,ph:6.8,ca:10,mg:2,k:1,na:5,so4:5,cl:5,hco3:20,no3:2,fe:0.01},
-media:  {ec:0.3,ph:7.2,ca:80,mg:20,k:5,na:30,so4:40,cl:50,hco3:150,no3:10,fe:0.1},
-dura:   {ec:0.7,ph:7.8,ca:180,mg:45,k:8,na:60,so4:90,cl:80,hco3:320,no3:15,fe:0.2},
-osmosi: {ec:0.02,ph:6.5,ca:2,mg:1,k:0,na:2,so4:1,cl:2,hco3:5,no3:1,fe:0.01},
-piovana:{ec:0.05,ph:6.2,ca:3,mg:1,k:1,na:2,so4:2,cl:2,hco3:8,no3:1,fe:0.01},
-personalizzata:{ec:0.3,ph:7.2,ca:80,mg:20,k:5,na:30,so4:40,cl:50,hco3:150,no3:10,fe:0.1},
+ottima: {ec:0.10,ph:6.8,temp:20,ca:10,mg:2,k:1,na:5,so4:8,cl:8,hco3:30,no3:2,fe:0.01},
+media:  {ec:0.52,ph:7.2,temp:20,ca:60,mg:15,k:4,na:20,so4:60,cl:42,hco3:160,no3:10,fe:0.1},
+dura:   {ec:1.28,ph:7.8,temp:20,ca:170,mg:42,k:8,na:50,so4:255,cl:112,hco3:340,no3:17,fe:0.2},
+osmosi: {ec:0.03,ph:6.5,temp:20,ca:2,mg:1,k:0,na:2,so4:3,cl:2,hco3:8,no3:1,fe:0.01},
+piovana:{ec:0.04,ph:6.2,temp:20,ca:3,mg:1,k:1,na:2,so4:4,cl:3,hco3:10,no3:1,fe:0.01},
+personalizzata:{ec:0.52,ph:7.2,temp:20,ca:60,mg:15,k:4,na:20,so4:60,cl:42,hco3:160,no3:10,fe:0.1},
 };
 const v=map[tipo]; if(!v)return;
 Object.entries(v).forEach(([k,val])=>{ const el=document.getElementById('aq-'+k); if(el) el.value=val; });
@@ -3204,8 +3254,7 @@ serbCManuale = true;
 calcola({noScroll:true});
 }
 function calcolaIoniDaSali(righe){
-const c = {Ca:0,Mg:0,K:0,N_total:0,N_NH4:0,P:0,SO4:0,Cl:0,Fe:0,Mn:0,Zn:0,B:0,Cu:0,Mo:0,EC_finale:0};
-c._serbConflitti = {};
+const c = {Ca:0,Mg:0,K:0,N_total:0,N_NH4:0,P:0,SO4:0,Cl:0,Na:0,Si:0,Fe:0,Mn:0,Zn:0,B:0,Cu:0,Mo:0};
 righe.forEach(r=>{
 const info=getSale(r.id);
 if(!info||!info.el) return;
@@ -3216,8 +3265,10 @@ if(el.Ca) c.Ca += g*el.Ca/100;
 if(el.Mg) c.Mg += g*el.Mg/100;
 if(el.K)  c.K  += g*el.K/100;
 if(el.P)  c.P  += g*el.P/100;
-if(el.S)  c.SO4+= g*el.S/100*(96.06/32.07);
+if(el.S)  c.SO4+= g*el.S/100*(MW_SO4/MM.S);
 if(el.Cl) c.Cl += g*el.Cl/100;
+if(el.Na) c.Na += g*el.Na/100;
+if(el.Si) c.Si += g*el.Si/100;
 if(el.Fe) c.Fe += g*el.Fe/100;
 if(el.Mn) c.Mn += g*el.Mn/100;
 if(el.Zn) c.Zn += g*el.Zn/100;
@@ -3226,19 +3277,13 @@ if(el.Cu) c.Cu += g*el.Cu/100;
 if(el.Mo) c.Mo += g*el.Mo/100;
 if(el.N) c.N_NH4 += g*el.N/100*fracNH4(r.id, info);
 });
-const serbs=['A','B','C'];
-serbs.forEach(s=>{
-const sr=righe.filter(r=>r.serb===s);
-const ids=sr.map(r=>r.id);
-c._serbConflitti[s]={
-hasCa:  ids.some(id=>CALCIO_IDS.includes(id)),
-hasP:   ids.some(id=>['KH2PO4','MAP','H3PO4'].includes(id)),
-hasMg:  ids.some(id=>['MgNO3','MgSO4'].includes(id)),
-hasFe:  ids.some(id=>['FeEDTA','FeDTPA','FeEDDHA','FeSO4','MixCh'].includes(id)),
-hasSo4: ids.some(id=>['MgSO4','K2SO4','FeSO4','MnSO4','ZnSO4'].includes(id)),
-};
-});
 return c;
+}
+function acidoDeltaEc(acido){
+if(!acido || !(acido.meq > 0)) return 0;
+const lAn = acido.tipo === 'HNO3' ? LAMBDA.NO3 : LAMBDA.H2PO4;
+const molAn = acido.tipo === 'HNO3' ? acido.meq : (acido.P / MM.P);
+return ((molAn * lAn - acido.meq * LAMBDA.HCO3) * 0.85) / 1000;
 }
 const EC_COEFF_GLOBAL = {
 CaN:    0.98,
@@ -3272,6 +3317,7 @@ let sum = 0;
 sum += LAMBDA.Ca    * eqL(el.Ca, MM.Ca, 2);
 sum += LAMBDA.Mg    * eqL(el.Mg, MM.Mg, 2);
 sum += LAMBDA.K     * eqL(el.K,  MM.K,  1);
+sum += LAMBDA.Na    * eqL(el.Na, MM.Na, 1);
 sum += LAMBDA.Cl    * eqL(el.Cl, MM.Cl, 1);
 sum += LAMBDA.SO4   * eqL(el.S,  MM.S,  2);
 sum += LAMBDA.H2PO4 * eqL(el.P,  MM.P,  1);
@@ -3283,9 +3329,10 @@ const onsager = (el.S>0 && ((el.Ca||0)+(el.Mg||0))>0) ? 0.60 : 0.85;
 return Math.round(sum * onsager * 100) / 100;
 }
 function ecCoeffSale(id){
-if(EC_COEFF_GLOBAL[id] != null) return EC_COEFF_GLOBAL[id];
 if(id==='__custom') return 0.5;
 const s = getSale(id);
+if(s && s._elCustom && s.ecC > 0) return s.ecC;
+if(EC_COEFF_GLOBAL[id] != null) return EC_COEFF_GLOBAL[id];
 if(!s) return 0;
 if(s.ecC > 0) return s.ecC;
 return s.el ? stimaEcC(s.el, s.nh4Frac) : 0;
@@ -3304,8 +3351,12 @@ if(['FeEDTA','FeDTPA','FeEDDHA','MixCh'].includes(id)) g.add('CHELATO');
 if(id==='NaMoO4') g.add('MoO4');
 if(id==='FeSO4') g.add('Fe2');
 if(el.Ca > 0) g.add('Ca');
+if(el.Mg > 0) g.add('Mg');
 if(el.P  > 0) g.add('PO4');
 if(el.S  > 0) g.add('SO4');
+if(el.Si > 0) g.add('SiO3');
+if(el.N  > 0 && fracNH4(id, sale) > 0) g.add('NH4');
+if(el.Mo > 0 && id !== 'MixCh' && !g.has('CHELATO')) g.add('MoO4');
 return [...g];
 }
 const GRUPPI_INCOMPAT = [
@@ -3315,9 +3366,16 @@ const GRUPPI_INCOMPAT = [
 {a:'Ca',   b:'MoO4',  g:'C', p:'Molibdato di Calcio',m:'Ca²⁺ + MoO₄²⁻ → CaMoO₄ (Ksp=1.8e-8).'},
 {a:'SiO3', b:'PO4',   g:'C', p:'Polimeri silicato',  m:'pH alto del silicato polimerizza i fosfati.'},
 {a:'SiO3', b:'ACID',  g:'C', p:'Acido silicico',     m:'Silicato + acido → gel di acido silicico.'},
+{a:'SiO3', b:'Mg',    g:'C', p:'Idrossido di Magnesio', m:'pH >10 del silicato precipita Mg(OH)₂/MgSiO₃ insolubile.'},
 {a:'SiO3', b:'CHELATO',g:'A',p:'Degrado chelati',    m:'pH 11-12 del silicato distrugge i chelati.'},
 {a:'SiO3', b:'Fe2',   g:'C', p:'Idrossido ferrico',  m:'Silicato precipita Fe(OH)₃.'},
 {a:'BASE', b:'ACID',  g:'C', p:'Neutralizzazione',   m:'Base forte + acido forte → reazione violenta.'},
+{a:'BASE', b:'Ca',    g:'C', p:'Idrossido di Calcio',m:'Base forte + Ca²⁺ → precipita Ca(OH)₂ insolubile.'},
+{a:'BASE', b:'Mg',    g:'C', p:'Idrossido di Magnesio',m:'Base forte + Mg²⁺ → precipita Mg(OH)₂ insolubile.'},
+{a:'BASE', b:'NH4',   g:'C', p:'Sviluppo NH₃',       m:'Base forte + NH₄⁺ → libera NH₃ gassosa (tossica e perdita di N).'},
+{a:'BASE', b:'PO4',   g:'C', p:'Reazione acido-base',m:'Base forte + fosfati acidi → reazione acido-base esotermica.'},
+{a:'BASE', b:'Fe2',   g:'C', p:'Idrossido ferrico',  m:'Base forte + Fe²⁺ → precipita Fe(OH)₃.'},
+{a:'BASE', b:'CHELATO',g:'A',p:'Degrado chelati',    m:'pH estremo della base forte degrada i chelati.'},
 {a:'Fe2',  b:'PO4',   g:'C', p:'Fosfato ferroso',    m:'Fe²⁺ + fosfati → FePO₄/vivianite.'},
 {a:'CHELATO',b:'Fe2', g:'A', p:'Degrado chelato',    m:'Fe²⁺ libero compete col chelato.'},
 {a:'MoO4', b:'SO4',   g:'A', p:'Molibdato metallico',m:'MoO₄²⁻ + micro-solfati → co-precipitazione.'},
@@ -3356,9 +3414,22 @@ const INCOMPAT_MATRIX = [
 {a:"K2SiO3",b:"FeDTPA", g:"A", p:"Degr. chelato",  m:"Stesso. DTPA stabile fino pH 7.5, non a pH 11."},
 {a:"K2SiO3",b:"FeEDDHA",g:"A", p:"Degr. chelato",  m:"Anche EDDHA si degrada parzialmente a pH >9. Preparare K₂SiO₃ separatamente e aggiungere per primo."},
 {a:"K2SiO3",b:"MixCh",  g:"A", p:"Degr. chelati",  m:"pH 11-12 del silicato distrugge tutti i chelati del Mix."},
-{a:"K2SiO3",b:"MgSO4",  g:"A", p:"Mg(OH)₂",       m:"A pH >10 può precipitare idrossido di Magnesio."},
+{a:"K2SiO3",b:"MgSO4",  g:"C", p:"Mg(OH)₂",       m:"A pH >10 precipita idrossido/silicato di Magnesio insolubile."},
+{a:"K2SiO3",b:"MgNO3",  g:"C", p:"Mg(OH)₂",       m:"A pH >10 precipita idrossido/silicato di Magnesio insolubile."},
 {a:"KOH",   b:"HNO3",   g:"C", p:"Reaz. violenta", m:"Base forte + acido forte: reazione esotermica violenta. Non mescolare MAI nel concentrato."},
 {a:"KOH",   b:"H3PO4",  g:"C", p:"Reaz. violenta", m:"Stesso."},
+{a:"KOH",   b:"KH2PO4", g:"C", p:"Reaz. acido-base", m:"Base forte + fosfato acido → reazione esotermica e formazione fosfati insolubili."},
+{a:"KOH",   b:"MAP",    g:"C", p:"Sviluppo NH₃",   m:"Base forte + NH₄⁺ → sviluppo di ammoniaca gassosa (NH₃)."},
+{a:"KOH",   b:"NH4NO3", g:"C", p:"Sviluppo NH₃",   m:"Base forte + NH₄⁺ → sviluppo di ammoniaca gassosa (NH₃)."},
+{a:"KOH",   b:"MgNO3",  g:"C", p:"Mg(OH)₂",       m:"Base forte + Mg²⁺ → precipita Mg(OH)₂ istantaneamente."},
+{a:"KOH",   b:"MgSO4",  g:"C", p:"Mg(OH)₂",       m:"Base forte + Mg²⁺ → precipita Mg(OH)₂ istantaneamente."},
+{a:"KOH",   b:"CaN",    g:"C", p:"Ca(OH)₂",       m:"Base forte + Ca²⁺ → precipita Ca(OH)₂."},
+{a:"KOH",   b:"CaCl2",  g:"C", p:"Ca(OH)₂",       m:"Base forte + Ca²⁺ → precipita Ca(OH)₂."},
+{a:"KOH",   b:"FeSO4",  g:"C", p:"Fe(OH)₃",       m:"pH estremo di KOH precipita Fe(OH)₃."},
+{a:"KOH",   b:"FeEDTA", g:"A", p:"Degr. chelato",  m:"pH alcalino estremo di KOH degrada i chelati."},
+{a:"KOH",   b:"FeDTPA", g:"A", p:"Degr. chelato",  m:"pH alcalino estremo di KOH degrada i chelati."},
+{a:"KOH",   b:"FeEDDHA",g:"A", p:"Degr. chelato",  m:"pH alcalino estremo di KOH degrada i chelati."},
+{a:"KOH",   b:"MixCh",  g:"A", p:"Degr. chelati",  m:"pH alcalino estremo di KOH degrada i chelati."},
 {a:"FeSO4", b:"KH2PO4", g:"C", p:"FePO₄·2H₂O",   m:"Fe²⁺ + H₂PO₄⁻ → vivianite/FePO₄ (Ksp=9.9e-16). Precipita nel concentrato A. Usare Fe-chelato invece di FeSO₄."},
 {a:"FeSO4", b:"MAP",    g:"C", p:"FePO₄",          m:"Stesso."},
 {a:"FeSO4", b:"H3PO4",  g:"A", p:"FePO₄",          m:"A pH <4 stabile, ma rischioso a pH >5."},
@@ -3376,9 +3447,12 @@ const INCOMPAT_MATRIX = [
 function haCalcio(idOrSale){ const s = typeof idOrSale === 'string' ? getSale(idOrSale) : (getSale(idOrSale?.id) || idOrSale); const id = typeof idOrSale === 'string' ? idOrSale : (idOrSale?.id || ''); return CALCIO_IDS.includes(id) || !!(s && s.el && s.el.Ca > 0); }
 function assegnaSerbatoi(righe){
 return righe.map(r=>{
+const sale = getSale(r.id) || r;
+const grp = classificaGruppiIonici(sale);
 let serb = 'A';
-if(haCalcio(r) && !((getSale(r.id)||r)?.el?.P > 0 || (getSale(r.id)||r)?.el?.S > 0)) serb='B';
-if(r.id==='K2SiO3')           serb=usaSerbC?'C':'B';
+if(haCalcio(r) && !((sale?.el?.P > 0) || (sale?.el?.S > 0))) serb='B';
+if(r.id==='K2SiO3' || grp.includes('SiO3')) serb=usaSerbC?'C':'B';
+if(r.id==='KOH' || grp.includes('BASE')) serb=usaSerbC?'C':'A';
 return {...r, serb};
 });
 }
@@ -3388,26 +3462,35 @@ function rapportoNH4(righe, aq, ph){
 const p = profiloDaRighe(righe, aq, acidoPrescritto(aq, ph||PH_DEFAULT));
 return { nh4:p.NH4, nTot:p.N, ratio: p.N>0 ? p.NH4/p.N : 0 };
 }
-// Riduce l'NH₄NO₃ quanto basta per NH₄ ≤ 10% dell'N totale. Il nitrato di
-// ammonio porta x di N-NH₄ e x di N-NO₃, quindi il massimo è
-//   x ≤ (cap·N_altro − NH₄_altro)/(1 − 2·cap)
-// (la formula precedente ignorava che riducendolo cala anche l'N totale).
+// Riduce l'NH₄NO₃ (e altri sali ammoniacali non-fosfatici) quanto basta per NH₄ ≤ 10% dell'N totale.
 function capNH4NO3(righe, aq, ph){
 const r0 = rapportoNH4(righe, aq, ph);
 if(r0.ratio <= NH4_CAP + 1e-9) return null;
-const idx = righe.findIndex(r=>r.id==='NH4NO3' && r.dose>0);
-if(idx<0) return null;
-const elN = getSale('NH4NO3')?.el?.N || 35;
-const kNH4 = elN/100*fracNH4('NH4NO3');
-const xOld = righe[idx].dose*kNH4;
-const nAltro = r0.nTot - righe[idx].dose*elN/100;
-const nh4Altro = r0.nh4 - xOld;
-const den = 1 - NH4_CAP/fracNH4('NH4NO3');
-const xMax = den > 0 ? Math.max(0, (NH4_CAP*nAltro - nh4Altro)/den) : 0;
-const nuova = Math.max(0, Math.floor(xMax/kNH4*10)/10);
-if(nuova >= righe[idx].dose) return null;
-const out = righe.map((r,i)=> i===idx ? {...r, dose:nuova} : r);
-return { righe:out, vecchia:righe[idx].dose, nuova, ratio:r0.ratio };
+let out = righe.map(r=>({...r}));
+const cand = out.map((r,i)=>({r,i,s:getSale(r.id)}))
+  .filter(x=>x.r.id && x.r.id!=='__custom' && (+x.r.dose||0)>0 && x.s?.el?.N>0 && !(x.s.el.P>0) && fracNH4(x.r.id,x.s) > NH4_CAP + 1e-9)
+  .sort((a,b)=>(a.r.id==='NH4NO3'?0:1)-(b.r.id==='NH4NO3'?0:1));
+if(!cand.length) return null;
+const ridotti = [];
+for(const c of cand){
+  const cur = rapportoNH4(out, aq, ph);
+  if(cur.ratio <= NH4_CAP + 1e-9) break;
+  const f = fracNH4(c.r.id, c.s);
+  const elN = c.s.el.N;
+  const kNH4 = elN/100*f;
+  const xOld = out[c.i].dose*kNH4;
+  const nAltro = cur.nTot - out[c.i].dose*elN/100;
+  const nh4Altro = cur.nh4 - xOld;
+  const den = 1 - NH4_CAP/f;
+  const xMax = den > 0 ? Math.max(0, (NH4_CAP*nAltro - nh4Altro)/den) : 0;
+  const nuova = Math.max(0, Math.floor(xMax/kNH4*10)/10);
+  if(nuova < out[c.i].dose){
+    ridotti.push({ id:c.r.id, nome:c.r.nome||salNome(c.s)||c.r.id, vecchia:out[c.i].dose, nuova });
+    out[c.i] = {...out[c.i], dose:nuova};
+  }
+}
+if(!ridotti.length) return null;
+return { righe:out, vecchia:ridotti[0].vecchia, nuova:ridotti[0].nuova, ridotti, ratio:r0.ratio };
 }
 function autoRisolvi(righeInput, dil, aq, phFinale){
 let righe = assegnaSerbatoi(righeInput.map(r=>({...r})));
@@ -3431,13 +3514,6 @@ msg:TT(`HCO₃⁻ ${aq.hco3} mg/L nell'acqua: aggiungere <strong>${vol.toFixed(2
 });
 }
 // ── Separazione dei sali incompatibili ─────────────────────────────────
-// Ogni sale ha un punteggio di conflitto nel suo serbatoio (critico = 10,
-// avviso = 1, da matrice per ID o per gruppo ionico, quindi anche sali custom).
-// Si sposta, una alla volta, la riga il cui spostamento riduce di più il
-// punteggio totale: ogni mossa lo abbassa strettamente, quindi il ciclo
-// termina e non oscilla. Se nessuno spostamento migliora (es. silicato senza
-// serbatoio C) le righe restano dove sono — Ca e fosfati restano separati —
-// e il conflitto residuo viene segnalato da checkNeedSerbC/verificaSicurezza.
 const serbDisp = usaSerbC ? ['A','B','C'] : ['A','B'];
 const PESO_GRAV = {C:10, A:1};
 const saleDi = r => getSale(r.id) || r;
@@ -3458,8 +3534,7 @@ serbDisp.forEach(dest=>{
 if(dest===r.serb) return;
 const guadagno = attuale - punteggio(i, dest);
 if(guadagno <= 0) return;
-// a parità di guadagno si spostano gli altri sali, non Ca/silicato
-const pref = (haCalcio(r) || r.id==='K2SiO3') ? -0.5 : 0;
+const pref = (haCalcio(r) || r.id==='K2SiO3' || r.id==='KOH') ? -0.5 : 0;
 if(!mossa || guadagno + pref > mossa.valore) mossa = {i, dest, valore: guadagno + pref};
 });
 });
@@ -3484,24 +3559,50 @@ interventi.push({tipo:'sposta',icona:'🔀',msg:TT(`<strong>Silicato di Potassio
 }
 const serbatoi_chk = serbDisp;
 serbatoi_chk.forEach(s => {
-const righeS = righe.filter(r => r.serb === s);
+const righeS = righe.filter(r => r.serb === s && attiva(r));
 if(!righeS.length) return;
 const si = serbSIs(righeS, aq, dil);
 if (si.CaSO4 <= -0.5) return;
-righeS.filter(r => ['MgSO4','K2SO4'].includes(r.id)).forEach(r => {
+righeS.filter(r => (getSale(r.id)?.el?.S > 0) && !haCalcio(r)).forEach(r => {
+const idxR = righe.indexOf(r);
 const candidati = serbDisp.filter(x => x !== s);
-const dest = candidati.find(x => !righe.some(rr => rr.serb===x && attiva(rr) && haCalcio(rr)));
+const dest = candidati.find(x => !righe.some(rr => rr.serb===x && attiva(rr) && haCalcio(rr)) && punteggio(idxR, x) === 0);
 if (dest) {
 r.serb = dest;
 interventi.push({tipo:'sposta', icona:'🔀',
-msg:TT(`<strong>${r.nome||r.id}</strong> → Serb. ${dest}: SI CaSO₄ = ${si.CaSO4.toFixed(2)} nel Serb. ${s} concentrato (×${dil}, pH 6, Davies). Solfati separati dal Calcio.`,`<strong>${r.nome||r.id}</strong> → Tank ${dest}: SI CaSO₄ = ${si.CaSO4.toFixed(2)} in Tank ${s} concentrate (×${dil}, pH 6, Davies). Sulfates separated from Calcium.`)});
+msg:TT(`<strong>${r.nome||r.id}</strong> → Serb. ${dest}: SI CaSO₄ = ${si.CaSO4.toFixed(2)} nel Serb. ${s} concentrato (×${dil}, pH ${si.phSerb.toFixed(1)}, Davies). Solfati separati dal Calcio.`,`<strong>${r.nome||r.id}</strong> → Tank ${dest}: SI CaSO₄ = ${si.CaSO4.toFixed(2)} in Tank ${s} concentrate (×${dil}, pH ${si.phSerb.toFixed(1)}, Davies). Sulfates separated from Calcium.`)});
 }
 });
 });
+if(usaSerbC){
+serbDisp.forEach(s => {
+const righeS = righe.filter(r => r.serb === s && attiva(r));
+if(!righeS.length) return;
+const si = serbSIs(righeS, aq, dil);
+if(si.struvite <= 0) return;
+const candSali = righeS.filter(r => (getSale(r.id)?.el?.P > 0) || (getSale(r.id)?.el?.Mg > 0));
+for(const r of candSali){
+const idxR = righe.indexOf(r);
+const dest = serbDisp.find(x => {
+if(x === s || punteggio(idxR, x) > 0) return false;
+const righeDest = [...righe.filter(rr => rr.serb === x && attiva(rr)), r];
+return serbSIs(righeDest, aq, dil).struvite <= 0;
+});
+if(dest){
+r.serb = dest;
+interventi.push({tipo:'sposta', icona:'🔀',
+msg:TT(`<strong>${r.nome||r.id}</strong> → Serb. ${dest}: separato da Mg/NH₄/PO₄ per evitare precipitazione di struvite nel concentrato (SI ${si.struvite.toFixed(2)}).`,`<strong>${r.nome||r.id}</strong> → Tank ${dest}: separated from Mg/NH₄/PO₄ to prevent struvite precipitation in the concentrate (SI ${si.struvite.toFixed(2)}).`)});
+break;
+}
+}
+});
+}
 const capNH4 = capNH4NO3(righe, aq, phFinale);
 if(capNH4){
 righe = capNH4.righe;
-interventi.push({tipo:'riduzione',icona:'⬇️',msg:TT(`<strong>NH₄NO₃</strong> ridotto da ${capNH4.vecchia}→${capNH4.nuova} g/1000L: NH₄⁺ era ${(capNH4.ratio*100).toFixed(0)}% dell'N totale (cap: 10%). NH₄⁺ in eccesso blocca Ca e Mg e brucia le radici.`,`<strong>NH₄NO₃</strong> reduced from ${capNH4.vecchia}→${capNH4.nuova} g/1000L: NH₄⁺ was ${(capNH4.ratio*100).toFixed(0)}% of total N (cap: 10%). Excess NH₄⁺ locks out Ca and Mg and burns the roots.`)});
+(capNH4.ridotti || [{nome:'NH₄NO₃', vecchia:capNH4.vecchia, nuova:capNH4.nuova}]).forEach(rd => {
+interventi.push({tipo:'riduzione',icona:'⬇️',msg:TT(`<strong>${esc(rd.nome)}</strong> ridotto da ${rd.vecchia}→${rd.nuova} g/1000L: NH₄⁺ era ${(capNH4.ratio*100).toFixed(0)}% dell'N totale (cap: 10%). NH₄⁺ in eccesso blocca Ca e Mg e brucia le radici.`,`<strong>${esc(rd.nome)}</strong> reduced from ${rd.vecchia}→${rd.nuova} g/1000L: NH₄⁺ was ${(capNH4.ratio*100).toFixed(0)}% of total N (cap: 10%). Excess NH₄⁺ locks out Ca and Mg and burns the roots.`)});
+});
 }
 if(righe.some(r=>r.id==='FeSO4')){
 interventi.push({tipo:'avviso',icona:'⚗️',msg:TT(`<strong>FeSO₄</strong> in uso: il Fe²⁺ si ossida a Fe³⁺ rapidamente a pH >4. Aggiungere <strong>acido citrico</strong> (0.5–1 g/L nel serbatoio) per stabilizzare. In alternativa, sostituire con Fe-EDTA o Fe-DTPA.`,`<strong>FeSO₄</strong> in use: Fe²⁺ oxidizes to Fe³⁺ quickly at pH >4. Add <strong>citric acid</strong> (0.5–1 g/L in the tank) to stabilize. Alternatively, replace with Fe-EDTA or Fe-DTPA.`)});
@@ -3516,18 +3617,30 @@ ec+=(r.dose/1000)*coeff;
 ecPerSerb[s]=ec;
 });
 let ecFin2 = Object.values(ecPerSerb).reduce((a,b)=>a+b,0);
-if(aq) ecFin2+=aq.ec;
+if(aq) ecFin2 = Math.max(0, ecFin2 + aq.ec + acidoDeltaEc(acidoPr));
 const ecCritica = Math.max(ecPerSerb.A||0, ecPerSerb.B||0, ecPerSerb.C||0);
 const ecConcCritica = ecCritica * dil;
+const tcOp = tcAcqua(aq);
+let dilMaxSol = Infinity, solProbC = null;
+serbDisp.forEach(s => {
+const resSol = verificaSolubilitaSerb(righe.filter(r => r.serb === s), dil, tcOp);
+resSol.problemi.forEach(pr => {
+if(pr.gravita === 'C' && pr.dilMax < dilMaxSol){ dilMaxSol = pr.dilMax; solProbC = pr; }
+});
+});
 let dilSuggerito = null;
-if(ecConcCritica > 200 && ecCritica > 0){
-const dilCalc = Math.floor(200 / ecCritica);
+if((ecConcCritica > 200 && ecCritica > 0) || dilMaxSol < dil){
+const dilEc = (ecConcCritica > 200 && ecCritica > 0) ? Math.floor(200 / ecCritica) : dil;
+const dilCalc = Math.min(dilEc, dilMaxSol);
 let candidato = Math.floor(dilCalc / 5) * 5;
 if(candidato < 5) candidato = Math.max(1, dilCalc);
 if(candidato < dil){
 dilSuggerito = candidato;
 const ecConcSugg = ecCritica * dilSuggerito;
 const mlPerLitro = (1000 / dilSuggerito).toFixed(0);
+const msgDil = solProbC
+? TT(`Solubilità superata per <strong>${esc(solProbC.nome)}</strong> (${solProbC.concGL.toFixed(0)} g/L a 1:${dil} > max ${solProbC.sMax.toFixed(0)} g/L a ${tcOp}°C): riduci la diluizione a <strong>1:${candidato}</strong>.`,`Solubility exceeded for <strong>${esc(solProbC.nome)}</strong> (${solProbC.concGL.toFixed(0)} g/L at 1:${dil} > max ${solProbC.sMax.toFixed(0)} g/L at ${tcOp}°C): lower dilution to <strong>1:${candidato}</strong>.`)
+: TT(`EC nel concentrato critico = <strong>${ecConcCritica.toFixed(0)} mS/cm</strong> con diluizione 1:${dil}. Concentrazione molto elevata — valuta una diluizione inferiore (1:${candidato}).`,`Critical concentrate EC = <strong>${ecConcCritica.toFixed(0)} mS/cm</strong> at dilution 1:${dil}. Very high concentration — consider a lower dilution (1:${candidato}).`);
 interventi.push({
 tipo:'dil_suggerito',
 icona:'🔢',
@@ -3537,13 +3650,13 @@ ecConcAttuale: ecConcCritica.toFixed(0),
 ecConcSugg: ecConcSugg.toFixed(0),
 ecFin: ecFin2.toFixed(2),
 mlPerLitro,
-msg:TT(`EC nel concentrato critico = <strong>${ecConcCritica.toFixed(0)} mS/cm</strong> con diluizione 1:${dil}. Concentrazione molto elevata — valuta una diluizione inferiore (1:${candidato}).`,`Critical concentrate EC = <strong>${ecConcCritica.toFixed(0)} mS/cm</strong> at dilution 1:${dil}. Very high concentration — consider a lower dilution (1:${candidato}).`)
+msg:msgDil
 });
 } else {
 interventi.push({
 tipo:'ec_critica_irrisolvibile',
 icona:'⚠️',
-msg:TT(`EC concentrato = ${ecConcCritica.toFixed(0)} mS/cm anche con diluizione 1:${dil}. Le dosi sono troppo alte per qualsiasi diluizione pratica: riduci le concentrazioni della ricetta o distribuisci su più serbatoi.`,`Concentrate EC = ${ecConcCritica.toFixed(0)} mS/cm even at dilution 1:${dil}. The doses are too high for any practical dilution: reduce the recipe concentrations or split across more tanks.`)
+msg:TT(`Concentrato critico (EC ${ecConcCritica.toFixed(0)} mS/cm) anche con diluizione 1:${dil}. Le dosi sono troppo alte per qualsiasi diluizione pratica: riduci le concentrazioni della ricetta o distribuisci su più serbatoi.`,`Critical concentrate (EC ${ecConcCritica.toFixed(0)} mS/cm) even at dilution 1:${dil}. The doses are too high for any practical dilution: reduce the recipe concentrations or split across more tanks.`)
 });
 }
 }
@@ -3579,26 +3692,29 @@ const MIN_DOSE = {CaN:150, KNO3:100, MgNO3:50, MgSO4:50, KH2PO4:30, MAP:20, K2SO
 const REDUCE_ORDER = {
 CaSO4:   ['MgSO4','K2SO4','FeSO4','MnSO4','ZnSO4','CaN','CaCl2'],
 CaHPO4:  ['KH2PO4','MAP','CaN','CaCl2'],
-struvite: ['NH4NO3','MAP','MgNO3','MgSO4','KH2PO4']
+struvite: ['NH4NO3','MAP','MgNO3','MgSO4','KH2PO4'],
+CaCO3:   ['CaN','CaCl2']
 };
 let righe = righeOriginali.map(r=>({...r}));
 if(righe.some(r=>!r.serb)) righe = autoRisolvi(righe, dil||1, aq, phFinale).righe;
 dil = dil || 1;
 const origDosi = {};
-righe.forEach(r=>{ origDosi[r.id] = r.dose; });
+const origPerIdx = righe.map(r => r.dose);
+righe.forEach(r=>{ origDosi[r.id] = (origDosi[r.id] || 0) + r.dose; });
 const siConcInit = worstSerbSI(righe, aq, dil);
 const siFinInit  = siFinaleSoluzione(righe, aq, phFinale);
 function problemiAttuali(rgh){
-const sc = worstSerbSI(rgh, aq, dil);
+const sc = worstSerbSIDettaglio(rgh, aq, dil);
 const sf = siFinaleSoluzione(rgh, aq, phFinale);
 const risolvibilePh = !forza && phSicuroFinale(rgh, aq, phFinale) !== null;
 const probs = [];
-[['CaSO4',sc.CaSO4],['CaHPO4',sc.CaHPO4],['struvite',sc.struvite]].forEach(([k,v])=>{
-if(v > SOGLIA_CONC) probs.push({key:k, dominio:'conc', si:v});
+['CaSO4','CaHPO4','struvite'].forEach(k=>{
+if(sc[k].si > SOGLIA_CONC) probs.push({key:k, dominio:'conc', si:sc[k].si, serb:sc[k].serb});
 });
 if(sf.CaSO4 > SOGLIA_FIN) probs.push({key:'CaSO4', dominio:'fin', si:sf.CaSO4});
 if(sf.CaHPO4 > SOGLIA_FIN && !risolvibilePh) probs.push({key:'CaHPO4', dominio:'fin', si:sf.CaHPO4});
 if(sf.struvite > SOGLIA_FIN && !risolvibilePh) probs.push({key:'struvite', dominio:'fin', si:sf.struvite});
+if(sf.CaCO3 > SOGLIA_FIN && !risolvibilePh) probs.push({key:'CaCO3', dominio:'fin', si:sf.CaCO3});
 return probs;
 }
 let converged = false;
@@ -3611,14 +3727,15 @@ iterations = iter;
 break;
 }
 const worst = problematici.reduce((a,b) => a.si > b.si ? a : b);
-const extraIds = righe.map(r=>r.id).filter(id => !REDUCE_ORDER[worst.key]?.includes(id) && ((worst.key==='CaSO4' && (getSale(id)?.el?.S>0 || getSale(id)?.el?.Ca>0)) || (worst.key==='CaHPO4' && (getSale(id)?.el?.P>0 || getSale(id)?.el?.Ca>0)) || (worst.key==='struvite' && (getSale(id)?.el?.P>0 || getSale(id)?.el?.Mg>0 || fracNH4(id,getSale(id))>0)))); const order = REDUCE_ORDER[worst.key] ? [...REDUCE_ORDER[worst.key], ...extraIds] : null;
+const extraIds = righe.map(r=>r.id).filter(id => !REDUCE_ORDER[worst.key]?.includes(id) && ((worst.key==='CaSO4' && (getSale(id)?.el?.S>0 || getSale(id)?.el?.Ca>0)) || (worst.key==='CaHPO4' && (getSale(id)?.el?.P>0 || getSale(id)?.el?.Ca>0)) || (worst.key==='struvite' && (getSale(id)?.el?.P>0 || getSale(id)?.el?.Mg>0 || fracNH4(id,getSale(id))>0)) || (worst.key==='CaCO3' && (getSale(id)?.el?.Ca>0))));
+const order = REDUCE_ORDER[worst.key] ? [...REDUCE_ORDER[worst.key], ...extraIds] : null;
 if(!order){ iterations = iter; break; }
 let ridotto = false;
 for(const saltId of order){
-const idx = righe.findIndex(r => r.id === saltId);
+const idx = righe.findIndex(r => r.id === saltId && (worst.dominio !== 'conc' || !worst.serb || r.serb === worst.serb));
 if(idx < 0) continue;
 const doseAttuale = righe[idx].dose;
-const minDose = MIN_DOSE[saltId] || 5;
+const minDose = Math.min(MIN_DOSE[saltId] || 5, (origPerIdx[idx] || doseAttuale) * 0.25);
 if(doseAttuale <= minDose) continue;
 const riduzione = Math.max(0.5, doseAttuale * stepPct);
 const nuovaDose = Math.max(minDose, Math.round((doseAttuale - riduzione) * 10) / 10);
@@ -3639,8 +3756,8 @@ const siFinFinal  = siFinaleSoluzione(righe, aq, phFinale);
 const phOkFinale  = phSicuroFinale(righe, aq, phFinale);
 const phSuggerito = (phOkFinale !== null && phOkFinale < phFinale - 0.05) ? phOkFinale : null;
 const deviations = [];
-righe.forEach(r => {
-const orig = origDosi[r.id];
+righe.forEach((r, i) => {
+const orig = origPerIdx[i];
 if(orig === undefined || Math.abs(r.dose - orig) < 0.1) return;
 const pctChange = orig > 0 ? ((r.dose - orig) / orig * 100) : 0;
 const info = getSale(r.id);
@@ -3649,7 +3766,7 @@ if(info?.el?.Ca) ioneRischio = 'Ca';
 if(info?.el?.S)  ioneRischio = ioneRischio ? ioneRischio + '/SO4' : 'SO4';
 if(info?.el?.P)  ioneRischio = ioneRischio ? ioneRischio + '/PO4' : 'PO4';
 if(info?.el?.Mg) ioneRischio = ioneRischio ? ioneRischio + '/Mg' : 'Mg';
-if(r.id === 'NH4NO3') ioneRischio = ioneRischio ? ioneRischio + '/NH4' : 'NH4';
+if(fracNH4(r.id, info) > 0) ioneRischio = ioneRischio ? ioneRischio + '/NH4' : 'NH4';
 deviations.push({
 id: r.id, nome: r.nome || r.id,
 doseOrig: orig, doseNew: r.dose,
@@ -3669,17 +3786,17 @@ phSuggerito, phFinale, maxDev
 }
 function checkNeedSerbC(righe, dil, aq){
 const motivi = [];
-const attive = righe.filter(r => r.id && r.id!=='__custom' && (+r.dose||0) > 0); for(let i=0;i<attive.length;i++) for(let j=i+1;j<attive.length;j++){ const ra=attive[i], rb=attive[j]; if(ra.serb===rb.serb){ const res=coppiaIncompatibile(getSale(ra.id)||ra, getSale(rb.id)||rb); if(res.incompat && res.gravita==='C') motivi.push(TT(`${ra.nome||ra.id} e ${rb.nome||rb.id} ancora nello stesso Serb. ${ra.serb} — necessario serbatoio C (${M(res.p)})`,`${ra.nome||ra.id} and ${rb.nome||rb.id} still in the same Tank ${ra.serb} — Tank C required (${M(res.p)})`)); } } if(false) INCOMPAT_MATRIX.filter(r => r.g === 'C').forEach(regola => {
-const ra = righe.find(r => r.id === regola.a);
-const rb = righe.find(r => r.id === regola.b);
-if (!ra || !rb) return;
-if (ra.serb === rb.serb) {
-motivi.push(TT(`${ra.nome||ra.id} e ${rb.nome||rb.id} ancora nello stesso Serb. ${ra.serb} — necessario serbatoio C (${M(regola.p)})`,`${ra.nome||ra.id} and ${rb.nome||rb.id} still in the same Tank ${ra.serb} — Tank C required (${M(regola.p)})`));
+const attive = righe.filter(r => r.id && r.id!=='__custom' && (+r.dose||0) > 0);
+for(let i=0;i<attive.length;i++) for(let j=i+1;j<attive.length;j++){
+const ra=attive[i], rb=attive[j];
+if(ra.serb===rb.serb){
+const res=coppiaIncompatibile(getSale(ra.id)||ra, getSale(rb.id)||rb);
+if(res.incompat && res.gravita==='C') motivi.push(TT(`${ra.nome||ra.id} e ${rb.nome||rb.id} ancora nello stesso Serb. ${ra.serb} — necessario serbatoio C (${M(res.p)})`,`${ra.nome||ra.id} and ${rb.nome||rb.id} still in the same Tank ${ra.serb} — Tank C required (${M(res.p)})`));
 }
-});
+}
 const serbsChk = usaSerbC ? ['A','B','C'] : ['A','B'];
 serbsChk.forEach(s=>{
-const righeS = righe.filter(r=>r.serb===s);
+const righeS = righe.filter(r=>r.serb===s && (+r.dose||0) > 0);
 if(!righeS.length) return;
 const si = serbSIs(righeS, aq, dil);
 if(si.CaSO4 > -0.5 && !usaSerbC){
@@ -3700,7 +3817,7 @@ const righeS = righe.filter(r=>r.serb===s && (+r.dose||0) > 0);
 for(let i=0;i<righeS.length;i++){
 for(let j=i+1;j<righeS.length;j++){
 coppieControllate++;
-const res = coppiaIncompatibile(righeS[i], righeS[j]);
+const res = coppiaIncompatibile(getSale(righeS[i].id) || righeS[i], getSale(righeS[j].id) || righeS[j]);
 if(res.incompat){
 coppieConflitto++;
 conflitti.push({
@@ -3719,15 +3836,47 @@ dettaglio:TT(`${coppieControllate} coppie verificate (per ID + gruppo ionico), $
 });
 let caso4Problemi = 0;
 serbs.forEach(s=>{
-const righeS = righe.filter(r=>r.serb===s);
+const righeS = righe.filter(r=>r.serb===s && (+r.dose||0) > 0);
 if(!righeS.length) return;
 const si = serbSIs(righeS, aq, dil);
 if(si.CaSO4 > -0.5){
 caso4Problemi++;
-conflitti.push({gravita: si.CaSO4>0?'C':'A', titolo:TT(`CaSO₄ nel Serb. ${s}`,`CaSO₄ in Tank ${s}`), dettaglio:TT(`SI = ${si.CaSO4.toFixed(2)} nel concentrato (×${dil}, pH 6, ${tcOper}°C, Davies). Ca e solfati ancora insieme in questo serbatoio.`,`SI = ${si.CaSO4.toFixed(2)} in the concentrate (×${dil}, pH 6, ${tcOper}°C, Davies). Ca and sulfates still together in this tank.`)});
+conflitti.push({gravita: si.CaSO4>0?'C':'A', titolo:TT(`CaSO₄ nel Serb. ${s}`,`CaSO₄ in Tank ${s}`), dettaglio:TT(`SI = ${si.CaSO4.toFixed(2)} nel concentrato (×${dil}, pH ${si.phSerb.toFixed(1)}, ${tcOper}°C, Davies). Ca e solfati ancora insieme in questo serbatoio.`,`SI = ${si.CaSO4.toFixed(2)} in the concentrate (×${dil}, pH ${si.phSerb.toFixed(1)}, ${tcOper}°C, Davies). Ca and sulfates still together in this tank.`)});
 }
 });
 audit.push({check:TT('Prodotto solubilità CaSO₄ (per serbatoio)','CaSO₄ solubility product (per tank)'), esito: caso4Problemi===0?'OK':'CONFLITTO', dettaglio: caso4Problemi===0?TT(`Nessun rischio gesso in ${serbs.length} serbatoi`,`No gypsum risk in ${serbs.length} tanks`):TT(`${caso4Problemi} serbatoi a rischio`,`${caso4Problemi} tanks at risk`)});
+let solProbsAll = [];
+serbs.forEach(s=>{
+const righeS = righe.filter(r=>r.serb===s && (+r.dose||0) > 0);
+if(!righeS.length) return;
+const solRes = verificaSolubilitaSerb(righeS, dil, tcOper);
+solRes.problemi.forEach(pr=>{
+solProbsAll.push(pr);
+const tit = pr.tipo === 'ioneComune'
+? TT(`K₂SO₄ (ione comune) nel Serb. ${s}`,`K₂SO₄ (common ion) in Tank ${s}`)
+: TT(`Solubilità ${pr.nome} nel Serb. ${s}`,`${pr.nome} solubility in Tank ${s}`);
+const det = pr.tipo === 'ioneComune'
+? TT(`Eccesso K⁺ + SO₄²⁻ nel concentrato a ×${dil} (${tcOper}°C): rischio cristallizzazione K₂SO₄ (diluizione max 1:${pr.dilMax}).`,`Excess K⁺ + SO₄²⁻ in concentrate at ×${dil} (${tcOper}°C): K₂SO₄ crystallization risk (max dilution 1:${pr.dilMax}).`)
+: TT(`${pr.concGL.toFixed(1)} g/L a ×${dil} > ${pr.gravita==='C'?'solubilità max':'80% solubilità'} (${pr.sMax.toFixed(0)} g/L a ${tcOper}°C, diluizione max 1:${pr.dilMax}).`,`${pr.concGL.toFixed(1)} g/L at ×${dil} > ${pr.gravita==='C'?'max solubility':'80% solubility'} (${pr.sMax.toFixed(0)} g/L at ${tcOper}°C, max dilution 1:${pr.dilMax}).`);
+conflitti.push({gravita: pr.gravita, titolo: tit, dettaglio: det});
+});
+});
+audit.push({
+check:TT('Solubilità sali nei concentrati','Salt solubility in concentrates'),
+esito: solProbsAll.length===0 ? 'OK' : (solProbsAll.some(p=>p.gravita==='C') ? 'CONFLITTO' : 'AVVISO'),
+dettaglio: solProbsAll.length===0
+? TT(`Tutti i sali entro i limiti di solubilità a ${tcOper}°C (incluso ione comune K₂SO₄)`,`All salts within solubility limits at ${tcOper}°C (including K₂SO₄ common-ion)`)
+: solProbsAll.map(p=>`${p.nome} (${(p.ratio*100).toFixed(0)}%)`).join(', ')
+});
+const hasPInTank = serbs.some(s => righe.some(r => r.serb === s && (+r.dose||0) > 0 && ((getSale(r.id)?.el?.P || 0) > 0)));
+const hasCaInTank = serbs.some(s => righe.some(r => r.serb === s && (+r.dose||0) > 0 && haCalcio(r)));
+if(aq && (((aq.ca || 0) > 50 && hasPInTank) || (((aq.so4 || 0) > 60 || (aq.hco3 || 0) > 50) && hasCaInTank))){
+const msgStockAq = TT('Con questa acqua (Ca/SO₄/HCO₃ elevati) i sali concentrati possono precipitare col calcio o i bicarbonati presenti nel serbatoio di riempimento. Prepara le soluzioni madri con acqua RO/piovana o pre-acidifica l\'acqua dei tank.','With this water (high Ca/SO₄/HCO₃) concentrated salts can precipitate with calcium or bicarbonates in the tank makeup water. Prepare stock solutions with RO/rainwater or pre-acidify tank water.');
+audit.push({check:TT('Acqua di riempimento serbatoi madre','Stock tank makeup water'), esito:'AVVISO', dettaglio:msgStockAq});
+conflitti.push({gravita:'A', titolo:TT('Acqua dura nei serbatoi concentrati','Hard water in stock tanks'), dettaglio:msgStockAq});
+} else if(aq){
+audit.push({check:TT('Acqua di riempimento serbatoi madre','Stock tank makeup water'), esito:'OK', dettaglio:TT('Acqua idonea per sciogliere i concentrati','Water suitable for dissolving concentrates')});
+}
 const siFin = siFinaleSoluzione(righe, aq, phFinale);
 try {
 const siWorst = worstSerbSI(righe, aq, dil);
@@ -3758,7 +3907,7 @@ audit.push({check:TT('SI nel concentrato (CaHPO4/Struvite)','SI in the concentra
 }
 const phSicuroVal = phSicuroFinale(righe, aq, phFinale);
 const phSuggerito = (phSicuroVal!==null && phSicuroVal < phFinale - 0.05) ? phSicuroVal : null;
-[['CaSO₄','CaSO4'],['CaHPO₄','CaHPO4'],['Struvite','struvite']].forEach(([lab,key])=>{
+[['CaSO₄','CaSO4'],['CaHPO₄','CaHPO4'],['Struvite','struvite'],['CaCO₃','CaCO3']].forEach(([lab,key])=>{
 const val = siFin[key];
 const esito = val < -0.5 ? 'OK' : val < 0 ? 'AVVISO' : 'CONFLITTO';
 const nota = val < -0.5 ? TT('Ampio margine nella soluzione finale','Wide margin in the final solution')
@@ -3766,7 +3915,7 @@ const nota = val < -0.5 ? TT('Ampio margine nella soluzione finale','Wide margin
 : TT(`Sovrasaturo (SI +${val.toFixed(2)}) nella soluzione finale`,`Supersaturated (SI +${val.toFixed(2)}) in the final solution`);
 audit.push({check:TT(`${lab} soluzione finale (pH ${phFinale})`,`${lab} final solution (pH ${phFinale})`), esito, dettaglio:nota});
 if(val > 0){
-const pHDip = (key==='CaHPO4' || key==='struvite');
+const pHDip = (key==='CaHPO4' || key==='struvite' || key==='CaCO3');
 if(pHDip && phSuggerito!==null){
 conflitti.push({gravita:'A', titolo:TT(`${lab} nella soluzione finale`,`${lab} in the final solution`), dettaglio:TT(`SI +${val.toFixed(2)} a pH ${phFinale}: abbassa il pH a ${phSuggerito} per riportarlo sotto saturazione (nessun taglio di dosi necessario).`,`SI +${val.toFixed(2)} at pH ${phFinale}: lower the pH to ${phSuggerito} to bring it back under saturation (no dose cut needed).`)});
 } else {
@@ -3787,20 +3936,18 @@ dettaglio: TT(`pH ${phFinale} > 6.2 favorisce la formazione di fosfato tricalcic
 });
 }
 if(aq && aq.hco3>30){
-const caMM = righe.reduce((a,r)=>{ const inf=getSale(r.id); return a+(inf?.el?.Ca?r.dose*inf.el.Ca/100:0); },0)/40.08 + aq.ca/40.08;
-const fco3 = 1 / (1 + Math.pow(10, PKA2_CARB - aq.ph));
-const co3 = (aq.hco3/61.0)*fco3;
-const IAP_mol = (caMM/1000)*(co3/1000);
+const siCalciteAq = siForIons(profiloDaRighe(righe, aq, null), aq.ph, tcOper).CaCO3;
 const KspCaCO3 = kspCalcite(tcOper);
-const ok = IAP_mol <= KspCaCO3;
-// "GESTITO" solo se l'acido è davvero prescritto (HCO₃⁻ > 50 e pH acqua sopra il target)
-const acidoOk = !!acidoPrescritto(aq, phFinale);
+const ok = siCalciteAq <= 0;
+const iapRatio = Math.pow(10, siCalciteAq);
+// "GESTITO" solo se l'acido è davvero prescritto e riporta CaCO₃ finale sotto saturazione
+const acidoOk = !!acidoPrescritto(aq, phFinale) && siFin.CaCO3 <= 0;
 const esitoCaCO3 = ok ? 'OK' : (acidoOk ? 'GESTITO' : 'AVVISO');
 audit.push({check:TT('Prodotto solubilità CaCO₃ (acqua di partenza)','CaCO₃ solubility product (source water)'), esito: esitoCaCO3,
-dettaglio: ok ? TT(`IAP CaCO₃ sotto soglia (Ksp=${KspCaCO3.toExponential(2)} mol²/L²)`,`IAP CaCO₃ below threshold (Ksp=${KspCaCO3.toExponential(2)} mol²/L²)`)
-: acidoOk ? TT(`IAP = ${(IAP_mol/KspCaCO3).toFixed(1)}× Ksp → neutralizzazione acido prescritta`,`IAP = ${(IAP_mol/KspCaCO3).toFixed(1)}× Ksp → acid neutralization prescribed`)
-: TT(`IAP = ${(IAP_mol/KspCaCO3).toFixed(1)}× Ksp e nessuna dose fissa di acido prescritta: acidifica l'acqua (goccia a goccia, misurando) prima di aggiungere i sali.`,`IAP = ${(IAP_mol/KspCaCO3).toFixed(1)}× Ksp and no fixed acid dose prescribed: acidify the water (drop by drop, measuring) before adding the salts.`)});
-if(esitoCaCO3==='AVVISO') conflitti.push({gravita:'A', titolo:TT('Calcare (CaCO₃) dall\'acqua di partenza','Limescale (CaCO₃) from source water'), dettaglio:TT('Acqua sovrasatura di calcite una volta aggiunto il calcio: acidifica prima dei sali.','Water supersaturated with calcite once calcium is added: acidify before the salts.')});
+dettaglio: ok ? TT(`SI CaCO₃ = ${siCalciteAq.toFixed(2)} ≤ 0 (Ksp=${KspCaCO3.toExponential(2)}, Davies)`,`SI CaCO₃ = ${siCalciteAq.toFixed(2)} ≤ 0 (Ksp=${KspCaCO3.toExponential(2)}, Davies)`)
+: acidoOk ? TT(`SI = +${siCalciteAq.toFixed(2)} (${iapRatio.toFixed(1)}× Ksp, Davies) → neutralizzazione acido prescritta`,`SI = +${siCalciteAq.toFixed(2)} (${iapRatio.toFixed(1)}× Ksp, Davies) → acid neutralization prescribed`)
+: TT(`SI = +${siCalciteAq.toFixed(2)} (${iapRatio.toFixed(1)}× Ksp, Davies): calcite sovrasatura al pH impostato (${phFinale}) o senza dose fissa di acido — acidifica l'acqua prima dei sali.`,`SI = +${siCalciteAq.toFixed(2)} (${iapRatio.toFixed(1)}× Ksp, Davies): calcite supersaturated at set pH (${phFinale}) or without fixed acid dose — acidify the water before salts.`)});
+if(esitoCaCO3==='AVVISO') conflitti.push({gravita:'A', titolo:TT('Calcare (CaCO₃) dall\'acqua di partenza','Limescale (CaCO₃) from source water'), dettaglio:TT('Acqua sovrasatura di calcite al pH scelto o senza neutralizzazione acida: acidifica prima dei sali e abbassa il pH target.','Water supersaturated with calcite at the chosen pH or without acid neutralization: acidify before the salts and lower target pH.')});
 }
 let ecSali=0; righe.forEach(r=>{ const coeff = ecCoeffSale(r.id); ecSali+=(r.dose/1000)*coeff; });
 // Il concentrato è fatto con la stessa acqua: si concentrano i sali, non l'acqua.
@@ -3831,9 +3978,9 @@ microTox.forEach(m=>conflitti.push({gravita: m.grave?'C':'A', titolo:TT('Micronu
 {
 const clSali = ioni.Cl||0;
 const clTot  = clSali + (aq?(aq.cl||0):0);
-const naTot  = aq?(aq.na||0):0;
+const naTot  = (ioni.Na||0) + (aq?(aq.na||0):0);
 const sale=[];
-if(naTot>50) sale.push(TT(`Na⁺ ${naTot} mg/L (limite coco ~50)`,`Na⁺ ${naTot} mg/L (coco limit ~50)`));
+if(naTot>50) sale.push(TT(`Na⁺ ${naTot.toFixed(0)} mg/L (limite coco ~50)`,`Na⁺ ${naTot.toFixed(0)} mg/L (coco limit ~50)`));
 if(clTot>100) sale.push(TT(`Cl⁻ ${clTot.toFixed(0)} mg/L (limite coco ~100)`,`Cl⁻ ${clTot.toFixed(0)} mg/L (coco limit ~100)`));
 if(sale.length){
 audit.push({check:TT('Salinità Na/Cl','Na/Cl salinity'), esito:'AVVISO', dettaglio:sale.join(', ')});
@@ -3848,7 +3995,8 @@ audit.push({check:TT('Salinità Na/Cl','Na/Cl salinity'), esito:'OK', dettaglio:
 const critici = conflitti.filter(c=>c.gravita==='C');
 const avvisi  = conflitti.filter(c=>c.gravita==='A');
 const sicuro = critici.length===0;
-return { sicuro, critici, avvisi, audit, phSuggerito, siFin };
+const richiedeAzionePh = sicuro && phSuggerito !== null && (siFin.CaHPO4 > 0 || siFin.struvite > 0 || siFin.CaCO3 > 0);
+return { sicuro, richiedeAzionePh, critici, avvisi, audit, phSuggerito, siFin };
 }
 // Correzione per l'acqua di partenza (modalità grammi).
 // La ricetta definisce un PROFILO (mg/L per elemento) pensato per acqua pura.
@@ -3875,7 +4023,8 @@ const target = {};
 SOLVER_EL.forEach(el=>{ target[el] = ricetta[el]||0; });
 const x0 = new Map();
 out.filter(isMacro).forEach(r=>x0.set(r.id, (x0.get(r.id)||0) + (+r.dose||0)));
-const nh4Max = Math.max(NH4_CAP, ricetta.N>0 ? ricetta.NH4/ricetta.N : 0);
+const nh4Essenziale = out.filter(r => valida(r) && (getSale(r.id)?.el?.P || 0) > 0).reduce((s, r) => s + nh4DaSale(getSale(r.id), +r.dose || 0), 0);
+const nh4Max = Math.max(NH4_CAP, ricetta.N>0 ? nh4Essenziale/ricetta.N : 0);
 const correzioni = [];
 if(x0.size){
 const poolRicetta = [...x0.keys()].map(id=>getSale(id));
@@ -3934,11 +4083,12 @@ if(dil<1||dil>2000) errori.push(TT(`Fattore diluizione 1:${dil} fuori range plau
 if(aq){
 if(aq.ec<0||aq.ec>10) errori.push(TT(`EC acqua (${aq.ec} mS/cm) implausibile (0–10). Un'acqua con EC>5 è inutilizzabile.`,`Water EC (${aq.ec} mS/cm) implausible (0–10). Water with EC>5 is unusable.`));
 if(aq.ph<3||aq.ph>11) errori.push(TT(`pH acqua (${aq.ph}) fuori range fisico realistico (3–11).`,`Water pH (${aq.ph}) out of realistic physical range (3–11).`));
-[['Ca',aq.ca,1000],['Mg',aq.mg,500],['Na',aq.na,2000],['Cl',aq.cl,2000],['SO4',aq.so4,2000],['HCO3',aq.hco3,1000]].forEach(([n,v,max])=>{
+[['Ca',aq.ca,1000],['Mg',aq.mg,500],['K',aq.k,500],['Na',aq.na,2000],['Cl',aq.cl,2000],['SO4',aq.so4,2000],['HCO3',aq.hco3,1000],['NO3',aq.no3,500],['Fe',aq.fe,50]].forEach(([n,v,max])=>{
 if(v<0||v>max) errori.push(TT(`${n} acqua (${v} mg/L) fuori range (0–${max}).`,`${n} water (${v} mg/L) out of range (0–${max}).`));
 });
 }
 righe.forEach(r=>{
+if(!Number.isFinite(r.dose)){ errori.push(TT(`Dose non valida per ${r.nome||r.id}.`,`Invalid dose for ${r.nome||r.id}.`)); return; }
 if(r.dose<0) errori.push(TT(`Dose negativa per ${r.nome||r.id}.`,`Negative dose for ${r.nome||r.id}.`));
 if(r.dose>5000) errori.push(TT(`Dose ${r.dose} g/1000L per ${r.nome||r.id} è irrealistica (>5000). Verifica il valore.`,`Dose ${r.dose} g/1000L for ${r.nome||r.id} is unrealistic (>5000). Check the value.`));
 const info=getSale(r.id);
@@ -3992,7 +4142,7 @@ try {
 const erroriInput = validaInput(volA, volB, volC, dil, aq, wRighe, phFinale);
 if(erroriInput.length>0){
 let h=`<div class="alert al-err" style="margin-top:12px"><span>🚫</span><div><strong>${TT('Input non valido — correggi prima di calcolare:','Invalid input — fix before calculating:')}</strong><ul style="margin:6px 0 0 14px;line-height:1.8;font-size:.78rem">`;
-erroriInput.forEach(e=>h+=`<li>${e}</li>`);
+erroriInput.forEach(e=>h+=`<li>${esc(e)}</li>`);
 h+=`</ul></div></div>`;
 document.getElementById('calc-out').innerHTML=h;
 if(!_noScroll) fcReveal('calc-out', {mode:'alignTop', comfortRatio:0.55});
@@ -4046,7 +4196,7 @@ bilanciaReportData = null;
 if(!sicurezza.sicuro && !statoCalc.saltaBilanciamento){
 origDosiSnapshot = calcRighe.map(r=>({...r}));
 const bilReport = autoBilanciaSali(wRighe, aq, dil, {phFinale});
-if(bilReport.converged){
+if(bilReport.converged && bilReport.deviations.length > 0){
 wRighe = bilReport.righe;
 sicurezza = verificaSicurezza(wRighe, dil, aq, phFinale);
 ['A','B','C'].forEach(s=>{ let ec=0; wRighe.filter(r=>r.serb===s).forEach(r=>{ const coeff = ecCoeffSale(r.id); ec+=(r.dose/1000)*coeff; }); ecPerSerb[s]=ec; });
@@ -4056,7 +4206,7 @@ bilanciaReportData = bilReport;
 }
 }
 let ecFin2=0; wRighe.forEach(r=>{ const coeff = ecCoeffSale(r.id); ecFin2+=(r.dose/1000)*coeff; });
-if(aq) ecFin2+=aq.ec;
+if(aq) ecFin2 = Math.max(0, ecFin2 + aq.ec + acidoDeltaEc(acidoCalc));
 const ivDil = interventi.find(iv=>iv.tipo==='dil_suggerito');
 const perA=wRighe.filter(r=>r.serb==='A' && (+r.dose||0)>0);
 const perB=wRighe.filter(r=>r.serb==='B' && (+r.dose||0)>0);
@@ -4065,13 +4215,13 @@ function grConc(dose,vol){ return (dose*vol*dil)/1000; } function fmtTotaleSerb(
 let html=`<div id="risultato-stampa" style="display:block;width:100%">`;
 if(autoBalanceApplied && sicurezza.sicuro){
 const dev = bilanciaReportData ? bilanciaReportData.deviations.filter(d=>Math.abs(d.pctChange)>0.5) : [];
-html+=`<div class="alert al-ok" style="margin-bottom:10px"><span style="font-size:1.2rem">✅</span><div>
+html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><span style="font-size:1.2rem">✅</span><div>
       <strong>${t('js.voto.corretto')}.</strong> ${TT('Il sistema ha ridotto le dosi di alcuni sali per evitare precipitazioni nella soluzione madre.','The system reduced the doses of some salts to avoid precipitation in the mother solution.')}
       ${dev.length?`<div style="margin-top:8px;padding:8px 10px;background:#fff;border-radius:4px">
         <div style="font-size:.72rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">${t('js.doseModificate')}</div>
         <table style="width:100%;font-size:.78rem;border-collapse:collapse">
           ${dev.map(d=>`<tr style="border-bottom:1px solid var(--cs)">
-            <td style="padding:4px 0;font-weight:600">${d.nome}</td>
+            <td style="padding:4px 0;font-weight:600">${esc(d.nome)}</td>
             <td style="padding:4px 0;text-align:right;font-family:'JetBrains Mono',monospace">${fmtGram(d.doseOrig)}</td>
             <td style="padding:4px 0;text-align:center;color:var(--ts)">→</td>
             <td style="padding:4px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--vc)">${fmtGram(d.doseNew)}</td>
@@ -4083,9 +4233,9 @@ html+=`<div class="alert al-ok" style="margin-bottom:10px"><span style="font-siz
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-se btn-sm" onclick="ripristinaDosiOriginali()" style="border-color:var(--ro);color:var(--ro)">${t('js.ripristinaOriginali')}</button>
       </div>
-    </div>`;
+    </div></div>`;
 } else if(!sicurezza.sicuro){
-html+=`<div class="alert al-err" style="margin-bottom:10px"><span style="font-size:1.2rem">🛑</span><div>
+html+=`<div class="alert al-err" data-verdict="err" style="margin-bottom:10px"><span style="font-size:1.2rem">🛑</span><div>
       <strong>${t('js.voto.nonsicura')} — ${sicurezza.critici.length} ${TT('conflitto/i critico/i non risolto/i:','unresolved critical conflict(s):')}</strong>
       <ul style="margin:8px 0 0 14px;line-height:1.9;font-size:.78rem">`;
 sicurezza.critici.forEach(c=>html+=`<li><strong>${c.titolo}</strong> — ${c.dettaglio}</li>`);
@@ -4093,11 +4243,15 @@ html+=`</ul>
       <div style="margin-top:10px;padding:8px 10px;background:#fff;border-radius:4px;font-size:.76rem">
         ${!usaSerbC ? TT('➕ Abilita il <strong>Serbatoio C</strong> qui sotto per dare al sistema più spazio per separare i sali.','➕ Enable <strong>Tank C</strong> below to give the system more room to separate the salts.') : TT('⚠️ Anche con 3 serbatoi restano conflitti: rivedi la ricetta o riduci i sali incompatibili.','⚠️ Conflicts remain even with 3 tanks: revise the recipe or reduce the incompatible salts.')}
       </div>
-    </div>`;
+    </div></div>`;
+} else if(sicurezza.richiedeAzionePh){
+html+=`<div class="alert al-inf" data-verdict="warn" style="margin-bottom:10px"><span style="font-size:1.2rem">⚠️</span><div>
+      <strong>${TT('Concentrati compatibili — azione pH richiesta in soluzione finale.','Concentrates compatible — pH action required in final solution.')}</strong> ${TT(`Nei serbatoi concentrati i ${sicurezza.audit.length} controlli sono superati, ma nella soluzione finale diluita (pH ${phFinale}) permane rischio di precipitazione: applica l'azione pH suggerita qui sotto.`,`All ${sicurezza.audit.length} checks pass in the concentrated tanks, but precipitation risk remains in the diluted final solution (pH ${phFinale}): apply the pH action suggested below.`)}
+    </div></div>`;
 } else if(interventi.length>0 || correzioniAcqua.length>0){
-html+=`<div class="alert al-ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.corretto')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli superati. Nessuna precipitazione attesa una volta miscelati i sali nei serbatoi indicati. Vedi log interventi qui sotto; audit completo in <em>Info tecniche</em>.`,`All ${sicurezza.audit.length} checks passed. No precipitation expected once the salts are mixed in the indicated tanks. See the intervention and audit log below (full audit under <em>Technical info</em>).`)}</span></div>`;
+html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.corretto')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli superati. Nessuna precipitazione attesa una volta miscelati i sali nei serbatoi indicati. Vedi log interventi qui sotto; audit completo in <em>Info tecniche</em>.`,`All ${sicurezza.audit.length} checks passed. No precipitation expected once the salts are mixed in the indicated tanks. See the intervention and audit log below (full audit under <em>Technical info</em>).`)}</span></div>`;
 } else {
-html+=`<div class="alert al-ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.ok')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli di compatibilità superati. Nessuna precipitazione attesa.`,`All ${sicurezza.audit.length} compatibility checks passed. No precipitation expected.`)}</span></div>`;
+html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.ok')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli di compatibilità superati. Nessuna precipitazione attesa.`,`All ${sicurezza.audit.length} compatibility checks passed. No precipitation expected.`)}</span></div>`;
 }
 if(needsSerbC.length>0 || usaSerbC){
 const titoloC = motiviSerbCAuto ? t('js.serbCautoTitle') : needsSerbC.length ? t('js.serbCtitle') : t('js.serbCattivo');
@@ -4201,7 +4355,7 @@ const volFinale1000L = volMin * dil;
 // Costo per 1000 L finali dalle dosi (g/1000L × €/kg): indipendente dai
 // volumi dei serbatoi. Prima si divideva il costo di TUTTI i serbatoi per la
 // resa del più piccolo, gonfiando il valore se i volumi erano diversi.
-const costoSaliPerMille = wRighe.reduce((s,r)=>{ const pzU=r.prezzo!==undefined?(+r.prezzo||0):(getSale(r.id)?.prezzo||0); return s + (+r.dose||0)*pzU/1000; }, 0); const acidoPrezzoRef = (aq && aq.hco3 > 0) ? (getSale(aq.acido==='H3PO4'?'H3PO4':'HNO3')?.prezzo || 0) : 0; const acidoGrammiPerMille = (aq && aq.hco3 > 0) ? calcolaGrammiAcido(aq, phFinale, aq.acido) : 0; const costoAcidoPerMille = acidoGrammiPerMille * acidoPrezzoRef / 1000; const costoAcidoBatch = costoAcidoPerMille * (volFinale1000L / 1000); const costoPerMille = costoSaliPerMille + (costoSaliPerMille > 0 ? costoAcidoPerMille : 0); const costoSaliCicloMin = costoSaliPerMille * (volFinale1000L / 1000);
+const costoSaliPerMille = wRighe.reduce((s,r)=>{ const pzU=r.prezzo!==undefined?(+r.prezzo||0):(getSale(r.id)?.prezzo||0); return s + (+r.dose||0)*pzU/1000; }, 0); const acidoPrezzoRef = (aq && aq.hco3 > 0) ? (getSale(aq.acido==='H3PO4'?'H3PO4':'HNO3')?.prezzo || 0) : 0; const acidoGrammiPerMille = (aq && aq.hco3 > 0) ? calcolaGrammiAcido(aq, phFinale, aq.acido) : 0; const costoAcidoPerMille = acidoGrammiPerMille * acidoPrezzoRef / 1000; const costoAcidoBatch = costoAcidoPerMille * (volFinale1000L / 1000); const costoPerMille = costoSaliPerMille + costoAcidoPerMille; const costoSaliCicloMin = costoSaliPerMille * (volFinale1000L / 1000);
 html+=`<div class="card" style="margin-top:12px;margin-bottom:12px">
     <div class="ch" style="background:var(--ar)">${TT('📊 Riepilogo — Diluizione','📊 Summary — Dilution')} 1:${dil}</div>
     <div class="cb">
@@ -4210,8 +4364,8 @@ html+=`<div class="card" style="margin-top:12px;margin-bottom:12px">
 const ecS = (ecPerSerb[s.key]||0)*dil;
 return `<div class="eco-row"><span>${TT(`EC Serb. ${s.key} nel concentrato (×${dil})`,`Tank ${s.key} EC in concentrate (×${dil})`)}</span><span class="eco-val">${ecS.toFixed(0)} mS/cm</span></div>`;
 }).join('')}
-      ${costoTot>0?serbatoi.filter(s=>s.righeSerb&&s.righeSerb.length>0&&(s.costoSerb||0)>0).map(s=>`<div class="eco-row"><span>${TT(`Costo soluzione madre Serb. ${s.key} (${s.vol} L)`,`Tank ${s.key} stock solution cost (${s.vol} L)`)}</span><span class="eco-val">${fmtEuro(s.costoSerb)}</span></div>`).join(''):''}${costoTot>0?`<div class="eco-row"><span>${TT('Costo totale batch','Total batch cost')}</span><span class="eco-val">${fmtEuro(costoTot)}</span></div>`:''}${costoTot>0&&volDiversi?`<div class="eco-row" style="font-size:.73rem;color:var(--ts)"><span>${TT(`↳ sali usati per ciclo da ${volFinale1000L.toFixed(0)} L (tank min)`,`↳ salts used per ${volFinale1000L.toFixed(0)} L cycle (min tank)`)}</span><span class="eco-val">${fmtEuro(costoSaliCicloMin)}</span></div>`:''}${costoTot>0&&costoAcidoBatch>0?`<div class="eco-row"><span>${TT(`Costo acido (${aq.acido==='H3PO4'?'H₃PO₄ 75%':'HNO₃ 38%'}) per ${volFinale1000L.toFixed(0)} L`,`Acid cost (${aq.acido==='H3PO4'?'H₃PO₄ 75%':'HNO₃ 38%'}) for ${volFinale1000L.toFixed(0)} L`)}</span><span class="eco-val">${fmtEuro(costoAcidoBatch)}</span></div>`:''}
-      ${costoTot>0?`<div class="eco-row"><span>${TT('Costo per 1000 L finali','Cost per 1000 L final')}</span><span class="eco-val">${fmtEuro(costoPerMille)}</span></div>${costoAcidoPerMille>0?`<div class="eco-row" style="font-size:.73rem;color:var(--ts)"><span>${TT('↳ di cui sali / acido','↳ of which salts / acid')}</span><span class="eco-val">${fmtEuro(costoSaliPerMille)} + ${fmtEuro(costoAcidoPerMille)}</span></div>`:''}`:''}
+      ${costoTot>0?serbatoi.filter(s=>s.righeSerb&&s.righeSerb.length>0&&(s.costoSerb||0)>0).map(s=>`<div class="eco-row"><span>${TT(`Costo soluzione madre Serb. ${s.key} (${s.vol} L)`,`Tank ${s.key} stock solution cost (${s.vol} L)`)}</span><span class="eco-val">${fmtEuro(s.costoSerb)}</span></div>`).join(''):''}${costoTot>0?`<div class="eco-row"><span>${TT('Costo totale batch','Total batch cost')}</span><span class="eco-val">${fmtEuro(costoTot)}</span></div>`:''}${costoTot>0&&volDiversi?`<div class="eco-row" style="font-size:.73rem;color:var(--ts)"><span>${TT(`↳ sali usati per ciclo da ${volFinale1000L.toFixed(0)} L (tank min)`,`↳ salts used per ${volFinale1000L.toFixed(0)} L cycle (min tank)`)}</span><span class="eco-val">${fmtEuro(costoSaliCicloMin)}</span></div>`:''}${costoAcidoBatch>0?`<div class="eco-row"><span>${TT(`Costo acido (${aq.acido==='H3PO4'?'H₃PO₄ 75%':'HNO₃ 38%'}) per ${volFinale1000L.toFixed(0)} L`,`Acid cost (${aq.acido==='H3PO4'?'H₃PO₄ 75%':'HNO₃ 38%'}) for ${volFinale1000L.toFixed(0)} L`)}</span><span class="eco-val">${fmtEuro(costoAcidoBatch)}</span></div>`:''}
+      ${(costoTot>0||costoAcidoPerMille>0)?`<div class="eco-row"><span>${TT('Costo per 1000 L finali','Cost per 1000 L final')}</span><span class="eco-val">${fmtEuro(costoPerMille)}</span></div>${costoAcidoPerMille>0?`<div class="eco-row" style="font-size:.73rem;color:var(--ts)"><span>${TT('↳ di cui sali / acido','↳ of which salts / acid')}</span><span class="eco-val">${fmtEuro(costoSaliPerMille)} + ${fmtEuro(costoAcidoPerMille)}</span></div>`:''}`:''}
       <div class="eco-row"><span>${TT('Concentrato per 1000 L finali (per serb.)','Concentrate per 1000 L final (per tank)')}</span><span class="eco-val">${(1000/dil).toFixed(1)} L</span></div>
       <div class="eco-row"><span>${TT('Soluzione finale da batch (tank min)','Final solution per batch (min tank)')}</span><span class="eco-val">${volFinale1000L.toFixed(0)} L</span></div>
     </div>
@@ -4257,7 +4411,7 @@ html+=`<div class="card tech-info" style="margin-bottom:12px">
           <div class="ri-box"><div class="ri-lbl">${elLabelHtml('Mg')}</div><div class="ri-val">${pSol.Mg.toFixed(0)}</div><div class="ri-sub">mg/L</div></div>
           <div class="ri-box"><div class="ri-lbl">${elLabelHtml('K')}</div><div class="ri-val">${pSol.K.toFixed(0)}</div><div class="ri-sub">mg/L</div></div>
         </div>
-        <div style="font-size:.7rem;color:var(--ts);margin-top:6px">EC totale: <strong>${ecFin2.toFixed(2)} mS/cm</strong> | ${elLabel('Na')} ${aq.na||0} | ${elLabel('Cl')} ${(pSol.Cl||0).toFixed(0)} | HCO₃⁻ (${TT('bicarbonati','bicarbonates')}) ${hco3Res.toFixed(0)} mg/L${acidoCalc?TT(` dopo l'acido (${aq.hco3} prima)`,` after acid (${aq.hco3} before)`):''}</div>
+        <div style="font-size:.7rem;color:var(--ts);margin-top:6px">EC totale: <strong>${ecFin2.toFixed(2)} mS/cm</strong> | ${elLabel('Na')} ${(pSol.Na||0).toFixed(0)} | ${elLabel('Cl')} ${(pSol.Cl||0).toFixed(0)} | HCO₃⁻ (${TT('bicarbonati','bicarbonates')}) ${hco3Res.toFixed(0)} mg/L${acidoCalc?TT(` dopo l'acido (${aq.hco3} prima)`,` after acid (${aq.hco3} before)`):''}</div>
       </div>
     </div>`;
 }
@@ -4328,7 +4482,7 @@ html+=`<div class="card tech-info" style="margin-top:12px">
           ${gaugeHTML(TT('Fosfato di calcio','Calcium phosphate'),'CaHPO₄ · '+TT('pH-dipendente','pH-dependent'),si.CaHPO4)}
           <div class="si-rows">
             ${siRowHTML(TT('Carbonato di calcio','Calcium carbonate'),'CaCO₃ · '+TT('da bicarbonati','from bicarbonates'),si.CaCO3)}
-            ${siRowHTML('Struvite','MgNH₄PO₄ · '+TT('serbatoio B','tank B'),si.struvite)}
+            ${siRowHTML('Struvite','MgNH₄PO₄ · '+TT('soluzione finale','final solution'),si.struvite)}
           </div>
         </div>`;
 const viciniSatConc = [];
@@ -4386,26 +4540,7 @@ TT('Mantieni Mg²⁺ e PO₄³⁻ in serbatoi separati','Keep Mg²⁺ and PO₄�
 // visibili fuori dalla scheda tecnica, che si apre solo con "Info tecniche".
 let azioniSI = '';
 if(viciniSat.length > 0){
-if(autoBalanceApplied){
-azioniSI+=`<div style="background:#e8f5e9;border:2px solid var(--vc);border-radius:var(--r);padding:12px 14px;margin-top:12px">
-          <div style="display:flex;gap:10px;align-items:flex-start">
-            <span style="font-size:1.2rem;flex-shrink:0">✅</span>
-            <div style="flex:1">
-              <div style="font-weight:700;color:var(--vc);font-size:.84rem;margin-bottom:5px">
-                ${TT('Correzione applicata — tutti gli indici ora nella zona sicura','Correction applied — all indices now in the safe zone')}
-              </div>
-              <div style="font-size:.77rem;color:#155724;line-height:1.65">
-                ${TT('Il sistema ha ridotto automaticamente le dosi dei sali che causavano saturazione. La soluzione ora è stabile e non precipiterà nei serbatoi.','The system automatically reduced the doses of the salts that were causing saturation. The solution is now stable and will not precipitate in the tanks.')}
-                <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-                  <button class="btn btn-se btn-sm" onclick="ripristinaDosiOriginali()" style="border-color:var(--ro);color:var(--ro)">
-                    ${t('js.ripristinaOriginali')}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`;
-} else if(sicurezza.phSuggerito){
+if(sicurezza.phSuggerito){
 const peggioFin = viciniSat.reduce((a,b) => a.si > b.si ? a : b);
 azioniSI+=`<div style="background:#e7f5ff;border:2px solid #1c7ed6;border-radius:var(--r);padding:12px 14px;margin-top:12px">
           <div style="display:flex;gap:10px;align-items:flex-start">
@@ -4448,11 +4583,11 @@ azioniSI+=`<div style="background:#fff3e0;border:2px solid #e65100;border-radius
                 <ul style="margin:6px 0 0 16px;line-height:1.8">
                   ${unici.slice(0,5).map(c=>`<li>${c.consiglio}</li>`).join('')}
                 </ul>
-                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+                ${!autoBalanceApplied ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
                   <button class="btn btn-se btn-sm" onclick="calcolaBilanciato()" style="border-color:#e65100;color:#e65100">
                     ${TT('⚖️ Bilancia Sali — Correggi automaticamente il SI','⚖️ Balance Salts — Automatically correct the SI')}
                   </button>
-                </div>
+                </div>` : ''}
               </div>
             </div>
           </div>
@@ -4613,7 +4748,7 @@ html+=`<div class="card tech-info" style="margin-top:12px">
           </tr></thead>
           <tbody>
             ${contrib.map(c=>`<tr style="border-bottom:1px solid var(--cs)">
-              <td style="padding:5px 8px;font-weight:600;white-space:nowrap">${c.nome}</td>
+              <td style="padding:5px 8px;font-weight:600;white-space:nowrap">${esc(c.nome)}</td>
               <td style="text-align:center;padding:5px 4px">${c.serb||'—'}</td>
               ${EL_C.map(e=>{const v=c.contributi[e]||0;return`<td style="text-align:right;padding:5px 6px;font-family:'JetBrains Mono',monospace;color:${v>0.01?'inherit':'var(--ts)'}">${v>0.01?v.toFixed(1):'—'}</td>`;}).join('')}
             </tr>`).join('')}
@@ -4627,19 +4762,32 @@ html+=`<div class="card tech-info" style="margin-top:12px">
       </div>
     </div>`;
 }
-const hco3Note = aq&&aq.hco3>50?TT(`<li><strong>Neutralizzazione HCO₃⁻:</strong> aggiungi acido (HNO₃ o H₃PO₄, dosi nella scheda "Correzione pH") all'acqua di miscelazione fino a <strong>pH ${phFinale}</strong> <em>prima</em> di aggiungere qualsiasi sale.</li>`,`<li><strong>HCO₃⁻ neutralization:</strong> add acid (HNO₃ or H₃PO₄, doses in the "pH Correction" card) to the mixing water until <strong>pH ${phFinale}</strong> <em>before</em> adding any salt.</li>`):'';
-const serbCNote = usaSerbC?TT(`<li>Prepara <strong>Serb. C</strong> (${volC||100} L) seguendo lo stesso protocollo: prima i sali da soli, poi porta al volume finale.</li>`,`<li>Prepare <strong>Tank C</strong> (${volC||100} L) following the same protocol: salts alone first, then bring to final volume.</li>`):'';
+const acquaMadreNote = (aq && (aq.hco3 > 60 || aq.ca > 60)) ? TT(`<li><strong>Acqua nei serbatoi concentrati:</strong> prepara le soluzioni madri A/B${usaSerbC?'/C':''} preferibilmente con acqua povera di Ca²⁺ e bicarbonati (osmosi/piovana); se usi acqua dura, acidifica leggermente prima di sciogliere i sali (mai miscelare acido forte con Ca, solfati o silicati).</li>`,`<li><strong>Water for stock tanks:</strong> prepare A/B${usaSerbC?'/C':''} mother solutions preferably with low-Ca²⁺ / low-bicarbonate (RO/rain) water; if using hard water, lightly pre-acidify before dissolving salts (never mix strong acid with Ca, sulfates or silicates).</li>`) : '';
+const hco3Note = aq&&aq.hco3>50?TT(`<li><strong>Neutralizzazione HCO₃⁻ nella linea/vasca finale:</strong> dosa l'acido (HNO₃ o H₃PO₄, vedi scheda "Correzione pH") fino a <strong>pH ${phFinale}</strong> prima dell'erogazione. <em>Aggiungi sempre l'acido in acqua, mai acqua nell'acido.</em></li>`,`<li><strong>HCO₃⁻ neutralization in final tank/line:</strong> dose acid (HNO₃ or H₃PO₄, see "pH Correction" card) down to <strong>pH ${phFinale}</strong> before delivery. <em>Always add acid to water, never water to acid.</em></li>`):'';
+const hasAcidA = perA.some(r=>r.id==='HNO3'||r.id==='H3PO4');
+const hasCaB = perB.some(r=>r.id==='CaN'||r.id==='CaCl2'||getSale(r.id)?.el?.Ca>0);
+const stepANote = hasAcidA
+  ? TT(`Porta Serb. A a <strong>${volA} L</strong>. Il serbatoio contiene acido concentrato: indossa DPI e non portare a pH 5.5.`, `Bring Tank A to <strong>${volA} L</strong>. Tank contains concentrated acid: wear PPE and do not adjust to pH 5.5.`)
+  : TT(`Porta Serb. A a <strong>${volA} L</strong>. Verifica dissoluzione e pH tipico di esercizio.`, `Bring Tank A to <strong>${volA} L</strong>. Verify complete dissolution and typical working pH.`);
+const stepBFill = perB.length === 0
+  ? TT(`<strong>Serb. B</strong> (${volB} L): nessun sale assegnato in questa ricetta.`, `<strong>Tank B</strong> (${volB} L): no salts assigned in this recipe.`)
+  : hasCaB
+    ? TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Sciogli eventuali altri sali B, poi aggiungi lentamente i sali di Calcio (CaN/CaCl₂) agitando.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Dissolve any other B salts first, then add Calcium salts (CaN/CaCl₂) slowly while stirring.`)
+    : TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Aggiungi i sali B uno alla volta fino a completa dissoluzione.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Add Tank B salts one at a time until fully dissolved.`);
+const stepBTop = perB.length === 0 ? '' : TT(`<li>Porta Serb. B a <strong>${volB} L</strong>.</li>`,`<li>Bring Tank B to <strong>${volB} L</strong>.</li>`);
+const serbCNote = usaSerbC?TT(`<li>Prepara <strong>Serb. C</strong> (${volC||100} L) separatamente dagli altri concentrati (es. KOH, silicato o solfato): sciogli in acqua e porta a volume finale.</li>`,`<li>Prepare <strong>Tank C</strong> (${volC||100} L) separately from the other concentrates (e.g. KOH, silicate or sulfate): dissolve in water and bring to final volume.</li>`):'';
 html+=`<div class="card" style="margin-top:12px">
     <div class="ch">${t('js.procedura')}</div>
     <div class="cb"><ol class="steps">
+      ${acquaMadreNote}
       ${hco3Note}
-      <li>${TT(`Riempi <strong>Serb. A</strong> a ${Math.round(volA*0.8)} L. Aggiungi sali A <strong>uno alla volta</strong>: chelati → nitrati → fosfati. Attendi dissoluzione completa.`,`Fill <strong>Tank A</strong> to ${Math.round(volA*0.8)} L. Add the A salts <strong>one at a time</strong>: chelates → nitrates → phosphates. Wait for complete dissolution.`)}</li>
-      <li>${TT(`Porta Serb. A a <strong>${volA} L</strong>. Misura pH (target 5.5–6.0).`,`Bring Tank A to <strong>${volA} L</strong>. Measure pH (target 5.5–6.0).`)}</li>
-      <li>${TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Aggiungi Nitrato di Calcio lentamente in acqua tiepida.`,`Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Add Calcium Nitrate slowly into lukewarm water.`)}</li>
-      <li>${TT(`Porta Serb. B a <strong>${volB} L</strong>.`,`Bring Tank B to <strong>${volB} L</strong>.`)}</li>
+      <li>${TT(`Riempi <strong>Serb. A</strong> a ${Math.round(volA*0.8)} L. Aggiungi sali A <strong>uno alla volta</strong>: chelati → nitrati → fosfati/solfati. Attendi dissoluzione completa.`,`Fill <strong>Tank A</strong> to ${Math.round(volA*0.8)} L. Add Tank A salts <strong>one at a time</strong>: chelates → nitrates → phosphates/sulfates. Wait for complete dissolution.`)}</li>
+      <li>${stepANote}</li>
+      <li>${stepBFill}</li>
+      ${stepBTop}
       ${serbCNote}
-      <li>${TT('<strong>Non mischiare mai i concentrati direttamente.</strong> FertiControl dosarà separatamente ogni serbatoio nella linea.','<strong>Never mix the concentrates directly.</strong> FertiControl will dose each tank separately in the line.')}</li>
-      <li>${TT('Misura EC e pH finali al punto di consegna. Drain EC target = input + 0.5–1.0 mS/cm.','Measure final EC and pH at the delivery point. Drain EC target = input + 0.5–1.0 mS/cm.')}</li>
+      <li>${TT('<strong>Non mischiare mai i concentrati direttamente.</strong> FertiControl doserà separatamente ogni serbatoio nella linea.','<strong>Never mix the concentrates directly.</strong> FertiControl will dose each tank separately in the line.')}</li>
+      <li>${TT(`Misura EC e pH finali al punto di consegna (target pH ${phFinale}). Drain EC target = input + 0.5–1.0 mS/cm.`,`Measure final EC and pH at the delivery point (target pH ${phFinale}). Drain EC target = input + 0.5–1.0 mS/cm.`)}</li>
     </ol></div>
   </div>`;
 html+=`<div class="card tech-info" style="margin-top:12px">
@@ -4726,17 +4874,17 @@ function stampaMiscelaDaRisultato(){
 const contenuto = document.getElementById('risultato-stampa');
 if(!contenuto){ window.print(); return; }
 const txt = el => el ? ((el.innerText!==undefined && el.innerText!==null) ? el.innerText : (el.textContent||'')) : '';
-const dataOra = new Date().toLocaleString(currentLang==='en'?'en-GB':'it-IT',{dateStyle:'short',timeStyle:'short'});
-const badgeEl = contenuto.querySelector('.al-ok, .al-err');
-const badge   = badgeEl ? txt(badgeEl).trim().substring(0,160) : '';
-const badgeOk = badgeEl && badgeEl.classList.contains('al-ok');
+const dataOra = esc(new Date().toLocaleString(currentLang==='en'?'en-GB':'it-IT',{dateStyle:'short',timeStyle:'short'}));
+const badgeEl = contenuto.querySelector('[data-verdict], .al-ok, .al-err');
+const badge   = badgeEl ? esc(txt(badgeEl).trim().substring(0,160)) : '';
+const verdict = badgeEl?.dataset?.verdict || (badgeEl && badgeEl.classList.contains('al-ok') ? 'ok' : badgeEl && badgeEl.classList.contains('al-inf') ? 'warn' : 'err');
 const pVolA = numInput('volA',100), pVolB = numInput('volB',100);
 const pVolC = usaSerbC ? numInput('volC',100) : null;
 const pDil  = numInput('diluizione',100);
 const pPh   = numInput('ph-finale',PH_DEFAULT);
-const nomeRicetta = (ricettaCaricata && ricettaCaricata.nome)
+const nomeRicetta = esc((ricettaCaricata && ricettaCaricata.nome)
 ? ricettaCaricata.nome
-: (txt(document.getElementById('lbl-ricetta-caricata')).trim() || '\u2014');
+: (txt(document.getElementById('lbl-ricetta-caricata')).trim() || '\u2014'));
 let ecFinale = '';
 contenuto.querySelectorAll('.eco-row').forEach(r=>{
 const l = txt(r.children[0]);
@@ -4750,19 +4898,23 @@ if(pVolC !== null) params.push({l:TT('Serbatoio C','Tank C'), v:pVolC, s:'L'});
 params.push({l:TT('Diluizione','Dilution'), v:'1:'+pDil, s:TT('conc. \u2192 finale','conc. \u2192 final')});
 params.push({l:TT('pH finale','Final pH'), v:pPh, s:TT('in coltura','in culture')});
 if(ecFinale) params.push({l:TT('EC prevista','Expected EC'), v:ecFinale.replace(/\s*mS\/cm/,''), s:'mS/cm'});
-const paramsHtml = params.map(p=>`<div class="pbox"><div class="pl">${p.l}</div><div class="pv">${p.v}</div><div class="ps">${p.s}</div></div>`).join('');
+const paramsHtml = params.map(p=>`<div class="pbox"><div class="pl">${esc(p.l)}</div><div class="pv">${esc(p.v)}</div><div class="ps">${esc(p.s)}</div></div>`).join('');
 const TANK_COLORS = ['#1e8449','#2471a3','#7b3f9e'];
 let serbHtml = '';
 const serbCards = contenuto.querySelectorAll('.serb-card');
 const nSerb = serbCards.length || 2;
 serbCards.forEach((card, idx) => {
 const col = TANK_COLORS[idx] || '#333';
-const titolo = txt(card.querySelector('.serb-title')).replace(/\s+/g,' ').trim();
+const titolo = esc(txt(card.querySelector('.serb-title')).replace(/\s+/g,' ').trim());
 let righe = '';
 card.querySelectorAll('.sale-row').forEach(row => {
 const isTot = row.classList.contains('tot-row');
-const nome = txt(row.children[0]).replace(/\s+/g,' ').trim();
-const parti = txt(row.children[1]).split('\n').map(s=>s.trim()).filter(Boolean); const dose = parti[1] ? `${parti[0]}<br><small style="color:#666;font-weight:500">${parti[1]}</small>` : (parti[0] || '');
+const nome = esc(txt(row.children[0]).replace(/\s+/g,' ').trim());
+const doseEl = row.children[1]?.querySelector('span:first-child') || row.children[1];
+const costEl = row.children[1]?.querySelector('.costo-txt');
+const doseTxt = esc(txt(doseEl).trim());
+const costTxt = costEl ? esc(txt(costEl).trim()) : '';
+const dose = costTxt ? `${doseTxt}<br><small style="color:#666;font-weight:500">${costTxt}</small>` : doseTxt;
 righe += isTot
 ? `<tr class="tot"><td></td><td>${nome}</td><td class="r" style="color:${col}">${dose}</td></tr>`
 : `<tr><td class="cbx">\u2610</td><td>${nome}</td><td class="r" style="color:${col}">${dose}</td></tr>`;
@@ -4773,16 +4925,16 @@ let riepilogoHtml = '';
 const rCard = [...contenuto.querySelectorAll('.card')].find(c => txt(c.querySelector('.ch')).includes('\ud83d\udcca'));
 if(rCard){
 rCard.querySelectorAll('.eco-row').forEach(r => {
-riepilogoHtml += `<tr><td>${txt(r.children[0])}</td><td class="r">${txt(r.children[1])}</td></tr>`;
+riepilogoHtml += `<tr><td>${esc(txt(r.children[0]).trim())}</td><td class="r">${esc(txt(r.children[1]).trim())}</td></tr>`;
 });
 }
 let ioniHtml = '';
 const ioniCard = [...contenuto.querySelectorAll('.card')].find(c => txt(c.querySelector('.ch')).includes('\ud83d\udca7'));
 if(ioniCard){
 ioniCard.querySelectorAll('.ri-box').forEach(box => {
-const lbl = txt(box.querySelector('.ri-lbl'));
-const val = txt(box.querySelector('.ri-val'));
-const sub = txt(box.querySelector('.ri-sub'));
+const lbl = esc(txt(box.querySelector('.ri-lbl')).trim());
+const val = esc(txt(box.querySelector('.ri-val')).trim());
+const sub = esc(txt(box.querySelector('.ri-sub')).trim());
 if(lbl && val) ioniHtml += `<tr><td>${lbl}</td><td class="r"><strong>${val}</strong>&nbsp;<small>${sub}</small></td></tr>`;
 });
 }
@@ -4794,23 +4946,23 @@ return h.includes('\ud83e\uddea') && /Correzione pH|Bicarbonate Correction/.test
 if(acidoCard){
 let boxes = '';
 acidoCard.querySelectorAll('.ri-box').forEach(b => {
-boxes += `<div class="pbox amber"><div class="pl">${txt(b.querySelector('.ri-lbl'))}</div><div class="pv">${txt(b.querySelector('.ri-val'))}</div><div class="ps">${txt(b.querySelector('.ri-sub'))}</div></div>`;
+boxes += `<div class="pbox amber"><div class="pl">${esc(txt(b.querySelector('.ri-lbl')).trim())}</div><div class="pv">${esc(txt(b.querySelector('.ri-val')).trim())}</div><div class="ps">${esc(txt(b.querySelector('.ri-sub')).trim())}</div></div>`;
 });
-const note = txt([...acidoCard.querySelectorAll('.cb > div')].pop());
+const note = esc(txt([...acidoCard.querySelectorAll('.cb > div')].pop()).trim());
 acidoHtml = `<div class="acid"><div class="acid-t">${TT('\ud83e\uddea Correzione pH / Bicarbonati','\ud83e\uddea pH / Bicarbonate Correction')}</div><div class="pgrid" style="grid-template-columns:repeat(3,1fr)">${boxes}</div>${note?`<div class="acid-n">${note}</div>`:''}</div>`;
 }
 let avvisiHtml = '';
 const avvisoEl = [...contenuto.querySelectorAll('.alert')].find(a => txt(a).includes(t('js.avvisiManuali')));
 if(avvisoEl){
 let items = '';
-avvisoEl.querySelectorAll('li').forEach(li => { items += `<li>${txt(li)}</li>`; });
-if(items) avvisiHtml = `<div class="avvisi"><div class="avvisi-t">\u26a0\ufe0f ${t('js.avvisiManuali')}</div><ul>${items}</ul></div>`;
+avvisoEl.querySelectorAll('li').forEach(li => { items += `<li>${esc(txt(li).trim())}</li>`; });
+if(items) avvisiHtml = `<div class="avvisi"><div class="avvisi-t">\u26a0\ufe0f ${esc(t('js.avvisiManuali'))}</div><ul>${items}</ul></div>`;
 }
 let procHtml = '';
 const procCard = [...contenuto.querySelectorAll('.card')].find(c => txt(c.querySelector('.ch')).includes('\ud83d\udccb'));
 if(procCard){
 procCard.querySelectorAll('li').forEach((li, i) => {
-procHtml += `<li><span class="pn">${i+1}</span><span class="pc">\u2610</span><span class="pt">${txt(li)}</span></li>`;
+procHtml += `<li><span class="pn">${i+1}</span><span class="pc">\u2610</span><span class="pt">${esc(txt(li).trim())}</span></li>`;
 });
 }
 const gridCols = nSerb >= 3 ? '1fr 1fr 1fr' : '1fr 1fr';
@@ -4829,6 +4981,7 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:9pt;color:#1a1a1a;line-hei
 .header .meta .mt{font-size:7.5pt;color:#666;margin-top:2px}
 .badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:8.5pt;font-weight:700;margin:2px 0 4px;border:1.5px solid}
 .badge.ok{background:#e8f5e8;border-color:#2d6a2d;color:#155724}
+.badge.warn{background:#fff3cd;border-color:#e0a800;color:#856404}
 .badge.err{background:#fde8e8;border-color:#c0392b;color:#721c24}
 .warn{background:#fff8e1;border:1px solid #e6b800;border-radius:4px;padding:4px 8px;font-size:8pt;color:#6b5200;margin-bottom:4px}
 .params{display:grid;grid-template-columns:repeat(${params.length},1fr);gap:2.5mm;margin:3mm 0 4mm;break-inside:avoid}
@@ -4889,7 +5042,7 @@ ol.proc .pc{flex-shrink:0;font-size:11pt;line-height:1;color:#666;margin-top:-1p
   </div>
 </div>
 
-<div class="badge ${badgeOk?'ok':'err'}">${badge}</div>
+<div class="badge ${verdict==='ok'?'ok':verdict==='warn'?'warn':'err'}">${badge}</div>
 <div class="warn">\u26a0\ufe0f ${TT('Verificare sempre EC e pH al punto di consegna prima dell\'irrigazione. Non miscelare mai i concentrati direttamente tra loro.','Always check EC and pH at the delivery point before irrigation. Never mix the concentrates directly together.')}</div>
 
 <div class="params">${paramsHtml}</div>
@@ -5165,11 +5318,11 @@ html += `<div class="tbl-wrap" style="margin-bottom:12px"><table class="tbl" sty
 deviations.forEach(d => {
 const col = d.pctChange < 0 ? 'var(--ro)' : 'var(--vc)';
 html += `<tr>
-        <td style="font-weight:600">${d.nome}</td>
+        <td style="font-weight:600">${esc(d.nome)}</td>
         <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmtGram(d.doseOrig)}</td>
         <td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:${col}">${fmtGram(d.doseNew)}</td>
         <td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:${col}">${d.pctChange > 0 ? '+' : ''}${d.pctChange}%</td>
-        <td><span style="font-size:.65rem;background:var(--cs);border-radius:4px;padding:2px 6px;color:var(--ts)">${d.ioneRischio || '—'}</span></td>
+        <td><span style="font-size:.65rem;background:var(--cs);border-radius:4px;padding:2px 6px;color:var(--ts)">${esc(d.ioneRischio || '—')}</span></td>
       </tr>`;
 });
 html += `</tbody></table></div>`;
@@ -5225,7 +5378,6 @@ bilanciaReportData = null;
 calcola({noScroll:true});
 showToast(t('js.toastDosi'));
 }
-const _PRECIP_RULES_RIMOSSO = true;
 let catalogoFiltro = 'all';
 function fmtPrezzoCat(s){
 if(!s || !(+s.prezzo > 0)) return '';
@@ -5318,11 +5470,11 @@ row.innerHTML=`
         <div style="flex:1;min-width:0">
           <div class="cat-nome">
             <span class="bcat" style="background:${c.bg}">${c.label}</span> ${esc(salNome(s))}
-            ${pzStr?`<span class="prezzo-badge">${pzStr}</span>`:''}
+            ${pzStr?`<span class="prezzo-badge">${esc(pzStr)}</span>`:''}
             <span class="${disp?'badge-ok':'badge-no'}" id="badge-${s.id}">${disp?t('js.hoBadge'):t('js.mancaBadge')}</span>
           </div>
           ${elStr?`<div class="cat-meta">${elStr}</div>`:''}
-          ${salNote(s)?`<div class="cat-note">${salNote(s)}</div>`:''}
+          ${salNote(s)?`<div class="cat-note">${esc(salNote(s))}</div>`:''}
         </div>
       </label>
       <div class="cat-actions" style="margin-left:6px">
@@ -5348,10 +5500,11 @@ if(calcRighe.length) renderCalcTabella();
 if(piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
 if(statoCalc.target && document.getElementById('risultato-stampa')) calcola({noScroll:true});
 }
+const EL_ING_FIELDS = ['N','P','K','Ca','Mg','S','Cl','Si','Na','Fe','Mn','Zn','B','Cu','Mo'];
 function openNuovoIngrediente(){
 editIngId=null;
 ['nome','note'].forEach(f=>document.getElementById('ing-'+f).value='');
-['N','P','K','Ca','Mg','S','Fe','Mn','Zn','B','Cu','Mo'].forEach(f=>document.getElementById('ing-'+f).value=0);
+EL_ING_FIELDS.forEach(f=>document.getElementById('ing-'+f).value=0);
 document.getElementById('ing-cat').value='macro';
 document.getElementById('ing-prezzo').value=0;
 document.getElementById('ing-dose').value=0;
@@ -5370,8 +5523,8 @@ document.getElementById('ing-cat').value=s.cat;
 document.getElementById('ing-prezzo').value=s.prezzo||0;
 document.getElementById('ing-dose').value=s.dose||0;
 document.getElementById('ing-note').value=s.note||'';
-['N','P','K','Ca','Mg','S','Fe','Mn','Zn','B','Cu','Mo'].forEach(f=>{ document.getElementById('ing-'+f).value=(s.el&&s.el[f])||0; });
-document.getElementById('ing-nh4').value=s.nh4Frac||0;
+EL_ING_FIELDS.forEach(f=>{ document.getElementById('ing-'+f).value=(s.el&&s.el[f])||0; });
+document.getElementById('ing-nh4').value=(s.el&&s.el.N)?Math.round(fracNH4(s.id,s)*100):(s.nh4Frac||0);
 document.getElementById('ing-liquid').checked=!!s.isLiquid;
 document.getElementById('ing-density').value=s.density||0;
 document.getElementById('ing-density').disabled=!s.isLiquid;
@@ -5382,13 +5535,12 @@ function salvaIngrediente(){
 const nome=sanitizeName(document.getElementById('ing-nome').value.trim());
 if(!nome){ alert(t('js.nomeIngrediente')); return; }
 const el={};
-['N','P','K','Ca','Mg','S','Fe','Mn','Zn','B','Cu','Mo'].forEach(f=>{ const v=parseFloat(document.getElementById('ing-'+f).value)||0; if(v>0)el[f]=v; });
+EL_ING_FIELDS.forEach(f=>{ const v=parseFloat(document.getElementById('ing-'+f).value)||0; if(v>0)el[f]=v; });
 const sommaEl = Object.values(el).reduce((a,b)=>a+b,0);
 if(sommaEl > 100){
 alert(TT(`La somma delle percentuali elementari (${sommaEl.toFixed(1)}%) supera il 100%. Correggi la composizione.`,`The sum of elemental percentages (${sommaEl.toFixed(1)}%) exceeds 100%. Fix the composition.`));
 return;
 }
-const serb = (el.Ca && !el.P && !el.S && !el.Fe) ? 'B' : 'A';
 const nh4Frac = el.N ? Math.min(100, Math.max(0, parseFloat(document.getElementById('ing-nh4').value)||0)) : 0;
 const isLiquid = document.getElementById('ing-liquid').checked;
 const density = isLiquid ? Math.max(0, parseFloat(document.getElementById('ing-density').value)||0) : 0;
@@ -5396,16 +5548,34 @@ if(isLiquid && !(density > 0 && density <= 3.5)){
 alert(TT('Per un prodotto liquido inserisci una densità valida (es. 1.20 kg/L, range 0.1–3.5).','For a liquid product enter a valid density (e.g. 1.20 kg/L, range 0.1–3.5).'));
 return;
 }
+const def = editIngId ? SALI_DEFAULT.find(x=>x.id===editIngId) : null;
+let elChanged = false, nh4Changed = false, liqChanged = false;
+if(def){
+const keys = new Set([...Object.keys(el), ...Object.keys(def.el||{})]);
+for(const k of keys){ if(Math.abs((el[k]||0) - ((def.el&&def.el[k])||0)) > 1e-6){ elChanged = true; break; } }
+nh4Changed = nh4Frac !== (def.el&&def.el.N ? Math.round(fracNH4(def.id, def)*100) : 0);
+liqChanged = isLiquid !== !!def.isLiquid || (isLiquid && Math.abs(density - (+def.density||0)) > 1e-6);
+}
+const isCustomizedDefault = !!(def && (elChanged || nh4Changed || liqChanged));
+const autoSerb = el.Si ? 'C' : (el.Ca && !el.P && !el.S && !el.Fe ? 'B' : 'A');
 const s={
 id: editIngId || ('custom_'+Date.now()),
 nome, cat:document.getElementById('ing-cat').value,
-serb, el, note:sanitizeName(document.getElementById('ing-note').value.trim()),
+serb: def ? (isCustomizedDefault ? autoSerb : def.serb) : autoSerb,
+el: (def && !isCustomizedDefault) ? {...def.el} : el,
+note:sanitizeName(document.getElementById('ing-note').value.trim()),
 prezzo:Math.max(0, parseFloat(document.getElementById('ing-prezzo').value)||0),
 dose:Math.max(0, parseFloat(document.getElementById('ing-dose').value)||0),
-ecC:stimaEcC(el, nh4Frac)
+ecC: (def && !isCustomizedDefault) ? def.ecC : stimaEcC(el, nh4Frac)
 };
-if(nh4Frac>0) s.nh4Frac=nh4Frac;
+if(def && !isCustomizedDefault){
+if(def.nh4Frac != null) s.nh4Frac = def.nh4Frac;
+if(def.isLiquid){ s.isLiquid=true; s.density=def.density; }
+} else {
+if(def) s._elCustom = true;
+if(el.N > 0) s.nh4Frac = nh4Frac;
 if(isLiquid && density>0){ s.isLiquid=true; s.density=density; }
+}
 if(editIngId){ const idx=catalogo.findIndex(x=>x.id===editIngId); if(idx>-1) catalogo[idx]=s; }
 else { catalogo.push(s); scorta.add(s.id); saveScorta(); }
 saveCatalogo(); sincronizzaPrezziDaCatalogo(s.id, s.prezzo);
@@ -5461,7 +5631,7 @@ function esportaDati(){
 const payload = {
 _meta: {
 app: 'FertiControl',
-version: '2.0',
+version: '2.3',
 esportato: new Date().toISOString(),
 descrizione: 'Backup catalogo ingredienti, ricette personalizzate, scorta magazzino e analisi acqua'
 },
@@ -5498,7 +5668,25 @@ if(Array.isArray(data.catalogo) && data.catalogo.length > 0){
 const defaultIds = new Set(SALI_DEFAULT.map(s=>s.id));
 const base = SALI_DEFAULT.map(d=>{
 const importato = data.catalogo.find(s=>s.id===d.id);
-return importato ? {...d, prezzo:importato.prezzo??d.prezzo, note:importato.note?sanitizeName(importato.note):d.note, dose:importato.dose??d.dose} : d;
+if(!importato) return d;
+const prezzo = importato.prezzo!==undefined ? cleanNum(importato.prezzo,d.prezzo,0,1000000) : d.prezzo;
+const dose = importato.dose!==undefined ? cleanNum(importato.dose,d.dose,0,5000) : d.dose;
+const note = importato.note!=null ? sanitizeName(importato.note) : d.note;
+if(importato._elCustom && importato.el && typeof importato.el==='object'){
+const impEl = normalizeImportedEl(importato.el);
+if(Object.keys(impEl).length>0){
+const nh4 = impEl.N>0 && importato.nh4Frac!==undefined ? cleanNum(importato.nh4Frac,0,0,100) : undefined;
+const ecC = importato.ecC!==undefined ? cleanNum(importato.ecC,d.ecC,0,100) : stimaEcC(impEl, nh4);
+const dens = cleanNum(importato.density,0,0,3);
+return {
+...d, prezzo, note, dose, el:impEl, ecC, _elCustom:true,
+serb: impEl.Si ? 'C' : (impEl.Ca && !impEl.P && !impEl.S && !impEl.Fe ? 'B' : d.serb),
+...(nh4!==undefined ? {nh4Frac:nh4} : {}),
+...(importato.isLiquid===true && dens>0 ? {isLiquid:true, density:dens} : {})
+};
+}
+}
+return {...d, prezzo, note, dose};
 });
 const custom = data.catalogo.filter(s=>!defaultIds.has(s.id));
 const nuoviCustom = custom
@@ -5612,14 +5800,29 @@ closeModal('modal-reset');
 catalogo = SALI_DEFAULT.map(s=>({...s}));
 ricetteCustom = [];
 scorta = new Set(SALI_DEFAULT.map(s=>s.id));
+acquaProfili = [];
 saveCatalogo();
 saveRicette();
 saveScorta();
-presetAcqua('media');
-renderCatalogo();
-renderRicetteCustom();
+saveAcquaProfili();
+try{ localStorage.setItem('fc_catalogo_v', JSON.stringify(CATALOG_VERSION)); localStorage.removeItem('fc_acido'); }catch(e){}
+serbCManuale = false;
+usaSerbC = false;
+ricettaCaricata = null;
+resetStatoCalc(null);
+const selAc = document.getElementById('acido-tipo'); if(selAc) selAc.value='auto';
+const infoAc = document.getElementById('acido-auto-info'); if(infoAc) infoAc.textContent='';
+const lblRic = document.getElementById('lbl-ricetta-caricata'); if(lblRic) lblRic.textContent=t('calcola.nessuna');
+const lblMod = document.getElementById('lbl-modo-caricato'); if(lblMod){ lblMod.style.display='none'; lblMod.innerHTML=''; }
 calcRighe = [];
 renderCalcTabella();
+const calcOut = document.getElementById('calc-out');
+if(calcOut) calcOut.innerHTML=`<div class="ph"><p data-i18n-html="calcola.placeholder">${t('calcola.placeholder')}</p></div>`;
+presetAcqua('media');
+renderProfiliAcqua();
+renderCatalogo();
+renderRicetteCustom();
+aggiornaStat();
 showToast(t('js.toastReset'));
 }
 initPiante();
@@ -5656,7 +5859,7 @@ applyLang();
 <div class="modal-b">
 <div class="alert al-err" style="margin-bottom:12px">
 <span>⚠️</span>
-<span data-i18n-html="modal.reset.warn"><strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate, ripristinerà il catalogo ai valori originali e azzererà la scorta. L'operazione non è reversibile.</span>
+<span data-i18n-html="modal.reset.warn"><strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate e i profili acqua salvati, ripristinerà catalogo, acqua e scorta ai valori di fabbrica. L'operazione non è reversibile.</span>
 </div>
 <p style="font-size:.82rem;color:var(--ts);line-height:1.6" data-i18n-html="modal.reset.desc">
 Esporta un backup dalla sezione <strong>💾 Dati → Scarica JSON</strong> prima di procedere se vuoi conservare i dati attuali.

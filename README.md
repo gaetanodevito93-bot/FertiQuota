@@ -6,11 +6,11 @@
 
 *Dalla ricetta nutritiva alle soluzioni madri concentrate — con verifica chimica quantitativa, compatibilità dei serbatoi e scheda operativa stampabile.*
 
-[![Version](https://img.shields.io/badge/versione-v2.0-2d5a3d)](index.html)
+[![Version](https://img.shields.io/badge/versione-v2.3-2d5a3d)](index.html)
 [![License: MIT](https://img.shields.io/badge/licenza-MIT-blue.svg)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
-[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S28-2471a3)](tests)
+[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S36-2471a3)](tests)
 [![i18n](https://img.shields.io/badge/lingue-IT%20%C2%B7%20EN-d4660a)](#-internazionalizzazione)
 
 [Funzionalità](#-funzionalità) · [Come si usa](#-come-si-usa) · [Struttura](#-struttura-del-progetto) · [Test](#-test) · [Documentazione](MANUALE_TECNICO.md)
@@ -89,7 +89,7 @@ FertiControl è anche una **Progressive Web App**. Quando è **servita via HTTPS
 ├── index.html              # L'applicazione completa (CSS + markup + JS in un solo file)
 ├── MANUALE_TECNICO.md      # Manuale tecnico: architettura, motore chimico, solver, sicurezza
 └── tests/
-    ├── run-tests.js        # Suite Playwright (S1–S28) sull'app reale in Chromium headless
+    ├── run-tests.js        # Suite Playwright (S1–S36) sull'app reale in Chromium headless
     ├── hooks/pre-commit    # Esegue la suite a ogni commit che tocca app o test
     └── README.md           # Cosa copre ogni sezione di test
 .github/workflows/test.yml  # Stessa suite su GitHub Actions a ogni push/PR
@@ -113,7 +113,7 @@ Interfaccia completa **italiano / inglese** con architettura a tre livelli: mark
 
 ## 🧪 Test
 
-La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza e UI — 28 sezioni (S1–S28) che includono golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
+La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza e UI — 36 sezioni (S1–S36) che includono golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
 
 ```bash
 # Requisiti: Node.js ≥ 18
@@ -178,7 +178,7 @@ Everything lives in **a single HTML file** — no install, no backend, no accoun
 
 **Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Water → Recipes → Calculate** (with **Catalog** and **Data** as support).
 
-**Tests:** a Playwright suite (S1–S28) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
+**Tests:** a Playwright suite (S1–S36) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
 
 ```bash
 npm install playwright && npx playwright install chromium
