@@ -2813,7 +2813,8 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     JSON.stringify(s38.affiliateValidation));
 
   // ────────────────────────────────────────────────
-  console.log('\n═══ S39. Conformità GDPR, Google Consent Mode v2 (GA4/AdSense), Font Locali e Policy ═══');
+  console.log('\n═══ S39. Audit GDPR Completo: Font Locali, Consent Mode v2, GA4/AdSense HTTP Gate, Cookie Purge, Fail-Closed & Policy ═══');
+  const http = require('http');
   const fontFiles = ['inter-latin.woff2', 'inter-latin-ext.woff2', 'jetbrains-mono-latin.woff2', 'jetbrains-mono-latin-ext.woff2'];
   const allFontsExist = fontFiles.every(f => fs.existsSync(path.join(APPDIR, 'fonts', f)));
   const swSrc39 = fs.readFileSync(path.join(APPDIR, 'sw.js'), 'utf8');
@@ -2824,78 +2825,271 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     noExternalGoogleFonts && allFontsExist && swCachesFonts,
     `noExt=${noExternalGoogleFonts} exist=${allFontsExist} sw=${swCachesFonts}`);
 
-  const s39 = await page.evaluate(() => {
-    const out = {};
-    // Reset consenso per testare primo accesso
-    localStorage.removeItem('fc_gdpr_consent');
-    initGdpr();
-    const banner = document.getElementById('gdpr-banner');
+  // Avvia un micro-server HTTP effimero per testare richieste di rete reali, GA4 G-WTB1MD5227, AdSense e cancellazione cookie
+  const mimeMap = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
+  const gdprServer = http.createServer((req, res) => {
+    const cleanPath = (req.url || '/').split('?')[0];
+    const rel = cleanPath === '/' ? 'index.html' : cleanPath.replace(/^\/+/, '');
+    const full = path.join(APPDIR, rel);
+    if (!full.startsWith(APPDIR) || !fs.existsSync(full) || fs.statSync(full).isDirectory()) {
+      res.writeHead(404); res.end('Not found'); return;
+    }
+    const ext = path.extname(full);
+    res.writeHead(200, { 'Content-Type': mimeMap[ext] || 'application/octet-stream' });
+    fs.createReadStream(full).pipe(res);
+  });
+  await new Promise(resolve => gdprServer.listen(0, '127.0.0.1', resolve));
+  const gdprPort = gdprServer.address().port;
+  const gdprOrigin = `http://127.0.0.1:${gdprPort}`;
+
+  const gdprCtx = await browser.newContext({ viewport: { width: 1280, height: 860 }, reducedMotion: 'reduce' });
+  const gdprPage = await gdprCtx.newPage();
+  const extReqsBeforeConsent = [];
+  const extReqsAll = [];
+  let consentPhase = 'before';
+  await gdprPage.route('**/*', route => {
+    const u = route.request().url();
+    if (!u.startsWith(gdprOrigin) && !u.startsWith('data:')) {
+      extReqsAll.push({ phase: consentPhase, url: u });
+      if (consentPhase === 'before') extReqsBeforeConsent.push(u);
+      return route.fulfill({ status: 200, contentType: 'application/javascript', body: '/* mocked 3p */' });
+    }
+    return route.continue();
+  });
+
+  await gdprPage.goto(gdprOrigin + '/', { waitUntil: 'networkidle' });
+  await gdprPage.waitForTimeout(300);
+
+  // S39.2: Blocco preventivo + rete a zero richieste esterne + Consent Mode v2 default denied
+  const s39_2 = await gdprPage.evaluate(() => {
     const dl = Array.isArray(window.dataLayer) ? window.dataLayer.map(a => [...a]) : [];
-    const defaultCall = dl.find(a => a[0] === 'consent' && a[1] === 'default');
-    out.consentDefaultDenied = !!(defaultCall && defaultCall[2] &&
-      defaultCall[2].ad_storage === 'denied' &&
-      defaultCall[2].analytics_storage === 'denied' &&
-      defaultCall[2].ad_user_data === 'denied' &&
-      defaultCall[2].ad_personalization === 'denied');
-    out.noTrackingScriptBeforeConsent = !document.querySelector('script[src*="googletagmanager.com"]') &&
-      !document.querySelector('script[src*="googlesyndication.com"]');
-    out.bannerVisibleFirstVisit = !!(banner && !banner.hidden &&
-      banner.querySelector('.gdpr-btn-reject') &&
-      banner.querySelector('.gdpr-btn-prefs') &&
-      banner.querySelector('.gdpr-btn-accept') &&
-      banner.querySelector('.gdpr-b-close'));
+    const def = dl.find(a => a[0] === 'consent' && a[1] === 'default');
+    const gaId = PRIVACY_CONFIG.ga4.measurementId;
+    return {
+      gaEnabled: PRIVACY_CONFIG.ga4.enabled === true && gaId === 'G-WTB1MD5227',
+      consentDefaultDenied: !!(def && def[2] &&
+        def[2].ad_storage === 'denied' &&
+        def[2].analytics_storage === 'denied' &&
+        def[2].ad_user_data === 'denied' &&
+        def[2].ad_personalization === 'denied'),
+      gaDisabledFlag: window['ga-disable-' + gaId] === true,
+      noScriptsDom: !document.querySelector('script[src*="googletagmanager.com"]') &&
+                    !document.querySelector('script[src*="googlesyndication.com"]'),
+    };
+  });
+  check('S39.2: blocco preventivo HTTP reale — 0 richieste esterne prima del consenso, Consent Mode v2 tutto "denied", ga-disable=true',
+    extReqsBeforeConsent.length === 0 && s39_2.gaEnabled && s39_2.consentDefaultDenied && s39_2.gaDisabledFlag && s39_2.noScriptsDom,
+    JSON.stringify({ extReqsBeforeConsent, ...s39_2 }));
 
-    // Chiusura con X rifiuta cookie non essenziali (Linee guida Garante Privacy) e salva per 180 giorni
-    banner.querySelector('.gdpr-b-close').click();
-    const afterX = gdprLoadConsent();
-    const daysValid = afterX ? Math.round((afterX.exp - Date.now()) / (86400 * 1000)) : 0;
-    out.closeXRejectsAndPersists180d = !!(banner.hidden && afterX && afterX.necessary === true &&
-      afterX.analytics === false && afterX.ads === false && daysValid >= 179 && daysValid <= 181);
+  // S39.3: Banner Garante Privacy — visibile, non bloccante, ✕ rifiuta, ricevuta ID + 180 giorni, persiste dopo reload
+  const s39_3a = await gdprPage.evaluate(() => {
+    const b = document.getElementById('gdpr-banner');
+    const pwa = document.getElementById('pwa-install');
+    const pwaHiddenWhileBanner = pwa ? getComputedStyle(pwa).visibility === 'hidden' : true;
+    const hasAllControls = !!(b && !b.hidden && b.classList.contains('no-print') &&
+      b.querySelector('.gdpr-btn-reject') && b.querySelector('.gdpr-btn-prefs') &&
+      b.querySelector('.gdpr-btn-accept') && b.querySelector('.gdpr-b-close') &&
+      b.querySelector('.gdpr-b-link'));
+    b.querySelector('.gdpr-b-close').click();
+    const rec = gdprLoadConsent();
+    const days = rec ? Math.round((rec.exp - Date.now()) / (86400 * 1000)) : 0;
+    return {
+      hasAllControls,
+      pwaHiddenWhileBanner,
+      closedAndRejected: !!(b.hidden && rec && rec.necessary === true && rec.analytics === false && rec.ads === false &&
+        rec.source === 'banner-close-x' && /^fc-[a-z0-9]+-[0-9a-f]{4}$/i.test(rec.id) && days >= 179 && days <= 181),
+    };
+  });
+  await gdprPage.reload({ waitUntil: 'networkidle' });
+  const bannerHiddenAfterReload = await gdprPage.evaluate(() => document.getElementById('gdpr-banner').hidden === true);
+  check('S39.3: banner Garante Privacy (non bloccante, nasconde #pwa-install, ✕ rifiuta con ricevuta ID 180gg, 0 tracker, persiste dopo reload)',
+    s39_3a.hasAllControls && s39_3a.pwaHiddenWhileBanner && s39_3a.closedAndRejected && bannerHiddenAfterReload && extReqsBeforeConsent.length === 0,
+    JSON.stringify({ ...s39_3a, bannerHiddenAfterReload, extReqsBeforeConsent }));
 
-    // Modale Preferenze Cookie (<dialog> nativo senza role/aria-modal ridondanti) + switch granulari + revoca
+  // S39.4: Consenso granulare (solo Statistiche = true, Pubblicità = false) → carica GA4 G-WTB1MD5227 e NON AdSense
+  consentPhase = 'analytics-only';
+  const s39_4 = await gdprPage.evaluate(() => {
     openCookiePrefsDialog();
-    const dlgPrefs = document.getElementById('dlg-cookie-prefs');
-    const nativeModalClean = !!(dlgPrefs && dlgPrefs.open && !dlgPrefs.hasAttribute('role') && !dlgPrefs.hasAttribute('aria-modal'));
+    const dlg = document.getElementById('dlg-cookie-prefs');
+    const nativeModalClean = !!(dlg && dlg.open && !dlg.hasAttribute('role') && !dlg.hasAttribute('aria-modal') && dlg.getAttribute('closedby') === 'any');
     document.getElementById('sw-gdpr-analytics').checked = true;
     document.getElementById('sw-gdpr-ads').checked = false;
     gdprSaveFromSwitches();
-    const afterGranular = gdprLoadConsent();
-    const updates = window.dataLayer.map(a => [...a]).filter(a => a[0] === 'consent' && a[1] === 'update');
-    const lastGranular = updates[updates.length - 1];
-    const granularOk = !!(afterGranular && afterGranular.analytics === true && afterGranular.ads === false &&
-      lastGranular && lastGranular[2].analytics_storage === 'granted' && lastGranular[2].ad_storage === 'denied' &&
-      !dlgPrefs.open);
-    // Revoca
-    gdprSaveConsent({ analytics: false, ads: false }, true);
-    const updatesRev = window.dataLayer.map(a => [...a]).filter(a => a[0] === 'consent' && a[1] === 'update');
-    const lastRev = updatesRev[updatesRev.length - 1];
-    const revokeOk = !!(lastRev && lastRev[2].analytics_storage === 'denied' &&
-      /solo necessari/i.test(document.getElementById('fc-consent-status').textContent));
-    out.prefsAndRevoke = { nativeModalClean, granularOk, revokeOk };
-
-    // Modale Privacy & Cookie Policy IT + EN
-    openPrivacyDialog();
-    const dlgPriv = document.getElementById('dlg-privacy');
-    const privIt = document.getElementById('dlg-privacy-content').innerText;
-    const privItOk = !!(dlgPriv && dlgPriv.open && /Art\. 13 GDPR/i.test(privIt) && /Consent Mode v2/i.test(privIt) && /Garante/i.test(privIt) && /\/fonts\//i.test(privIt));
-    setLang('en');
-    const privEn = document.getElementById('dlg-privacy-content').innerText;
-    const privEnOk = /Data Controller/i.test(privEn) && /Consent Mode v2/i.test(privEn) && /Arts\. 15/i.test(privEn);
-    dlgPriv.close();
-    setLang('it');
-    out.policy = { privItOk, privEnOk };
-    return out;
+    const rec = gdprLoadConsent();
+    const dl = window.dataLayer.map(a => [...a]);
+    const updates = dl.filter(a => a[0] === 'consent' && a[1] === 'update');
+    const lastUpd = updates[updates.length - 1];
+    const cfgs = dl.filter(a => a[0] === 'config' && a[1] === 'G-WTB1MD5227');
+    const lastCfg = cfgs[cfgs.length - 1];
+    const gaScript = document.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-WTB1MD5227"]');
+    const adsScript = document.querySelector('script[src*="googlesyndication.com"]');
+    return {
+      nativeModalClean,
+      savedGranular: !!(rec && rec.analytics === true && rec.ads === false && rec.source === 'prefs-save' && !dlg.open),
+      gaEnabledAfterOptIn: window['ga-disable-G-WTB1MD5227'] === false,
+      gaScriptInjected: !!gaScript,
+      noAdsScript: !adsScript,
+      consentUpdatedGranular: !!(lastUpd && lastUpd[2].analytics_storage === 'granted' && lastUpd[2].ad_storage === 'denied' &&
+        lastUpd[2].ad_user_data === 'denied' && lastUpd[2].ad_personalization === 'denied'),
+      configAnonymizedNoSignals: !!(lastCfg && lastCfg[2] && lastCfg[2].anonymize_ip === true &&
+        lastCfg[2].allow_google_signals === false && lastCfg[2].allow_ad_personalization_signals === false),
+    };
   });
+  await gdprPage.waitForTimeout(150);
+  const gaReqObserved = extReqsAll.some(r => r.phase === 'analytics-only' && /googletagmanager\.com\/gtag\/js\?id=G-WTB1MD5227/.test(r.url));
+  const adsReqBlocked = !extReqsAll.some(r => /googlesyndication\.com/.test(r.url));
+  check('S39.4: consenso granulare Statistiche — carica GA4 G-WTB1MD5227 (anonymize_ip, signals=false) e mantiene AdSense bloccato',
+    s39_4.nativeModalClean && s39_4.savedGranular && s39_4.gaEnabledAfterOptIn && s39_4.gaScriptInjected &&
+    s39_4.noAdsScript && s39_4.consentUpdatedGranular && s39_4.configAnonymizedNoSignals && gaReqObserved && adsReqBlocked,
+    JSON.stringify({ ...s39_4, gaReqObserved, adsReqBlocked }));
 
-  check('S39.2: Google Consent Mode v2 default tutto "denied" e blocco preventivo script GA4/AdSense',
-    s39.consentDefaultDenied && s39.noTrackingScriptBeforeConsent, JSON.stringify(s39));
-  check('S39.3: banner GDPR non bloccante con Rifiuta/Personalizza/Accetta e ✕ che rifiuta salvando per 180 giorni',
-    s39.bannerVisibleFirstVisit && s39.closeXRejectsAndPersists180d, JSON.stringify(s39));
-  check('S39.4: <dialog> Preferenze Cookie nativo con consenso granulare e revoca immediata',
-    s39.prefsAndRevoke.nativeModalClean && s39.prefsAndRevoke.granularOk && s39.prefsAndRevoke.revokeOk,
-    JSON.stringify(s39.prefsAndRevoke));
-  check('S39.5: <dialog> Privacy & Cookie Policy completa IT/EN (Art. 13 GDPR, Consent Mode v2, font locali, Garante)',
-    s39.policy.privItOk && s39.policy.privEnOk, JSON.stringify(s39.policy));
+  // S39.5: Revoca immediata + cancellazione reale cookie di tracciamento + riattivazione senza doppio <script>
+  consentPhase = 'revoke-and-reenable';
+  const s39_5 = await gdprPage.evaluate(() => {
+    ['_ga=GA1.1.123', '_ga_WTB1MD5227=GS1.1.456', '_gid=GA1.1.789', '_gcl_au=1.1.000', '__gads=ID=999'].forEach(c => {
+      document.cookie = c + '; path=/';
+    });
+    const cookiesBefore = document.cookie;
+    openCookiePrefsDialog();
+    document.querySelector('#dlg-cookie-prefs .gdpr-btn-reject').click();
+    const cookiesAfter = document.cookie;
+    const purgedAll = !/(_ga|_gid|_gcl_au|__gads)=/i.test(cookiesAfter);
+    const disabledFlag = window['ga-disable-G-WTB1MD5227'] === true;
+    const statusTxt = document.getElementById('fc-consent-status').textContent;
+    // Riattiva tutto (analytics + ads) e verifica update config + singolo script GA4
+    openCookiePrefsDialog();
+    document.querySelector('#dlg-cookie-prefs .gdpr-btn-accept').click();
+    const scriptCount = document.querySelectorAll('script[src*="googletagmanager.com/gtag/js"]').length;
+    const cfgs = window.dataLayer.map(a => [...a]).filter(a => a[0] === 'config' && a[1] === 'G-WTB1MD5227');
+    const lastCfg = cfgs[cfgs.length - 1];
+    return {
+      hadCookiesBefore: /_ga=/.test(cookiesBefore) && /__gads=/.test(cookiesBefore),
+      purgedAll,
+      disabledFlag,
+      statusTxt,
+      singleScriptAfterReenable: scriptCount === 1,
+      signalsUpdatedOnReenable: !!(lastCfg && lastCfg[2] && lastCfg[2].allow_google_signals === true && lastCfg[2].allow_ad_personalization_signals === true),
+    };
+  });
+  check('S39.5: revoca immediata cancella cookie _ga/_gid/_gcl_au/__gads, imposta ga-disable=true, e riattivazione aggiorna config senza duplicare <script>',
+    s39_5.hadCookiesBefore && s39_5.purgedAll && s39_5.disabledFlag && /solo necessari/i.test(s39_5.statusTxt) &&
+    s39_5.singleScriptAfterReenable && s39_5.signalsUpdatedOnReenable,
+    JSON.stringify(s39_5));
+
+  // S39.6: Fail-closed su consenso corrotto, scaduto (>180gg) o versione policy obsoleta
+  const s39_6 = await gdprPage.evaluate(() => {
+    const runCase = raw => {
+      localStorage.setItem('fc_gdpr_consent', raw);
+      initGdpr();
+      const loaded = gdprLoadConsent();
+      const b = document.getElementById('gdpr-banner');
+      return loaded === null && b && !b.hidden && window['ga-disable-G-WTB1MD5227'] === true;
+    };
+    return {
+      corruptJson: runCase('{broken_json'),
+      expired: runCase(JSON.stringify({ v: 1, ts: '2020-01-01T00:00:00Z', exp: Date.now() - 1000, necessary: true, analytics: true, ads: true })),
+      oldVersion: runCase(JSON.stringify({ v: 0, ts: new Date().toISOString(), exp: Date.now() + 9e9, necessary: true, analytics: true, ads: true })),
+    };
+  });
+  check('S39.6: fail-closed su consenso corrotto, scaduto (>180gg) o versione policy precedente (blocca tracker e rimostra banner)',
+    s39_6.corruptJson && s39_6.expired && s39_6.oldVersion, JSON.stringify(s39_6));
+
+  // S39.7: Privacy & Cookie Policy Art. 13 completa + Tabella Inventario Cookie/localStorage (IT & EN)
+  const s39_7 = await gdprPage.evaluate(() => {
+    openPrivacyDialog();
+    const dlg = document.getElementById('dlg-privacy');
+    const cleanDlg = !!(dlg && dlg.open && !dlg.hasAttribute('role') && !dlg.hasAttribute('aria-modal'));
+    const itTxt = document.getElementById('dlg-privacy-content').innerText;
+    const itRows = document.querySelectorAll('#dlg-privacy-content table.gdpr-tbl tbody tr').length;
+    const itOk = /Art\. 13 GDPR/i.test(itTxt) && /Consent Mode v2/i.test(itTxt) && /Garante/i.test(itTxt) &&
+      /\/fonts\//i.test(itTxt) && /fc_gdpr_consent/i.test(itTxt) && /_ga_WTB1MD5227/i.test(itTxt) &&
+      /aitane93-21/i.test(itTxt) && itRows === 4;
+    setLang('en');
+    const enTxt = document.getElementById('dlg-privacy-content').innerText;
+    const enRows = document.querySelectorAll('#dlg-privacy-content table.gdpr-tbl tbody tr').length;
+    const enOk = /Data Controller/i.test(enTxt) && /Consent Mode v2/i.test(enTxt) && /Arts\. 15/i.test(enTxt) &&
+      /fc_gdpr_consent/i.test(enTxt) && /_ga_WTB1MD5227/i.test(enTxt) && enRows === 4;
+    dlg.close();
+    setLang('it');
+    return { cleanDlg, itOk, enOk, itRows, enRows };
+  });
+  check('S39.7: <dialog> Privacy & Cookie Policy Art. 13 completa IT/EN con Tabella Inventario Cookie & localStorage (4 righe)',
+    s39_7.cleanDlg && s39_7.itOk && s39_7.enOk, JSON.stringify(s39_7));
+
+  // S39.8: Doppio blocco AdSense (richiede SIA configurazione valida SIA consenso esplicito ads=true; si richiude su revoca)
+  consentPhase = 'adsense-gate';
+  const s39_8 = await gdprPage.evaluate(() => {
+    const orig = { ...AFFILIATE_CONFIG.adsense };
+    AFFILIATE_CONFIG.adsense.enabled = true;
+    AFFILIATE_CONFIG.adsense.client = 'ca-pub-1234567890123456';
+    AFFILIATE_CONFIG.adsense.slotBottom = '9876543210';
+    gdprSaveConsent({ analytics: true, ads: false }, true, 'test-no-ads');
+    const wrap = document.getElementById('adsense-bottom-wrap');
+    const hiddenWithoutAdsConsent = wrap.hidden === true && !document.querySelector('script[src*="googlesyndication.com"]');
+    gdprSaveConsent({ analytics: true, ads: true }, true, 'test-with-ads');
+    const shownWithAdsConsent = wrap.hidden === false && !!document.querySelector('script[src*="googlesyndication.com"]');
+    gdprSaveConsent({ analytics: false, ads: false }, true, 'test-revoke-ads');
+    const hiddenAfterRevoke = wrap.hidden === true;
+    Object.assign(AFFILIATE_CONFIG.adsense, orig);
+    return { hiddenWithoutAdsConsent, shownWithAdsConsent, hiddenAfterRevoke };
+  });
+  check('S39.8: doppio blocco AdSense — bloccato con ads=false anche se abilitato, si apre solo con ads=true e si richiude su revoca',
+    s39_8.hiddenWithoutAdsConsent && s39_8.shownWithAdsConsent && s39_8.hiddenAfterRevoke, JSON.stringify(s39_8));
+
+  // S39.9: Igiene privacy su TUTTI i link esterni dell'app (noopener + noreferrer su 100% dei link _blank; sponsored+nofollow+tag su Amazon)
+  const s39_9 = await gdprPage.evaluate(() => {
+    openPrivacyDialog();
+    const extLinks = [...document.querySelectorAll('a[href^="http"]')];
+    const badBlank = extLinks.filter(a => a.target === '_blank' && (!/\bnoopener\b/.test(a.rel) || !/\bnoreferrer\b/.test(a.rel))).map(a => a.href);
+    const amazonLinks = extLinks.filter(a => /amazon\./i.test(a.href));
+    const badAmazon = amazonLinks.filter(a => !/\bsponsored\b/.test(a.rel) || !/\bnofollow\b/.test(a.rel) || !a.href.includes('tag=aitane93-21')).map(a => a.href);
+    document.getElementById('dlg-privacy').close();
+    return { totalExt: extLinks.length, totalAmazon: amazonLinks.length, badBlank, badAmazon };
+  });
+  check('S39.9: 100% dei link esterni protetti con noopener noreferrer (zero leak referrer/opener) e 100% Amazon con sponsored+nofollow+tag',
+    s39_9.totalExt >= 40 && s39_9.badBlank.length === 0 && s39_9.badAmazon.length === 0, JSON.stringify(s39_9));
+
+  // S39.10: Isolamento stampe e backup JSON (nessun banner/tracker nelle stampe; export/import non espone né sovrascrive fc_gdpr_consent)
+  const s39_10 = await gdprPage.evaluate(async () => {
+    gdprSaveConsent({ analytics: false, ads: false }, true, 'test-iso');
+    const beforeRec = localStorage.getItem('fc_gdpr_consent');
+    let exportedJson = '';
+    const origBlob = window.Blob;
+    window.Blob = function(parts, opts) { exportedJson = String(parts[0] || ''); return new origBlob(parts, opts); };
+    const origClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function() {};
+    esportaDati();
+    HTMLAnchorElement.prototype.click = origClick;
+    window.Blob = origBlob;
+    const exportHasNoConsent = exportedJson.length > 100 && !/fc_gdpr_consent|gdpr/i.test(exportedJson);
+    // Import con payload ostile che prova a iniettare fc_gdpr_consent
+    const hostileBackup = JSON.stringify({ catalogo: [], ricetteCustom: [], fc_gdpr_consent: { analytics: true, ads: true } });
+    const f = new File([hostileBackup], 'b.json', { type: 'application/json' });
+    importaDati({ files: [f], value: '' });
+    await new Promise(r => setTimeout(r, 80));
+    // Stampa miscela e catalogo pulite
+    let printCalc = '', printCat = '';
+    const oOpen = window.open;
+    window.open = () => ({ document: { open() {}, write(s) { printCalc = String(s); }, close() {} } });
+    presetAcqua('media'); selPianta('pomodoro', 'builtin'); selFase(1); caricaRicettaCorrente(); calcola({ noScroll: true });
+    stampaMiscela();
+    window.open = oOpen;
+    const oLancia = window.lanciaStampaIframe;
+    window.lanciaStampaIframe = h => { printCat = String(h); };
+    stampaCatalogo();
+    window.lanciaStampaIframe = oLancia;
+    const printsClean = !/gdpr-banner|googletagmanager|googlesyndication|fc_gdpr_consent/i.test(printCalc + printCat);
+    return {
+      exportHasNoConsent,
+      consentUnchanged: localStorage.getItem('fc_gdpr_consent') === beforeRec,
+      printsClean,
+    };
+  });
+  check('S39.10: isolamento stampe e backup JSON — 0 tracker/banner nelle stampe, export/import non espone né altera il consenso GDPR',
+    s39_10.exportHasNoConsent && s39_10.consentUnchanged && s39_10.printsClean, JSON.stringify(s39_10));
+
+  await gdprCtx.close();
+  await new Promise(resolve => gdprServer.close(resolve));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
