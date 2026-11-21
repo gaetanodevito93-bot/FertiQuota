@@ -336,35 +336,138 @@ header h1{font-size:.9rem}
 input[type="number"],input[type="text"],select,textarea{min-height:44px}
 }
 .visually-hidden:where(:not(:focus-within,:active)){position:absolute!important;clip-path:inset(50%)!important;overflow:hidden!important;width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;border:0!important;white-space:nowrap!important}
-.guide-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:14px}
-.guide-flow-btn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;text-align:left;background:var(--cs);border:1.5px solid var(--bo);border-radius:var(--r);cursor:pointer;color:var(--tx);transition:var(--transition)}
-.guide-flow-btn:hover{background:#fff;border-color:var(--vc);transform:translateY(-2px);box-shadow:var(--sh)}
-.guide-flow-btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
-.guide-flow-num{font-family:var(--mono);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ar)}
-.guide-flow-lbl{font-size:.82rem;font-weight:700;color:var(--vs)}
-.guide-flow-sub{font-size:.7rem;color:var(--ts);line-height:1.4}
-.accordion{display:flex;flex-direction:column;gap:12px}
-.guide-item{background:var(--bl);border:1px solid var(--bo);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
-.guide-item>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;font-weight:700;font-size:.88rem;color:var(--vs);background:linear-gradient(135deg,#fbf9f4 0%,var(--cs) 100%);transition:background .18s ease}
+#tab-guide.panel{max-width:1080px;padding-block:20px 52px;container:guidepage / inline-size}
+.ghero{position:relative;overflow:clip;border-radius:16px;padding:clamp(22px,3.2cqi,42px);margin-bottom:28px;color:var(--cr);background:radial-gradient(620px 380px at 92% 8%,rgba(243,163,94,.22),transparent 62%),radial-gradient(500px 340px at 8% 100%,rgba(63,146,104,.24),transparent 65%),linear-gradient(135deg,#0b291f 0%,#134130 55%,#1d5d44 100%);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 46px rgba(15,53,40,.22)}
+.ghero::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.ghero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:24px;align-items:center}
+@container guidepage (inline-size >= 760px){.ghero-grid{grid-template-columns:1.35fr 1fr;gap:34px}}
+.ghero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--as);background:rgba(255,255,255,.08);border:1px solid rgba(243,163,94,.38);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.ghero-dot{inline-size:7px;block-size:7px;border-radius:50%;background:#52e3a1;box-shadow:0 0 0 4px rgba(82,227,161,.2);flex-shrink:0}
+.ghero-title{font-family:var(--sans);font-size:clamp(1.48rem,1.08rem + 2vw,2.35rem);font-weight:700;line-height:1.15;letter-spacing:-.028em;color:#fff;margin-bottom:14px;text-wrap:balance}
+.ghero-title em{font-style:normal;color:var(--as)}
+.ghero-lead{font-size:clamp(.88rem,.82rem + .25vw,.98rem);line-height:1.68;color:rgba(247,244,236,.84);max-inline-size:58ch;margin-bottom:22px;text-wrap:pretty}
+.ghero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.gbtn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;min-block-size:44px;border-radius:9px;border:none;cursor:pointer;font-family:var(--sans);font-size:.84rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#e27536 0%,#c7561b 100%);box-shadow:0 8px 22px rgba(217,106,43,.36);transition:var(--transition)}
+.gbtn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(217,106,43,.46)}
+.gbtn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;min-block-size:44px;border-radius:9px;border:1px solid rgba(255,255,255,.28);cursor:pointer;font-family:var(--sans);font-size:.83rem;font-weight:600;color:#fff;background:rgba(255,255,255,.09);backdrop-filter:blur(6px);transition:var(--transition)}
+.gbtn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);transform:translateY(-1px)}
+.gbtn-gold{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;min-block-size:44px;border-radius:9px;border:1px solid rgba(243,168,71,.55);cursor:pointer;font-family:var(--sans);font-size:.82rem;font-weight:700;color:#fff;background:linear-gradient(135deg,rgba(243,168,71,.28) 0%,rgba(217,106,43,.34) 100%);transition:var(--transition)}
+.gbtn-gold:hover{background:linear-gradient(135deg,#f3a847 0%,#d96a2b 100%);transform:translateY(-1px)}
+.gbtn-primary:focus-visible,.gbtn-ghost:focus-visible,.gbtn-gold:focus-visible{outline:2px solid var(--as);outline-offset:2px}
+.ghero-visual{background:rgba(8,29,22,.52);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px;backdrop-filter:blur(8px);box-shadow:0 14px 32px rgba(0,0,0,.22)}
+.ghero-visual-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(247,244,236,.75)}
+.ghero-visual-ok{color:#52e3a1;font-weight:700}
+.ghero-svg{display:block;inline-size:100%;block-size:auto}
+.ghero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)}
+@container guidepage (inline-size >= 640px){.ghero-stats{grid-template-columns:repeat(4,1fr);gap:14px}}
+.ghero-stat{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.ghero-stat-val{font-family:var(--mono);font-size:.86rem;font-weight:700;color:#fff;margin-bottom:2px}
+.ghero-stat-lbl{font-size:.71rem;color:rgba(247,244,236,.72);line-height:1.35}
+.gsection{margin-bottom:32px}
+.gsection-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.gsection-kicker{font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ar);margin-bottom:4px}
+.gsection-title{font-family:var(--sans);font-size:clamp(1.18rem,1.02rem + .8vw,1.52rem);font-weight:700;letter-spacing:-.02em;color:var(--vs);line-height:1.22;text-wrap:balance}
+.gsection-sub{font-size:.84rem;color:var(--ts);line-height:1.6;max-inline-size:66ch;margin-top:6px;text-wrap:pretty}
+.gsteps-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@container guidepage (inline-size >= 520px){.gsteps-grid{grid-template-columns:repeat(2,1fr)}}
+@container guidepage (inline-size >= 820px){.gsteps-grid{grid-template-columns:repeat(4,1fr)}}
+.gstep-card{position:relative;display:grid;grid-row:span 4;grid-template-rows:auto auto 1fr auto;grid-template-rows:subgrid;row-gap:8px;padding:18px 18px 16px;text-align:left;background:var(--bl);border:1px solid var(--bo);border-top:3px solid var(--step-c,var(--vc));border-radius:12px;box-shadow:0 4px 16px rgba(15,53,40,.06);cursor:pointer;color:var(--tx);transition:var(--transition)}
+.gstep-card:hover{transform:translateY(-3px);border-color:var(--step-c,var(--vc));box-shadow:0 14px 32px rgba(15,53,40,.11)}
+.gstep-card:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.gstep-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.gstep-ico{display:inline-flex;align-items:center;justify-content:center;inline-size:38px;block-size:38px;border-radius:10px;font-size:1.15rem;background:var(--step-bg,rgba(63,146,104,.12));color:var(--step-c,var(--vm))}
+.gstep-num{font-family:var(--mono);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--step-c,var(--ar))}
+.gstep-lbl{font-size:.94rem;font-weight:700;color:var(--vs);line-height:1.3}
+.gstep-sub{font-size:.78rem;color:var(--ts);line-height:1.58;text-wrap:pretty}
+.gstep-go{display:inline-flex;align-items:center;gap:5px;padding-top:8px;margin-top:4px;border-top:1px solid var(--cs);font-family:var(--mono);font-size:.69rem;font-weight:700;color:var(--step-c,var(--vm));transition:gap .18s ease}
+.gstep-card:hover .gstep-go{gap:9px}
+.gstep-1{--step-c:#2471a3;--step-bg:rgba(36,113,163,.12)}
+.gstep-2{--step-c:#1e8449;--step-bg:rgba(30,132,73,.12)}
+.gstep-3{--step-c:#0f3528;--step-bg:rgba(15,53,40,.1)}
+.gstep-4{--step-c:#d96a2b;--step-bg:rgba(217,106,43,.13)}
+.gtoc-wrap{background:rgba(255,255,255,.82);border:1px solid var(--bo);border-radius:12px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px rgba(15,53,40,.04)}
+.gtoc-label{font-family:var(--mono);font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:10px}
+.gtoc-pills{display:flex;flex-wrap:wrap;flex-wrap:balance;gap:8px}
+.gtoc-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;min-block-size:36px;border-radius:999px;border:1px solid var(--bo);background:var(--cr);color:var(--vs);font-size:.76rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+.gtoc-pill:hover{background:#fff;border-color:var(--vc);color:var(--vm);transform:translateY(-1px);box-shadow:0 4px 10px rgba(15,53,40,.08)}
+.gtoc-pill:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.gtoc-pill b{font-family:var(--mono);font-size:.66rem;color:var(--ar)}
+.accordion{display:flex;flex-direction:column;gap:14px}
+#guides-list{display:flex;flex-direction:column;gap:14px}
+.guide-item{position:relative;background:var(--bl);border:1px solid var(--bo);border-radius:13px;box-shadow:0 4px 18px rgba(15,53,40,.055);overflow:clip;transition:border-color .2s ease,box-shadow .2s ease}
+.guide-item[open]{border-color:rgba(63,146,104,.55);box-shadow:0 12px 32px rgba(15,53,40,.095)}
+.guide-item[open]::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;inline-size:4px;background:linear-gradient(180deg,var(--vc) 0%,var(--vs) 100%)}
+.guide-item>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:18px 20px;cursor:pointer;font-weight:700;font-size:.96rem;color:var(--vs);background:linear-gradient(135deg,#fff 0%,#fbf9f3 100%);transition:background .18s ease}
 .guide-item>summary::-webkit-details-marker{display:none}
-.guide-item>summary::before{content:"▾";display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex-shrink:0;font-size:.85rem;color:var(--ar);transform:rotate(-90deg);transition:transform .2s ease}
-.guide-item[open]>summary::before{transform:rotate(0deg)}
-.guide-item>summary:hover{background:linear-gradient(135deg,#f3eee3 0%,#e6decb 100%)}
+.guide-item>summary::before{content:"▾";display:inline-flex;align-items:center;justify-content:center;inline-size:26px;block-size:26px;border-radius:8px;background:rgba(217,106,43,.1);flex-shrink:0;font-size:.92rem;color:var(--ar);rotate:-90deg}
+.guide-item[open]>summary::before{rotate:0deg;background:var(--ar);color:#fff}
+.guide-item>summary:hover{background:linear-gradient(135deg,#faf7ef 0%,#f2ebdc 100%)}
 .guide-item>summary:focus-visible{outline:2px solid var(--ar);outline-offset:-2px}
-.guide-num{font-family:var(--mono);font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--vs);color:var(--cr);flex-shrink:0}
-.guide-sum-title{flex:1;line-height:1.35}
+.guide-num{font-family:var(--mono);font-size:.66rem;font-weight:700;padding:4px 9px;border-radius:6px;background:var(--vs);color:var(--cr);flex-shrink:0;letter-spacing:.04em}
+.guide-sum-main{flex:1;min-inline-size:0;display:flex;flex-direction:column;gap:5px}
+.guide-sum-title{line-height:1.32;color:var(--vs);font-size:clamp(.9rem,.84rem + .3vw,1.02rem)}
+.guide-sum-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.guide-tag{font-family:var(--mono);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:999px;background:rgba(63,146,104,.12);color:var(--vm)}
+.guide-time{font-family:var(--mono);font-size:.63rem;font-weight:500;color:var(--ts)}
 .guide-item::details-content{interpolate-size:allow-keywords;overflow:clip;contain:layout}
 .guide-item:not([open])::details-content{block-size:0}
-.guide-body{padding:16px 18px;font-size:.82rem;line-height:1.7;color:var(--tx);border-top:1px solid var(--cs)}
-.guide-body h4{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--vm);margin:14px 0 6px}
+.guide-body{padding:22px clamp(18px,3cqi,32px) 24px;font-size:.89rem;line-height:1.74;color:var(--tx);border-top:1px solid var(--cs);background:#fff}
+.guide-prose{max-inline-size:100%}
+.guide-prose>p,.guide-prose>h4,.guide-prose>ul,.guide-prose>ol,.guide-prose>.gcallout{max-inline-size:74ch}
+.guide-body h4{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--vs);margin:22px 0 10px}
+.guide-body h4::before{content:"";inline-size:4px;block-size:15px;border-radius:2px;background:var(--ar);flex-shrink:0}
 .guide-body h4:first-child{margin-top:0}
-.guide-body p{margin-bottom:10px}
-.guide-body ul,.guide-body ol{margin:0 0 12px 20px}
-.guide-body li{margin-bottom:5px}
-.guide-cta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--bo)}
-.guide-table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:.76rem}
-.guide-table th{background:var(--cs);padding:8px 10px;text-align:left;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;color:var(--ts);border-bottom:2px solid var(--bo)}
-.guide-table td{padding:8px 10px;border-bottom:1px solid var(--cs);vertical-align:top}
+.guide-body p{margin-bottom:12px;text-wrap:pretty;overflow-wrap:break-word}
+.guide-body code{font-family:var(--mono);font-size:.82em;background:rgba(15,53,40,.06);color:var(--vs);padding:1px 6px;border-radius:4px;border:1px solid rgba(15,53,40,.08)}
+.guide-body ul{margin:0 0 14px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.guide-body ul li{position:relative;padding-inline-start:20px;line-height:1.66}
+.guide-body ul li::before{content:"▸";position:absolute;inset-inline-start:2px;color:var(--vc);font-weight:700}
+.guide-body ol{margin:0 0 16px;padding:0;list-style:none;counter-reset:gstep;display:flex;flex-direction:column;gap:10px}
+.guide-body ol li{counter-increment:gstep;position:relative;padding:11px 14px 11px 44px;background:#faf8f2;border:1px solid var(--cs);border-radius:9px;line-height:1.62}
+.guide-body ol li::before{content:counter(gstep);position:absolute;inset-inline-start:12px;inset-block-start:12px;display:inline-flex;align-items:center;justify-content:center;inline-size:22px;block-size:22px;border-radius:50%;background:var(--vs);color:var(--cr);font-family:var(--mono);font-size:.68rem;font-weight:700}
+.gcallout{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin:14px 0 16px;border-radius:10px;background:#f2f8f4;border:1px solid rgba(63,146,104,.3);border-inline-start:4px solid var(--vc);font-size:.84rem;line-height:1.62}
+.gcallout-warn{background:#fdf6ef;border-color:rgba(217,106,43,.32);border-inline-start-color:var(--ar)}
+.gcallout-ico{font-size:1.15rem;line-height:1.3;flex-shrink:0}
+.guide-table-wrap{overflow:auto;max-inline-size:100%;margin:14px 0 18px;border:1px solid var(--bo);border-radius:10px;container:gtable / inline-size;background:#fff}
+.guide-table-wrap:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.guide-table{width:100%;border-collapse:separate;border-spacing:0;margin:0;font-size:.8rem}
+.guide-table caption{text-align:left;padding:10px 14px;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ts);background:#faf7f0;border-bottom:1px solid var(--bo)}
+.guide-table thead{position:sticky;inset-block-start:0;z-index:1}
+.guide-table th{background:var(--cs);padding:10px 14px;text-align:left;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--vs);border-bottom:2px solid var(--bo);text-wrap:balance}
+.guide-table td{padding:11px 14px;border-bottom:1px solid var(--cs);vertical-align:top;line-height:1.58}
+.guide-table tbody tr:last-child td{border-bottom:none}
+.gtank-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:6px;font-family:var(--mono);font-size:.72rem;font-weight:700;white-space:nowrap}
+.gtank-a{background:rgba(36,113,163,.13);color:#1a5276}
+.gtank-b{background:rgba(30,132,73,.13);color:#145a32}
+.gtank-c{background:rgba(123,63,158,.13);color:#5b2c6f}
+@container gtable (inline-size < 540px){
+.guide-table,.guide-table caption,.guide-table tbody,.guide-table tr,.guide-table td{display:block;inline-size:100%}
+.guide-table thead{display:none}
+.guide-table tr{padding:10px 12px;border-bottom:1px solid var(--bo)}
+.guide-table tr:last-child{border-bottom:none}
+.guide-table td{padding:5px 0;border:none}
+.guide-table td[data-col]::before{content:attr(data-col) ": ";font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--ts)}
+}
+.gacid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px;margin:12px 0 18px}
+.gacid-card{padding:14px;border-radius:10px;background:#faf8f2;border:1px solid var(--bo);display:flex;flex-direction:column;gap:6px}
+.gacid-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.gacid-name{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--vs)}
+.gacid-badge{font-family:var(--mono);font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(15,53,40,.09);color:var(--vm)}
+.gacid-card p{margin:0;font-size:.79rem;line-height:1.56;color:var(--ts)}
+.gcoco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0 18px}
+.gcoco-card{padding:15px;border-radius:11px;background:linear-gradient(180deg,#fff 0%,#faf7f0 100%);border:1px solid var(--bo);border-top:3px solid var(--vc)}
+.gcoco-stage{font-family:var(--mono);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--vm);margin-bottom:4px}
+.gcoco-ec{font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--vs);margin-bottom:6px}
+.gcoco-card p{margin:0;font-size:.78rem;line-height:1.54;color:var(--ts)}
+.ggear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0 18px}
+.ggear-card{padding:13px 14px;border-radius:10px;background:#faf8f2;border:1px solid var(--bo);font-size:.8rem;line-height:1.58}
+.ggear-card strong{display:block;color:var(--vs);margin-bottom:3px;font-size:.83rem}
+.guide-cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--cs)}
+.gbanner{position:relative;overflow:clip;margin-top:26px;padding:clamp(20px,3cqi,32px);border-radius:14px;background:radial-gradient(460px 260px at 95% 20%,rgba(243,163,94,.2),transparent 65%),linear-gradient(125deg,var(--vs) 0%,var(--vm) 100%);color:var(--cr);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 12px 30px rgba(15,53,40,.18)}
+.gbanner-title{font-family:var(--sans);font-size:clamp(1.1rem,.98rem + .6vw,1.38rem);font-weight:700;color:#fff;margin-bottom:4px;text-wrap:balance}
+.gbanner-sub{font-size:.83rem;color:rgba(247,244,236,.82);max-inline-size:52ch;line-height:1.55;text-wrap:pretty}
+.gbanner-btns{display:flex;flex-wrap:wrap;gap:10px}
+body:has(#tab-guide.active) #fc-footer{max-width:1080px}
 #tabbtn-attrezzatura{background:linear-gradient(135deg,#f3a847 0%,#d96a2b 100%)!important;color:#fff!important;font-weight:700!important;border:1px solid #b85418!important;box-shadow:0 3px 10px rgba(217,106,43,.25)!important}
 #tabbtn-attrezzatura:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(217,106,43,.35)!important}
 #tabbtn-attrezzatura.active,#tabbtn-attrezzatura[aria-selected="true"]{background:linear-gradient(135deg,#e69027 0%,#c45619 100%)!important;box-shadow:0 4px 14px rgba(217,106,43,.45)!important}
@@ -405,8 +508,8 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 .adsense-slot-wrap{margin-bottom:14px;padding:10px;border:1px solid var(--bo);border-radius:var(--r);background:#fff;text-align:center}
 .adsense-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ts);margin-bottom:6px}
 @media(prefers-reduced-motion:no-preference){
-.guide-item>summary::before{transition:transform .2s ease}
-.guide-item::details-content{transition:block-size .25s ease-in-out,content-visibility .25s ease-in-out;transition-behavior:allow-discrete}
+.guide-item>summary::before{transition:rotate .2s ease,background-color .2s ease,color .2s ease}
+.guide-item::details-content{transition:block-size .28s ease-in-out,content-visibility .28s ease-in-out,display .28s ease-in-out;transition-behavior:allow-discrete}
 }
 .lang-selector{display:flex;gap:0;border-radius:7px;overflow:hidden;border:1.5px solid rgba(255,255,255,.25);flex-shrink:0;margin-right:2px}
 .lang-btn{background:transparent;border:none;color:rgba(255,255,255,.55);font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.07em;padding:5px 10px;cursor:pointer;transition:var(--transition);text-transform:uppercase}
@@ -505,51 +608,127 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <main id="main-content">
 <div class="panel active" id="tab-guide" role="tabpanel" aria-labelledby="tabbtn-guide">
-<div class="sec-h">
-<h2 data-i18n="guide.title">📖 Guide Pratiche alla Fertirrigazione</h2>
-<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')" data-i18n="guide.startBtn">💧 Inizia da Acqua →</button>
-</div>
-<div class="card">
-<div class="ch" data-i18n="guide.flowHeader">🧭 Percorso Consigliato in FertiControl</div>
-<div class="cb">
-<p style="font-size:.82rem;color:var(--ts);line-height:1.65;margin-bottom:12px" data-i18n="guide.flowIntro">
-Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenza, poi scegli coltura e fase, calcoli le soluzioni madri A/B/C senza precipitati e infine controlli scorte e attrezzatura.
-</p>
-<div class="guide-flow">
-<button type="button" class="guide-flow-btn" onclick="showTab('acqua')">
-<span class="guide-flow-num" data-i18n="guide.step1.num">Passo 1 · Acqua</span>
-<span class="guide-flow-lbl" data-i18n="guide.step1.lbl">💧 Analisi Acqua</span>
-<span class="guide-flow-sub" data-i18n="guide.step1.sub">Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura.</span>
-</button>
-<button type="button" class="guide-flow-btn" onclick="showTab('ricette')">
-<span class="guide-flow-num" data-i18n="guide.step2.num">Passo 2 · Coltura</span>
-<span class="guide-flow-lbl" data-i18n="guide.step2.lbl">🌿 Scegli Ricetta</span>
-<span class="guide-flow-sub" data-i18n="guide.step2.sub">Seleziona pianta e fase (o imposta target mg/L).</span>
-</button>
-<button type="button" class="guide-flow-btn" onclick="showTab('calcola')">
-<span class="guide-flow-num" data-i18n="guide.step3.num">Passo 3 · Soluzioni Madri</span>
-<span class="guide-flow-lbl" data-i18n="guide.step3.lbl">⚗️ Calcola A/B/C</span>
-<span class="guide-flow-sub" data-i18n="guide.step3.sub">Ottieni grammi, acido, indici SI e scheda stampabile.</span>
-</button>
-<button type="button" class="guide-flow-btn" onclick="showTab('attrezzatura')">
-<span class="guide-flow-num" data-i18n="guide.step4.num">Passo 4 · Impianto</span>
-<span class="guide-flow-lbl" data-i18n="guide.step4.lbl">🛒 Attrezzatura</span>
-<span class="guide-flow-sub" data-i18n="guide.step4.sub">pHmetro, EC-metro, bilance 0,01 g, serbatoi e pompe.</span>
-</button>
+<section class="ghero" aria-labelledby="guide-hero-title">
+<div class="ghero-grid">
+<div>
+<div class="ghero-eyebrow"><span class="ghero-dot" aria-hidden="true"></span><span data-i18n="guide.heroBadge">FertiControl Academy · Motore Termodinamico v2.4</span></div>
+<h2 class="ghero-title" id="guide-hero-title" data-i18n-html="guide.heroTitle">Dall'analisi dell'acqua alle soluzioni madri perfette — <em>senza precipitati</em>.</h2>
+<p class="ghero-lead" data-i18n="guide.heroLead">Impara a bilanciare macro, microelementi, bicarbonati e serbatoi concentrati A/B/C con precisione da laboratorio. Segui il metodo in 4 passi o approfondisci le nostre 5 guide tecniche gratuite.</p>
+<div class="ghero-actions">
+<button type="button" class="gbtn-primary" onclick="showTab('acqua')" data-i18n="guide.startBtn">💧 Inizia da Acqua →</button>
+<button type="button" class="gbtn-ghost" onclick="fcScrollTo(document.getElementById('guides-accordion'),{extra:12})" data-i18n="guide.heroReadBtn">📚 Leggi le 5 Guide</button>
+<button type="button" class="gbtn-gold" onclick="showTab('attrezzatura')" data-i18n="guide.heroGearBtn">🛒 Attrezzatura</button>
 </div>
 </div>
+<div class="ghero-visual" aria-hidden="true">
+<div class="ghero-visual-top"><span>SCHEMA INIEZIONE A / B / C</span><span class="ghero-visual-ok">● SI &lt; 0 · OK</span></div>
+<svg class="ghero-svg" viewBox="0 0 360 198" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="10" y="16" width="90" height="72" rx="10" fill="rgba(36,113,163,0.22)" stroke="#5dade2" stroke-width="1.5"/>
+<rect x="10" y="54" width="90" height="34" rx="8" fill="rgba(52,152,219,0.28)"/>
+<text x="55" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. A</text>
+<text x="55" y="53" text-anchor="middle" fill="#aed6f1" font-family="Inter,sans-serif" font-size="9">K · P · Mg · Fe</text>
+<text x="55" y="75" text-anchor="middle" fill="#d6eaf8" font-family="JetBrains Mono,monospace" font-size="8.5">1:100 · ACIDO</text>
+
+<rect x="135" y="16" width="90" height="72" rx="10" fill="rgba(46,204,113,0.2)" stroke="#58d68d" stroke-width="1.5"/>
+<rect x="135" y="54" width="90" height="34" rx="8" fill="rgba(46,204,113,0.26)"/>
+<text x="180" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. B</text>
+<text x="180" y="53" text-anchor="middle" fill="#abebc6" font-family="Inter,sans-serif" font-size="9">Ca(NO₃)₂ · Mg</text>
+<text x="180" y="75" text-anchor="middle" fill="#d5f5e3" font-family="JetBrains Mono,monospace" font-size="8.5">1:100 · ZERO P/S</text>
+
+<rect x="260" y="16" width="90" height="72" rx="10" fill="rgba(155,89,182,0.22)" stroke="#bb8fce" stroke-width="1.5"/>
+<rect x="260" y="54" width="90" height="34" rx="8" fill="rgba(155,89,182,0.26)"/>
+<text x="305" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. C</text>
+<text x="305" y="53" text-anchor="middle" fill="#e8daef" font-family="Inter,sans-serif" font-size="9">K₂SiO₃ · KOH</text>
+<text x="305" y="75" text-anchor="middle" fill="#f5eef8" font-family="JetBrains Mono,monospace" font-size="8.5">ALCALINO</text>
+
+<path d="M55 88 V118 Q55 128 65 128 H140" stroke="#5dade2" stroke-width="2" stroke-dasharray="4 3"/>
+<path d="M180 88 V128" stroke="#58d68d" stroke-width="2" stroke-dasharray="4 3"/>
+<path d="M305 88 V118 Q305 128 295 128 H220" stroke="#bb8fce" stroke-width="2" stroke-dasharray="4 3"/>
+
+<rect x="64" y="132" width="232" height="52" rx="11" fill="rgba(255,255,255,0.09)" stroke="rgba(243,163,94,0.65)" stroke-width="1.5"/>
+<text x="180" y="152" text-anchor="middle" fill="#f3a35e" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="700">SOLUZIONE FINALE BILANCIATA</text>
+<text x="180" y="170" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="10.5" font-weight="600">pH 5.8 · EC 2.0 mS/cm · Ca/K OK</text>
+</svg>
 </div>
+</div>
+<div class="ghero-stats">
+<div class="ghero-stat"><div class="ghero-stat-val" data-i18n="guide.stat1.val">11 Colture · 35 Fasi</div><div class="ghero-stat-lbl" data-i18n="guide.stat1.lbl">Ricette Coco Coir pronte all'uso</div></div>
+<div class="ghero-stat"><div class="ghero-stat-val" data-i18n="guide.stat2.val">PHREEQC / SIT</div><div class="ghero-stat-lbl" data-i18n="guide.stat2.lbl">Equilibrio ionico e coppie ioniche reali</div></div>
+<div class="ghero-stat"><div class="ghero-stat-val" data-i18n="guide.stat3.val">Serbatoi A/B/C</div><div class="ghero-stat-lbl" data-i18n="guide.stat3.lbl">Separazione chimica anti-precipitato</div></div>
+<div class="ghero-stat"><div class="ghero-stat-val" data-i18n="guide.stat4.val">100% Gratuito</div><div class="ghero-stat-lbl" data-i18n="guide.stat4.lbl">Funziona anche offline, zero account</div></div>
+</div>
+</section>
+
+<section class="gsection" aria-labelledby="guide-steps-heading">
+<div class="gsection-head">
+<div>
+<div class="gsection-kicker" data-i18n="guide.stepsKicker">Percorso Operativo</div>
+<h2 class="gsection-title" id="guide-steps-heading" data-i18n="guide.flowHeader">Quattro passi dall'analisi dell'acqua alla vasca pronta</h2>
+<p class="gsection-sub" data-i18n="guide.flowIntro">Segui l'ordine naturale delle schede: imposti la tua acqua di partenza, scegli coltura e fase, calcoli le dosi A/B/C senza precipitati e verifichi strumenti e scorte.</p>
+</div>
+</div>
+<div class="gsteps-grid">
+<button type="button" class="gstep-card gstep-1" onclick="showTab('acqua')">
+<div class="gstep-top"><span class="gstep-ico" aria-hidden="true">💧</span><span class="gstep-num" data-i18n="guide.step1.num">Passo 01</span></div>
+<div class="gstep-lbl" data-i18n="guide.step1.lbl">Analisi Acqua</div>
+<div class="gstep-sub" data-i18n="guide.step1.sub">Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura (oppure scegli un preset).</div>
+<div class="gstep-go" data-i18n="guide.step1.go">Imposta acqua →</div>
+</button>
+<button type="button" class="gstep-card gstep-2" onclick="showTab('ricette')">
+<div class="gstep-top"><span class="gstep-ico" aria-hidden="true">🌿</span><span class="gstep-num" data-i18n="guide.step2.num">Passo 02</span></div>
+<div class="gstep-lbl" data-i18n="guide.step2.lbl">Coltura &amp; Ricetta</div>
+<div class="gstep-sub" data-i18n="guide.step2.sub">Seleziona pianta e fase fenologica, oppure lavora per target mg/L.</div>
+<div class="gstep-go" data-i18n="guide.step2.go">Scegli coltura →</div>
+</button>
+<button type="button" class="gstep-card gstep-3" onclick="showTab('calcola')">
+<div class="gstep-top"><span class="gstep-ico" aria-hidden="true">⚗️</span><span class="gstep-num" data-i18n="guide.step3.num">Passo 03</span></div>
+<div class="gstep-lbl" data-i18n="guide.step3.lbl">Calcola Madri A/B/C</div>
+<div class="gstep-sub" data-i18n="guide.step3.sub">Ottieni grammi per serbatoio, dose acido, indici SI e scheda stampabile.</div>
+<div class="gstep-go" data-i18n="guide.step3.go">Apri calcolatore →</div>
+</button>
+<button type="button" class="gstep-card gstep-4" onclick="showTab('attrezzatura')">
+<div class="gstep-top"><span class="gstep-ico" aria-hidden="true">🛒</span><span class="gstep-num" data-i18n="guide.step4.num">Passo 04</span></div>
+<div class="gstep-lbl" data-i18n="guide.step4.lbl">Impianto &amp; Strumenti</div>
+<div class="gstep-sub" data-i18n="guide.step4.sub">pHmetro, EC-metro, bilance 0,01 g, taniche opache HDPE e miscelatori.</div>
+<div class="gstep-go" data-i18n="guide.step4.go">Esplora strumenti →</div>
+</button>
+</div>
+</section>
+
 <section class="accordion" id="guides-accordion" aria-labelledby="guides-acc-heading">
-<div class="sec-h" style="margin-bottom:4px">
-<h3 id="guides-acc-heading" style="font-family:var(--disp);font-size:.88rem;color:var(--vs);text-transform:uppercase;letter-spacing:.04em" data-i18n="guide.seoHeading">📚 5 Guide Tecniche Complete</h3>
+<div class="gsection-head" style="margin-bottom:6px">
+<div>
+<div class="gsection-kicker" data-i18n="guide.kbKicker">Knowledge Base Agronomica</div>
+<h3 class="gsection-title" id="guides-acc-heading" data-i18n="guide.seoHeading">5 Guide Tecniche Complete alla Fertirrigazione</h3>
+</div>
 <button type="button" class="btn btn-se btn-sm" id="btn-guides-toggle-all" aria-expanded="false" onclick="toggleAllGuides()" data-i18n="guide.expandAll">Espandi tutte</button>
 </div>
+
+<div class="gtoc-wrap">
+<div class="gtoc-label" data-i18n="guide.tocLabel">Indice rapido — salta direttamente al capitolo</div>
+<div class="gtoc-pills">
+<button type="button" class="gtoc-pill" onclick="openGuideIndex(0)"><b>01</b><span data-i18n="guide.toc1">Metodo FertiControl</span></button>
+<button type="button" class="gtoc-pill" onclick="openGuideIndex(1)"><b>02</b><span data-i18n="guide.toc2">Serbatoi A / B / C</span></button>
+<button type="button" class="gtoc-pill" onclick="openGuideIndex(2)"><b>03</b><span data-i18n="guide.toc3">pH, HCO₃⁻ &amp; Acidi</span></button>
+<button type="button" class="gtoc-pill" onclick="openGuideIndex(3)"><b>04</b><span data-i18n="guide.toc4">Fibra di Cocco</span></button>
+<button type="button" class="gtoc-pill" onclick="openGuideIndex(4)"><b>05</b><span data-i18n="guide.toc5">Guida Attrezzatura</span></button>
+</div>
+</div>
+
 <div id="guides-list">
 <details class="guide-item" open>
-<summary><span class="guide-num">01</span><span class="guide-sum-title">Come funziona FertiControl: guida passo-passo dall'analisi dell'acqua alle soluzioni madri</span></summary>
+<summary>
+<span class="guide-num">01</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Come funziona FertiControl: guida passo-passo dall'analisi dell'acqua alle soluzioni madri</span>
+<span class="guide-sum-meta"><span class="guide-tag">Fondamenti</span><span class="guide-time">⏱ 3 min di lettura</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Perché non basta copiare una tabella di dosi</h4>
 <p>Ogni acqua di pozzo o acquedotto contiene già calcio (Ca²⁺), magnesio (Mg²⁺), solfati (SO₄²⁻) e bicarbonati (HCO₃⁻). Se applichi una ricetta pensata per acqua osmotica su un'acqua dura senza compensare, rischi squilibri ionici, EC fuori scala e precipitazione di gesso o fosfati nei gocciolatori.</p>
+<div class="gcallout"><span class="gcallout-ico" aria-hidden="true">💡</span><div><strong>Principio chiave:</strong> FertiControl sottrae prima i minerali già disciolti nella tua acqua, poi ricalcola il mix di sali più fedele al profilo nutritivo della coltura verificando la saturazione termodinamica.</div></div>
 <h4>Il flusso operativo in 4 passaggi</h4>
 <ol>
 <li><strong>Imposta l'acqua in 💧 Acqua:</strong> inserisci i valori di laboratorio (oppure scegli un preset tra Osmosi, Acquedotto medio, Acqua dura, Piovana) e salva il profilo.</li>
@@ -562,21 +741,33 @@ Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenz
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('ricette')">🌿 Vai alle Ricette</button>
 </div>
 </div>
+</div>
 </details>
+
 <details class="guide-item">
-<summary><span class="guide-num">02</span><span class="guide-sum-title">Come preparare soluzioni madri A, B e C senza precipitati (separazione Ca, fosfati e solfati)</span></summary>
+<summary>
+<span class="guide-num">02</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Come preparare soluzioni madri A, B e C senza precipitati (separazione Ca, fosfati e solfati)</span>
+<span class="guide-sum-meta"><span class="guide-tag">Chimica Serbatoi</span><span class="guide-time">⏱ 4 min di lettura</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>La regola d'oro della compatibilità chimica</h4>
 <p>Nei serbatoi concentrati (50×–200×) la concentrazione degli ioni supera facilmente i limiti di solubilità. Se il <strong>Calcio (Ca²⁺)</strong> entra in contatto concentrato con <strong>Fosfati (H₂PO₄⁻)</strong> o <strong>Solfati (SO₄²⁻)</strong>, precipita sul fondo formando fanghi bianchi insolubili (<em>brushite CaHPO₄</em>, <em>gesso CaSO₄</em>) che sottraggono nutrienti e bloccano gli ugelli.</p>
+<div class="gcallout gcallout-warn"><span class="gcallout-ico" aria-hidden="true">⚠️</span><div><strong>Regola assoluta:</strong> Calcio e Fosfati/Solfati non vanno <em>mai</em> nello stesso serbatoio concentrato, né miscelati puri prima dell'iniezione in linea.</div></div>
+<div class="guide-table-wrap" tabindex="0" role="region" aria-label="Ripartizione standard dei serbatoi concentrati A, B e C">
 <table class="guide-table">
 <caption>Ripartizione standard dei serbatoi concentrati A, B e C</caption>
 <thead><tr><th scope="col">Serbatoio</th><th scope="col">Sali compatibili</th><th scope="col">Da tenere separato</th></tr></thead>
 <tbody>
-<tr><td><strong>Serbatoio A</strong></td><td>Nitrato di Potassio (KNO₃), MKP (KH₂PO₄), MAP, Solfato di Magnesio (MgSO₄), Solfato di Potassio (K₂SO₄), chelati Fe/micro, acidi (HNO₃/H₃PO₄/H₂SO₄)</td><td>Mai Calcio (CaN / CaCl₂) né Silicati/KOH</td></tr>
-<tr><td><strong>Serbatoio B</strong></td><td>Nitrato di Calcio Ca(NO₃)₂, Cloruro di Calcio CaCl₂, eventuale Nitrato di Magnesio (MgNO₃)</td><td>Mai fosfati, mai solfati, mai silicato</td></tr>
-<tr><td><strong>Serbatoio C</strong></td><td>Silicato di Potassio (K₂SiO₃, pH ~11–12), Idrossido di Potassio (KOH) o sali incompatibili isolati</td><td>Mai acidi, mai Ca/Mg, mai chelati Fe</td></tr>
+<tr><td data-col="Serbatoio"><span class="gtank-pill gtank-a">Serbatoio A</span></td><td data-col="Sali compatibili">Nitrato di Potassio (KNO₃), MKP (KH₂PO₄), MAP, Solfato di Magnesio (MgSO₄), Solfato di Potassio (K₂SO₄), chelati Fe/micro, acidi (HNO₃/H₃PO₄/H₂SO₄)</td><td data-col="Da tenere separato">Mai Calcio (CaN / CaCl₂) né Silicati/KOH</td></tr>
+<tr><td data-col="Serbatoio"><span class="gtank-pill gtank-b">Serbatoio B</span></td><td data-col="Sali compatibili">Nitrato di Calcio Ca(NO₃)₂, Cloruro di Calcio CaCl₂, eventuale Nitrato di Magnesio (MgNO₃)</td><td data-col="Da tenere separato">Mai fosfati, mai solfati, mai silicato</td></tr>
+<tr><td data-col="Serbatoio"><span class="gtank-pill gtank-c">Serbatoio C</span></td><td data-col="Sali compatibili">Silicato di Potassio (K₂SiO₃, pH ~11–12), Idrossido di Potassio (KOH) o sali incompatibili isolati</td><td data-col="Da tenere separato">Mai acidi, mai Ca/Mg, mai chelati Fe</td></tr>
 </tbody>
 </table>
+</div>
 <h4>Ordine corretto di scioglimento</h4>
 <ol>
 <li>Riempi ogni serbatoio all'<strong>80% del volume finale</strong> con acqua pulita (meglio se tiepida 20–25 °C per sali come K₂SO₄ e KNO₃).</li>
@@ -590,19 +781,28 @@ Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenz
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ Vedi Serbatoi &amp; Miscelatori</button>
 </div>
 </div>
+</div>
 </details>
+
 <details class="guide-item">
-<summary><span class="guide-num">03</span><span class="guide-sum-title">Controllo pH, alcalinità (HCO₃⁻) e scelta dell'acido: HNO₃, H₃PO₄, Mix o H₂SO₄</span></summary>
+<summary>
+<span class="guide-num">03</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Controllo pH, alcalinità (HCO₃⁻) e scelta dell'acido: HNO₃, H₃PO₄, Mix o H₂SO₄</span>
+<span class="guide-sum-meta"><span class="guide-tag">Controllo pH</span><span class="guide-time">⏱ 4 min di lettura</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Perché i bicarbonati fanno salire il pH</h4>
 <p>I bicarbonati (<strong>HCO₃⁻</strong>) presenti nell'acqua agiscono da tampone alcalino: finché restano sopra <code>50–60 mg/L</code> (circa 0,8–1,0 meq/L), spingono il pH oltre 6,5–7,5, riducendo l'assorbimento di Fosforo, Ferro, Manganese e Zinco e favorendo precipitazioni di carbonato di calcio (calcite CaCO₃) e fosfati di calcio (ACP/OCP).</p>
 <h4>Quale acido scegliere in FertiControl</h4>
-<ul>
-<li><strong>HNO₃ 38% (Acido Nitrico):</strong> neutralizza HCO₃⁻ apportando <strong>Azoto nitrico (N-NO₃)</strong>. È spesso la prima scelta in vegetativa e per acque medio-dure, perché FertiControl riduce automaticamente i nitrati in ricetta.</li>
-<li><strong>H₃PO₄ 75% (Acido Fosforico):</strong> apporta <strong>Fosforo (P)</strong> ed è più sicuro da maneggiare dell'HNO₃, ma in acque molto alcaline (HCO₃⁻ &gt; 200 mg/L) può fornire troppo P e saturare <code>CaHPO₄</code>.</li>
-<li><strong>Mix automatico (H₃PO₄ + HNO₃):</strong> usa acido fosforico solo fino a coprire il target di P della ricetta, completando la neutralizzazione con acido nitrico.</li>
-<li><strong>H₂SO₄ 38% (Acido Solforico):</strong> apporta solo <strong>Zolfo (S)</strong> senza aggiungere N né P — ideale in fioritura o fine ciclo con acque ricche di bicarbonati.</li>
-</ul>
+<div class="gacid-grid">
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">HNO₃ 38%</span><span class="gacid-badge">+N-NO₃</span></div><p><strong>Acido Nitrico:</strong> prima scelta in vegetativa e su acque medio-dure. FertiControl riduce automaticamente i nitrati in ricetta per compensare l'azoto apportato.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">H₃PO₄ 75%</span><span class="gacid-badge">+Fosforo (P)</span></div><p><strong>Acido Fosforico:</strong> più sicuro da maneggiare, ma con <code>HCO₃⁻ &gt; 200 mg/L</code> può superare il target di P e saturare <code>CaHPO₄</code>.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">Mix Auto</span><span class="gacid-badge">H₃PO₄ + HNO₃</span></div><p><strong>Dosaggio combinato:</strong> usa fosforico esattamente fino al target di P della coltura e completa la neutralizzazione con acido nitrico.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">H₂SO₄ 38%</span><span class="gacid-badge">+Zolfo (S)</span></div><p><strong>Acido Solforico:</strong> zero N e zero P — perfetto in fioritura avanzata o fine ciclo quando l'acqua è molto ricca di bicarbonati.</p></div>
+</div>
 <h4>Stabilità dei chelati di Ferro e ruolo dell'ammonio</h4>
 <p>A pH <code>5.5–6.2</code> in cocco <strong>Fe-EDTA</strong> è stabile (purché Ca non sia eccessivo), mentre sopra pH <code>6.5</code> conviene passare a <strong>Fe-DTPA</strong> (fino a pH 7,0) o <strong>Fe-EDDHA</strong> (fino a pH 9). Mantenere l'azoto ammoniacale (<strong>NH₄⁺ ≤ 10%</strong> dell'N totale) stabilizza lievemente il pH in zona radicale senza indurre tossicità.</p>
 <div class="guide-cta-row">
@@ -610,17 +810,28 @@ Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenz
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pHmetri &amp; DPI Acidi</button>
 </div>
 </div>
+</div>
 </details>
+
 <details class="guide-item">
-<summary><span class="guide-num">04</span><span class="guide-sum-title">Fertirrigazione in fibra di cocco (Coco Coir): dosi di Nitrato di Calcio, EC e rapporti Ca/Mg/K</span></summary>
+<summary>
+<span class="guide-num">04</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Fertirrigazione in fibra di cocco (Coco Coir): dosi di Nitrato di Calcio, EC e rapporti Ca/Mg/K</span>
+<span class="guide-sum-meta"><span class="guide-tag">Substrato Cocco</span><span class="guide-time">⏱ 3 min di lettura</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>La particolarità chimica del Coco Coir</h4>
 <p>A differenza della lana di roccia (inerte), la fibra di cocco possiede una <strong>Capacità di Scambio Cationico (CSC)</strong> naturale: tende a trattenere <strong>Ca²⁺ e Mg²⁺</strong> e a rilasciare <strong>K⁺ e Na⁺</strong> se non è correttamente lavata e tamponata. Per questo le ricette in cocco richiedono un apporto costante e bilanciato di Calcio e Magnesio fin dal trapianto.</p>
-<h4>Dosi orientative di Nitrato di Calcio e rapporti chiave</h4>
+<h4>Dosi orientative di Nitrato di Calcio per fase</h4>
+<div class="gcoco-grid">
+<div class="gcoco-card"><div class="gcoco-stage">Radicamento / Plantula</div><div class="gcoco-ec">EC 0,8 – 1,2</div><p>Target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L di <em>Ca(NO₃)₂·4H₂O</em> in osmosi, meno il Ca dell'acqua).</p></div>
+<div class="gcoco-card"><div class="gcoco-stage">Crescita Vegetativa</div><div class="gcoco-ec">EC 1,6 – 2,2</div><p>Target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) con rapporto bilanciato <code>K/Ca ≈ 1,3–1,8</code>.</p></div>
+<div class="gcoco-card"><div class="gcoco-stage">Fioritura / Frutto</div><div class="gcoco-ec">EC 2,2 – 3,0</div><p>Target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) contro marciume apicale (BER) e tip-burn.</p></div>
+</div>
 <ul>
-<li><strong>Radicamento / Plantula (EC 0,8–1,2 mS/cm):</strong> target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L di <em>Ca(NO₃)₂·4H₂O</em> in acqua osmotica, meno quanto già presente in acqua).</li>
-<li><strong>Crescita vegetativa (EC 1,6–2,2 mS/cm):</strong> target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) con rapporto <code>K/Ca ≈ 1,3–1,8</code>.</li>
-<li><strong>Fioritura / Fruttificazione (EC 2,2–3,0 mS/cm):</strong> target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) per prevenire marciume apicale (BER) e tip-burn.</li>
 <li><strong>Ca(NO₃)₂·4H₂O vs Calcinit commerciale:</strong> FertiControl usa di default il profilo puro <code>N 11,8% · Ca 17%</code>; se usi Calcinit commerciale (<code>N 15,5%</code> con ~1,1% NH₄⁺, <code>Ca 19%</code>), aggiorna i valori direttamente in <strong>📦 Catalogo</strong>.</li>
 <li><strong>Monitoraggio drenaggio (run-off 15–20%):</strong> misura regolarmente EC e pH dello scolo. In cocco sano l'EC di drenaggio resta entro <code>EC input + 0,5–1,0 mS/cm</code>.</li>
 </ul>
@@ -629,27 +840,48 @@ Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenz
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configura CaN in Catalogo</button>
 </div>
 </div>
+</div>
 </details>
+
 <details class="guide-item">
-<summary><span class="guide-num">05</span><span class="guide-sum-title">Che attrezzatura comprare: guida a pHmetro, EC-metro, bilance 0,01 g, serbatoi e miscelatori</span></summary>
+<summary>
+<span class="guide-num">05</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Che attrezzatura comprare: guida a pHmetro, EC-metro, bilance 0,01 g, serbatoi e miscelatori</span>
+<span class="guide-sum-meta"><span class="guide-tag">Setup &amp; Strumenti</span><span class="guide-time">⏱ 3 min di lettura</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Gli strumenti che fanno la differenza sulla precisione</h4>
 <p>Un calcolo termodinamico perfetto serve a poco se pesi <code>0,12 g</code> di molibdato di sodio con una bilancia da cucina o dosi acido con un pHmetro starato. Ecco i criteri tecnici minimi per attrezzare la stanza miscela senza spendere troppo:</p>
-<ul>
-<li><strong>pHmetro con ATC e sonda sostituibile:</strong> cerca la calibrazione automatica a 2 punti (<code>pH 4,01 / 7,01</code>) e tieni sempre la sonda immersa in soluzione KCl (mai in acqua distillata).</li>
-<li><strong>EC-metro in mS/cm (0–10+ mS/cm):</strong> fondamentale per controllare sia l'acqua di partenza sia lo scolo del vaso; abbinalo a soluzione standard <code>1413 µS/cm</code> (o 12,88 mS/cm per soluzioni concentrate).</li>
-<li><strong>Doppia bilancia (0,01 g + 0,1 g):</strong> una micro-bilancia tascabile da <code>0,01 g</code> (portata 100–500 g) per chelati, acido borico, zinco, rame e molibdeno; una bilancia da <code>0,1 g / 3–5 kg</code> per nitrato di calcio, nitrato di potassio e solfati.</li>
-<li><strong>Serbatoi A, B e C in HDPE opaco alimentare:</strong> taniche o fusti non trasparenti per bloccare la luce (niente alghe) e resistere a soluzioni saline e acide.</li>
-<li><strong>Miscelazione e iniezione:</strong> un agitatore elettrico/frusta o una pompa di ricircolo per sciogliere K₂SO₄ senza grumi; dosatori Venturi o pompe peristaltiche per automatizzare l'iniezione A/B.</li>
-<li><strong>Sicurezza obbligatoria:</strong> guanti in nitrile spessi, occhiali antispruzzo e cilindri/pipette graduati in polipropilene (PP) quando maneggi acidi o KOH.</li>
-</ul>
+<div class="ggear-grid">
+<div class="ggear-card"><strong>🧪 pHmetro con ATC e sonda sostituibile</strong>Calibrazione automatica a 2 punti (<code>pH 4,01 / 7,01</code>) e conservazione sonda sempre in soluzione KCl (mai acqua distillata).</div>
+<div class="ggear-card"><strong>⚡ EC-metro in mS/cm (0–10+ mS/cm)</strong>Controlla acqua di partenza e drenaggio del vaso; abbinalo allo standard <code>1413 µS/cm</code> (o 12,88 mS/cm per concentrati).</div>
+<div class="ggear-card"><strong>⚖️ Doppia bilancia (0,01 g + 0,1 g)</strong>Micro-bilancia <code>0,01 g</code> (100–500 g) per chelati, boro, zinco e molibdeno; bilancia <code>0,1 g / 3–5 kg</code> per i macro-sali.</div>
+<div class="ggear-card"><strong>🛢️ Serbatoi A, B e C in HDPE opaco</strong>Taniche o fusti alimentari anti-luce (niente alghe) resistenti a soluzioni saline concentrate e acidi.</div>
+<div class="ggear-card"><strong>🌀 Miscelazione e iniezione</strong>Agitatore elettrico/frusta o pompa ricircolo per sciogliere K₂SO₄ senza grumi; Venturi o pompe peristaltiche in linea.</div>
+<div class="ggear-card"><strong>🥽 Sicurezza obbligatoria (DPI)</strong>Guanti chimici in nitrile spessi, occhiali antispruzzo e cilindri/pipette graduati in polipropilene (PP) per acidi e KOH.</div>
+</div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Vai alla sezione Attrezzatura &amp; Acquisti →</button>
+</div>
 </div>
 </div>
 </details>
 </div>
 </section>
+
+<aside class="gbanner" aria-label="Inizia con FertiControl">
+<div>
+<div class="gbanner-title" data-i18n="guide.bannerTitle">Pronto a formulare la tua prima soluzione nutritiva?</div>
+<div class="gbanner-sub" data-i18n="guide.bannerSub">Inserisci i parametri della tua acqua e ottieni in pochi secondi dosi esatte per Serbatoi A, B e C, correzione pH e costo per 1000 litri.</div>
+</div>
+<div class="gbanner-btns">
+<button type="button" class="gbtn-primary" onclick="showTab('acqua')" data-i18n="guide.bannerBtn1">💧 Configura l'Acqua →</button>
+<button type="button" class="gbtn-gold" onclick="showTab('attrezzatura')" data-i18n="guide.bannerBtn2">🛒 Attrezzatura Consigliata</button>
+</div>
+</aside>
 </div>
 <div class="panel" id="tab-acqua" role="tabpanel" aria-labelledby="tabbtn-acqua">
 <div class="card">
@@ -1038,24 +1270,53 @@ it: {
 'tab.attrezzatura': '🛒 Attrezzatura',
 'tab.dati': '💾 Dati',
 'guide.title': '📖 Guide Pratiche alla Fertirrigazione',
+'guide.heroBadge': 'FertiControl Academy · Motore Termodinamico v2.4',
+'guide.heroTitle': 'Dall\'analisi dell\'acqua alle soluzioni madri perfette — <em>senza precipitati</em>.',
+'guide.heroLead': 'Impara a bilanciare macro, microelementi, bicarbonati e serbatoi concentrati A/B/C con precisione da laboratorio. Segui il metodo in 4 passi o approfondisci le nostre 5 guide tecniche gratuite.',
 'guide.startBtn': '💧 Inizia da Acqua →',
-'guide.flowHeader': '🧭 Percorso Consigliato in FertiControl',
-'guide.flowIntro': 'Segui l\'ordine naturale delle schede qui sotto: prima imposti l\'acqua di partenza, poi scegli coltura e fase, calcoli le soluzioni madri A/B/C senza precipitati e infine controlli scorte e attrezzatura.',
-'guide.step1.num': 'Passo 1 · Acqua',
-'guide.step1.lbl': '💧 Analisi Acqua',
-'guide.step1.sub': 'Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura.',
-'guide.step2.num': 'Passo 2 · Coltura',
-'guide.step2.lbl': '🌿 Scegli Ricetta',
-'guide.step2.sub': 'Seleziona pianta e fase (o imposta target mg/L).',
-'guide.step3.num': 'Passo 3 · Soluzioni Madri',
-'guide.step3.lbl': '⚗️ Calcola A/B/C',
-'guide.step3.sub': 'Ottieni grammi, acido, indici SI e scheda stampabile.',
-'guide.step4.num': 'Passo 4 · Impianto',
-'guide.step4.lbl': '🛒 Attrezzatura',
-'guide.step4.sub': 'pHmetro, EC-metro, bilance 0,01 g, serbatoi e pompe.',
-'guide.seoHeading': '📚 5 Guide Tecniche Complete',
+'guide.heroReadBtn': '📚 Leggi le 5 Guide',
+'guide.heroGearBtn': '🛒 Attrezzatura',
+'guide.stat1.val': '11 Colture · 35 Fasi',
+'guide.stat1.lbl': 'Ricette Coco Coir pronte all\'uso',
+'guide.stat2.val': 'PHREEQC / SIT',
+'guide.stat2.lbl': 'Equilibrio ionico e coppie ioniche reali',
+'guide.stat3.val': 'Serbatoi A/B/C',
+'guide.stat3.lbl': 'Separazione chimica anti-precipitato',
+'guide.stat4.val': '100% Gratuito',
+'guide.stat4.lbl': 'Funziona anche offline, zero account',
+'guide.stepsKicker': 'Percorso Operativo',
+'guide.flowHeader': 'Quattro passi dall\'analisi dell\'acqua alla vasca pronta',
+'guide.flowIntro': 'Segui l\'ordine naturale delle schede: imposti la tua acqua di partenza, scegli coltura e fase, calcoli le dosi A/B/C senza precipitati e verifichi strumenti e scorte.',
+'guide.step1.num': 'Passo 01',
+'guide.step1.lbl': 'Analisi Acqua',
+'guide.step1.sub': 'Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura (oppure scegli un preset).',
+'guide.step1.go': 'Imposta acqua →',
+'guide.step2.num': 'Passo 02',
+'guide.step2.lbl': 'Coltura & Ricetta',
+'guide.step2.sub': 'Seleziona pianta e fase fenologica, oppure lavora per target mg/L.',
+'guide.step2.go': 'Scegli coltura →',
+'guide.step3.num': 'Passo 03',
+'guide.step3.lbl': 'Calcola Madri A/B/C',
+'guide.step3.sub': 'Ottieni grammi per serbatoio, dose acido, indici SI e scheda stampabile.',
+'guide.step3.go': 'Apri calcolatore →',
+'guide.step4.num': 'Passo 04',
+'guide.step4.lbl': 'Impianto & Strumenti',
+'guide.step4.sub': 'pHmetro, EC-metro, bilance 0,01 g, taniche opache HDPE e miscelatori.',
+'guide.step4.go': 'Esplora strumenti →',
+'guide.kbKicker': 'Knowledge Base Agronomica',
+'guide.seoHeading': '5 Guide Tecniche Complete alla Fertirrigazione',
+'guide.tocLabel': 'Indice rapido — salta direttamente al capitolo',
+'guide.toc1': 'Metodo FertiControl',
+'guide.toc2': 'Serbatoi A / B / C',
+'guide.toc3': 'pH, HCO₃⁻ & Acidi',
+'guide.toc4': 'Fibra di Cocco',
+'guide.toc5': 'Guida Attrezzatura',
 'guide.expandAll': 'Espandi tutte',
 'guide.collapseAll': 'Comprimi tutte',
+'guide.bannerTitle': 'Pronto a formulare la tua prima soluzione nutritiva?',
+'guide.bannerSub': 'Inserisci i parametri della tua acqua e ottieni in pochi secondi dosi esatte per Serbatoi A, B e C, correzione pH e costo per 1000 litri.',
+'guide.bannerBtn1': '💧 Configura l\'Acqua →',
+'guide.bannerBtn2': '🛒 Attrezzatura Consigliata',
 'attr.title': '🛒 Attrezzatura & Strumenti Consigliati',
 'attr.toGuide': '📖 Guida alla scelta',
 'attr.disclosure': '<strong>Amazon Affiliate:</strong> link consigliati e sponsorizzati verso Amazon.',
@@ -1272,24 +1533,53 @@ en: {
 'tab.attrezzatura': '🛒 Gear & Tools',
 'tab.dati': '💾 Data',
 'guide.title': '📖 Practical Fertigation Guides',
+'guide.heroBadge': 'FertiControl Academy · Thermodynamic Engine v2.4',
+'guide.heroTitle': 'From water analysis to balanced mother solutions — <em>zero precipitates</em>.',
+'guide.heroLead': 'Learn how to balance macros, micronutrients, bicarbonates and concentrated A/B/C tanks with lab-grade accuracy. Follow the 4-step workflow or dive into our 5 free technical guides.',
 'guide.startBtn': '💧 Start from Water →',
-'guide.flowHeader': '🧭 Recommended FertiControl Workflow',
-'guide.flowIntro': 'Follow the natural order of the tabs below: first set your source water, choose crop and growth stage, calculate precipitate-free A/B/C mother solutions, then verify stock and equipment.',
-'guide.step1.num': 'Step 1 · Water',
-'guide.step1.lbl': '💧 Water Analysis',
-'guide.step1.sub': 'Enter EC, pH, Ca, Mg, HCO₃⁻ and temperature.',
-'guide.step2.num': 'Step 2 · Crop',
-'guide.step2.lbl': '🌿 Pick Recipe',
-'guide.step2.sub': 'Select crop & growth stage (or mg/L targets).',
-'guide.step3.num': 'Step 3 · Stock Tanks',
-'guide.step3.lbl': '⚗️ Calculate A/B/C',
-'guide.step3.sub': 'Get grams, acid dose, SI indices and print sheet.',
-'guide.step4.num': 'Step 4 · Setup',
-'guide.step4.lbl': '🛒 Gear & Tools',
-'guide.step4.sub': 'pH/EC meters, 0.01 g scales, tanks and dosing pumps.',
-'guide.seoHeading': '📚 5 Complete Technical Guides',
+'guide.heroReadBtn': '📚 Read the 5 Guides',
+'guide.heroGearBtn': '🛒 Gear & Tools',
+'guide.stat1.val': '11 Crops · 35 Stages',
+'guide.stat1.lbl': 'Ready-to-use Coco Coir recipes',
+'guide.stat2.val': 'PHREEQC / SIT',
+'guide.stat2.lbl': 'Real ionic balance & ion pairing',
+'guide.stat3.val': 'Tanks A/B/C',
+'guide.stat3.lbl': 'Automatic anti-precipitate split',
+'guide.stat4.val': '100% Free',
+'guide.stat4.lbl': 'Works offline, no account required',
+'guide.stepsKicker': 'Recommended Workflow',
+'guide.flowHeader': 'Four steps from source water to ready nutrient tank',
+'guide.flowIntro': 'Follow the natural order of the tabs: enter your source water, choose crop and growth stage, calculate precipitate-free A/B/C stock tanks, then verify stock and gear.',
+'guide.step1.num': 'Step 01',
+'guide.step1.lbl': 'Water Analysis',
+'guide.step1.sub': 'Enter EC, pH, Ca, Mg, HCO₃⁻ and temperature (or choose a preset).',
+'guide.step1.go': 'Set water →',
+'guide.step2.num': 'Step 02',
+'guide.step2.lbl': 'Crop & Recipe',
+'guide.step2.sub': 'Select crop and growth stage, or work directly in mg/L target mode.',
+'guide.step2.go': 'Pick crop →',
+'guide.step3.num': 'Step 03',
+'guide.step3.lbl': 'Calculate A/B/C Stock',
+'guide.step3.sub': 'Get tank grams, acid dosing, SI saturation indices and print sheet.',
+'guide.step3.go': 'Open calculator →',
+'guide.step4.num': 'Step 04',
+'guide.step4.lbl': 'Setup & Gear',
+'guide.step4.sub': 'pH/EC meters, 0.01 g micro scales, opaque HDPE tanks and mixers.',
+'guide.step4.go': 'Browse gear →',
+'guide.kbKicker': 'Agronomic Knowledge Base',
+'guide.seoHeading': '5 Complete Technical Fertigation Guides',
+'guide.tocLabel': 'Quick index — jump straight to any chapter',
+'guide.toc1': 'FertiControl Method',
+'guide.toc2': 'Tanks A / B / C',
+'guide.toc3': 'pH, HCO₃⁻ & Acids',
+'guide.toc4': 'Coco Coir Guide',
+'guide.toc5': 'Equipment Guide',
 'guide.expandAll': 'Expand all',
 'guide.collapseAll': 'Collapse all',
+'guide.bannerTitle': 'Ready to formulate your first nutrient solution?',
+'guide.bannerSub': 'Enter your source water profile and get exact Tank A, B and C salt doses, acid correction and cost per 1000 L in seconds.',
+'guide.bannerBtn1': '💧 Set up Source Water →',
+'guide.bannerBtn2': '🛒 Recommended Gear',
 'attr.title': '🛒 Recommended Gear & Tools',
 'attr.toGuide': '📖 Buying guide',
 'attr.disclosure': '<strong>Amazon Affiliate:</strong> recommended and sponsored links to Amazon.',
@@ -7044,10 +7334,18 @@ function renderCalcGearStrip(ctx){
 let _guidesHtmlIt = null;
 const GUIDES_EN_HTML = `
 <details class="guide-item" open>
-<summary><span class="guide-num">01</span><span class="guide-sum-title">How FertiControl works: step-by-step from water analysis to A/B/C stock solutions</span></summary>
+<summary>
+<span class="guide-num">01</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">How FertiControl works: step-by-step from water analysis to A/B/C stock solutions</span>
+<span class="guide-sum-meta"><span class="guide-tag">Fundamentals</span><span class="guide-time">⏱ 3 min read</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Why copying raw gram tables fails</h4>
 <p>Tap and well water already carry calcium (Ca²⁺), magnesium (Mg²⁺), sulfates (SO₄²⁻) and bicarbonates (HCO₃⁻). Applying an RO recipe directly to hard water causes ion imbalances, drifting EC and gypsum or phosphate scaling inside emitters.</p>
+<div class="gcallout"><span class="gcallout-ico" aria-hidden="true">💡</span><div><strong>Key principle:</strong> FertiControl first subtracts the minerals already dissolved in your source water, then computes the salt blend closest to your crop profile while verifying thermodynamic saturation.</div></div>
 <h4>The 4-step FertiControl workflow</h4>
 <ol>
 <li><strong>Set source water in 💧 Water:</strong> enter lab ion values (or pick a preset like RO, Average Tap, Hard Water or Rainwater) and save your profile.</li>
@@ -7060,21 +7358,32 @@ const GUIDES_EN_HTML = `
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('ricette')">🌿 Go to Recipes</button>
 </div>
 </div>
+</div>
 </details>
 <details class="guide-item">
-<summary><span class="guide-num">02</span><span class="guide-sum-title">How to prepare A, B and C stock solutions without precipitates (Ca, phosphates &amp; sulfates)</span></summary>
+<summary>
+<span class="guide-num">02</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">How to prepare A, B and C stock solutions without precipitates (Ca, phosphates &amp; sulfates)</span>
+<span class="guide-sum-meta"><span class="guide-tag">Tank Chemistry</span><span class="guide-time">⏱ 4 min read</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>The golden rule of tank compatibility</h4>
 <p>In concentrated stock tanks (50×–200×), ion concentrations quickly exceed solubility limits. If <strong>Calcium (Ca²⁺)</strong> meets concentrated <strong>Phosphates (H₂PO₄⁻)</strong> or <strong>Sulfates (SO₄²⁻)</strong>, insoluble white precipitates (<em>brushite CaHPO₄</em>, <em>gypsum CaSO₄</em>) drop to the bottom and clog drip lines.</p>
+<div class="gcallout gcallout-warn"><span class="gcallout-ico" aria-hidden="true">⚠️</span><div><strong>Absolute rule:</strong> Calcium and Phosphates/Sulfates must <em>never</em> share a concentrated stock tank or be mixed neat before inline injection.</div></div>
+<div class="guide-table-wrap" tabindex="0" role="region" aria-label="Standard A, B and C concentrate separation">
 <table class="guide-table">
 <caption>Standard A, B and C concentrate separation</caption>
 <thead><tr><th scope="col">Tank</th><th scope="col">Compatible salts</th><th scope="col">Keep separated</th></tr></thead>
 <tbody>
-<tr><td><strong>Tank A</strong></td><td>Potassium Nitrate (KNO₃), MKP (KH₂PO₄), MAP, Magnesium Sulfate (MgSO₄), Potassium Sulfate (K₂SO₄), Fe/micro chelates, acids</td><td>Never Calcium (CaN / CaCl₂) or Silicates/KOH</td></tr>
-<tr><td><strong>Tank B</strong></td><td>Calcium Nitrate Ca(NO₃)₂, Calcium Chloride CaCl₂, optional Magnesium Nitrate (MgNO₃)</td><td>Never phosphates, sulfates or silicates</td></tr>
-<tr><td><strong>Tank C</strong></td><td>Potassium Silicate (K₂SiO₃, pH ~11–12), Potassium Hydroxide (KOH) or isolated incompatible salts</td><td>Never acids, Ca/Mg or Fe chelates</td></tr>
+<tr><td data-col="Tank"><span class="gtank-pill gtank-a">Tank A</span></td><td data-col="Compatible salts">Potassium Nitrate (KNO₃), MKP (KH₂PO₄), MAP, Magnesium Sulfate (MgSO₄), Potassium Sulfate (K₂SO₄), Fe/micro chelates, acids</td><td data-col="Keep separated">Never Calcium (CaN / CaCl₂) or Silicates/KOH</td></tr>
+<tr><td data-col="Tank"><span class="gtank-pill gtank-b">Tank B</span></td><td data-col="Compatible salts">Calcium Nitrate Ca(NO₃)₂, Calcium Chloride CaCl₂, optional Magnesium Nitrate (MgNO₃)</td><td data-col="Keep separated">Never phosphates, sulfates or silicates</td></tr>
+<tr><td data-col="Tank"><span class="gtank-pill gtank-c">Tank C</span></td><td data-col="Compatible salts">Potassium Silicate (K₂SiO₃, pH ~11–12), Potassium Hydroxide (KOH) or isolated incompatible salts</td><td data-col="Keep separated">Never acids, Ca/Mg or Fe chelates</td></tr>
 </tbody>
 </table>
+</div>
 <h4>Correct dissolving order</h4>
 <ol>
 <li>Fill each tank to <strong>80% of final volume</strong> with clean water (lukewarm 20–25 °C helps dissolve K₂SO₄ and KNO₃).</li>
@@ -7088,19 +7397,27 @@ const GUIDES_EN_HTML = `
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ View Tanks &amp; Mixers</button>
 </div>
 </div>
+</div>
 </details>
 <details class="guide-item">
-<summary><span class="guide-num">03</span><span class="guide-sum-title">pH control, alkalinity (HCO₃⁻) and acid selection: HNO₃, H₃PO₄, Auto Mix or H₂SO₄</span></summary>
+<summary>
+<span class="guide-num">03</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">pH control, alkalinity (HCO₃⁻) and acid selection: HNO₃, H₃PO₄, Auto Mix or H₂SO₄</span>
+<span class="guide-sum-meta"><span class="guide-tag">pH Control</span><span class="guide-time">⏱ 4 min read</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Why bicarbonates push pH up</h4>
 <p>Water bicarbonates (<strong>HCO₃⁻</strong>) act as an alkaline buffer: above <code>50–60 mg/L</code> (~0.8–1.0 meq/L), they drive solution pH past 6.5–7.5, locking out Phosphorus, Iron, Manganese and Zinc while risking calcite (CaCO₃) and calcium phosphate (ACP/OCP) scaling.</p>
 <h4>Choosing the right acid in FertiControl</h4>
-<ul>
-<li><strong>HNO₃ 38% (Nitric Acid):</strong> neutralizes HCO₃⁻ while supplying <strong>nitrate nitrogen (N-NO₃)</strong>. Ideal for vegetative growth and medium-hard water; FertiControl reduces nitrate salts automatically.</li>
-<li><strong>H₃PO₄ 75% (Phosphoric Acid):</strong> supplies <strong>Phosphorus (P)</strong> and is safer to handle than nitric acid, though in very alkaline water (HCO₃⁻ &gt; 200 mg/L) it can overshoot P targets and saturate <code>CaHPO₄</code>.</li>
-<li><strong>Auto Mix (H₃PO₄ + HNO₃):</strong> meters phosphoric acid up to your recipe P target, then completes neutralization with nitric acid.</li>
-<li><strong>H₂SO₄ 38% (Sulfuric Acid):</strong> supplies only <strong>Sulfur (S)</strong> with zero N or P — ideal in bloom or late-stage high-bicarbonate water.</li>
-</ul>
+<div class="gacid-grid">
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">HNO₃ 38%</span><span class="gacid-badge">+N-NO₃</span></div><p><strong>Nitric Acid:</strong> first pick for veg and medium-hard water. FertiControl reduces nitrate salts automatically to offset the added N.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">H₃PO₄ 75%</span><span class="gacid-badge">+Phosphorus</span></div><p><strong>Phosphoric Acid:</strong> safer to handle, but above <code>HCO₃⁻ &gt; 200 mg/L</code> it can overshoot P targets and saturate <code>CaHPO₄</code>.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">Auto Mix</span><span class="gacid-badge">H₃PO₄ + HNO₃</span></div><p><strong>Combined dosing:</strong> meters phosphoric acid right up to your recipe P target, then finishes neutralization with nitric acid.</p></div>
+<div class="gacid-card"><div class="gacid-top"><span class="gacid-name">H₂SO₄ 38%</span><span class="gacid-badge">+Sulfur (S)</span></div><p><strong>Sulfuric Acid:</strong> zero N and zero P — ideal in bloom or late-stage high-bicarbonate water.</p></div>
+</div>
 <h4>Iron chelate stability &amp; ammonium ratio</h4>
 <p>At coco target pH <code>5.5–6.2</code>, <strong>Fe-EDTA</strong> remains stable (unless Ca²⁺ is very high), whereas above pH <code>6.5</code> switch to <strong>Fe-DTPA</strong> (up to pH 7.0) or <strong>Fe-EDDHA</strong> (up to pH 9). Keeping ammonium nitrogen <strong>NH₄⁺ ≤ 10%</strong> of total N gently stabilizes root-zone pH without toxicity.</p>
 <div class="guide-cta-row">
@@ -7108,17 +7425,27 @@ const GUIDES_EN_HTML = `
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pH Meters &amp; Acid PPE</button>
 </div>
 </div>
+</div>
 </details>
 <details class="guide-item">
-<summary><span class="guide-num">04</span><span class="guide-sum-title">Coco Coir fertigation: Calcium Nitrate doses, EC and Ca/Mg/K balance</span></summary>
+<summary>
+<span class="guide-num">04</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Coco Coir fertigation: Calcium Nitrate doses, EC and Ca/Mg/K balance</span>
+<span class="guide-sum-meta"><span class="guide-tag">Coco Coir</span><span class="guide-time">⏱ 3 min read</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Why Coco Coir behaves differently</h4>
 <p>Unlike inert rockwool, coco coir has a natural <strong>Cation Exchange Capacity (CEC)</strong> that binds <strong>Ca²⁺ and Mg²⁺</strong> while releasing <strong>K⁺ and Na⁺</strong> unless properly washed and buffered. That makes steady, balanced Calcium and Magnesium essential from day one.</p>
-<h4>Typical Calcium Nitrate doses &amp; key ratios</h4>
+<h4>Typical Calcium Nitrate doses by stage</h4>
+<div class="gcoco-grid">
+<div class="gcoco-card"><div class="gcoco-stage">Rooting / Seedling</div><div class="gcoco-ec">EC 0.8 – 1.2</div><p>Target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L <em>Ca(NO₃)₂·4H₂O</em> in RO water, minus water Ca).</p></div>
+<div class="gcoco-card"><div class="gcoco-stage">Vegetative Growth</div><div class="gcoco-ec">EC 1.6 – 2.2</div><p>Target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) with balanced <code>K/Ca ≈ 1.3–1.8</code>.</p></div>
+<div class="gcoco-card"><div class="gcoco-stage">Flowering / Fruiting</div><div class="gcoco-ec">EC 2.2 – 3.0</div><p>Target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) against blossom-end rot and tip-burn.</p></div>
+</div>
 <ul>
-<li><strong>Rooting / Seedling (EC 0.8–1.2 mS/cm):</strong> target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L <em>Ca(NO₃)₂·4H₂O</em> in RO water, less water Ca).</li>
-<li><strong>Vegetative growth (EC 1.6–2.2 mS/cm):</strong> target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) with <code>K/Ca ≈ 1.3–1.8</code>.</li>
-<li><strong>Flowering / Fruiting (EC 2.2–3.0 mS/cm):</strong> target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) to prevent blossom-end rot and tip-burn.</li>
 <li><strong>Ca(NO₃)₂·4H₂O vs Commercial Calcinit:</strong> FertiControl defaults to pure tetrahydrate (<code>N 11.8% · Ca 17%</code>); if using Calcinit (<code>N 15.5%</code>, <code>Ca 19%</code>), update it in <strong>📦 Catalog</strong>.</li>
 <li><strong>Runoff monitoring (15–20% drain):</strong> track drain EC and pH regularly. Healthy coco runoff stays within <code>input EC + 0.5–1.0 mS/cm</code>.</li>
 </ul>
@@ -7127,25 +7454,45 @@ const GUIDES_EN_HTML = `
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configure CaN in Catalog</button>
 </div>
 </div>
+</div>
 </details>
 <details class="guide-item">
-<summary><span class="guide-num">05</span><span class="guide-sum-title">Essential equipment buyer's guide: pH/EC meters, 0.01 g scales, tanks &amp; mixers</span></summary>
+<summary>
+<span class="guide-num">05</span>
+<span class="guide-sum-main">
+<span class="guide-sum-title">Essential equipment buyer's guide: pH/EC meters, 0.01 g scales, tanks &amp; mixers</span>
+<span class="guide-sum-meta"><span class="guide-tag">Setup &amp; Gear</span><span class="guide-time">⏱ 3 min read</span></span>
+</span>
+</summary>
 <div class="guide-body">
+<div class="guide-prose">
 <h4>Tools that protect chemical precision</h4>
 <p>Thermodynamic accuracy breaks down if you weigh <code>0.12 g</code> of sodium molybdate on a kitchen scale or dose acid with an uncalibrated pH pen. Here are the key specs that matter:</p>
-<ul>
-<li><strong>pH meter with ATC &amp; replaceable probe:</strong> choose 2-point auto calibration (<code>pH 4.01 / 7.01</code>) and store the glass bulb in KCl storage solution (never distilled water).</li>
-<li><strong>EC meter in mS/cm (0–10+ mS/cm):</strong> verify source water and pot runoff; pair with <code>1413 µS/cm</code> calibration solution.</li>
-<li><strong>Two scales (0.01 g + 0.1 g):</strong> a <code>0.01 g</code> micro scale (100–500 g) for chelates, boron, zinc, copper and molybdenum; a <code>0.1 g / 3–5 kg</code> scale for bulk macronutrients.</li>
-<li><strong>Opaque food-grade HDPE A/B/C tanks:</strong> block light to prevent algae and resist concentrated acids and salts.</li>
-<li><strong>Mixing &amp; dosing:</strong> electric mixer paddle or submersible recirculation pump for clean dissolution; Venturi injectors or peristaltic pumps for automated inline A/B dosing.</li>
-<li><strong>Safety PPE:</strong> chemical-resistant nitrile gloves, splash goggles and polypropylene (PP) graduated cylinders whenever handling strong acids or KOH.</li>
-</ul>
+<div class="ggear-grid">
+<div class="ggear-card"><strong>🧪 pH meter with ATC &amp; replaceable probe</strong>2-point auto calibration (<code>pH 4.01 / 7.01</code>) and KCl probe storage solution (never distilled water).</div>
+<div class="ggear-card"><strong>⚡ EC meter in mS/cm (0–10+ mS/cm)</strong>Verify source water and pot runoff; pair with <code>1413 µS/cm</code> calibration standard.</div>
+<div class="ggear-card"><strong>⚖️ Dual scales (0.01 g + 0.1 g)</strong><code>0.01 g</code> micro scale (100–500 g) for chelates, boron, zinc and molybdenum; <code>0.1 g / 3–5 kg</code> for bulk salts.</div>
+<div class="ggear-card"><strong>🛢️ Opaque food-grade HDPE A/B/C tanks</strong>Light-blocking walls stop algae and resist concentrated salts and strong acids.</div>
+<div class="ggear-card"><strong>🌀 Mixing &amp; inline dosing</strong>Electric mixer paddle or recirculation pump for clean K₂SO₄ dissolution; Venturi or peristaltic pumps.</div>
+<div class="ggear-card"><strong>🥽 Mandatory safety PPE</strong>Chemical-resistant nitrile gloves, splash goggles and PP graduated cylinders for acids and KOH.</div>
+</div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Open Gear &amp; Tools Shop →</button>
 </div>
 </div>
+</div>
 </details>`;
+function openGuideIndex(idx){
+  const list = document.getElementById('guides-list');
+  if(!list) return;
+  const items = [...list.querySelectorAll('details.guide-item')];
+  const target = items[idx];
+  if(!target) return;
+  target.open = true;
+  updateGuidesToggleBtn();
+  if(typeof fcScrollTo === 'function') fcScrollTo(target, { extra: 14 });
+  else target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 function updateGuidesToggleBtn(){
   const list = document.getElementById('guides-list');
   const btn = document.getElementById('btn-guides-toggle-all');
