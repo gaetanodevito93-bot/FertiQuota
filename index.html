@@ -490,16 +490,6 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div class="hbadge">v2.4</div>
 </header>
-<div class="alert al-blu" style="margin:8px 12px;padding:7px 12px;width:auto;cursor:pointer;align-items:center" onclick="const b=document.getElementById('howto-full'),a=document.getElementById('howto-arr');if(b){const open=b.style.display!=='none';b.style.display=open?'none':'block';if(a)a.textContent=open?'▼':'▲';}">
-<span>📖</span>
-<div style="flex:1">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.76rem">
-<span id="howto-short"><b>📖 Guide</b> → <b>① Acqua</b> → <b>② Ricette</b> → <b>③ Calcola A/B</b> → <b>🛒 Attrezzatura</b></span>
-<span id="howto-arr" style="font-size:.68rem;opacity:.75;white-space:nowrap">▼</span>
-</div>
-<div id="howto-full" data-i18n-html="howto.text" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid rgba(26,82,118,.2)"><b>Come si usa.</b> Inizia dalle <b>📖 Guide</b> per capire il metodo, poi segui il flusso: <b>① Acqua</b> — inserisci l'analisi dell'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali per serbatoi A/B/C, EC/pH e avvisi di precipitazione. <b>④ Catalogo</b> — gestisci fertilizzanti, prezzi e scorte. <b>⑤ Attrezzatura</b> — strumenti e serbatoi consigliati. <b>⑥ Dati</b> — esporta/importa tutto.</div>
-</div>
-</div>
 <div class="tabs" role="tablist" aria-label="Menu principale">
 <button type="button" class="tab active" role="tab" id="tabbtn-guide" data-tab="guide" aria-selected="true" tabindex="0" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
 <button type="button" class="tab" role="tab" id="tabbtn-acqua" data-tab="acqua" aria-selected="false" tabindex="-1" onclick="showTab('acqua')" data-i18n="tab.acqua">💧 Acqua</button>
@@ -1553,8 +1543,6 @@ ingCat.options[0].textContent = t('cat.macro');
 ingCat.options[1].textContent = t('cat.micro');
 ingCat.options[2].textContent = t('cat.ph');
 }
-const hs = document.getElementById('howto-short');
-if(hs) hs.innerHTML = currentLang==='en' ? '<b>📖 Guides</b> → <b>① Water</b> → <b>② Recipes</b> → <b>③ Calculate A/B</b> → <b>🛒 Gear</b>' : '<b>📖 Guide</b> → <b>① Acqua</b> → <b>② Ricette</b> → <b>③ Calcola A/B</b> → <b>🛒 Attrezzatura</b>';
 if(typeof updateSaliPrepBadge==='function') updateSaliPrepBadge();
 if(typeof renderGuidesLang==='function') renderGuidesLang();
 if(typeof renderAttrezzatura==='function') renderAttrezzatura();
