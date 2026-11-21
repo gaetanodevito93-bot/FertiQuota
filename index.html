@@ -2,12 +2,56 @@
 <html lang="it" id="html-root">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FertiControl — Calcolatore professionale per soluzioni nutritive in fertirrigazione (coco coir). Motore termodinamico Davies/SIT con speciazione ionica, indici di saturazione, compatibilità serbatoi A/B/C, solver NNLS e gestione pH/acidi.">
+<meta name="description" content="FertiControl — Calcolatore professionale per fertirrigazione in coco coir e guide pratiche su soluzioni madri A/B/C, controllo pH, bicarbonati, nitrato di calcio e attrezzatura.">
 <meta name="theme-color" content="#2d5a3d">
-<meta property="og:title" content="FertiControl — Calcolatore Fertirrigazione">
-<meta property="og:description" content="Motore termodinamico Davies/SIT per soluzioni nutritive in coco coir: calcolo automatico dosi (NNLS), speciazione ionica, compatibilità serbatoi A/B/C, gestione acidi e scheda operativa stampabile.">
+<meta property="og:title" content="FertiControl — Calcolatore Fertirrigazione & Guide Soluzioni Madri A/B/C">
+<meta property="og:description" content="Motore termodinamico Davies/SIT per soluzioni nutritive in coco coir: calcolo automatico dosi (NNLS), speciazione ionica, compatibilità serbatoi A/B/C, 5 guide tecniche e attrezzatura consigliata.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "FertiControl",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "inLanguage": ["it", "en"],
+      "description": "Calcolatore professionale per fertirrigazione e preparazione di soluzioni madri concentrate A/B/C in fibra di cocco con motore termodinamico Davies/SIT."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Come preparare le soluzioni madri A, B e C senza precipitati?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Separa sempre i sali di Calcio (Serbatoio B) da fosfati e solfati (Serbatoio A). Usa il Serbatoio C per silicato di potassio o correttori alcalini, sciogliendo prima in acqua tiepida all'80% del volume."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quale acido scegliere per i bicarbonati: nitrico, fosforico o solforico?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "L'acido nitrico (HNO₃) apporta azoto e si adatta alla maggior parte delle colture; l'acido fosforico (H₃PO₄) apporta fosforo ma in acque molto dure può saturare il fosfato di calcio; l'acido solforico (H₂SO₄) neutralizza i bicarbonati senza aggiungere N né P."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quali dosi di Nitrato di Calcio servono in fibra di cocco (coco coir)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In coco coir il target tipico di Calcio varia da 70–90 mg/L in radicamento fino a 140–180 mg/L in vegetativa e fruttificazione (circa 500–1060 g/1000 L di Ca(NO₃)₂·4H₂O al netto dell'acqua di partenza), mantenendo NH₄ ≤ 10% dell'azoto totale."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d5a3d'/><text x='16' y='23' text-anchor='middle' font-size='20'>🌿</text></svg>">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -68,9 +112,11 @@ header span{font-family:var(--mono);font-size:.66rem;opacity:.6;font-weight:400;
 .hbadge{margin-left:auto;flex-shrink:0;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--as);background:rgba(255,255,255,.1);border:1px solid rgba(243,163,94,.5);padding:5px 11px;border-radius:8px;backdrop-filter:blur(6px)}
 .tabs{display:flex;gap:6px;width:100%;padding:8px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(15,53,40,.04);border-bottom:1px solid var(--bo)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;white-space:nowrap;cursor:pointer;font-family:var(--mono);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ts);background:rgba(255,255,255,.5);padding:9px 14px;border:1px solid var(--bo);border-radius:var(--r);transition:var(--transition)}
+.tab{position:relative;flex:none;white-space:nowrap;cursor:pointer;font-family:var(--mono);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ts);background:rgba(255,255,255,.55);padding:9px 14px;border:1px solid var(--bo);border-radius:var(--r);transition:var(--transition)}
 .tab:hover{color:var(--vm);background:rgba(63,146,104,.1);border-color:var(--vc)}
-.tab.active{color:var(--as);border-color:var(--vs);background:linear-gradient(135deg,var(--vm) 0%,var(--vs) 100%);box-shadow:0 4px 14px rgba(15,53,40,.25)}
+.tab:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.tab.active,.tab[aria-selected="true"]{color:var(--as);border-color:var(--vs);background:linear-gradient(135deg,var(--vm) 0%,var(--vs) 100%);box-shadow:0 4px 14px rgba(15,53,40,.25)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;inset:auto 8px 0;border-block-end:3px solid var(--ar);border-radius:2px 2px 0 0}
 .panel{display:none;width:100%;max-width:900px;margin:0 auto;padding:14px 12px 40px}
 .panel.active{display:block;animation:panelFadeIn .28s cubic-bezier(.22,1,.36,1) both}
 .panel.fasi-focus{padding-bottom:75vh}
@@ -263,15 +309,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 body{padding-bottom:env(safe-area-inset-bottom)}
 }
 @media print{
-.no-print,.tabbar,.topbar,header,.tabs{display:none!important}
+.no-print,.tabbar,.topbar,header,.tabs,#fc-footer,#adsense-bottom-wrap{display:none!important}
 body{background:#fff!important}
 .card{break-inside:avoid;box-shadow:none!important;border-color:#ccc}
 }
 @media(max-width:600px){
 header{padding:14px 16px}
 header h1{font-size:.9rem}
-.tabs{gap:0}
-.tab{padding:8px 12px;font-size:.68rem}
+.tabs{gap:4px}
+.tab{padding:8px 11px;font-size:.66rem}
 .panel{padding:12px 10px 40px}
 .cb{padding:14px}
 .btn{padding:12px 16px;font-size:.78rem}
@@ -288,6 +334,75 @@ header h1{font-size:.9rem}
 .pianta-btn,.fase-btn{min-height:48px}
 .cat-row{min-height:48px}
 input[type="number"],input[type="text"],select,textarea{min-height:44px}
+}
+.visually-hidden:where(:not(:focus-within,:active)){position:absolute!important;clip-path:inset(50%)!important;overflow:hidden!important;width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;border:0!important;white-space:nowrap!important}
+.guide-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:14px}
+.guide-flow-btn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;text-align:left;background:var(--cs);border:1.5px solid var(--bo);border-radius:var(--r);cursor:pointer;color:var(--tx);transition:var(--transition)}
+.guide-flow-btn:hover{background:#fff;border-color:var(--vc);transform:translateY(-2px);box-shadow:var(--sh)}
+.guide-flow-btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
+.guide-flow-num{font-family:var(--mono);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ar)}
+.guide-flow-lbl{font-size:.82rem;font-weight:700;color:var(--vs)}
+.guide-flow-sub{font-size:.7rem;color:var(--ts);line-height:1.4}
+.accordion{display:flex;flex-direction:column;gap:12px}
+.guide-item{background:var(--bl);border:1px solid var(--bo);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.guide-item>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;font-weight:700;font-size:.88rem;color:var(--vs);background:linear-gradient(135deg,#fbf9f4 0%,var(--cs) 100%);transition:background .18s ease}
+.guide-item>summary::-webkit-details-marker{display:none}
+.guide-item>summary::before{content:"▾";display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex-shrink:0;font-size:.85rem;color:var(--ar);transform:rotate(-90deg);transition:transform .2s ease}
+.guide-item[open]>summary::before{transform:rotate(0deg)}
+.guide-item>summary:hover{background:linear-gradient(135deg,#f3eee3 0%,#e6decb 100%)}
+.guide-item>summary:focus-visible{outline:2px solid var(--ar);outline-offset:-2px}
+.guide-num{font-family:var(--mono);font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--vs);color:var(--cr);flex-shrink:0}
+.guide-sum-title{flex:1;line-height:1.35}
+.guide-item::details-content{interpolate-size:allow-keywords;overflow:clip;contain:layout}
+.guide-item:not([open])::details-content{block-size:0}
+.guide-body{padding:16px 18px;font-size:.82rem;line-height:1.7;color:var(--tx);border-top:1px solid var(--cs)}
+.guide-body h4{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--vm);margin:14px 0 6px}
+.guide-body h4:first-child{margin-top:0}
+.guide-body p{margin-bottom:10px}
+.guide-body ul,.guide-body ol{margin:0 0 12px 20px}
+.guide-body li{margin-bottom:5px}
+.guide-cta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--bo)}
+.guide-table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:.76rem}
+.guide-table th{background:var(--cs);padding:8px 10px;text-align:left;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;color:var(--ts);border-bottom:2px solid var(--bo)}
+.guide-table td{padding:8px 10px;border-bottom:1px solid var(--cs);vertical-align:top}
+.gear-toolbar{display:flex;flex-direction:column;gap:10px;background:var(--cs);border:1px solid var(--bo);border-radius:var(--r);padding:12px;margin-bottom:14px}
+.gear-pills{display:flex;gap:6px;flex-wrap:wrap}
+.gear-pill{padding:6px 12px;font-size:.72rem;font-weight:600;border-radius:16px;border:1px solid var(--bo);background:#fff;color:var(--tx);cursor:pointer;transition:var(--transition)}
+.gear-pill:hover{border-color:var(--vc);color:var(--vm)}
+.gear-pill.active{background:var(--vs);color:#fff;border-color:var(--vs)}
+.gear-search-wrap{display:flex;gap:8px;align-items:center}
+.gear-search-wrap label{margin:0;white-space:nowrap}
+.gear-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:680px){.gear-grid{grid-template-columns:1fr 1fr}}
+.tool-card{display:flex;flex-direction:column;height:100%;margin-bottom:0;background:var(--bl);border:1px solid var(--bo);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:var(--transition)}
+.tool-card:hover{box-shadow:var(--sh-hover);transform:translateY(-2px)}
+.tool-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:linear-gradient(135deg,#fbf9f4 0%,var(--cs) 100%);border-bottom:1px solid var(--bo)}
+.tool-cat{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:var(--vs);color:var(--cr)}
+.tool-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:8px}
+.tool-title{font-size:.9rem;font-weight:700;color:var(--vs);line-height:1.3}
+.tool-desc{font-size:.78rem;color:var(--ts);line-height:1.55}
+.tool-specs{margin:2px 0 0 18px;font-size:.74rem;color:var(--tx);line-height:1.55}
+.tool-footer{padding:12px 14px;border-top:1px solid var(--cs);background:#fcfaf5;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.btn-amazon{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:var(--r);background:linear-gradient(135deg,#f3a847 0%,#d96a2b 100%);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:700;box-shadow:0 3px 10px rgba(217,106,43,.25);transition:var(--transition)}
+.btn-amazon:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(217,106,43,.35)}
+.btn-amazon:focus-visible{outline:2px solid var(--vs);outline-offset:2px}
+.btn-cat-buy{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:var(--r);font-family:var(--mono);font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--bo);color:var(--vm);background:#fff;transition:var(--transition);white-space:nowrap}
+.btn-cat-buy:hover{border-color:var(--ar);color:var(--ar)}
+.btn-cat-buy.reorder{background:linear-gradient(135deg,var(--ar) 0%,#bf551f 100%);color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(217,106,43,.28)}
+.gear-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:10px}
+.gear-mini{display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--bo);border-radius:var(--r);background:#fcfaf5}
+.gear-mini-t{font-size:.76rem;font-weight:700;color:var(--vs)}
+.gear-mini-d{font-size:.7rem;color:var(--ts);line-height:1.45}
+#fc-footer{width:100%;max-width:900px;margin:8px auto 72px;padding:0 12px}
+.fc-footer-box{background:rgba(255,255,255,.78);border:1px solid var(--bo);border-radius:var(--r);padding:14px 16px;font-size:.74rem;color:var(--ts);line-height:1.6}
+.fc-footer-links{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.fc-footer-link{background:none;border:1px solid var(--bo);border-radius:var(--r);padding:4px 10px;font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--vm);cursor:pointer;text-decoration:none;transition:var(--transition)}
+.fc-footer-link:hover{border-color:var(--vc);background:rgba(63,146,104,.08)}
+.adsense-slot-wrap{margin-bottom:14px;padding:10px;border:1px solid var(--bo);border-radius:var(--r);background:#fff;text-align:center}
+.adsense-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ts);margin-bottom:6px}
+@media(prefers-reduced-motion:no-preference){
+.guide-item>summary::before{transition:transform .2s ease}
+.guide-item::details-content{transition:block-size .25s ease-in-out,content-visibility .25s ease-in-out;transition-behavior:allow-discrete}
 }
 .lang-selector{display:flex;gap:0;border-radius:7px;overflow:hidden;border:1.5px solid rgba(255,255,255,.25);flex-shrink:0;margin-right:2px}
 .lang-btn{background:transparent;border:none;color:rgba(255,255,255,.55);font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.07em;padding:5px 10px;cursor:pointer;transition:var(--transition);text-transform:uppercase}
@@ -379,19 +494,168 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <span>📖</span>
 <div style="flex:1">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.76rem">
-<span id="howto-short"><b>① Acqua</b> → <b>② Scegli Coltura</b> → <b>③ Ottieni Ricetta A/B</b></span>
+<span id="howto-short"><b>📖 Guide</b> → <b>① Acqua</b> → <b>② Ricette</b> → <b>③ Calcola A/B</b> → <b>🛒 Attrezzatura</b></span>
 <span id="howto-arr" style="font-size:.68rem;opacity:.75;white-space:nowrap">▼</span>
 </div>
-<div id="howto-full" data-i18n-html="howto.text" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid rgba(26,82,118,.2)"><b>Come si usa.</b> FertiControl calcola le soluzioni madri concentrate (Serbatoi A/B/C) per la fertirrigazione partendo dalla tua acqua e dalla ricetta nutritiva.
-<b>① Acqua</b> — inserisci l'analisi dell'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali, EC/pH attesi e avvisi di precipitazione. <b>④ Catalogo</b> gestisci i fertilizzanti, <b>⑤ Dati</b> salva/esporta tutto.</div>
+<div id="howto-full" data-i18n-html="howto.text" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid rgba(26,82,118,.2)"><b>Come si usa.</b> Inizia dalle <b>📖 Guide</b> per capire il metodo, poi segui il flusso: <b>① Acqua</b> — inserisci l'analisi dell'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali per serbatoi A/B/C, EC/pH e avvisi di precipitazione. <b>④ Catalogo</b> — gestisci fertilizzanti, prezzi e scorte. <b>⑤ Attrezzatura</b> — strumenti e serbatoi consigliati. <b>⑥ Dati</b> — esporta/importa tutto.</div>
 </div>
 </div>
 <div class="tabs" role="tablist" aria-label="Menu principale">
-<div class="tab" role="tab" id="tabbtn-acqua" aria-selected="false" aria-controls="tab-acqua" tabindex="0" onclick="showTab('acqua')" onkeydown="if(event.key==='Enter'||event.key===' '){showTab('acqua');event.preventDefault()}" data-i18n="tab.acqua">💧 Acqua</div>
-<div class="tab active" role="tab" id="tabbtn-ricette" aria-selected="true" aria-controls="tab-ricette" tabindex="0" onclick="showTab('ricette')" onkeydown="if(event.key==='Enter'||event.key===' '){showTab('ricette');event.preventDefault()}" data-i18n="tab.ricette">🌿 Ricette</div>
-<div class="tab" role="tab" id="tabbtn-calcola" aria-selected="false" aria-controls="tab-calcola" tabindex="0" onclick="showTab('calcola')" onkeydown="if(event.key==='Enter'||event.key===' '){showTab('calcola');event.preventDefault()}" data-i18n="tab.calcola">⚗️ Calcola</div>
-<div class="tab" role="tab" id="tabbtn-catalogo" aria-selected="false" aria-controls="tab-catalogo" tabindex="0" onclick="showTab('catalogo')" onkeydown="if(event.key==='Enter'||event.key===' '){showTab('catalogo');event.preventDefault()}" data-i18n="tab.catalogo">📦 Catalogo</div>
-<div class="tab" role="tab" id="tabbtn-dati" aria-selected="false" aria-controls="tab-dati" tabindex="0" onclick="showTab('dati')" onkeydown="if(event.key==='Enter'||event.key===' '){showTab('dati');event.preventDefault()}" data-i18n="tab.dati">💾 Dati</div>
+<button type="button" class="tab active" role="tab" id="tabbtn-guide" data-tab="guide" aria-selected="true" tabindex="0" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
+<button type="button" class="tab" role="tab" id="tabbtn-acqua" data-tab="acqua" aria-selected="false" tabindex="-1" onclick="showTab('acqua')" data-i18n="tab.acqua">💧 Acqua</button>
+<button type="button" class="tab" role="tab" id="tabbtn-ricette" data-tab="ricette" aria-selected="false" tabindex="-1" onclick="showTab('ricette')" data-i18n="tab.ricette">🌿 Ricette</button>
+<button type="button" class="tab" role="tab" id="tabbtn-calcola" data-tab="calcola" aria-selected="false" tabindex="-1" onclick="showTab('calcola')" data-i18n="tab.calcola">⚗️ Calcola</button>
+<button type="button" class="tab" role="tab" id="tabbtn-catalogo" data-tab="catalogo" aria-selected="false" tabindex="-1" onclick="showTab('catalogo')" data-i18n="tab.catalogo">📦 Catalogo</button>
+<button type="button" class="tab" role="tab" id="tabbtn-attrezzatura" data-tab="attrezzatura" aria-selected="false" tabindex="-1" onclick="showTab('attrezzatura')" data-i18n="tab.attrezzatura">🛒 Attrezzatura</button>
+<button type="button" class="tab" role="tab" id="tabbtn-dati" data-tab="dati" aria-selected="false" tabindex="-1" onclick="showTab('dati')" data-i18n="tab.dati">💾 Dati</button>
+</div>
+<main id="main-content">
+<div class="panel active" id="tab-guide" role="tabpanel" aria-labelledby="tabbtn-guide">
+<div class="sec-h">
+<h2 data-i18n="guide.title">📖 Guide Pratiche alla Fertirrigazione</h2>
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')" data-i18n="guide.startBtn">💧 Inizia da Acqua →</button>
+</div>
+<div class="card">
+<div class="ch" data-i18n="guide.flowHeader">🧭 Percorso Consigliato in FertiControl</div>
+<div class="cb">
+<p style="font-size:.82rem;color:var(--ts);line-height:1.65;margin-bottom:12px" data-i18n="guide.flowIntro">
+Segui l'ordine naturale delle schede qui sotto: prima imposti l'acqua di partenza, poi scegli coltura e fase, calcoli le soluzioni madri A/B/C senza precipitati e infine controlli scorte e attrezzatura.
+</p>
+<div class="guide-flow">
+<button type="button" class="guide-flow-btn" onclick="showTab('acqua')">
+<span class="guide-flow-num" data-i18n="guide.step1.num">Passo 1 · Acqua</span>
+<span class="guide-flow-lbl" data-i18n="guide.step1.lbl">💧 Analisi Acqua</span>
+<span class="guide-flow-sub" data-i18n="guide.step1.sub">Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura.</span>
+</button>
+<button type="button" class="guide-flow-btn" onclick="showTab('ricette')">
+<span class="guide-flow-num" data-i18n="guide.step2.num">Passo 2 · Coltura</span>
+<span class="guide-flow-lbl" data-i18n="guide.step2.lbl">🌿 Scegli Ricetta</span>
+<span class="guide-flow-sub" data-i18n="guide.step2.sub">Seleziona pianta e fase (o imposta target mg/L).</span>
+</button>
+<button type="button" class="guide-flow-btn" onclick="showTab('calcola')">
+<span class="guide-flow-num" data-i18n="guide.step3.num">Passo 3 · Soluzioni Madri</span>
+<span class="guide-flow-lbl" data-i18n="guide.step3.lbl">⚗️ Calcola A/B/C</span>
+<span class="guide-flow-sub" data-i18n="guide.step3.sub">Ottieni grammi, acido, indici SI e scheda stampabile.</span>
+</button>
+<button type="button" class="guide-flow-btn" onclick="showTab('attrezzatura')">
+<span class="guide-flow-num" data-i18n="guide.step4.num">Passo 4 · Impianto</span>
+<span class="guide-flow-lbl" data-i18n="guide.step4.lbl">🛒 Attrezzatura</span>
+<span class="guide-flow-sub" data-i18n="guide.step4.sub">pHmetro, EC-metro, bilance 0,01 g, serbatoi e pompe.</span>
+</button>
+</div>
+</div>
+</div>
+<section class="accordion" id="guides-accordion" aria-labelledby="guides-acc-heading">
+<div class="sec-h" style="margin-bottom:4px">
+<h3 id="guides-acc-heading" style="font-family:var(--disp);font-size:.88rem;color:var(--vs);text-transform:uppercase;letter-spacing:.04em" data-i18n="guide.seoHeading">📚 5 Guide Tecniche Complete</h3>
+<button type="button" class="btn btn-se btn-sm" id="btn-guides-toggle-all" aria-expanded="false" onclick="toggleAllGuides()" data-i18n="guide.expandAll">Espandi tutte</button>
+</div>
+<div id="guides-list">
+<details class="guide-item" open>
+<summary><span class="guide-num">01</span><span class="guide-sum-title">Come funziona FertiControl: guida passo-passo dall'analisi dell'acqua alle soluzioni madri</span></summary>
+<div class="guide-body">
+<h4>Perché non basta copiare una tabella di dosi</h4>
+<p>Ogni acqua di pozzo o acquedotto contiene già calcio (Ca²⁺), magnesio (Mg²⁺), solfati (SO₄²⁻) e bicarbonati (HCO₃⁻). Se applichi una ricetta pensata per acqua osmotica su un'acqua dura senza compensare, rischi squilibri ionici, EC fuori scala e precipitazione di gesso o fosfati nei gocciolatori.</p>
+<h4>Il flusso operativo in 4 passaggi</h4>
+<ol>
+<li><strong>Imposta l'acqua in 💧 Acqua:</strong> inserisci i valori di laboratorio (oppure scegli un preset tra Osmosi, Acquedotto medio, Acqua dura, Piovana) e salva il profilo.</li>
+<li><strong>Seleziona coltura e fase in 🌿 Ricette:</strong> scegli una delle 11 colture predefinite in coco coir oppure clona e personalizza una ricetta in <em>grammi/1000 L</em> o in <em>modalità Target mg/L</em>.</li>
+<li><strong>Calcola le soluzioni madri in ⚗️ Calcola:</strong> imposta i volumi dei serbatoi A e B (es. 100 L), il fattore di diluizione (<code>1:100</code> o <code>1:50</code>) e il pH target (default <code>5.8</code>). Il motore sottrae i minerali dell'acqua, dimensiona l'acido e separa i sali incompatibili.</li>
+<li><strong>Verifica scorta e stampa la scheda:</strong> in <strong>📦 Catalogo</strong> spunta solo i fertilizzanti che hai in magazzino per far ricalcolare al solver solo ciò che possiedi, poi stampa la scheda operativa A/B/C.</li>
+</ol>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Vai ad Acqua</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('ricette')">🌿 Vai alle Ricette</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">02</span><span class="guide-sum-title">Come preparare soluzioni madri A, B e C senza precipitati (separazione Ca, fosfati e solfati)</span></summary>
+<div class="guide-body">
+<h4>La regola d'oro della compatibilità chimica</h4>
+<p>Nei serbatoi concentrati (50×–200×) la concentrazione degli ioni supera facilmente i limiti di solubilità. Se il <strong>Calcio (Ca²⁺)</strong> entra in contatto concentrato con <strong>Fosfati (H₂PO₄⁻)</strong> o <strong>Solfati (SO₄²⁻)</strong>, precipita sul fondo formando fanghi bianchi insolubili (<em>brushite CaHPO₄</em>, <em>gesso CaSO₄</em>) che sottraggono nutrienti e bloccano gli ugelli.</p>
+<table class="guide-table">
+<caption>Ripartizione standard dei serbatoi concentrati A, B e C</caption>
+<thead><tr><th scope="col">Serbatoio</th><th scope="col">Sali compatibili</th><th scope="col">Da tenere separato</th></tr></thead>
+<tbody>
+<tr><td><strong>Serbatoio A</strong></td><td>Nitrato di Potassio (KNO₃), MKP (KH₂PO₄), MAP, Solfato di Magnesio (MgSO₄), Solfato di Potassio (K₂SO₄), chelati Fe/micro, acidi (HNO₃/H₃PO₄/H₂SO₄)</td><td>Mai Calcio (CaN / CaCl₂) né Silicati/KOH</td></tr>
+<tr><td><strong>Serbatoio B</strong></td><td>Nitrato di Calcio Ca(NO₃)₂, Cloruro di Calcio CaCl₂, eventuale Nitrato di Magnesio (MgNO₃)</td><td>Mai fosfati, mai solfati, mai silicato</td></tr>
+<tr><td><strong>Serbatoio C</strong></td><td>Silicato di Potassio (K₂SiO₃, pH ~11–12), Idrossido di Potassio (KOH) o sali incompatibili isolati</td><td>Mai acidi, mai Ca/Mg, mai chelati Fe</td></tr>
+</tbody>
+</table>
+<h4>Ordine corretto di scioglimento</h4>
+<ol>
+<li>Riempi ogni serbatoio all'<strong>80% del volume finale</strong> con acqua pulita (meglio se tiepida 20–25 °C per sali come K₂SO₄ e KNO₃).</li>
+<li>In <strong>Serbatoio A</strong>: aggiungi prima l'eventuale acido (con DPI!), poi <strong>chelati Fe/micro → nitrati → fosfati → solfati</strong>, attendendo la completa dissoluzione tra un sale e il successivo.</li>
+<li>In <strong>Serbatoio B</strong>: sciogli il Nitrato di Calcio lentamente sotto agitazione continua.</li>
+<li>Porta entrambi a volume finale (100%) e <strong>non miscelare mai i concentrati direttamente</strong>: vanno iniettati separatamente nella linea idrica.</li>
+<li>Attenzione al <strong>raffreddamento notturno (10 °C)</strong>: se prepari madri a <code>1:200</code> con molto K₂SO₄ o KNO₃, abbassa la diluizione a <code>1:100</code> o <code>1:50</code> per evitare cristallizzazioni sul fondo.</li>
+</ol>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('calcola')">⚗️ Prova nel Calcolatore</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ Vedi Serbatoi &amp; Miscelatori</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">03</span><span class="guide-sum-title">Controllo pH, alcalinità (HCO₃⁻) e scelta dell'acido: HNO₃, H₃PO₄, Mix o H₂SO₄</span></summary>
+<div class="guide-body">
+<h4>Perché i bicarbonati fanno salire il pH</h4>
+<p>I bicarbonati (<strong>HCO₃⁻</strong>) presenti nell'acqua agiscono da tampone alcalino: finché restano sopra <code>50–60 mg/L</code> (circa 0,8–1,0 meq/L), spingono il pH oltre 6,5–7,5, riducendo l'assorbimento di Fosforo, Ferro, Manganese e Zinco e favorendo precipitazioni di carbonato di calcio (calcite CaCO₃) e fosfati di calcio (ACP/OCP).</p>
+<h4>Quale acido scegliere in FertiControl</h4>
+<ul>
+<li><strong>HNO₃ 38% (Acido Nitrico):</strong> neutralizza HCO₃⁻ apportando <strong>Azoto nitrico (N-NO₃)</strong>. È spesso la prima scelta in vegetativa e per acque medio-dure, perché FertiControl riduce automaticamente i nitrati in ricetta.</li>
+<li><strong>H₃PO₄ 75% (Acido Fosforico):</strong> apporta <strong>Fosforo (P)</strong> ed è più sicuro da maneggiare dell'HNO₃, ma in acque molto alcaline (HCO₃⁻ &gt; 200 mg/L) può fornire troppo P e saturare <code>CaHPO₄</code>.</li>
+<li><strong>Mix automatico (H₃PO₄ + HNO₃):</strong> usa acido fosforico solo fino a coprire il target di P della ricetta, completando la neutralizzazione con acido nitrico.</li>
+<li><strong>H₂SO₄ 38% (Acido Solforico):</strong> apporta solo <strong>Zolfo (S)</strong> senza aggiungere N né P — ideale in fioritura o fine ciclo con acque ricche di bicarbonati.</li>
+</ul>
+<h4>Stabilità dei chelati di Ferro e ruolo dell'ammonio</h4>
+<p>A pH <code>5.5–6.2</code> in cocco <strong>Fe-EDTA</strong> è stabile (purché Ca non sia eccessivo), mentre sopra pH <code>6.5</code> conviene passare a <strong>Fe-DTPA</strong> (fino a pH 7,0) o <strong>Fe-EDDHA</strong> (fino a pH 9). Mantenere l'azoto ammoniacale (<strong>NH₄⁺ ≤ 10%</strong> dell'N totale) stabilizza lievemente il pH in zona radicale senza indurre tossicità.</p>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Inserisci HCO₃⁻ e pH</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pHmetri &amp; DPI Acidi</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">04</span><span class="guide-sum-title">Fertirrigazione in fibra di cocco (Coco Coir): dosi di Nitrato di Calcio, EC e rapporti Ca/Mg/K</span></summary>
+<div class="guide-body">
+<h4>La particolarità chimica del Coco Coir</h4>
+<p>A differenza della lana di roccia (inerte), la fibra di cocco possiede una <strong>Capacità di Scambio Cationico (CSC)</strong> naturale: tende a trattenere <strong>Ca²⁺ e Mg²⁺</strong> e a rilasciare <strong>K⁺ e Na⁺</strong> se non è correttamente lavata e tamponata. Per questo le ricette in cocco richiedono un apporto costante e bilanciato di Calcio e Magnesio fin dal trapianto.</p>
+<h4>Dosi orientative di Nitrato di Calcio e rapporti chiave</h4>
+<ul>
+<li><strong>Radicamento / Plantula (EC 0,8–1,2 mS/cm):</strong> target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L di <em>Ca(NO₃)₂·4H₂O</em> in acqua osmotica, meno quanto già presente in acqua).</li>
+<li><strong>Crescita vegetativa (EC 1,6–2,2 mS/cm):</strong> target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) con rapporto <code>K/Ca ≈ 1,3–1,8</code>.</li>
+<li><strong>Fioritura / Fruttificazione (EC 2,2–3,0 mS/cm):</strong> target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) per prevenire marciume apicale (BER) e tip-burn.</li>
+<li><strong>Ca(NO₃)₂·4H₂O vs Calcinit commerciale:</strong> FertiControl usa di default il profilo puro <code>N 11,8% · Ca 17%</code>; se usi Calcinit commerciale (<code>N 15,5%</code> con ~1,1% NH₄⁺, <code>Ca 19%</code>), aggiorna i valori direttamente in <strong>📦 Catalogo</strong>.</li>
+<li><strong>Monitoraggio drenaggio (run-off 15–20%):</strong> misura regolarmente EC e pH dello scolo. In cocco sano l'EC di drenaggio resta entro <code>EC input + 0,5–1,0 mS/cm</code>.</li>
+</ul>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('ricette')">🌿 Esplora le 11 Colture</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configura CaN in Catalogo</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">05</span><span class="guide-sum-title">Che attrezzatura comprare: guida a pHmetro, EC-metro, bilance 0,01 g, serbatoi e miscelatori</span></summary>
+<div class="guide-body">
+<h4>Gli strumenti che fanno la differenza sulla precisione</h4>
+<p>Un calcolo termodinamico perfetto serve a poco se pesi <code>0,12 g</code> di molibdato di sodio con una bilancia da cucina o dosi acido con un pHmetro starato. Ecco i criteri tecnici minimi per attrezzare la stanza miscela senza spendere troppo:</p>
+<ul>
+<li><strong>pHmetro con ATC e sonda sostituibile:</strong> cerca la calibrazione automatica a 2 punti (<code>pH 4,01 / 7,01</code>) e tieni sempre la sonda immersa in soluzione KCl (mai in acqua distillata).</li>
+<li><strong>EC-metro in mS/cm (0–10+ mS/cm):</strong> fondamentale per controllare sia l'acqua di partenza sia lo scolo del vaso; abbinalo a soluzione standard <code>1413 µS/cm</code> (o 12,88 mS/cm per soluzioni concentrate).</li>
+<li><strong>Doppia bilancia (0,01 g + 0,1 g):</strong> una micro-bilancia tascabile da <code>0,01 g</code> (portata 100–500 g) per chelati, acido borico, zinco, rame e molibdeno; una bilancia da <code>0,1 g / 3–5 kg</code> per nitrato di calcio, nitrato di potassio e solfati.</li>
+<li><strong>Serbatoi A, B e C in HDPE opaco alimentare:</strong> taniche o fusti non trasparenti per bloccare la luce (niente alghe) e resistere a soluzioni saline e acide.</li>
+<li><strong>Miscelazione e iniezione:</strong> un agitatore elettrico/frusta o una pompa di ricircolo per sciogliere K₂SO₄ senza grumi; dosatori Venturi o pompe peristaltiche per automatizzare l'iniezione A/B.</li>
+<li><strong>Sicurezza obbligatoria:</strong> guanti in nitrile spessi, occhiali antispruzzo e cilindri/pipette graduati in polipropilene (PP) quando maneggi acidi o KOH.</li>
+</ul>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Vai alla sezione Attrezzatura &amp; Acquisti →</button>
+</div>
+</div>
+</details>
+</div>
+</section>
 </div>
 <div class="panel" id="tab-acqua" role="tabpanel" aria-labelledby="tabbtn-acqua">
 <div class="card">
@@ -444,7 +708,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 </div>
 </div>
-<div class="panel active" id="tab-ricette" role="tabpanel" aria-labelledby="tabbtn-ricette">
+<div class="panel" id="tab-ricette" role="tabpanel" aria-labelledby="tabbtn-ricette">
 <div class="sec-h">
 <h4 data-i18n="ricette.title">🌿 Le tue Ricette</h4>
 <button class="btn btn-se btn-sm" onclick="openNuovaRicetta()" aria-label="Crea una nuova ricetta" data-i18n="ricette.nuova">+ Nuova Ricetta</button>
@@ -579,6 +843,26 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 </div>
 <div id="catalogo-list"></div>
 </div>
+<div class="panel" id="tab-attrezzatura" role="tabpanel" aria-labelledby="tabbtn-attrezzatura">
+<div class="sec-h">
+<h2 data-i18n="attr.title">🛒 Attrezzatura &amp; Strumenti Consigliati</h2>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('guide')" data-i18n="attr.toGuide">📖 Guida alla scelta</button>
+</div>
+<div class="alert al-inf" style="margin-bottom:12px">
+<span>ℹ️</span>
+<div>
+<div data-i18n-html="attr.disclosure"><strong>Trasparenza affiliazione:</strong> In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei. I prezzi e la disponibilità sono aggiornati direttamente su Amazon al momento del clic, senza alcun costo aggiuntivo per te.</div>
+</div>
+</div>
+<div class="gear-toolbar">
+<div class="gear-pills" id="gear-pills" role="group" aria-label="Categorie attrezzatura"></div>
+<div class="gear-search-wrap">
+<label for="attr-search" data-i18n="attr.searchLbl">Cerca</label>
+<input type="text" id="attr-search" oninput="setAttrezzaturaQuery(this.value)" data-i18n-placeholder="attr.searchPh" placeholder="Es. pHmetro, bilancia 0.01, serbatoio, miscelatore…">
+</div>
+</div>
+<div id="attrezzatura-grid" class="gear-grid"></div>
+</div>
 <div class="panel" id="tab-dati" role="tabpanel" aria-labelledby="tabbtn-dati">
 <div class="sec-h"><h4 data-i18n="dati.title">💾 Gestione Dati</h4></div>
 <div class="card">
@@ -639,7 +923,7 @@ Ripristina il catalogo ai valori predefiniti ed elimina tutte le ricette persona
 <div class="ch" style="background:#0070ba" data-i18n="dati.supporta">💙 Supporta FertiControl</div>
 <div class="cb" style="text-align:center">
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:14px" data-i18n="dati.supportaDesc">
-FertiControl è gratuito e senza pubblicità. Se ti è utile, puoi offrire un contributo per sostenerne lo sviluppo. Grazie!
+FertiControl è gratuito. Puoi sostenerne lo sviluppo usando i link Amazon consigliati nella scheda Attrezzatura (senza costi extra) oppure offrendo un contributo via PayPal. Grazie!
 </p>
 <a href="https://www.paypal.com/pool/9qahEDqMn4?sr=accr" target="_blank" rel="noopener noreferrer"
 style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-weight:700;font-size:.9rem;box-shadow:0 2px 6px rgba(0,112,186,.3)" data-i18n="dati.dona">
@@ -648,6 +932,34 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </div>
 </div>
 </div>
+</main>
+<footer id="fc-footer" class="no-print">
+<div id="adsense-bottom-wrap" class="adsense-slot-wrap" hidden>
+<div class="adsense-label" data-i18n="footer.adLabel">Spazio sponsorizzato</div>
+<div id="adsense-bottom-container"></div>
+</div>
+<div class="fc-footer-box">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+<strong style="color:var(--vs)">🌿 FertiControl v2.4</strong>
+<span data-i18n="footer.affiliate">In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.</span>
+</div>
+<div class="fc-footer-links">
+<button type="button" class="fc-footer-link" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
+<button type="button" class="fc-footer-link" onclick="showTab('acqua')" data-i18n="tab.acqua">💧 Acqua</button>
+<button type="button" class="fc-footer-link" onclick="showTab('ricette')" data-i18n="tab.ricette">🌿 Ricette</button>
+<button type="button" class="fc-footer-link" onclick="showTab('calcola')" data-i18n="tab.calcola">⚗️ Calcola</button>
+<button type="button" class="fc-footer-link" onclick="showTab('catalogo')" data-i18n="tab.catalogo">📦 Catalogo</button>
+<button type="button" class="fc-footer-link" onclick="showTab('attrezzatura')" data-i18n="tab.attrezzatura">🛒 Attrezzatura</button>
+<button type="button" class="fc-footer-link" onclick="showTab('dati')" data-i18n="tab.dati">💾 Dati</button>
+</div>
+<details style="margin-top:6px">
+<summary style="cursor:pointer;font-weight:600;color:var(--vm)" data-i18n="footer.privacyTitle">Privacy, Cookie e Dati Locali</summary>
+<p style="margin-top:6px" data-i18n="footer.privacyBody">
+I calcoli, le ricette personalizzate, l'analisi dell'acqua e l'inventario restano salvati esclusivamente nel localStorage del tuo browser. I link Amazon rimandano ad Amazon solo quando ci clicchi. Eventuali annunci Google AdSense vengono attivati solo su dominio configurato e previo consenso GDPR.
+</p>
+</details>
+</div>
+</footer>
 <div class="modal-bg" id="modal-ing" role="dialog" aria-modal="true" aria-labelledby="modal-ing-title">
 <div class="modal">
 <div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra">✕</button></div>
@@ -723,12 +1035,43 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 const TRANSLATIONS = {
 it: {
 'header.subtitle': '— Calcolatore soluzioni madri per fertirrigazione ',
-'howto.text': '<b>Come si usa.</b> FertiControl calcola le soluzioni madri concentrate (Serbatoi A/B/C) per la fertirrigazione partendo dalla tua acqua e dalla ricetta nutritiva. <b>① Acqua</b> — inserisci l\'analisi dell\'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali, EC/pH attesi e avvisi di precipitazione. <b>④ Catalogo</b> gestisci i fertilizzanti, <b>⑤ Dati</b> salva/esporta tutto.',
+'howto.text': '<b>Come si usa.</b> Inizia dalle <b>📖 Guide</b> per capire il metodo, poi segui il flusso: <b>① Acqua</b> — inserisci l\'analisi dell\'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali per serbatoi A/B/C, EC/pH e avvisi di precipitazione. <b>④ Catalogo</b> — gestisci fertilizzanti, prezzi e scorte. <b>⑤ Attrezzatura</b> — strumenti e serbatoi consigliati. <b>⑥ Dati</b> — esporta/importa tutto.',
+'tab.guide': '📖 Guide',
 'tab.acqua': '💧 Acqua',
 'tab.ricette': '🌿 Ricette',
 'tab.calcola': '⚗️ Calcola',
 'tab.catalogo': '📦 Catalogo',
+'tab.attrezzatura': '🛒 Attrezzatura',
 'tab.dati': '💾 Dati',
+'guide.title': '📖 Guide Pratiche alla Fertirrigazione',
+'guide.startBtn': '💧 Inizia da Acqua →',
+'guide.flowHeader': '🧭 Percorso Consigliato in FertiControl',
+'guide.flowIntro': 'Segui l\'ordine naturale delle schede qui sotto: prima imposti l\'acqua di partenza, poi scegli coltura e fase, calcoli le soluzioni madri A/B/C senza precipitati e infine controlli scorte e attrezzatura.',
+'guide.step1.num': 'Passo 1 · Acqua',
+'guide.step1.lbl': '💧 Analisi Acqua',
+'guide.step1.sub': 'Inserisci EC, pH, Ca, Mg, HCO₃⁻ e temperatura.',
+'guide.step2.num': 'Passo 2 · Coltura',
+'guide.step2.lbl': '🌿 Scegli Ricetta',
+'guide.step2.sub': 'Seleziona pianta e fase (o imposta target mg/L).',
+'guide.step3.num': 'Passo 3 · Soluzioni Madri',
+'guide.step3.lbl': '⚗️ Calcola A/B/C',
+'guide.step3.sub': 'Ottieni grammi, acido, indici SI e scheda stampabile.',
+'guide.step4.num': 'Passo 4 · Impianto',
+'guide.step4.lbl': '🛒 Attrezzatura',
+'guide.step4.sub': 'pHmetro, EC-metro, bilance 0,01 g, serbatoi e pompe.',
+'guide.seoHeading': '📚 5 Guide Tecniche Complete',
+'guide.expandAll': 'Espandi tutte',
+'guide.collapseAll': 'Comprimi tutte',
+'attr.title': '🛒 Attrezzatura & Strumenti Consigliati',
+'attr.toGuide': '📖 Guida alla scelta',
+'attr.disclosure': '<strong>Trasparenza affiliazione:</strong> In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei. I prezzi e la disponibilità sono aggiornati direttamente su Amazon al momento del clic, senza alcun costo aggiuntivo per te.',
+'attr.searchLbl': 'Cerca',
+'attr.searchPh': 'Es. pHmetro, bilancia 0.01, serbatoio, miscelatore…',
+'attr.empty': 'Nessuno strumento trovato per questo filtro. Prova a cambiare categoria o parola chiave.',
+'footer.adLabel': 'Spazio sponsorizzato',
+'footer.affiliate': 'In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.',
+'footer.privacyTitle': 'Privacy, Cookie e Dati Locali',
+'footer.privacyBody': 'I calcoli, le ricette personalizzate, l\'analisi dell\'acqua e l\'inventario restano salvati esclusivamente nel localStorage del tuo browser. I link Amazon rimandano ad Amazon solo quando ci clicchi. Eventuali annunci Google AdSense vengono attivati solo su dominio configurato e previo consenso GDPR.',
 'acqua.title': '💧 Acqua di Partenza',
 'acqua.subtitle': '(acquedotto / pozzo / osmosi)',
 'acqua.info': 'Inserisci l\'analisi della tua acqua. FertiControl sottrarrà automaticamente i minerali già presenti e segnala rischi di precipitazione anche nel concentrato.',
@@ -803,7 +1146,7 @@ it: {
 'dati.ricettePers': 'Ricette personalizzate',
 'dati.ricettePred': 'Ricette predefinite',
 'dati.supporta': '💙 Supporta FertiControl',
-'dati.supportaDesc': 'FertiControl è gratuito e senza pubblicità. Se ti è utile, puoi offrire un contributo per sostenerne lo sviluppo. Grazie!',
+'dati.supportaDesc': 'FertiControl è gratuito. Puoi sostenerne lo sviluppo usando i link Amazon consigliati nella scheda Attrezzatura (senza costi extra) oppure offrendo un contributo via PayPal. Grazie!',
 'dati.dona': '☕ Dona con PayPal',
 'modal.ing.title': '✏️ Nuovo Ingrediente',
 'modal.ing.nome': 'Nome prodotto',
@@ -926,12 +1269,43 @@ it: {
 },
 en: {
 'header.subtitle': '— Mother solution calculator for fertigation ',
-'howto.text': '<b>How to use.</b> FertiControl calculates concentrated mother solutions (Tanks A/B/C) for fertigation based on your water and nutrient recipe. <b>① Water</b> — enter your water analysis. <b>② Recipes</b> — choose or create a recipe and growth stage. <b>③ Calculate</b> — get salt doses, expected EC/pH and precipitation warnings. <b>④ Catalog</b> manages fertilizers, <b>⑤ Data</b> saves/exports everything.',
+'howto.text': '<b>How to use.</b> Start from <b>📖 Guides</b> to follow the method, then move step-by-step: <b>① Water</b> — enter your source water analysis. <b>② Recipes</b> — pick or create a crop stage. <b>③ Calculate</b> — get Tank A/B/C salt doses, expected EC/pH and precipitation alerts. <b>④ Catalog</b> — manage salts, prices and stock. <b>⑤ Gear & Tools</b> — recommended meters, tanks and mixers. <b>⑥ Data</b> — export/import.',
+'tab.guide': '📖 Guides',
 'tab.acqua': '💧 Water',
 'tab.ricette': '🌿 Recipes',
 'tab.calcola': '⚗️ Calculate',
 'tab.catalogo': '📦 Catalog',
+'tab.attrezzatura': '🛒 Gear & Tools',
 'tab.dati': '💾 Data',
+'guide.title': '📖 Practical Fertigation Guides',
+'guide.startBtn': '💧 Start from Water →',
+'guide.flowHeader': '🧭 Recommended FertiControl Workflow',
+'guide.flowIntro': 'Follow the natural order of the tabs below: first set your source water, choose crop and growth stage, calculate precipitate-free A/B/C mother solutions, then verify stock and equipment.',
+'guide.step1.num': 'Step 1 · Water',
+'guide.step1.lbl': '💧 Water Analysis',
+'guide.step1.sub': 'Enter EC, pH, Ca, Mg, HCO₃⁻ and temperature.',
+'guide.step2.num': 'Step 2 · Crop',
+'guide.step2.lbl': '🌿 Pick Recipe',
+'guide.step2.sub': 'Select crop & growth stage (or mg/L targets).',
+'guide.step3.num': 'Step 3 · Stock Tanks',
+'guide.step3.lbl': '⚗️ Calculate A/B/C',
+'guide.step3.sub': 'Get grams, acid dose, SI indices and print sheet.',
+'guide.step4.num': 'Step 4 · Setup',
+'guide.step4.lbl': '🛒 Gear & Tools',
+'guide.step4.sub': 'pH/EC meters, 0.01 g scales, tanks and dosing pumps.',
+'guide.seoHeading': '📚 5 Complete Technical Guides',
+'guide.expandAll': 'Expand all',
+'guide.collapseAll': 'Collapse all',
+'attr.title': '🛒 Recommended Gear & Tools',
+'attr.toGuide': '📖 Buying guide',
+'attr.disclosure': '<strong>Affiliate disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. Prices and availability are checked live on Amazon when you click, at no extra cost to you.',
+'attr.searchLbl': 'Search',
+'attr.searchPh': 'E.g. pH meter, 0.01g scale, tank, mixer…',
+'attr.empty': 'No tools match this filter. Try another category or keyword.',
+'footer.adLabel': 'Sponsored',
+'footer.affiliate': 'As an Amazon Associate, I earn from qualifying purchases.',
+'footer.privacyTitle': 'Privacy, Cookies & Local Storage',
+'footer.privacyBody': 'Calculations, custom recipes, water profiles and stock are stored exclusively in your browser localStorage. Amazon links only navigate to Amazon when clicked. Any Google AdSense units are loaded only on a configured domain after GDPR consent.',
 'acqua.title': '💧 Source Water',
 'acqua.subtitle': '(tap / well / reverse osmosis)',
 'acqua.info': 'Enter your water analysis. FertiControl will automatically subtract minerals already present and flag precipitation risks in the concentrate.',
@@ -1006,7 +1380,7 @@ en: {
 'dati.ricettePers': 'Custom recipes',
 'dati.ricettePred': 'Built-in recipes',
 'dati.supporta': '💙 Support FertiControl',
-'dati.supportaDesc': 'FertiControl is free and ad-free. If you find it useful, you can contribute to support its development. Thank you!',
+'dati.supportaDesc': 'FertiControl is free. You can support its development by using the recommended Amazon links in Gear & Tools (at no extra cost) or donating via PayPal. Thank you!',
 'dati.dona': '☕ Donate via PayPal',
 'modal.ing.title': '✏️ New Ingredient',
 'modal.ing.nome': 'Product name',
@@ -1180,8 +1554,10 @@ ingCat.options[1].textContent = t('cat.micro');
 ingCat.options[2].textContent = t('cat.ph');
 }
 const hs = document.getElementById('howto-short');
-if(hs) hs.innerHTML = currentLang==='en' ? '<b>① Water</b> → <b>② Pick Crop</b> → <b>③ Get A/B Recipe</b>' : '<b>① Acqua</b> → <b>② Scegli Coltura</b> → <b>③ Ottieni Ricetta A/B</b>';
+if(hs) hs.innerHTML = currentLang==='en' ? '<b>📖 Guides</b> → <b>① Water</b> → <b>② Recipes</b> → <b>③ Calculate A/B</b> → <b>🛒 Gear</b>' : '<b>📖 Guide</b> → <b>① Acqua</b> → <b>② Ricette</b> → <b>③ Calcola A/B</b> → <b>🛒 Attrezzatura</b>';
 if(typeof updateSaliPrepBadge==='function') updateSaliPrepBadge();
+if(typeof renderGuidesLang==='function') renderGuidesLang();
+if(typeof renderAttrezzatura==='function') renderAttrezzatura();
 }
 const MM={Ca:40.078,Mg:24.305,K:39.098,N:14.007,Na:22.990,Cl:35.453,S:32.06,P:30.974,Si:28.085,
 Fe:55.845,Mn:54.938,Zn:65.38,B:10.811,Cu:63.546,Mo:95.95};
@@ -2438,12 +2814,25 @@ const prevId = prevPanel ? prevPanel.id.replace(/^tab-/, '') : null;
 fcCancelScroll();
 if(prevId && prevId !== id) _tabScrollY[prevId] = window.scrollY || window.pageYOffset || 0;
 document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-document.querySelectorAll('.tab').forEach(t=>{ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+document.querySelectorAll('.tab').forEach(t=>{ t.classList.remove('active'); t.setAttribute('aria-selected','false'); t.setAttribute('tabindex','-1'); });
 const nextPanel = document.getElementById('tab-'+id);
 if(nextPanel) nextPanel.classList.add('active');
-const tab=document.querySelector('.tab[aria-controls="tab-'+id+'"]');
-if(tab){ tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
+const tab=document.querySelector('.tab[data-tab="'+id+'"]') || document.getElementById('tabbtn-'+id);
+if(tab){
+tab.classList.add('active'); tab.setAttribute('aria-selected','true'); tab.setAttribute('tabindex','0');
+const tabBar = document.querySelector('.tabs');
+if(tabBar){
+const barRect = tabBar.getBoundingClientRect();
+const tabRect = tab.getBoundingClientRect();
+if(tabRect.left < barRect.left + 8) tabBar.scrollLeft -= (barRect.left + 12 - tabRect.left);
+else if(tabRect.right > barRect.right - 8) tabBar.scrollLeft += (tabRect.right - (barRect.right - 12));
+}
+}
 if(id==='ricette' && piantaSel && faseSel) fcPreserveScroll(()=>renderRicettaOut(piantaSel, faseSel, tipoRicettaSel));
+if(id==='attrezzatura'){
+if(opts.category && typeof setAttrezzaturaCat==='function') setAttrezzaturaCat(opts.category);
+else if(typeof renderAttrezzatura==='function') renderAttrezzatura();
+}
 if(id==='dati'||id==='catalogo') setTimeout(aggiornaStat,0);
 const anchor = fcTabsAnchor();
 const curY = window.scrollY || window.pageYOffset || 0;
@@ -2459,6 +2848,26 @@ window.scrollTo(0, Math.min(anchor, fcMaxScroll()));
 }
 }
 }
+(function(){
+const tabList = document.querySelector('.tabs[role="tablist"]');
+if(!tabList) return;
+tabList.addEventListener('keydown', e => {
+const tabs = [...tabList.querySelectorAll('.tab[role="tab"]')];
+const idx = tabs.indexOf(document.activeElement);
+if(idx < 0) return;
+let next = -1;
+if(e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+else if(e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+else if(e.key === 'Home') next = 0;
+else if(e.key === 'End') next = tabs.length - 1;
+if(next < 0) return;
+e.preventDefault();
+const targetTab = tabs[next];
+const targetId = targetTab.dataset.tab;
+if(targetId) showTab(targetId);
+targetTab.focus({ preventScroll: true });
+});
+})();
 function saveCatalogo(){ try{ localStorage.setItem('fc_catalogo', JSON.stringify(catalogo)); }catch(e){ console.warn('Salvataggio catalogo fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 function saveRicette(){ try{ localStorage.setItem('fc_ricette', JSON.stringify(ricetteCustom)); }catch(e){ console.warn('Salvataggio ricette fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 function openModal(id){ var el=document.getElementById(id); if(!el) return; el.classList.remove('closing'); el.classList.add('open'); }
@@ -5259,6 +5668,13 @@ html+=`<div><div class="no-print" style="display:flex;gap:8px;margin:16px 0 12px
   </div>
   <div id="info-tecniche" style="display:none;margin-bottom:24px"></div></div>`;
 html+=`</div>`;
+if(typeof renderCalcGearStrip==='function'){
+html+=renderCalcGearStrip({
+hasMicro: wRighe.some(r => getSale(r.id)?.cat === 'micro'),
+hasAcid: !!(acidoCalc && ((acidoCalc.volHNO3||0) > 0 || (acidoCalc.volH3PO4||0) > 0 || (acidoCalc.volH2SO4||0) > 0)),
+usesSerbC: !!usaSerbC
+});
+}
 const _prevCalcScrollY = window.scrollY || window.pageYOffset || 0;
 const _actEl = document.activeElement;
 const _wasVolC = !!(_actEl && _actEl.id === 'volC');
@@ -5882,8 +6298,13 @@ legendDiv.innerHTML=t('catalogo.legenda');
 wrap.appendChild(legendDiv);
 const invBar=document.createElement('div');
 invBar.id='catalogo-inv-bar';
-invBar.style.cssText='background:var(--cs);border:1px solid var(--bo);border-radius:var(--r);padding:8px 12px;margin-bottom:12px';
+invBar.style.cssText='background:var(--cs);border:1px solid var(--bo);border-radius:var(--r);padding:8px 12px;margin-bottom:10px';
 wrap.appendChild(invBar);
+const affNote=document.createElement('div');
+affNote.className='alert al-inf no-print';
+affNote.style.cssText='margin-bottom:12px;font-size:.73rem;padding:8px 12px';
+affNote.innerHTML='<span>🛒</span><span>'+TT('<strong>Riordino rapido:</strong> i pulsanti <em>Acquista / Riordina</em> portano su Amazon. In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.','<strong>Quick reorder:</strong> <em>Buy / Reorder</em> buttons link to Amazon. As an Amazon Associate, I earn from qualifying purchases.')+'</span>';
+wrap.appendChild(affNote);
 let lastCat='';
 let currentGroup=null;
 catalogo.forEach((s,i)=>{
@@ -5909,6 +6330,9 @@ const c=CAT[s.cat]||{bg:'#555',label:'?'};
 const elStr=elPctList(s.el, ', ');
 const isCustom=!SALI_DEFAULT.find(x=>x.id===s.id);
 const pzStr=fmtPrezzoCat(s);
+const buyUrl=typeof getCatalogoAmazonUrl==='function' ? getCatalogoAmazonUrl(s) : '';
+const buyLbl=disp ? TT('Acquista','Buy') : TT('Riordina','Reorder');
+const buyLink=buyUrl ? `<a class="btn-cat-buy${disp?'':' reorder'} no-print" href="${esc(buyUrl)}" target="_blank" rel="sponsored nofollow noopener noreferrer"><span class="cat-buy-lbl">🛒 ${buyLbl}</span><span class="visually-hidden"> — ${esc(salNome(s))}</span></a>` : '';
 row.innerHTML=`
       <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;flex:1;min-width:0;margin:0">
         <input type="checkbox" class="flag-check" ${disp?'checked':''} onchange="toggleScortaUI('${s.id}',this.checked)" style="margin-top:2px">
@@ -5923,6 +6347,7 @@ row.innerHTML=`
         </div>
       </label>
       <div class="cat-actions" style="margin-left:6px">
+        ${buyLink}
         <button class="btn btn-se btn-sm" onclick="editIngrediente('${s.id}')">✏️</button>
         ${isCustom?`<button class="btn btn-del btn-sm" onclick="eliminaIngrediente('${s.id}')">🗑️</button>`:''}
       </div>`;
@@ -5937,7 +6362,15 @@ if(checked) scorta.add(id); else scorta.delete(id);
 saveScorta();
 const row=document.getElementById('cat-row-'+id);
 const badge=document.getElementById('badge-'+id);
-if(row){ row.className='cat-row '+(checked?'row-dispon':'row-manca'); }
+if(row){
+  row.className='cat-row '+(checked?'row-dispon':'row-manca');
+  const buyBtn=row.querySelector('.btn-cat-buy');
+  if(buyBtn){
+    buyBtn.classList.toggle('reorder', !checked);
+    const lblEl=buyBtn.querySelector('.cat-buy-lbl');
+    if(lblEl) lblEl.textContent='🛒 '+(checked?TT('Acquista','Buy'):TT('Riordina','Reorder'));
+  }
+}
 if(badge){ badge.className=checked?'badge-ok':'badge-no'; badge.textContent=checked?t('js.hoBadge'):t('js.mancaBadge'); }
 applicaFiltroCatalogoDOM();
 aggiornaStat();
@@ -6270,15 +6703,536 @@ renderRicetteCustom();
 aggiornaStat();
 showToast(t('js.toastReset'));
 }
+// ============================================================
+// MONETIZZAZIONE: CONFIGURAZIONE AFFILIAZIONE AMAZON & ADSENSE
+// ============================================================
+// 1. Sostituisci 'INSERISCI_TUO_TAG-21' con il tuo Store ID Amazon.it (es. 'ferticontrol-21').
+//    I campi opzionali (attrezzatura, catalogo, checklist) usali solo se hai creato
+//    ID di monitoraggio separati nella dashboard Amazon Associates; se vuoti usano 'default'.
+// 2. Per Google AdSense: dopo approvazione del dominio e attivazione CMP GDPR su AdSense,
+//    inserisci il tuo client 'ca-pub-...' e slotBottom e imposta enabled: true.
+const AFFILIATE_CONFIG = {
+  amazonDomainIt: 'www.amazon.it',
+  amazonDomainEn: 'www.amazon.com',
+  tags: {
+    default: 'INSERISCI_TUO_TAG-21',
+    attrezzatura: '',
+    catalogo: '',
+    checklist: ''
+  },
+  amazonTagEn: '',
+  adsense: {
+    enabled: false,
+    client: 'ca-pub-XXXXXXXXXXXXXXXX',
+    slotBottom: '0000000000'
+  }
+};
+const CATALOGO_AMAZON_QUERIES = {
+  CaN:     { it: 'nitrato di calcio fertilizzante idrosolubile', en: 'calcium nitrate soluble fertilizer' },
+  KNO3:    { it: 'nitrato di potassio fertilizzante idrosolubile', en: 'potassium nitrate soluble fertilizer' },
+  MgNO3:   { it: 'nitrato di magnesio fertilizzante idrosolubile', en: 'magnesium nitrate fertilizer' },
+  MgSO4:   { it: 'solfato di magnesio sale epsom idrosolubile', en: 'magnesium sulfate epsom salt agricultural' },
+  KH2PO4:  { it: 'fosfato monopotassico MKP fertilizzante idrosolubile', en: 'monopotassium phosphate MKP fertilizer' },
+  MAP:     { it: 'fosfato monoammonico MAP fertilizzante idrosolubile', en: 'monoammonium phosphate MAP fertilizer' },
+  K2SO4:   { it: 'solfato di potassio idrosolubile fertilizzante', en: 'potassium sulfate soluble fertilizer' },
+  NH4NO3:  { it: 'fertilizzante azotato ammoniacale idrosolubile', en: 'ammonium nitrogen soluble fertilizer' },
+  CaCl2:   { it: 'cloruro di calcio granulare alimentare', en: 'calcium chloride flakes pure' },
+  FeEDTA:  { it: 'ferro chelato EDTA 13% fertilizzante', en: 'chelated iron EDTA 13% fertilizer' },
+  FeDTPA:  { it: 'ferro chelato DTPA 11% idroponica', en: 'chelated iron DTPA 11% hydroponic' },
+  FeEDDHA: { it: 'ferro chelato EDDHA 6% idrosolubile', en: 'iron chelate EDDHA 6% fertilizer' },
+  MixCh:   { it: 'mix microelementi chelati EDTA idroponica', en: 'chelated micronutrients mix EDTA hydroponic' },
+  FeSO4:   { it: 'solfato ferroso eptaidrato fertilizzante', en: 'ferrous sulfate heptahydrate fertilizer' },
+  MnSO4:   { it: 'solfato di manganese fertilizzante idrosolubile', en: 'manganese sulfate fertilizer' },
+  ZnSO4:   { it: 'solfato di zinco eptaidrato fertilizzante', en: 'zinc sulfate heptahydrate fertilizer' },
+  H3BO3:   { it: 'acido borico polvere fertilizzante boro', en: 'boric acid powder boron fertilizer' },
+  NaMoO4:  { it: 'molibdato di sodio fertilizzante microelemento', en: 'sodium molybdate dihydrate fertilizer' },
+  HNO3:    { it: 'ph down acido nitrico crescita idroponica', en: 'pH down nitric acid hydroponics' },
+  H3PO4:   { it: 'ph down acido fosforico fioritura idroponica', en: 'pH down phosphoric acid hydroponics' },
+  KOH:     { it: 'ph up idrossido di potassio idroponica', en: 'pH up potassium hydroxide hydroponics' },
+  K2SiO3:  { it: 'silicato di potassio liquido idroponica silicio', en: 'potassium silicate liquid hydroponic silica' }
+};
+const ATTREZZATURA_CATEGORIES = [
+  { id: 'all',         it: 'Tutte',                en: 'All' },
+  { id: 'misura',      it: '📏 Misura pH / EC',    en: '📏 pH / EC Meters' },
+  { id: 'bilance',     it: '⚖️ Bilance & Dosaggio', en: '⚖️ Scales & Dosing' },
+  { id: 'serbatoi',    it: '🛢️ Serbatoi A/B/C',    en: '🛢️ Tanks A/B/C' },
+  { id: 'miscelatori', it: '🌀 Miscelatori & Pompe',en: '🌀 Mixers & Pumps' },
+  { id: 'dosaggio',    it: '💧 Iniettori & Linee',  en: '💧 Injectors & Drip' },
+  { id: 'sicurezza',   it: '🥽 DPI & Cocco',        en: '🥽 PPE & Coco Coir' }
+];
+const ATTREZZATURA_ITEMS = [
+  {
+    id: 'phmetro', cat: 'misura', icon: '🧪', asinIt: '', asinEn: '',
+    titoloIt: 'pHmetro digitale professionale con ATC', titoloEn: 'Digital pH Meter with ATC & Replaceable Probe',
+    descIt: 'Indispensabile per portare la soluzione finale esattamente a pH 5,8 ed evitare precipitazioni di fosfati di calcio o blocco del ferro.',
+    descEn: 'Essential for dialing final solution pH to 5.8 and avoiding calcium phosphate scaling or iron lockout.',
+    specsIt: ['Risoluzione 0,01 pH + compensazione temperatura ATC', 'Calibrazione automatica a 2 punti (4,01 / 7,01)', 'Elettrodo sostituibile'],
+    specsEn: ['0.01 pH resolution + ATC temperature compensation', '2-point auto calibration (4.01 / 7.01)', 'Replaceable glass probe'],
+    qIt: 'phmetro digitale professionale idroponica ATC', qEn: 'digital ph meter hydroponics ATC replaceable probe'
+  },
+  {
+    id: 'ecmetro', cat: 'misura', icon: '⚡', asinIt: '', asinEn: '',
+    titoloIt: 'Conduttivimetro / EC-metro digitale (mS/cm)', titoloEn: 'Digital EC / TDS Conductivity Meter (mS/cm)',
+    descIt: 'Verifica l\'EC reale dell\'acqua di partenza, controlla la soluzione finale in vasca e monitora l\'EC di drenaggio nel cocco.',
+    descEn: 'Verifies source water EC, final reservoir EC and coco coir runoff EC to prevent salt accumulation.',
+    specsIt: ['Scala 0–10+ mS/cm o µS/cm con ATC', 'Controllo rapido input vs drain (+0,5–1,0 mS/cm)', 'Utile prima di ogni irrigazione'],
+    specsEn: ['0–10+ mS/cm range with ATC', 'Fast input vs drain EC check', 'Essential before every fertigation'],
+    qIt: 'conduttivimetro ec metro digitale idroponica', qEn: 'digital ec meter conductivity hydroponics ms cm'
+  },
+  {
+    id: 'tamponi', cat: 'misura', icon: '🧴', asinIt: '', asinEn: '',
+    titoloIt: 'Soluzioni tampone pH 4,01 / 7,01 + KCl + EC 1413', titoloEn: 'pH 4.01 / 7.01 Buffers + KCl Storage & EC 1413',
+    descIt: 'Un pHmetro starato falsa il calcolo degli acidi e fa precipitare il calcio. Calibra ogni 2–4 settimane e conserva la sonda in KCl.',
+    descEn: 'An uncalibrated meter ruins acid dosing. Calibrate every 2–4 weeks and always store the probe in KCl solution.',
+    specsIt: ['Soluzioni pH 4,01 e 7,01 certificate', 'Soluzione KCl conservazione sonda (mai acqua distillata)', 'Standard EC 1413 µS/cm / 12,88 mS/cm'],
+    specsEn: ['Certified pH 4.01 and 7.01 buffers', 'KCl electrode storage solution', 'EC 1413 µS/cm calibration standard'],
+    qIt: 'soluzione calibrazione ph 4 7 kcl ec 1413', qEn: 'ph calibration solution 4.01 7.01 kcl storage ec 1413'
+  },
+  {
+    id: 'termometro', cat: 'misura', icon: '🌡️', asinIt: '', asinEn: '',
+    titoloIt: 'Termometro a sonda per acqua e serbatoi', titoloEn: 'Waterproof Probe Thermometer for Nutrient Tanks',
+    descIt: 'La temperatura cambia il Ksp dei sali, gli indici di saturazione e il rischio di cristallizzazione notturna sotto i 10–15 °C.',
+    descEn: 'Temperature drives salt Ksp, saturation indices and cold-night crystallization risk below 10–15 °C.',
+    specsIt: ['Sonda inox impermeabile da immersione', 'Range 0–50 °C per campo Temperatura di FertiControl', 'Controllo ossigenazione vasca (ideale 18–22 °C)'],
+    specsEn: ['Waterproof stainless immersion probe', '0–50 °C range matching FertiControl input', 'Ideal root-zone check (18–22 °C)'],
+    qIt: 'termometro digitale sonda impermeabile acqua acquario', qEn: 'digital waterproof probe thermometer nutrient reservoir'
+  },
+  {
+    id: 'bilancia-micro', cat: 'bilance', icon: '⚖️', asinIt: '', asinEn: '',
+    titoloIt: 'Bilancia di precisione 0,01 g (per microelementi)', titoloEn: '0.01 g Precision Micro Scale (for Micronutrients)',
+    descIt: 'Obbligatoria per dosi piccole come Molibdato di Sodio (0,12 g), Solfato di Zinco (2 g), Acido Borico e Mix Chelati senza errori tossici.',
+    descEn: 'Mandatory for small doses like Sodium Molybdate (0.12 g), Zinc Sulfate (2 g), Boric Acid and Chelate Mix.',
+    specsIt: ['Risoluzione 0,01 g · portata 200–500 g', 'Funzione tara con piattino inox', 'Pesa accurata di Mn, Zn, B, Cu, Mo e Fe'],
+    specsEn: ['0.01 g resolution · 200–500 g capacity', 'Tare function + stainless tray', 'Accurate weighing of Mn, Zn, B, Cu, Mo & Fe'],
+    qIt: 'bilancia precisione 0.01 g digitale laboratorio', qEn: 'digital precision scale 0.01g gram laboratory'
+  },
+  {
+    id: 'bilancia-macro', cat: 'bilance', icon: '⏲️', asinIt: '', asinEn: '',
+    titoloIt: 'Bilancia digitale 0,1 g / 3–5 kg (per macronutrienti)', titoloEn: '0.1 g / 3–5 kg Bench Scale (for Macronutrients)',
+    descIt: 'Ideale per pesare grandi quantità nei serbatoi concentrati A e B (Nitrato di Calcio, KNO₃, KH₂PO₄, Solfato di Magnesio).',
+    descEn: 'Ideal for bulk macronutrient batches in Stock Tanks A and B (Calcium Nitrate, KNO₃, KH₂PO₄, MgSO₄).',
+    specsIt: ['Risoluzione 0,1 g · portata 3–5 kg', 'Piatto ampio per secchi e contenitori tara', 'Zero sprechi sui sali principali'],
+    specsEn: ['0.1 g resolution · 3–5 kg capacity', 'Wide platform for mixing buckets', 'Clean batch weighing for A/B stock tanks'],
+    qIt: 'bilancia digitale 0.1g 3kg 5kg cucina laboratorio', qEn: 'digital scale 0.1g 5kg stainless steel tare'
+  },
+  {
+    id: 'cilindri', cat: 'bilance', icon: '🧫', asinIt: '', asinEn: '',
+    titoloIt: 'Cilindri graduati, siringhe e pipette in PP (acidi/liquidi)', titoloEn: 'Graduated Cylinders & PP Syringes (Acids / Liquids)',
+    descIt: 'Per dosare esattamente i mL di Acido Nitrico, Acido Fosforico, Acido Solforico, Silicato di Potassio e fertilizzanti liquidi.',
+    descEn: 'For measuring exact mL of Nitric, Phosphoric, Sulfuric Acid, Potassium Silicate and liquid fertilizers.',
+    specsIt: ['Polipropilene (PP) resistente a acidi e alcali', 'Set misto 10–100–500 mL + siringhe grandi', 'Scala graduata ad alto contrasto'],
+    specsEn: ['Acid/alkali resistant polypropylene (PP)', 'Assorted 10–100–500 mL + dosing syringes', 'High-contrast graduated markings'],
+    qIt: 'cilindro graduato polipropilene set pipette siringhe', qEn: 'polypropylene graduated cylinder set dosing syringes'
+  },
+  {
+    id: 'taniche-abc', cat: 'serbatoi', icon: '🛢️', asinIt: '', asinEn: '',
+    titoloIt: 'Taniche / Serbatoi opachi in HDPE alimentare (20–100 L)', titoloEn: 'Opaque Food-Grade HDPE Stock Tanks (20–100 L)',
+    descIt: 'Serbatoi dedicati A, B e C: il materiale HDPE resiste ai sali concentrati e alle soluzioni acide, mentre l\'opacità blocca luce e alghe.',
+    descEn: 'Dedicated Tank A, B and C containers: food-grade HDPE resists concentrated salts and acids while blocking algae growth.',
+    specsIt: ['Polietilene ad alta densità (HDPE) resistente a pH acidi/alcalini', 'Parete opaca anti-UV per proteggere i chelati Fe', 'Tappo a bocca larga per inserire miscelatore'],
+    specsEn: ['Acid/alkali resistant food-grade HDPE', 'Light-blocking opaque wall protects Fe chelates', 'Wide-mouth cap for easy stirring'],
+    qIt: 'tanica hdpe alimentare opaca 25 50 litri rubinetto', qEn: 'opaque hdpe plastic tank 5 15 25 gallon container lid'
+  },
+  {
+    id: 'cisterna-finale', cat: 'serbatoi', icon: '💧', asinIt: '', asinEn: '',
+    titoloIt: 'Serbatoio / Cisterna miscelazione finale con coperchio', titoloEn: 'Final Nutrient Mixing Reservoir Tank with Lid',
+    descIt: 'Vasca di lavoro per la soluzione diluita finale prima dell\'irrigazione (o per impianti non in linea), con scala graduata.',
+    descEn: 'Working reservoir for the diluted final nutrient solution before irrigation, with tight-fitting lid.',
+    specsIt: ['Capacità consigliata 100–500 L in base alle piante', 'Coperchio chiuso contro evaporazione e detriti', 'Facile da pulire tra un cambio ricetta e l\'altro'],
+    specsEn: ['100–500 L capacity based on crop size', 'Fitted lid prevents evaporation and algae', 'Easy cleanout between growth stages'],
+    qIt: 'cisterna serbatoio acqua plastica coperchio 100 200 litri', qEn: 'plastic water storage tank 50 gallon lid heavy duty'
+  },
+  {
+    id: 'raccordi-serbatoi', cat: 'serbatoi', icon: '🔧', asinIt: '', asinEn: '',
+    titoloIt: 'Rubinetti, passaparete e raccordi serbatoio HDPE', titoloEn: 'Bulkhead Fittings & Shutoff Valves for Tanks',
+    descIt: 'Permettono il prelievo pulito sopra il fondo senza aspirare eventuali micro-residui e semplificano il collegamento ai tubi.',
+    descEn: 'Install slightly above tank bottom for clean draw-off and tool-free connection to dosing lines.',
+    specsIt: ['Passaparete filettato con guarnizione EPDM/silicone', 'Valvola a sfera in PVC/PP anti-corrosione', 'Portagomma per tubi irrigazione'],
+    specsEn: ['Threaded bulkhead with chemical-resistant gasket', 'Corrosion-proof PVC/PP ball valve', 'Barbed hose adapters'],
+    qIt: 'passaparete serbatoio rubinetto pvc valvola sfera', qEn: 'pvc bulkhead fitting ball valve water tank'
+  },
+  {
+    id: 'miscelatore-elettrico', cat: 'miscelatori', icon: '🌀', asinIt: '', asinEn: '',
+    titoloIt: 'Miscelatore elettrico / Frusta agitatore per sali', titoloEn: 'Electric Paint/Nutrient Mixer Paddle & Stirrer',
+    descIt: 'Scioglie rapidamente i sali più lenti (K₂SO₄, Ca(NO₃)₂, KH₂PO₄) nei serbatoi concentrati A e B senza lasciare depositi sul fondo.',
+    descEn: 'Rapidly dissolves slower salts (K₂SO₄, Ca(NO₃)₂, KH₂PO₄) in stock Tanks A and B with zero bottom sediment.',
+    specsIt: ['Elica rivestita o inox facile da risciacquare tra Tank A e B', 'Evita grumi e falsi precipitati nelle madri', 'Risparmio enorme di tempo sui batch 50–200 L'],
+    specsEn: ['Easy-rinse coated or stainless paddle between Tank A & B', 'Prevents undissolved salt pockets', 'Saves time on 50–200 L batches'],
+    qIt: 'miscelatore elettrico frusta agitatore acciaio inox', qEn: 'stainless steel mixing paddle drill attachment stirrer'
+  },
+  {
+    id: 'pompa-ricircolo', cat: 'miscelatori', icon: '🔄', asinIt: '', asinEn: '',
+    titoloIt: 'Pompa sommersa di ricircolo per vasca nutritiva', titoloEn: 'Submersible Circulation Pump for Mixing Tanks',
+    descIt: 'Mantiene omogenea la soluzione nutritiva in vasca ed evita stratificazioni di EC e pH tra fondo e superficie.',
+    descEn: 'Keeps nutrient reservoirs homogeneous and prevents EC/pH stratification before and during watering.',
+    specsIt: ['Portata 600–2500 L/h per vasche da 100–300 L', 'Albero ceramico/inox resistente ai sali fertilizzanti', 'Funzionamento continuo silenzioso'],
+    specsEn: ['600–2500 L/h flow for 100–300 L reservoirs', 'Ceramic/stainless shaft resists fertilizer salts', 'Quiet continuous duty'],
+    qIt: 'pompa sommersa ricircolo acqua acquario idroponica', qEn: 'submersible water circulation pump hydroponics'
+  },
+  {
+    id: 'aeratore', cat: 'miscelatori', icon: '🫧', asinIt: '', asinEn: '',
+    titoloIt: 'Pompa ossigenatore / Aeratore con pietre porose', titoloEn: 'Air Pump & Air Stones for Reservoir Oxygenation',
+    descIt: 'Ossigena l\'acqua della vasca finale (attenzione: non aerare eccessivamente soluzioni con acido se non vuoi deriva CO₂/pH).',
+    descEn: 'Keeps final nutrient water oxygenated for healthy roots (avoid over-aerating if pH drifts due to CO₂ stripping).',
+    specsIt: ['Compressore a membrana con tubo silicone e pietra porosa', 'Riduce zone anaerobiche nella vasca finale', 'Utile soprattutto in climi caldi (> 22 °C)'],
+    specsEn: ['Diaphragm air pump + silicone tubing + air stones', 'Prevents anaerobic zones in final tank', 'Valuable in warm grow rooms (> 22 °C)'],
+    qIt: 'aeratore ossigenatore vasca idroponica pietra porosa', qEn: 'hydroponic air pump air stone oxygenation kit'
+  },
+  {
+    id: 'agitatore-magnetico', cat: 'miscelatori', icon: '🧲', asinIt: '', asinEn: '',
+    titoloIt: 'Agitatore magnetico da banco (microelementi & test)', titoloEn: 'Benchtop Magnetic Stirrer (Micro Stock & Buffers)',
+    descIt: 'Perfetto per preparare soluzioni madri concentrate di Molibdato di Sodio (1 g/L), Ferro chelato o test di compatibilità in becher.',
+    descEn: 'Ideal for preparing 1 g/L Sodium Molybdate stock, chelate concentrates or jar-test solubility checks.',
+    specsIt: ['Velocità regolabile senza parti meccaniche immerse', 'Ideale per piccoli volumi 0,5–3 L', 'Inclusa ancoretta PTFE chimicamente inerte'],
+    specsEn: ['Stepless speed for 0.5–3 L flasks', 'Chemically inert PTFE stir bar', 'Perfect for micro stock solutions'],
+    qIt: 'agitatore magnetico laboratorio ancoretta ptfe', qEn: 'magnetic stirrer laboratory ptfe stir bar'
+  },
+  {
+    id: 'iniettore-venturi', cat: 'dosaggio', icon: '⚙️', asinIt: '', asinEn: '',
+    titoloIt: 'Dosatore proporzionale / Iniettore Venturi A/B', titoloEn: 'Proportional Fertilizer Injector / Venturi Doser',
+    descIt: 'Aspira e inietta separatamente i concentrati dai serbatoi A e B in linea rispettando esattamente il fattore di diluizione 1:X.',
+    descEn: 'Draws and injects Tank A and B stock solutions separately inline according to your 1:X dilution factor.',
+    specsIt: ['Iniezione separata A e B (mai miscelati puri)', 'Tarabile su rapporti tipici 1:50 – 1:200', 'Adatto a linee di fertirrigazione automatizzate'],
+    specsEn: ['Separate A and B injection (never mixed pure)', 'Adjustable for 1:50 – 1:200 dilution ratios', 'Built for automated drip lines'],
+    qIt: 'dosatore proporzionale fertirrigazione venturi iniettore', qEn: 'proportional fertilizer injector venturi fertigation'
+  },
+  {
+    id: 'pompa-peristaltica', cat: 'dosaggio', icon: '🎛️', asinIt: '', asinEn: '',
+    titoloIt: 'Pompa dosatrice peristaltica pH / Acidi', titoloEn: 'Peristaltic Dosing Pump for Acid / pH Control',
+    descIt: 'Dosa in sicurezza piccoli volumi continui di HNO₃, H₃PO₄ o H₂SO₄ senza contatto diretto con parti metalliche.',
+    descEn: 'Safely meters small continuous doses of HNO₃, H₃PO₄ or H₂SO₄ without corrosive metal contact.',
+    specsIt: ['Tubo peristaltico sostituibile resistente agli acidi', 'Portata precisa in mL/min', 'Abbinabile a controller pH in linea'],
+    specsEn: ['Acid-resistant replaceable peristaltic tubing', 'Precise mL/min flow rate', 'Pairs cleanly with inline pH controllers'],
+    qIt: 'pompa dosatrice peristaltica acido ph idroponica', qEn: 'peristaltic dosing pump ph acid hydroponics'
+  },
+  {
+    id: 'gocciolatori-filtro', cat: 'dosaggio', icon: '🚿', asinIt: '', asinEn: '',
+    titoloIt: 'Kit gocciolatori autocompensanti + filtro a dischi', titoloEn: 'Pressure-Compensated Drippers + Disc Filter',
+    descIt: 'Distribuisce la fertirrigazione in cocco in modo uniforme su tutti i vasi proteggendo gli ugelli da eventuali micro-impurità.',
+    descEn: 'Delivers uniform coco coir fertigation across every pot while protecting emitters from micro-particulates.',
+    specsIt: ['Filtro a dischi 120 mesh indispensabile in fertirrigazione', 'Gocciolatori 2–4 L/h autocompensanti', 'Tubi e picchetti anti-UV'],
+    specsEn: ['120-mesh disc filter prevents emitter clogging', '2–4 L/h pressure-compensating drippers', 'UV-resistant drip tubing & stakes'],
+    qIt: 'filtro dischi fertirrigazione gocciolatori autocompensanti', qEn: '120 mesh disc filter pressure compensating drip emitters'
+  },
+  {
+    id: 'dpi-acidi', cat: 'sicurezza', icon: '🥽', asinIt: '', asinEn: '',
+    titoloIt: 'Guanti in nitrile spessi + occhiali antispruzzo (DPI)', titoloEn: 'Chemical-Resistant Nitrile Gloves + Splash Goggles',
+    descIt: 'Obbligatori ogni volta che prepari soluzioni con Acido Nitrico 38%, Acido Fosforico 75%, Acido Solforico 38% o KOH 50%.',
+    descEn: 'Mandatory whenever handling Nitric Acid 38%, Phosphoric Acid 75%, Sulfuric Acid 38% or Potassium Hydroxide.',
+    specsIt: ['Guanti chimici in nitrile lunghi anti-acido', 'Occhiali a mascherina chiusa anti-schizzi (EN166)', 'Protezione sicura per stanza miscela'],
+    specsEn: ['Long chemical-resistant nitrile gloves', 'Indirect-vent chemical splash goggles', 'Essential safety kit for acid dosing'],
+    qIt: 'guanti nitrile chimici acidi occhiali protettivi antispruzzo', qEn: 'chemical resistant nitrile gloves splash safety goggles'
+  },
+  {
+    id: 'cocco-tamponato', cat: 'sicurezza', icon: '🥥', asinIt: '', asinEn: '',
+    titoloIt: 'Substrato fibra di cocco lavata e tamponata (Coco Coir)', titoloEn: 'Washed & Buffered Coco Coir Substrate',
+    descIt: 'Il cocco già tamponato con Ca/Mg riduce il rilascio iniziale di K⁺/Na⁺ e stabilizza subito EC e pH delle ricette FertiControl.',
+    descEn: 'Pre-buffered Ca/Mg coco coir prevents initial K⁺/Na⁺ lockout and stabilizes FertiControl EC/pH targets.',
+    specsIt: ['Basso EC iniziale (< 0,5 mS/cm) e lavato da Na/Cl', 'Pre-tamponato Calcio/Magnesio', 'Disponibile in panetti pressati o sacchi 50 L'],
+    specsEn: ['Low initial EC (< 0.5 mS/cm), rinsed of Na/Cl', 'Ca/Mg pre-buffered CEC', 'Ideal match for FertiControl coco recipes'],
+    qIt: 'fibra di cocco tamponata perlite idroponica', qEn: 'buffered coco coir substrate washed low ec hydroponic'
+  }
+];
+let attrezzaturaCat = 'all';
+let attrezzaturaQuery = '';
+function getActiveAmazonTag(placement){
+  const tgs = AFFILIATE_CONFIG.tags || {};
+  if(currentLang === 'en' && AFFILIATE_CONFIG.amazonTagEn && !/INSERISCI/i.test(AFFILIATE_CONFIG.amazonTagEn)){
+    return { domain: AFFILIATE_CONFIG.amazonDomainEn, tag: AFFILIATE_CONFIG.amazonTagEn };
+  }
+  const tag = (placement && tgs[placement]) || tgs.default || '';
+  return { domain: AFFILIATE_CONFIG.amazonDomainIt, tag };
+}
+function buildAmazonUrl(opts, placement){
+  const { domain, tag } = getActiveAmazonTag(placement);
+  const useEnStore = domain === AFFILIATE_CONFIG.amazonDomainEn;
+  const asin = useEnStore ? (opts.asinEn || '') : (opts.asinIt || '');
+  const query = useEnStore ? (opts.qEn || opts.qIt || '') : (opts.qIt || opts.qEn || '');
+  const base = asin
+    ? `https://${domain}/dp/${encodeURIComponent(asin)}`
+    : `https://${domain}/s?k=${encodeURIComponent(query)}`;
+  if(!tag) return base;
+  return base + (base.includes('?') ? '&' : '?') + 'tag=' + encodeURIComponent(tag);
+}
+function getCatalogoAmazonUrl(s){
+  if(!s) return '';
+  const map = CATALOGO_AMAZON_QUERIES[s.id];
+  const nomePulito = String(salNome(s) || s.id || '').replace(/[·()]/g, ' ').replace(/\s+/g, ' ').trim();
+  const qIt = map ? map.it : (nomePulito + ' fertilizzante idrosolubile');
+  const qEn = map ? map.en : (nomePulito + ' soluble fertilizer');
+  return buildAmazonUrl({ qIt, qEn, asinIt: s.asinIt, asinEn: s.asinEn }, 'catalogo');
+}
+function setAttrezzaturaCat(cat){
+  attrezzaturaCat = ATTREZZATURA_CATEGORIES.some(c => c.id === cat) ? cat : 'all';
+  renderAttrezzatura();
+}
+function setAttrezzaturaQuery(q){
+  attrezzaturaQuery = String(q || '').trim().toLowerCase();
+  renderAttrezzatura();
+}
+function renderAttrezzatura(){
+  const pillsEl = document.getElementById('gear-pills');
+  const gridEl = document.getElementById('attrezzatura-grid');
+  if(!pillsEl || !gridEl) return;
+  pillsEl.innerHTML = ATTREZZATURA_CATEGORIES.map(c => {
+    const lbl = currentLang === 'en' ? c.en : c.it;
+    const active = attrezzaturaCat === c.id;
+    return `<button type="button" class="gear-pill${active?' active':''}" aria-pressed="${active}" onclick="setAttrezzaturaCat('${c.id}')">${esc(lbl)}</button>`;
+  }).join('');
+  const filtered = ATTREZZATURA_ITEMS.filter(item => {
+    if(attrezzaturaCat !== 'all' && item.cat !== attrezzaturaCat) return false;
+    if(!attrezzaturaQuery) return true;
+    const hay = [item.titoloIt, item.titoloEn, item.descIt, item.descEn, ...(item.specsIt||[]), ...(item.specsEn||[])].join(' ').toLowerCase();
+    return hay.includes(attrezzaturaQuery);
+  });
+  if(!filtered.length){
+    gridEl.innerHTML = `<div class="card" style="grid-column:1/-1"><div class="cb" style="text-align:center;color:var(--ts)">${esc(t('attr.empty'))}</div></div>`;
+    return;
+  }
+  const catMap = Object.fromEntries(ATTREZZATURA_CATEGORIES.map(c => [c.id, currentLang === 'en' ? c.en : c.it]));
+  const btnLbl = currentLang === 'en' ? 'View on Amazon' : 'Vedi su Amazon';
+  const noteLbl = currentLang === 'en' ? 'Live price & stock on Amazon' : 'Prezzo e disponibilità live su Amazon';
+  gridEl.innerHTML = filtered.map(item => {
+    const title = currentLang === 'en' ? item.titoloEn : item.titoloIt;
+    const desc = currentLang === 'en' ? item.descEn : item.descIt;
+    const specs = (currentLang === 'en' ? item.specsEn : item.specsIt) || [];
+    const url = buildAmazonUrl(item, 'attrezzatura');
+    const catLbl = catMap[item.cat] || item.cat;
+    return `<article class="tool-card">
+      <div class="tool-head">
+        <span class="tool-cat">${esc(catLbl)}</span>
+        <span aria-hidden="true" style="font-size:1.25rem">${item.icon}</span>
+      </div>
+      <div class="tool-body">
+        <h3 class="tool-title">${esc(title)}</h3>
+        <p class="tool-desc">${esc(desc)}</p>
+        <ul class="tool-specs">${specs.map(sp => `<li>${esc(sp)}</li>`).join('')}</ul>
+      </div>
+      <footer class="tool-footer">
+        <span style="font-size:.68rem;color:var(--ts)">${esc(noteLbl)}</span>
+        <a class="btn-amazon" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer">🛒 ${esc(btnLbl)}<span class="visually-hidden"> — ${esc(title)}</span></a>
+      </footer>
+    </article>`;
+  }).join('');
+}
+function renderCalcGearStrip(ctx){
+  ctx = ctx || {};
+  const picks = [];
+  const addPick = id => { const found = ATTREZZATURA_ITEMS.find(x => x.id === id); if(found && !picks.includes(found)) picks.push(found); };
+  addPick('phmetro');
+  addPick('ecmetro');
+  if(ctx.hasMicro) addPick('bilancia-micro'); else addPick('bilancia-macro');
+  if(ctx.hasAcid) addPick('dpi-acidi');
+  else if(ctx.usesSerbC) addPick('taniche-abc');
+  else addPick('miscelatore-elettrico');
+  const cards = picks.slice(0, 4).map(item => {
+    const title = currentLang === 'en' ? item.titoloEn : item.titoloIt;
+    const desc = currentLang === 'en' ? item.descEn : item.descIt;
+    const url = buildAmazonUrl(item, 'checklist');
+    const cta = currentLang === 'en' ? 'Check on Amazon' : 'Vedi su Amazon';
+    return `<div class="gear-mini">
+      <div>
+        <div class="gear-mini-t">${item.icon} ${esc(title)}</div>
+        <div class="gear-mini-d">${esc(desc)}</div>
+      </div>
+      <a class="btn-cat-buy" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer" style="align-self:flex-start">🛒 ${esc(cta)}<span class="visually-hidden"> — ${esc(title)}</span></a>
+    </div>`;
+  }).join('');
+  return `<div id="calc-gear-strip" class="card no-print" style="margin-top:14px">
+    <div class="ch" style="justify-content:space-between">
+      <span>🛠️ ${TT('Strumenti consigliati per questa preparazione','Recommended tools for this batch')}</span>
+      <button type="button" class="btn btn-sm" onclick="showTab('attrezzatura')" style="background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.45)">${TT('Tutta l\'attrezzatura →','All gear →')}</button>
+    </div>
+    <div class="cb">
+      <div style="font-size:.72rem;color:var(--ts)">${TT('In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.','As an Amazon Associate, I earn from qualifying purchases.')}</div>
+      <div class="gear-strip">${cards}</div>
+    </div>
+  </div>`;
+}
+let _guidesHtmlIt = null;
+const GUIDES_EN_HTML = `
+<details class="guide-item" open>
+<summary><span class="guide-num">01</span><span class="guide-sum-title">How FertiControl works: step-by-step from water analysis to A/B/C stock solutions</span></summary>
+<div class="guide-body">
+<h4>Why copying raw gram tables fails</h4>
+<p>Tap and well water already carry calcium (Ca²⁺), magnesium (Mg²⁺), sulfates (SO₄²⁻) and bicarbonates (HCO₃⁻). Applying an RO recipe directly to hard water causes ion imbalances, drifting EC and gypsum or phosphate scaling inside emitters.</p>
+<h4>The 4-step FertiControl workflow</h4>
+<ol>
+<li><strong>Set source water in 💧 Water:</strong> enter lab ion values (or pick a preset like RO, Average Tap, Hard Water or Rainwater) and save your profile.</li>
+<li><strong>Pick crop &amp; stage in 🌿 Recipes:</strong> choose from 11 built-in coco coir crops or clone/create custom recipes in <em>g/1000 L</em> or <em>mg/L Target mode</em>.</li>
+<li><strong>Compute stock tanks in ⚗️ Calculate:</strong> set Tank A &amp; B volumes (e.g. 100 L), dilution factor (<code>1:100</code> or <code>1:50</code>) and target pH (default <code>5.8</code>). The engine subtracts water ions, doses acid and isolates incompatible salts.</li>
+<li><strong>Verify stock &amp; print batch sheet:</strong> check off only the fertilizers in stock inside <strong>📦 Catalog</strong> so the solver adapts automatically, then print your A/B/C mix sheet.</li>
+</ol>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Go to Water</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('ricette')">🌿 Go to Recipes</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">02</span><span class="guide-sum-title">How to prepare A, B and C stock solutions without precipitates (Ca, phosphates &amp; sulfates)</span></summary>
+<div class="guide-body">
+<h4>The golden rule of tank compatibility</h4>
+<p>In concentrated stock tanks (50×–200×), ion concentrations quickly exceed solubility limits. If <strong>Calcium (Ca²⁺)</strong> meets concentrated <strong>Phosphates (H₂PO₄⁻)</strong> or <strong>Sulfates (SO₄²⁻)</strong>, insoluble white precipitates (<em>brushite CaHPO₄</em>, <em>gypsum CaSO₄</em>) drop to the bottom and clog drip lines.</p>
+<table class="guide-table">
+<caption>Standard A, B and C concentrate separation</caption>
+<thead><tr><th scope="col">Tank</th><th scope="col">Compatible salts</th><th scope="col">Keep separated</th></tr></thead>
+<tbody>
+<tr><td><strong>Tank A</strong></td><td>Potassium Nitrate (KNO₃), MKP (KH₂PO₄), MAP, Magnesium Sulfate (MgSO₄), Potassium Sulfate (K₂SO₄), Fe/micro chelates, acids</td><td>Never Calcium (CaN / CaCl₂) or Silicates/KOH</td></tr>
+<tr><td><strong>Tank B</strong></td><td>Calcium Nitrate Ca(NO₃)₂, Calcium Chloride CaCl₂, optional Magnesium Nitrate (MgNO₃)</td><td>Never phosphates, sulfates or silicates</td></tr>
+<tr><td><strong>Tank C</strong></td><td>Potassium Silicate (K₂SiO₃, pH ~11–12), Potassium Hydroxide (KOH) or isolated incompatible salts</td><td>Never acids, Ca/Mg or Fe chelates</td></tr>
+</tbody>
+</table>
+<h4>Correct dissolving order</h4>
+<ol>
+<li>Fill each tank to <strong>80% of final volume</strong> with clean water (lukewarm 20–25 °C helps dissolve K₂SO₄ and KNO₃).</li>
+<li>In <strong>Tank A</strong>: add any acid first (wear PPE!), then <strong>Fe/micro chelates → nitrates → phosphates → sulfates</strong>, dissolving each completely before adding the next.</li>
+<li>In <strong>Tank B</strong>: dissolve Calcium Nitrate slowly while stirring continuously.</li>
+<li>Top up to 100% volume and <strong>never mix pure concentrates together</strong>—always inject separately into the irrigation line.</li>
+<li>Watch for <strong>cold-night drops (10 °C)</strong>: at <code>1:200</code> high-K recipes can crystallize overnight; lower dilution to <code>1:100</code> or <code>1:50</code> if warned.</li>
+</ol>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('calcola')">⚗️ Open Calculator</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ View Tanks &amp; Mixers</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">03</span><span class="guide-sum-title">pH control, alkalinity (HCO₃⁻) and acid selection: HNO₃, H₃PO₄, Auto Mix or H₂SO₄</span></summary>
+<div class="guide-body">
+<h4>Why bicarbonates push pH up</h4>
+<p>Water bicarbonates (<strong>HCO₃⁻</strong>) act as an alkaline buffer: above <code>50–60 mg/L</code> (~0.8–1.0 meq/L), they drive solution pH past 6.5–7.5, locking out Phosphorus, Iron, Manganese and Zinc while risking calcite (CaCO₃) and calcium phosphate (ACP/OCP) scaling.</p>
+<h4>Choosing the right acid in FertiControl</h4>
+<ul>
+<li><strong>HNO₃ 38% (Nitric Acid):</strong> neutralizes HCO₃⁻ while supplying <strong>nitrate nitrogen (N-NO₃)</strong>. Ideal for vegetative growth and medium-hard water; FertiControl reduces nitrate salts automatically.</li>
+<li><strong>H₃PO₄ 75% (Phosphoric Acid):</strong> supplies <strong>Phosphorus (P)</strong> and is safer to handle than nitric acid, though in very alkaline water (HCO₃⁻ &gt; 200 mg/L) it can overshoot P targets and saturate <code>CaHPO₄</code>.</li>
+<li><strong>Auto Mix (H₃PO₄ + HNO₃):</strong> meters phosphoric acid up to your recipe P target, then completes neutralization with nitric acid.</li>
+<li><strong>H₂SO₄ 38% (Sulfuric Acid):</strong> supplies only <strong>Sulfur (S)</strong> with zero N or P — ideal in bloom or late-stage high-bicarbonate water.</li>
+</ul>
+<h4>Iron chelate stability &amp; ammonium ratio</h4>
+<p>At coco target pH <code>5.5–6.2</code>, <strong>Fe-EDTA</strong> remains stable (unless Ca²⁺ is very high), whereas above pH <code>6.5</code> switch to <strong>Fe-DTPA</strong> (up to pH 7.0) or <strong>Fe-EDDHA</strong> (up to pH 9). Keeping ammonium nitrogen <strong>NH₄⁺ ≤ 10%</strong> of total N gently stabilizes root-zone pH without toxicity.</p>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Enter HCO₃⁻ &amp; pH</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pH Meters &amp; Acid PPE</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">04</span><span class="guide-sum-title">Coco Coir fertigation: Calcium Nitrate doses, EC and Ca/Mg/K balance</span></summary>
+<div class="guide-body">
+<h4>Why Coco Coir behaves differently</h4>
+<p>Unlike inert rockwool, coco coir has a natural <strong>Cation Exchange Capacity (CEC)</strong> that binds <strong>Ca²⁺ and Mg²⁺</strong> while releasing <strong>K⁺ and Na⁺</strong> unless properly washed and buffered. That makes steady, balanced Calcium and Magnesium essential from day one.</p>
+<h4>Typical Calcium Nitrate doses &amp; key ratios</h4>
+<ul>
+<li><strong>Rooting / Seedling (EC 0.8–1.2 mS/cm):</strong> target <code>70–90 mg/L Ca</code> (~410–530 g/1000 L <em>Ca(NO₃)₂·4H₂O</em> in RO water, less water Ca).</li>
+<li><strong>Vegetative growth (EC 1.6–2.2 mS/cm):</strong> target <code>125–150 mg/L Ca</code> (~735–880 g/1000 L) with <code>K/Ca ≈ 1.3–1.8</code>.</li>
+<li><strong>Flowering / Fruiting (EC 2.2–3.0 mS/cm):</strong> target <code>150–180 mg/L Ca</code> (~880–1060 g/1000 L) to prevent blossom-end rot and tip-burn.</li>
+<li><strong>Ca(NO₃)₂·4H₂O vs Commercial Calcinit:</strong> FertiControl defaults to pure tetrahydrate (<code>N 11.8% · Ca 17%</code>); if using Calcinit (<code>N 15.5%</code>, <code>Ca 19%</code>), update it in <strong>📦 Catalog</strong>.</li>
+<li><strong>Runoff monitoring (15–20% drain):</strong> track drain EC and pH regularly. Healthy coco runoff stays within <code>input EC + 0.5–1.0 mS/cm</code>.</li>
+</ul>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('ricette')">🌿 Browse 11 Crops</button>
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configure CaN in Catalog</button>
+</div>
+</div>
+</details>
+<details class="guide-item">
+<summary><span class="guide-num">05</span><span class="guide-sum-title">Essential equipment buyer's guide: pH/EC meters, 0.01 g scales, tanks &amp; mixers</span></summary>
+<div class="guide-body">
+<h4>Tools that protect chemical precision</h4>
+<p>Thermodynamic accuracy breaks down if you weigh <code>0.12 g</code> of sodium molybdate on a kitchen scale or dose acid with an uncalibrated pH pen. Here are the key specs that matter:</p>
+<ul>
+<li><strong>pH meter with ATC &amp; replaceable probe:</strong> choose 2-point auto calibration (<code>pH 4.01 / 7.01</code>) and store the glass bulb in KCl storage solution (never distilled water).</li>
+<li><strong>EC meter in mS/cm (0–10+ mS/cm):</strong> verify source water and pot runoff; pair with <code>1413 µS/cm</code> calibration solution.</li>
+<li><strong>Two scales (0.01 g + 0.1 g):</strong> a <code>0.01 g</code> micro scale (100–500 g) for chelates, boron, zinc, copper and molybdenum; a <code>0.1 g / 3–5 kg</code> scale for bulk macronutrients.</li>
+<li><strong>Opaque food-grade HDPE A/B/C tanks:</strong> block light to prevent algae and resist concentrated acids and salts.</li>
+<li><strong>Mixing &amp; dosing:</strong> electric mixer paddle or submersible recirculation pump for clean dissolution; Venturi injectors or peristaltic pumps for automated inline A/B dosing.</li>
+<li><strong>Safety PPE:</strong> chemical-resistant nitrile gloves, splash goggles and polypropylene (PP) graduated cylinders whenever handling strong acids or KOH.</li>
+</ul>
+<div class="guide-cta-row">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Open Gear &amp; Tools Shop →</button>
+</div>
+</div>
+</details>`;
+function updateGuidesToggleBtn(){
+  const list = document.getElementById('guides-list');
+  const btn = document.getElementById('btn-guides-toggle-all');
+  if(!list || !btn) return;
+  const items = [...list.querySelectorAll('details.guide-item')];
+  const allOpen = items.length > 0 && items.every(d => d.open);
+  btn.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
+  btn.textContent = allOpen ? t('guide.collapseAll') : t('guide.expandAll');
+}
+function toggleAllGuides(){
+  const list = document.getElementById('guides-list');
+  const btn = document.getElementById('btn-guides-toggle-all');
+  if(!list || !btn) return;
+  const expand = btn.getAttribute('aria-expanded') !== 'true';
+  list.querySelectorAll('details.guide-item').forEach(d => { d.open = expand; });
+  updateGuidesToggleBtn();
+}
+function renderGuidesLang(){
+  const list = document.getElementById('guides-list');
+  if(!list) return;
+  if(_guidesHtmlIt === null) _guidesHtmlIt = list.innerHTML;
+  const openStates = [...list.querySelectorAll('details.guide-item')].map(d => d.open);
+  const targetLang = currentLang === 'en' ? 'en' : 'it';
+  if(list.dataset.lang !== targetLang){
+    list.innerHTML = targetLang === 'en' ? GUIDES_EN_HTML : _guidesHtmlIt;
+    list.dataset.lang = targetLang;
+    const newItems = [...list.querySelectorAll('details.guide-item')];
+    if(openStates.length === newItems.length){
+      newItems.forEach((d, idx) => { d.open = openStates[idx]; });
+    }
+  }
+  updateGuidesToggleBtn();
+}
+(function(){
+  const acc = document.getElementById('guides-accordion');
+  if(acc) acc.addEventListener('toggle', e => {
+    if(e.target && e.target.matches('details.guide-item')) updateGuidesToggleBtn();
+  }, { capture: true });
+})();
+function initAdSenseBottom(){
+  const cfg = AFFILIATE_CONFIG.adsense;
+  const wrap = document.getElementById('adsense-bottom-wrap');
+  const cont = document.getElementById('adsense-bottom-container');
+  if(!wrap || !cont) return;
+  if(!cfg || !cfg.enabled || !/^ca-pub-\d{10,}$/.test(cfg.client || '') || location.protocol.indexOf('http') !== 0){
+    wrap.hidden = true;
+    return;
+  }
+  wrap.hidden = false;
+  if(cont.dataset.initialized) return;
+  cont.dataset.initialized = '1';
+  const ins = document.createElement('ins');
+  ins.className = 'adsbygoogle';
+  ins.style.display = 'block';
+  ins.setAttribute('data-ad-client', cfg.client);
+  ins.setAttribute('data-ad-slot', cfg.slotBottom || '');
+  ins.setAttribute('data-ad-format', 'auto');
+  ins.setAttribute('data-full-width-responsive', 'true');
+  cont.appendChild(ins);
+  if(!document.querySelector('script[src*="pagead2.googlesyndication.com"]')){
+    const sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(cfg.client);
+    sc.crossOrigin = 'anonymous';
+    document.head.appendChild(sc);
+  }
+  try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+}
 initPiante();
 loadAcqua();
 initAcquaPersist();
 renderProfiliAcqua();
 renderCatalogo();
+renderAttrezzatura();
 renderRicetteCustom();
 renderCalcTabella();
 setTimeout(aggiornaStat, 0);
 applyLang();
+initAdSenseBottom();
 </script><div class="modal-bg" id="modal-del">
 <div class="modal">
 <div class="modal-h" style="background:var(--ro)">

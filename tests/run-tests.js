@@ -102,7 +102,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   }));
   check(`catalogo inizializzato (${init.sali} sali = ${init.defaults} default)`, init.sali === init.defaults && init.defaults === 22);
   check(`ricette builtin presenti (${init.piante})`, init.piante === 11);
-  check('5 tab renderizzate', init.tabs === 5);
+  check('7 tab renderizzate (Guide, Acqua, Ricette, Calcola, Catalogo, Attrezzatura, Dati)', init.tabs === 7);
 
   // ────────────────────────────────────────────────
   console.log('\n═══ S2. Golden: bilancio ionico per sale macro ═══');
@@ -2437,7 +2437,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   const hasHideScroll = /html\s*,\s*body\s*\{\s*scrollbar-width\s*:\s*none/i.test(idxSrc36);
   const hasV24 = /<div class="hbadge">v2\.4<\/div>/.test(idxSrc36);
   const hasCleanSvg = /M4\.5 9V6a2 2 0 0 1 4 0v3M17\.5 9V6a2 2 0 0 1 4 0v3/.test(idxSrc36);
-  const swOk36 = /CACHE_VERSION\s*=\s*'v2\.4\.0'/.test(swSrc36) &&
+  const swOk36 = /CACHE_VERSION\s*=\s*'v2\.4\.\d+'/.test(swSrc36) &&
     /'icons\/apple-touch-icon\.png'/.test(swSrc36) &&
     (swSrc36.match(/if\s*\(\s*res\s*&&\s*res\.ok\s*\)/g) || []).length >= 2;
 
@@ -2647,6 +2647,131 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('S37.9: UI end-to-end Mix/ACP/OCP/Brucite/coppie ioniche e eseguiReset ripristina auto',
     s37.s9.hasMixText && s37.s9.hasPhases && s37.s9.hasIonModel && s37.s9.resetAcido,
     JSON.stringify(s37.s9));
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S38. Guide SEO (5 guide), Sezione Attrezzatura Amazon, Riordino Catalogo e AdSense guard ═══');
+  await resetMotore();
+  const s38 = await page.evaluate(() => {
+    const out = {};
+    // 1. Ordine esatto delle 7 tab: Guide prima di Acqua, Attrezzatura accanto a Catalogo
+    const tabIds = [...document.querySelectorAll('.tabs .tab')].map(el => el.dataset.tab);
+    out.tabOrder = tabIds;
+    out.guideIsFirst = tabIds[0] === 'guide' && tabIds[1] === 'acqua';
+    out.gearNextToCat = tabIds[4] === 'catalogo' && tabIds[5] === 'attrezzatura';
+
+    // 2. Stato iniziale delle 5 guide SEO, zero heading dentro <summary>, toggle espandi/comprimi e i18n EN
+    showTab('guide');
+    const guides = [...document.querySelectorAll('#guides-list details.guide-item')];
+    const noHeadingInSummary = guides.every(d => !d.querySelector('summary h1, summary h2, summary h3, summary h4, summary h5, summary h6'));
+    const firstOpenInit = guides.length === 5 && guides[0].open === true;
+    toggleAllGuides();
+    const allOpenAfter = [...document.querySelectorAll('#guides-list details.guide-item')].every(d => d.open);
+    const ariaAfterOpen = document.getElementById('btn-guides-toggle-all').getAttribute('aria-expanded');
+    setLang('en');
+    const guidesEn = [...document.querySelectorAll('#guides-list details.guide-item')];
+    const enTitlesOk = guidesEn.length === 5 && /How FertiControl works/i.test(guidesEn[0].textContent) && guidesEn.every(d => d.open);
+    toggleAllGuides();
+    const allClosedAfter = [...document.querySelectorAll('#guides-list details.guide-item')].every(d => !d.open);
+    setLang('it');
+    document.querySelector('#guides-list details.guide-item').open = true;
+    out.guides = { count: guides.length, noHeadingInSummary, firstOpenInit, allOpenAfter, ariaAfterOpen, enTitlesOk, allClosedAfter };
+
+    // 3. Sezione Attrezzatura: categorie, filtro pill + ricerca, link Amazon con rel/target e disclosure
+    showTab('attrezzatura');
+    const allCards = document.querySelectorAll('#attrezzatura-grid .tool-card').length;
+    const allLinks = [...document.querySelectorAll('#attrezzatura-grid a.btn-amazon')];
+    const linksSafe = allLinks.length === allCards && allLinks.every(a =>
+      a.target === '_blank' &&
+      /\bsponsored\b/.test(a.rel) &&
+      /\bnofollow\b/.test(a.rel) &&
+      /\bnoopener\b/.test(a.rel) &&
+      /\bnoreferrer\b/.test(a.rel) &&
+      /amazon\./i.test(a.href) &&
+      /tag=/.test(a.href)
+    );
+    const hasDisclosureAttr = /Affiliato Amazon|Amazon Associate/i.test(document.getElementById('tab-attrezzatura').innerText);
+    setAttrezzaturaCat('serbatoi');
+    const serbCards = document.querySelectorAll('#attrezzatura-grid .tool-card').length;
+    setAttrezzaturaCat('all');
+    setAttrezzaturaQuery('phmetro');
+    const searchCards = document.querySelectorAll('#attrezzatura-grid .tool-card').length;
+    setAttrezzaturaQuery('');
+    out.gear = { allCards, linksSafe, hasDisclosureAttr, serbCards, searchCards };
+
+    // 4. Catalogo: pulsante Acquista / Riordina (senza SVG) + stampa senza link affiliati
+    toggleScortaUI('MgSO4', false);
+    const mgRow = document.getElementById('cat-row-MgSO4');
+    const mgBuy = mgRow ? mgRow.querySelector('a.btn-cat-buy.reorder') : null;
+    const hasReorderBtn = !!(mgBuy && /Riordina|Reorder/i.test(mgBuy.textContent) && /tag=/.test(mgBuy.href));
+    const catNoSvg = !document.querySelector('#catalogo-list svg');
+    let printCatHtml = '';
+    const origLancia = window.lanciaStampaIframe;
+    window.lanciaStampaIframe = h => { printCatHtml = String(h); };
+    stampaCatalogo();
+    window.lanciaStampaIframe = origLancia;
+    toggleScortaUI('MgSO4', true);
+    const restoredBuy = mgRow && mgRow.querySelector('a.btn-cat-buy:not(.reorder)');
+    out.cat = {
+      hasReorderBtn: hasReorderBtn && !!(restoredBuy && /Acquista|Buy/i.test(restoredBuy.textContent)),
+      catNoSvg,
+      printClean: printCatHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon/i.test(printCatHtml),
+    };
+
+    // 5. Calcola: strip strumenti contestuale .no-print fuori da #risultato-stampa e fuori dalla stampa
+    presetAcqua('media');
+    selPianta('pomodoro', 'builtin');
+    selFase(1);
+    caricaRicettaCorrente();
+    calcola({ noScroll: true });
+    const strip = document.getElementById('calc-gear-strip');
+    const inRisultato = !!document.querySelector('#risultato-stampa #calc-gear-strip');
+    let printCalcHtml = '';
+    const origOpen = window.open;
+    window.open = () => ({ document: { open() {}, write(s) { printCalcHtml = String(s); }, close() {} } });
+    stampaMiscela();
+    window.open = origOpen;
+    out.calc = {
+      hasStrip: !!(strip && strip.classList.contains('no-print') && strip.querySelectorAll('a[rel*="sponsored"]').length >= 3),
+      outsidePrintRoot: !inRisultato,
+      printClean: printCalcHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon/i.test(printCalcHtml),
+    };
+
+    // 6. Footer & Google AdSense guard (nascosto se disabilitato / placeholder)
+    const adWrap = document.getElementById('adsense-bottom-wrap');
+    const footerEl = document.getElementById('fc-footer');
+    out.footer = {
+      hasFooter: !!(footerEl && /Affiliato Amazon/i.test(footerEl.innerText)),
+      adHiddenDefault: !!(adWrap && adWrap.hidden && !document.querySelector('script[src*="googlesyndication"]')),
+    };
+
+    // 7. Navigazione da tastiera su tablist (.tabs) non modifica scrollY
+    showTab('guide');
+    window.scrollTo(0, 0);
+    const firstTab = document.getElementById('tabbtn-guide');
+    firstTab.focus();
+    firstTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    out.kbdNavAcqua = document.getElementById('tab-acqua').classList.contains('active') && window.scrollY === 0;
+    showTab('guide');
+    return out;
+  });
+
+  check('S38.1: 7 tab nell\'ordine atteso (Guide prima di Acqua, Attrezzatura accanto a Catalogo)',
+    s38.guideIsFirst && s38.gearNextToCat && s38.tabOrder.length === 7, JSON.stringify(s38.tabOrder));
+  check('S38.2: 5 guide SEO valide (<details>, zero heading in <summary>, toggle tutte, IT/EN)',
+    s38.guides.count === 5 && s38.guides.noHeadingInSummary && s38.guides.firstOpenInit &&
+    s38.guides.allOpenAfter && s38.guides.ariaAfterOpen === 'true' && s38.guides.enTitlesOk && s38.guides.allClosedAfter,
+    JSON.stringify(s38.guides));
+  check('S38.3: sezione Attrezzatura (19 strumenti, filtri categoria/ricerca, disclosure, rel="sponsored nofollow noopener noreferrer")',
+    s38.gear.allCards >= 18 && s38.gear.linksSafe && s38.gear.hasDisclosureAttr &&
+    s38.gear.serbCards >= 3 && s38.gear.searchCards >= 1, JSON.stringify(s38.gear));
+  check('S38.4: Catalogo con pulsanti Acquista/Riordina senza SVG e stampa senza link affiliati',
+    s38.cat.hasReorderBtn && s38.cat.catNoSvg && s38.cat.printClean, JSON.stringify(s38.cat));
+  check('S38.5: strip strumenti contestuale in Calcola fuori da #risultato-stampa e assente dalla stampa',
+    s38.calc.hasStrip && s38.calc.outsidePrintRoot && s38.calc.printClean, JSON.stringify(s38.calc));
+  check('S38.6: footer con disclosure e slot AdSense nascosto/bloccato finché non configurato',
+    s38.footer.hasFooter && s38.footer.adHiddenDefault, JSON.stringify(s38.footer));
+  check('S38.7: navigazione tastiera ArrowRight su tablist cambia tab senza scorrimenti indesiderati',
+    s38.kbdNavAcqua);
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);
