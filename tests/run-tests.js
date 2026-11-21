@@ -2689,7 +2689,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
       /amazon\./i.test(a.href) &&
       /tag=/.test(a.href)
     );
-    const hasDisclosureAttr = /Affiliato Amazon|Amazon Associate/i.test(document.getElementById('tab-attrezzatura').innerText);
+    const hasDisclosureAttr = /Amazon Affiliate|Affiliato Amazon|Amazon Associate/i.test(document.getElementById('tab-attrezzatura').innerText);
     setAttrezzaturaCat('serbatoi');
     const serbCards = document.querySelectorAll('#attrezzatura-grid .tool-card').length;
     setAttrezzaturaCat('all');
@@ -2714,7 +2714,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     out.cat = {
       hasReorderBtn: hasReorderBtn && !!(restoredBuy && /Acquista|Buy/i.test(restoredBuy.textContent)),
       catNoSvg,
-      printClean: printCatHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon/i.test(printCatHtml),
+      printClean: printCatHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon|Amazon Affiliate/i.test(printCatHtml),
     };
 
     // 5. Calcola: strip strumenti contestuale .no-print fuori da #risultato-stampa e fuori dalla stampa
@@ -2733,14 +2733,14 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     out.calc = {
       hasStrip: !!(strip && strip.classList.contains('no-print') && strip.querySelectorAll('a[rel*="sponsored"]').length >= 3),
       outsidePrintRoot: !inRisultato,
-      printClean: printCalcHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon/i.test(printCalcHtml),
+      printClean: printCalcHtml.length > 500 && !/amazon\.|tag=|Affiliato Amazon|Amazon Affiliate/i.test(printCalcHtml),
     };
 
     // 6. Footer & Google AdSense guard (nascosto se disabilitato / placeholder)
     const adWrap = document.getElementById('adsense-bottom-wrap');
     const footerEl = document.getElementById('fc-footer');
     out.footer = {
-      hasFooter: !!(footerEl && /Affiliato Amazon/i.test(footerEl.innerText)),
+      hasFooter: !!(footerEl && /Amazon Affiliate|Affiliato Amazon/i.test(footerEl.innerText)),
       adHiddenDefault: !!(adWrap && adWrap.hidden && !document.querySelector('script[src*="googlesyndication"]')),
     };
 
