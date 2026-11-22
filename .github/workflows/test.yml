@@ -1,6 +1,6 @@
 # Esegue la suite di test (app reale in Chromium headless) a ogni modifica
 # dell'app o dei test: il motore chimico non deve mai regredire.
-name: Test motore FertiControl
+name: Test motore FertiQuota
 
 on:
   push:

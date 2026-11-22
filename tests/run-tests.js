@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════
-// FertiControl — Suite di test automatica
+// FertiQuota — Suite di test automatica
 //
 // Esegue l'app reale in Chromium headless (Playwright) e verifica:
 //   S1. Caricamento senza errori JS
@@ -682,6 +682,12 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('manifest.webmanifest è JSON valido', manifest !== null);
   if (manifest) {
     check('manifest: name + short_name', !!manifest.name && !!manifest.short_name);
+    check('manifest + HTML: brand FertiQuota coerente (PWA name, short_name, title, apple-title, splash)',
+      manifest.name.includes('FertiQuota') &&
+      manifest.short_name === 'FertiQuota' &&
+      /<title>FertiQuota\b/.test(htmlSrc) &&
+      /apple-mobile-web-app-title"\s+content="FertiQuota"/.test(htmlSrc) &&
+      /class="splash-title">FertiQuota</.test(htmlSrc));
     check('manifest: display "standalone"', manifest.display === 'standalone');
     check('manifest: start_url e scope relativi (portabile su sottocartella)',
       typeof manifest.start_url === 'string' && typeof manifest.scope === 'string' && !manifest.start_url.startsWith('/'));
@@ -694,6 +700,10 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('sw.js: lifecycle install/activate/fetch',
     /addEventListener\(['"]install/.test(swSrc) && /addEventListener\(['"]activate/.test(swSrc) && /addEventListener\(['"]fetch/.test(swSrc));
   check('sw.js: cache versionata (CACHE_VERSION)', /CACHE_VERSION/.test(swSrc));
+  check('sw.js: cache fertiquota- con pulizia cache legacy ferticontrol-',
+    /CACHE_NAME\s*=\s*'fertiquota-'\s*\+\s*CACHE_VERSION/.test(swSrc) &&
+    /startsWith\('fertiquota-'\)/.test(swSrc) &&
+    /startsWith\('ferticontrol-'\)/.test(swSrc));
   const iconFiles = ['icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
   check('icone PNG presenti su disco (192/512/maskable/apple)', iconFiles.every(f => fs.existsSync(path.join(APPDIR, f))));
 
@@ -2104,7 +2114,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     return out;
   });
 
-  // 6. Test round-trip backup FertiControl: ripristina anche gli ingredienti NON in scorta e unisce i custom locali
+  // 6. Test round-trip backup FertiQuota: ripristina anche gli ingredienti NON in scorta e unisce i custom locali
   const s35ExportJson = await page.evaluate(() => {
     toggleScortaUI('MgSO4', false);
     toggleScortaUI('CaCl2', false);
@@ -2159,7 +2169,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     s35.customNameRendered && close(s35.customMilleCost, 1.20, 0.01));
   check('inventario: validazione composizione/densità, nuovo custom subito in scorta, filtro Mancanti e pulizia scorta/calcRighe su eliminazione',
     s35.inv.alertsCount === 2 && s35.inv.rejectedInvalid && s35.inv.inScortaSubito && s35.inv.filterWorks && s35.inv.deletedClean);
-  check('import backup FertiControl: unisce i custom locali esistenti e ripristina fedelmente anche gli ingredienti segnati mancanti in scorta',
+  check('import backup FertiQuota: unisce i custom locali esistenti e ripristina fedelmente anche gli ingredienti segnati mancanti in scorta',
     s35ImportRes.hasCustomA && s35ImportRes.hasLocalB && s35ImportRes.mgOutRestored &&
     s35ImportRes.cacl2OutRestored && s35ImportRes.localBInScorta && s35ImportRes.scortaValidBound);
 
@@ -2669,7 +2679,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     const ariaAfterOpen = document.getElementById('btn-guides-toggle-all').getAttribute('aria-expanded');
     setLang('en');
     const guidesEn = [...document.querySelectorAll('#guides-list details.guide-item')];
-    const enTitlesOk = guidesEn.length === 5 && /How FertiControl works/i.test(guidesEn[0].textContent) && guidesEn.every(d => d.open);
+    const enTitlesOk = guidesEn.length === 5 && /How FertiQuota works/i.test(guidesEn[0].textContent) && guidesEn.every(d => d.open);
     toggleAllGuides();
     const allClosedAfter = [...document.querySelectorAll('#guides-list details.guide-item')].every(d => !d.open);
     setLang('it');

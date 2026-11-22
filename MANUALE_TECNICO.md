@@ -1,15 +1,15 @@
-# FertiControl — Manuale Tecnico
+# FertiQuota — Manuale Tecnico
 
 **Versione applicazione:** v2.4
 **File:** `index.html`
 
-Questo documento spiega com'è pensato FertiControl, come è costruito e quali funzionalità offre. È rivolto a chi riceve il file e vuole capirne la logica interna: utenti avanzati, sviluppatori e chiunque voglia modificarlo o estenderlo.
+Questo documento spiega com'è pensato FertiQuota, come è costruito e quali funzionalità offre. È rivolto a chi riceve il file e vuole capirne la logica interna: utenti avanzati, sviluppatori e chiunque voglia modificarlo o estenderlo.
 
 ---
 
 ## Indice
 
-1. [Che cos'è FertiControl](#capitolo-1--che-cosè-ferticontrol)
+1. [Che cos'è FertiQuota](#capitolo-1--che-cosè-fertiquota)
 2. [Filosofia di progetto e architettura](#capitolo-2--filosofia-di-progetto-e-architettura)
 3. [Flusso di lavoro e interfaccia](#capitolo-3--flusso-di-lavoro-e-interfaccia)
 4. [Scheda Acqua — l'acqua di partenza](#capitolo-4--scheda-acqua)
@@ -29,9 +29,9 @@ Questo documento spiega com'è pensato FertiControl, come è costruito e quali f
 
 ---
 
-## Capitolo 1 — Che cos'è FertiControl
+## Capitolo 1 — Che cos'è FertiQuota
 
-FertiControl è un **calcolatore professionale per la fertirrigazione** orientato alla coltivazione in **coco coir** (fibra di cocco). Il suo compito è trasformare una ricetta nutritiva (espressa come dosi di sali o come target di elementi in mg/L) nelle **soluzioni madri concentrate** da preparare nei serbatoi A, B ed eventualmente C, tenendo conto:
+FertiQuota è un **calcolatore professionale per la fertirrigazione** orientato alla coltivazione in **coco coir** (fibra di cocco). Il suo compito è trasformare una ricetta nutritiva (espressa come dosi di sali o come target di elementi in mg/L) nelle **soluzioni madri concentrate** da preparare nei serbatoi A, B ed eventualmente C, tenendo conto:
 
 - dell'**acqua di partenza** (i minerali già presenti vengono sottratti);
 - della **compatibilità chimica** tra i sali (cosa può stare nello stesso serbatoio senza precipitare);
@@ -41,7 +41,7 @@ FertiControl è un **calcolatore professionale per la fertirrigazione** orientat
 
 Il risultato è una scheda operativa completa: grammi di ogni sale per serbatoio, EC e pH attesi, bilancio ionico, costi, avvisi di precipitazione e procedura di preparazione passo-passo stampabile.
 
-A differenza dei semplici calcolatori di dosi, FertiControl include un **motore chimico quantitativo** (indici di saturazione, speciazione ionica, correzione di attività) e un **sistema di auto-risoluzione** che sposta i sali tra serbatoi, suggerisce correzioni acide per i bicarbonati e, se necessario, ribilancia automaticamente le dosi per riportare la soluzione in zona sicura.
+A differenza dei semplici calcolatori di dosi, FertiQuota include un **motore chimico quantitativo** (indici di saturazione, speciazione ionica, correzione di attività) e un **sistema di auto-risoluzione** che sposta i sali tra serbatoi, suggerisce correzioni acide per i bicarbonati e, se necessario, ribilancia automaticamente le dosi per riportare la soluzione in zona sicura.
 
 ---
 
@@ -86,7 +86,7 @@ Il file è ordinato in blocchi riconoscibili:
 
 ### 2.4 Progressive Web App
 
-Servita via HTTP(S), FertiControl è installabile e utilizzabile offline. I pezzi:
+Servita via HTTP(S), FertiQuota è installabile e utilizzabile offline. I pezzi:
 
 | File | Ruolo |
 |---|---|
@@ -245,7 +245,7 @@ La scheda risultato comprende:
 
 ## Capitolo 7 — Il motore chimico
 
-È la parte che distingue FertiControl da un foglio di calcolo. Tutto il motore è nelle righe 1186–1889 e usa la termodinamica delle soluzioni con benchmark verso PHREEQC/Visual MINTEQ, non soglie empiriche.
+È la parte che distingue FertiQuota da un foglio di calcolo. Tutto il motore è nelle righe 1186–1889 e usa la termodinamica delle soluzioni con benchmark verso PHREEQC/Visual MINTEQ, non soglie empiriche.
 
 ### 7.1 Costanti e dipendenza dalla temperatura
 

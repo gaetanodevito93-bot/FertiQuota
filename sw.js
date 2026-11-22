@@ -1,4 +1,4 @@
-/* FertiControl — Service Worker
+/* FertiQuota — Service Worker
  *
  * Rende l'app installabile e utilizzabile offline quando è servita via HTTP(S).
  * Non ha effetto se la pagina è aperta da file:// (i service worker richiedono
@@ -7,8 +7,8 @@
  * ⚠️ Ad ogni modifica del file dell'app, incrementa CACHE_VERSION: forza
  *    l'aggiornamento della cache e il ricaricamento della nuova versione.
  */
-const CACHE_VERSION = 'v2.4.2';
-const CACHE_NAME = 'ferticontrol-' + CACHE_VERSION;
+const CACHE_VERSION = 'v2.4.3';
+const CACHE_NAME = 'fertiquota-' + CACHE_VERSION;
 
 // Risorse dell'app shell (percorsi relativi allo scope del SW).
 const APP_SHELL = [
@@ -36,7 +36,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
-        keys.filter((k) => k.startsWith('ferticontrol-') && k !== CACHE_NAME)
+        keys.filter((k) => (k.startsWith('fertiquota-') || k.startsWith('ferticontrol-')) && k !== CACHE_NAME)
             .map((k) => caches.delete(k))
       ))
       .then(() => self.clients.claim())
@@ -45,8 +45,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  // Solo GET same-origin: i font Google (cross-origin) vanno in rete e,
-  // offline, degradano ai font di sistema — comportamento voluto.
+  // Solo GET same-origin: le risorse dell'app shell e i font locali sono serviti dalla cache.
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
 
   const isHTML = req.mode === 'navigate' ||

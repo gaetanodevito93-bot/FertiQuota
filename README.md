@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌿 FertiControl
+# 🌿 FertiQuota
 
 **Calcolatore professionale per la fertirrigazione in coco coir**
 
@@ -21,7 +21,7 @@
 
 ## Che cos'è
 
-**FertiControl** trasforma una ricetta nutritiva — espressa come dosi di sali o come target di elementi in mg/L — nelle **soluzioni madri concentrate** da preparare nei serbatoi A, B ed eventualmente C. A differenza dei semplici calcolatori di dosi, integra un **motore chimico-termodinamico quantitativo** (speciazione accoppiata con 12 coppie ioniche bivalenti, attività dipendente da temperatura `Davies` → `SIT`, indici di saturazione `CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP` e brucite `Mg(OH)₂`, bilancio protonico nei serbatoi, solubilità a ione comune e stabilità competitiva `Ca²⁺↔Fe³⁺` sui chelati) e un **sistema di auto-risoluzione** che sposta i sali tra serbatoi, gestisce acido automatico, **mix a due acidi (`H₃PO₄ + HNO₃`)** e **`H₂SO₄ 38%`**, e ribilancia le dosi per riportare la soluzione in zona sicura.
+**FertiQuota** trasforma una ricetta nutritiva — espressa come dosi di sali o come target di elementi in mg/L — nelle **soluzioni madri concentrate** da preparare nei serbatoi A, B ed eventualmente C. A differenza dei semplici calcolatori di dosi, integra un **motore chimico-termodinamico quantitativo** (speciazione accoppiata con 12 coppie ioniche bivalenti, attività dipendente da temperatura `Davies` → `SIT`, indici di saturazione `CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP` e brucite `Mg(OH)₂`, bilancio protonico nei serbatoi, solubilità a ione comune e stabilità competitiva `Ca²⁺↔Fe³⁺` sui chelati) e un **sistema di auto-risoluzione** che sposta i sali tra serbatoi, gestisce acido automatico, **mix a due acidi (`H₃PO₄ + HNO₃`)** e **`H₂SO₄ 38%`**, e ribilancia le dosi per riportare la soluzione in zona sicura.
 
 Il tutto in **un unico file HTML** — nessuna installazione, nessun backend, nessun account, nessun tracking. Si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
 
@@ -75,7 +75,7 @@ Nessuna build, nessuna dipendenza per l'uso quotidiano.
 
 ### 📲 Installazione come app (PWA)
 
-FertiControl è anche una **Progressive Web App**. Quando è **servita via HTTPS** (es. GitHub Pages o qualsiasi hosting statico), il browser propone di **installarla** come app: icona sul dispositivo, avvio a tutto schermo e **funzionamento offline** (l'app viene messa in cache da un service worker).
+FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS** (es. GitHub Pages o qualsiasi hosting statico), il browser propone di **installarla** come app: icona sul dispositivo, avvio a tutto schermo e **funzionamento offline** (l'app viene messa in cache da un service worker).
 
 - I service worker richiedono un contesto sicuro (`https://` o `localhost`): aperta con doppio clic da `file://` l'app resta pienamente funzionante, ma **non** installabile.
 - File a supporto della PWA (accanto all'app): [`manifest.webmanifest`](manifest.webmanifest), [`sw.js`](sw.js), [`icons/`](icons). Sono opzionali: non influiscono sull'uso da `file://`.
@@ -170,7 +170,7 @@ Progetto proprietario: non si accettano contributi esterni, fork o redistribuzio
 
 <br>
 
-**FertiControl** is a professional fertigation calculator for **coco coir** growing. It turns a nutrient recipe — expressed as salt doses or as element targets in mg/L — into the concentrated **stock solutions** to prepare in tanks A, B and optionally C.
+**FertiQuota** is a professional fertigation calculator for **coco coir** growing. It turns a nutrient recipe — expressed as salt doses or as element targets in mg/L — into the concentrated **stock solutions** to prepare in tanks A, B and optionally C.
 
 Beyond simple dose calculators, it includes a **quantitative thermodynamic chemistry engine** (coupled ionic speciation with 12 ion pairs, temperature-dependent Davies → SIT activity model, saturation indices for `CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP` and brucite, proton-balance tank pH, common-ion & 10 °C cold-night solubility checks, competitive `Ca²⁺↔Fe³⁺` chelate stability, EC estimation, meq/L ion balance), an **NNLS target solver**, automatic **tank-compatibility** handling (tank C switches on by itself when 3 stock solutions are needed) and an **auto-resolution** system that moves salts between tanks, picks the best acid (automatic, 2-acid `H₃PO₄ + HNO₃` mix, `H₂SO₄ 38%`, or manual override) and rebalances doses to keep the solution safe.
 

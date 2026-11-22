@@ -1,8 +1,8 @@
-# Linee guida di sviluppo — FertiControl
+# Linee guida di sviluppo — FertiQuota
 
 > **Progetto proprietario** — © 2026 Gaetano De Vito, tutti i diritti riservati (vedi [LICENSE](LICENSE)). Questo documento è a uso interno: non si accettano fork, pull request o contributi esterni senza accordo scritto con il titolare.
 
-FertiControl è un progetto volutamente semplice da mantenere: **un solo file HTML**, nessuna build, nessuna dipendenza a runtime. Queste linee guida servono a mantenerlo affidabile.
+FertiQuota è un progetto volutamente semplice da mantenere: **un solo file HTML**, nessuna build, nessuna dipendenza a runtime. Queste linee guida servono a mantenerlo affidabile.
 
 ## Regola d'oro: i test
 

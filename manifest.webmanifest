@@ -1,6 +1,6 @@
 {
-  "name": "FertiControl — Calcolatore Fertirrigazione",
-  "short_name": "FertiControl",
+  "name": "FertiQuota — Calcolatore Fertirrigazione",
+  "short_name": "FertiQuota",
   "description": "Calcolatore professionale per soluzioni nutritive in fertirrigazione: motore termodinamico Davies/SIT, speciazione ionica, compatibilità serbatoi A/B/C, solubilità e gestione pH/acidi.",
   "lang": "it",
   "dir": "ltr",

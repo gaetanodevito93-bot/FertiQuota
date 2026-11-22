@@ -1,4 +1,4 @@
-# FertiControl — Suite di test automatica
+# FertiQuota — Suite di test automatica
 
 Esegue l'app reale (`index.html`, nella cartella padre) in Chromium headless e verifica motore chimico, solver, sicurezza, persistenza e UI. **Da lanciare a ogni modifica del motore**: gira in ~10 secondi, e in automatico sia in locale (hook pre-commit) sia su GitHub (Actions).
 

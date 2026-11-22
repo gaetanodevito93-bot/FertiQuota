@@ -1,5 +1,5 @@
 #!/bin/sh
-# FertiControl — hook pre-commit: esegue la suite di test quando il commit
+# FertiQuota — hook pre-commit: esegue la suite di test quando il commit
 # tocca l'app o i test. Un fallimento blocca il commit.
 #
 # Attivazione (una volta per clone):   git config core.hooksPath tests/hooks
@@ -9,7 +9,7 @@ if ! git diff --cached --name-only | grep -qE '^(index\.html|sw\.js|tests/)'; th
   exit 0
 fi
 
-echo "▶ FertiControl: modifiche all'app/test → eseguo la suite…"
+echo "▶ FertiQuota: modifiche all'app/test → eseguo la suite…"
 LOG=$(mktemp)
 node tests/run-tests.js >"$LOG" 2>&1
 RC=$?
