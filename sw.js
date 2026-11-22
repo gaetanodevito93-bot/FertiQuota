@@ -36,7 +36,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(
-        keys.filter((k) => (k.startsWith('fertiquota-') || k.startsWith('ferticontrol-')) && k !== CACHE_NAME)
+        keys.filter((k) => k.startsWith('fertiquota-') && k !== CACHE_NAME)
             .map((k) => caches.delete(k))
       ))
       .then(() => self.clients.claim())

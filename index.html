@@ -7435,7 +7435,7 @@ msg.push(TT('Ricette: ','Recipes: ')+(rParts.join(', ') || TT('nessuna novità',
 if(Array.isArray(data.scorta)){
 const catalogoIds = new Set(catalogo.map(s=>s.id));
 const validScorta = new Set(data.scorta.filter(id=>isSafeId(id) && catalogoIds.has(id)));
-const isFullBackup = !!(data._meta && (data._meta.app === 'FertiQuota' || data._meta.app === 'FertiControl'));
+const isFullBackup = !!(data._meta && data._meta.app === 'FertiQuota');
 if(isFullBackup){
 const coveredIds = (Array.isArray(data.catalogo) && data.catalogo.length > 0)
 ? new Set(data.catalogo.filter(s=>s && isSafeId(s.id)).map(s=>s.id))

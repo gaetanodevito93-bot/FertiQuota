@@ -704,10 +704,9 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('sw.js: lifecycle install/activate/fetch',
     /addEventListener\(['"]install/.test(swSrc) && /addEventListener\(['"]activate/.test(swSrc) && /addEventListener\(['"]fetch/.test(swSrc));
   check('sw.js: cache versionata (CACHE_VERSION)', /CACHE_VERSION/.test(swSrc));
-  check('sw.js: cache fertiquota- con pulizia cache legacy ferticontrol-',
+  check('sw.js: cache fertiquota-',
     /CACHE_NAME\s*=\s*'fertiquota-'\s*\+\s*CACHE_VERSION/.test(swSrc) &&
-    /startsWith\('fertiquota-'\)/.test(swSrc) &&
-    /startsWith\('ferticontrol-'\)/.test(swSrc));
+    /startsWith\('fertiquota-'\)/.test(swSrc));
   const iconFiles = ['icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
   check('icone PNG presenti su disco (192/512/maskable/apple)', iconFiles.every(f => fs.existsSync(path.join(APPDIR, f))));
 
@@ -3108,14 +3107,11 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   // ────────────────────────────────────────────────
   console.log('\n═══ S40. Audit Finale Pre-Pubblicazione: Congruenza Nomi, SEO, i18n & Integrità Codice/Docs ═══');
 
-  // S40.1: Congruenza brand FertiQuota su app, PWA, config GDPR e docs (zero residui non-legacy e zero placeholder)
+  // S40.1: Congruenza brand FertiQuota su app, PWA, config GDPR e docs (zero residui e zero placeholder)
   const docFiles40 = ['manifest.webmanifest', 'sw.js', 'LICENSE', 'README.md', 'CONTRIBUTING.md', 'MANUALE_TECNICO.md'];
   const nonLegacyFerti = docFiles40.concat(['index.html']).filter(fn => {
     const raw = fs.readFileSync(path.join(APPDIR, fn), 'utf8');
-    const cleaned = raw
-      .replace(/data\._meta\.app === 'FertiControl'/g, '')
-      .replace(/startsWith\('ferticontrol-'\)/g, '');
-    return /ferticontrol/i.test(cleaned);
+    return /ferticontrol/i.test(raw);
   });
   const badPlaceholders40 = docFiles40.concat(['index.html']).filter(fn => {
     const raw = fs.readFileSync(path.join(APPDIR, fn), 'utf8');
@@ -3128,7 +3124,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     controllerEmail: PRIVACY_CONFIG.controllerEmail,
     tag: AFFILIATE_CONFIG.tags.default
   }));
-  check('S40.1: congruenza brand FertiQuota (0 residui non-legacy, 0 placeholder, PRIVACY_CONFIG completo)',
+  check('S40.1: congruenza brand FertiQuota (0 residui vecchio nome, 0 placeholder, PRIVACY_CONFIG completo)',
     nonLegacyFerti.length === 0 &&
     badPlaceholders40.length === 0 &&
     privCfg40.siteName === 'FertiQuota' &&
