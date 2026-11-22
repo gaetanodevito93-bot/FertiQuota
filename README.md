@@ -10,7 +10,7 @@
 [![License: Proprietaria](https://img.shields.io/badge/licenza-proprietaria%20%C2%B7%20tutti%20i%20diritti%20riservati-b03a2e)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
-[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S37-2471a3)](tests)
+[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S40-2471a3)](tests)
 [![i18n](https://img.shields.io/badge/lingue-IT%20%C2%B7%20EN-d4660a)](#-internazionalizzazione)
 
 [Funzionalità](#-funzionalità) · [Come si usa](#-come-si-usa) · [Struttura](#-struttura-del-progetto) · [Test](#-test) · [Documentazione](MANUALE_TECNICO.md)
@@ -23,7 +23,7 @@
 
 **FertiQuota** trasforma una ricetta nutritiva — espressa come dosi di sali o come target di elementi in mg/L — nelle **soluzioni madri concentrate** da preparare nei serbatoi A, B ed eventualmente C. A differenza dei semplici calcolatori di dosi, integra un **motore chimico-termodinamico quantitativo** (speciazione accoppiata con 12 coppie ioniche bivalenti, attività dipendente da temperatura `Davies` → `SIT`, indici di saturazione `CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP` e brucite `Mg(OH)₂`, bilancio protonico nei serbatoi, solubilità a ione comune e stabilità competitiva `Ca²⁺↔Fe³⁺` sui chelati) e un **sistema di auto-risoluzione** che sposta i sali tra serbatoi, gestisce acido automatico, **mix a due acidi (`H₃PO₄ + HNO₃`)** e **`H₂SO₄ 38%`**, e ribilancia le dosi per riportare la soluzione in zona sicura.
 
-Il tutto in **un unico file HTML** — nessuna installazione, nessun backend, nessun account, nessun tracking. Si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
+Il tutto in **un unico file HTML** — nessuna installazione, nessun backend, nessun account, nessun tracciamento senza consenso (GDPR Consent Mode v2). Si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
 
 Il calcolo tiene conto di:
 
@@ -89,7 +89,7 @@ FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS**
 ├── index.html              # L'applicazione completa (CSS + markup + JS in un solo file)
 ├── MANUALE_TECNICO.md      # Manuale tecnico: architettura, motore chimico, solver, sicurezza
 └── tests/
-    ├── run-tests.js        # Suite Playwright (S1–S37) sull'app reale in Chromium headless
+    ├── run-tests.js        # Suite Playwright (S1–S40) sull'app reale in Chromium headless
     ├── hooks/pre-commit    # Esegue la suite a ogni commit che tocca app o test
     └── README.md           # Cosa copre ogni sezione di test
 .github/workflows/test.yml  # Stessa suite su GitHub Actions a ogni push/PR
@@ -99,7 +99,7 @@ FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS**
 
 ## 🔒 Privacy e sicurezza
 
-- **Zero backend, zero tracking**: nessun server, nessun account, nessuno script di analytics. Tutti i dati restano nel `localStorage` del browser e **non lasciano mai il dispositivo**.
+- **Zero backend, privacy by default (GDPR)**: nessun server e nessun account; i dati di calcolo restano nel `localStorage` del browser. Font ospitati in locale (zero Google Fonts). Statistiche aggregate (GA4) ed eventuali annunci sono bloccati preventivamente tramite Google Consent Mode v2 finché l'utente non presta consenso esplicito.
 - **Codice difensivo**: ogni lettura da `localStorage` passa per `safeParse` (un dato corrotto degrada ai default invece di bloccare l'app); ogni testo salvato o importato è sanificato (`stripTags`, `esc`, validazione di nomi e ID) contro l'injection HTML.
 - **Input immutabili**: la pipeline di calcolo lavora sempre su copie — premere *Calcola* N volte non altera mai i dati inseriti.
 
@@ -113,7 +113,7 @@ Interfaccia completa **italiano / inglese** con architettura a tre livelli: mark
 
 ## 🧪 Test
 
-La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza e UI — 37 sezioni (S1–S37) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
+La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza, GDPR/SEO e UI — 40 sezioni (S1–S40) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
 
 ```bash
 # Requisiti: Node.js ≥ 18
@@ -174,11 +174,11 @@ Progetto proprietario: non si accettano contributi esterni, fork o redistribuzio
 
 Beyond simple dose calculators, it includes a **quantitative thermodynamic chemistry engine** (coupled ionic speciation with 12 ion pairs, temperature-dependent Davies → SIT activity model, saturation indices for `CaSO₄`, `CaHPO₄`, `CaCO₃`, struvite, `ACP`, `OCP` and brucite, proton-balance tank pH, common-ion & 10 °C cold-night solubility checks, competitive `Ca²⁺↔Fe³⁺` chelate stability, EC estimation, meq/L ion balance), an **NNLS target solver**, automatic **tank-compatibility** handling (tank C switches on by itself when 3 stock solutions are needed) and an **auto-resolution** system that moves salts between tanks, picks the best acid (automatic, 2-acid `H₃PO₄ + HNO₃` mix, `H₂SO₄ 38%`, or manual override) and rebalances doses to keep the solution safe.
 
-Everything lives in **a single HTML file** — no install, no backend, no account, no tracking. All data stays in the browser's `localStorage`. The full UI is available in **Italian and English**, switchable at runtime.
+Everything lives in **a single HTML file** — no install, no backend, no account, strict opt-in analytics only (GDPR Consent Mode v2, local self-hosted fonts). All user data stays in the browser's `localStorage`. The full UI is available in **Italian and English**, switchable at runtime.
 
-**Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Water → Recipes → Calculate** (with **Catalog** and **Data** as support).
+**Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Guides → Water → Recipes → Calculate** (with **Catalog**, **Gear & Tools** and **Data** as support).
 
-**Tests:** a Playwright suite (S1–S37) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
+**Tests:** a Playwright suite (S1–S40) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
 
 ```bash
 npm install playwright && npx playwright install chromium

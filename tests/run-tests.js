@@ -39,6 +39,9 @@
 //   S35. Coerenza 35 fasi IT/EN, parità costi Ricette↔Calcola, inventario
 //   S36. Audit motori v2.3 (C1–C4, A1–A8, M1–M6, SW, CSS, XSS stampa)
 //   S37. Motore v2.4 (PHREEQC/MINTEQ benchmark, coppie ioniche, SIT, Mix/H₂SO₄, bilancio protonico, ACP/OCP/Brucite, chelati Ca²⁺/Fe³⁺)
+//   S38. Guide SEO (5 guide), Attrezzatura Amazon, Riordino Catalogo, AdSense guard & link tag=aitane93-21
+//   S39. Audit GDPR completo (font locali, Consent Mode v2, GA4/AdSense HTTP Gate, cookie purge, fail-closed, policy Art. 13)
+//   S40. Audit finale pre-pubblicazione (congruenza nomi, SEO, i18n SVG/title, integrità codice/docs)
 //
 // Uso:  node tests/run-tests.js   (in automatico: hook tests/hooks/pre-commit e GitHub Actions)
 // Requisiti: Playwright + Chromium (vedi tests/README.md)
@@ -3100,6 +3103,138 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
 
   await gdprCtx.close();
   await new Promise(resolve => gdprServer.close(resolve));
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S40. Audit Finale Pre-Pubblicazione: Congruenza Nomi, SEO, i18n & Integrità Codice/Docs ═══');
+
+  // S40.1: Congruenza brand FertiQuota su app, PWA, config GDPR e docs (zero residui non-legacy e zero placeholder)
+  const docFiles40 = ['manifest.webmanifest', 'sw.js', 'LICENSE', 'README.md', 'CONTRIBUTING.md', 'MANUALE_TECNICO.md'];
+  const nonLegacyFerti = docFiles40.concat(['index.html']).filter(fn => {
+    const raw = fs.readFileSync(path.join(APPDIR, fn), 'utf8');
+    const cleaned = raw
+      .replace(/data\._meta\.app === 'FertiControl'/g, '')
+      .replace(/startsWith\('ferticontrol-'\)/g, '');
+    return /ferticontrol/i.test(cleaned);
+  });
+  const badPlaceholders40 = docFiles40.concat(['index.html']).filter(fn => {
+    const raw = fs.readFileSync(path.join(APPDIR, fn), 'utf8');
+    return /tuodominio|inserisci Nome/i.test(raw);
+  });
+  const privCfg40 = await page.evaluate(() => ({
+    siteName: PRIVACY_CONFIG.siteName,
+    siteDomain: PRIVACY_CONFIG.siteDomain,
+    controllerName: PRIVACY_CONFIG.controllerName,
+    controllerEmail: PRIVACY_CONFIG.controllerEmail,
+    tag: AFFILIATE_CONFIG.tags.default
+  }));
+  check('S40.1: congruenza brand FertiQuota (0 residui non-legacy, 0 placeholder, PRIVACY_CONFIG completo)',
+    nonLegacyFerti.length === 0 &&
+    badPlaceholders40.length === 0 &&
+    privCfg40.siteName === 'FertiQuota' &&
+    privCfg40.siteDomain === 'gaetanodevito93-bot.github.io/FertiQuota' &&
+    privCfg40.controllerName === 'Gaetano De Vito' &&
+    privCfg40.controllerEmail === 'gaetano.devito93@gmail.com' &&
+    privCfg40.tag === 'aitane93-21',
+    JSON.stringify({ nonLegacyFerti, badPlaceholders40, privCfg40 }));
+
+  // S40.2: Congruenza SEO completo (<title>, meta description ≤ 160, canonical, OpenGraph, Twitter, JSON-LD, robots.txt, sitemap.xml, H1)
+  const robotsTxt = fs.existsSync(path.join(APPDIR, 'robots.txt')) ? fs.readFileSync(path.join(APPDIR, 'robots.txt'), 'utf8') : '';
+  const sitemapXml = fs.existsSync(path.join(APPDIR, 'sitemap.xml')) ? fs.readFileSync(path.join(APPDIR, 'sitemap.xml'), 'utf8') : '';
+  const seo40 = await page.evaluate(() => {
+    const title = document.title || '';
+    const desc = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+    const canon = document.querySelector('link[rel="canonical"]')?.getAttribute('href') || '';
+    const ogSite = document.querySelector('meta[property="og:site_name"]')?.getAttribute('content') || '';
+    const ogUrl = document.querySelector('meta[property="og:url"]')?.getAttribute('content') || '';
+    const ogTitle = document.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
+    const ogDesc = document.querySelector('meta[property="og:description"]')?.getAttribute('content') || '';
+    const ogImg = document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+    const twCard = document.querySelector('meta[name="twitter:card"]')?.getAttribute('content') || '';
+    const h1Count = document.querySelectorAll('h1').length;
+    let ldValid = false;
+    try {
+      const ld = JSON.parse(document.querySelector('script[type="application/ld+json"]')?.textContent || '{}');
+      const webApp = (ld['@graph'] || []).find(g => g['@type'] === 'WebApplication');
+      const faq = (ld['@graph'] || []).find(g => g['@type'] === 'FAQPage');
+      ldValid = !!webApp && webApp.name === 'FertiQuota' &&
+        /\/FertiQuota\/$/.test(webApp.url || '') &&
+        webApp.offers?.price === '0' &&
+        webApp.author?.name === 'Gaetano De Vito' &&
+        !!faq && Array.isArray(faq.mainEntity) && faq.mainEntity.length >= 3;
+    } catch {}
+    return { title, descLen: desc.length, descHasBrand: /FertiQuota/.test(desc), canon, ogSite, ogUrl, ogTitle, ogDesc, ogImg, twCard, h1Count, ldValid };
+  });
+  check('S40.2: congruenza SEO (meta ≤ 160, canonical, OpenGraph, Twitter, JSON-LD, robots.txt, sitemap.xml, 1× H1)',
+    seo40.title.length >= 30 && seo40.title.length <= 65 && /FertiQuota/.test(seo40.title) &&
+    seo40.descLen > 0 && seo40.descLen <= 160 && seo40.descHasBrand &&
+    /\/FertiQuota\/$/.test(seo40.canon) && seo40.ogSite === 'FertiQuota' &&
+    seo40.ogUrl === seo40.canon && /FertiQuota/.test(seo40.ogTitle) && seo40.ogDesc.length > 0 &&
+    /\/FertiQuota\/icons\/icon-512\.png$/.test(seo40.ogImg) && seo40.twCard === 'summary' &&
+    seo40.h1Count === 1 && seo40.ldValid &&
+    /Sitemap:\s*https:\/\/gaetanodevito93-bot\.github\.io\/FertiQuota\/sitemap\.xml/.test(robotsTxt) &&
+    /<loc>https:\/\/gaetanodevito93-bot\.github\.io\/FertiQuota\/<\/loc>/.test(sitemapXml),
+    JSON.stringify({ seo40, robotsOk: !!robotsTxt, sitemapOk: !!sitemapXml }));
+
+  // S40.3: Congruenza i18n 100% (parità chiavi IT/EN, 0 chiavi DOM mancanti, document.title & SVG Hero tradotti in EN)
+  const i18n40 = await page.evaluate(() => {
+    const itK = Object.keys(TRANSLATIONS.it);
+    const enK = Object.keys(TRANSLATIONS.en);
+    const missEn = itK.filter(k => !(k in TRANSLATIONS.en));
+    const missIt = enK.filter(k => !(k in TRANSLATIONS.it));
+    const domMissing = [];
+    for (const attr of ['data-i18n', 'data-i18n-html', 'data-i18n-placeholder', 'data-i18n-aria']) {
+      document.querySelectorAll('[' + attr + ']').forEach(el => {
+        const k = el.getAttribute(attr);
+        if (!(k in TRANSLATIONS.it) || !(k in TRANSLATIONS.en)) domMissing.push(k);
+      });
+    }
+    setLang('en');
+    const enState = {
+      lang: document.documentElement.lang,
+      title: document.title,
+      desc: document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+      svgTop: document.querySelector('.ghero-visual-top')?.textContent || '',
+      svgHtml: document.querySelector('.ghero-svg')?.textContent || ''
+    };
+    setLang('it');
+    const itTitleRestored = document.title;
+    return {
+      parityOk: itK.length === enK.length && missEn.length === 0 && missIt.length === 0 && domMissing.length === 0,
+      enState,
+      itTitleRestored
+    };
+  });
+  check('S40.3: congruenza i18n 100% (parità IT/EN, document.title, meta description e Hero SVG tradotti)',
+    i18n40.parityOk &&
+    i18n40.enState.lang === 'en' &&
+    i18n40.enState.title === 'FertiQuota — Fertigation Calculator' &&
+    /hydroponic/i.test(i18n40.enState.desc) &&
+    /INJECTION SCHEME/.test(i18n40.enState.svgTop) &&
+    /TANK A/.test(i18n40.enState.svgHtml) &&
+    /BALANCED FINAL SOLUTION/.test(i18n40.enState.svgHtml) &&
+    i18n40.itTitleRestored === 'FertiQuota — Calcolatore Fertirrigazione',
+    JSON.stringify(i18n40));
+
+  // S40.4: Integrità codice & coerenza docs (0 ID duplicati, APP_SHELL/icons su disco, SW v2.4.4, docs allineate)
+  const swShellM = swSrc39.match(/const APP_SHELL = \[([\s\S]*?)\];/);
+  const swShellFiles = swShellM ? [...swShellM[1].matchAll(/'([^']+)'/g)].map(x => x[1]) : [];
+  const manifest40 = JSON.parse(fs.readFileSync(path.join(APPDIR, 'manifest.webmanifest'), 'utf8'));
+  const allShellFilesExist = swShellFiles.length >= 10 && swShellFiles.every(f => fs.existsSync(path.join(APPDIR, f)));
+  const allManifestIconsExist = (manifest40.icons || []).every(i => fs.existsSync(path.join(APPDIR, i.src)));
+  const readmeSrc40 = fs.readFileSync(path.join(APPDIR, 'README.md'), 'utf8');
+  const manualeSrc40 = fs.readFileSync(path.join(APPDIR, 'MANUALE_TECNICO.md'), 'utf8');
+  const docsClean40 = !/S1[–-]S37|nessun tracking|no tracking|Nessun tracking/i.test(readmeSrc40 + manualeSrc40);
+  const dupIds40 = await page.evaluate(() => {
+    ['guide', 'acqua', 'ricette', 'calcola', 'catalogo', 'attrezzatura', 'dati'].forEach(t => showTab(t));
+    showTab('guide');
+    const c = {};
+    document.querySelectorAll('[id]').forEach(el => { c[el.id] = (c[el.id] || 0) + 1; });
+    return Object.entries(c).filter(([, n]) => n > 1);
+  });
+  check('S40.4: integrità codice/PWA & coerenza docs (0 ID duplicati, asset on disk, SW v2.4.4, docs S1–S40 GDPR)',
+    dupIds40.length === 0 && allShellFilesExist && allManifestIconsExist &&
+    /CACHE_VERSION\s*=\s*'v2\.4\.4'/.test(swSrc39) && docsClean40,
+    JSON.stringify({ dupIds40, allShellFilesExist, allManifestIconsExist, docsClean40 }));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);

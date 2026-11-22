@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gaetanodevito93-bot.github.io/FertiQuota/sitemap.xml

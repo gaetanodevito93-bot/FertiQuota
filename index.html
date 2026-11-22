@@ -2,12 +2,21 @@
 <html lang="it" id="html-root">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FertiQuota — Calcolatore professionale per fertirrigazione in coco coir e guide pratiche su soluzioni madri A/B/C, controllo pH, bicarbonati, nitrato di calcio e attrezzatura.">
+<meta name="description" content="FertiQuota — Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, EC, pH, bicarbonati, 5 guide e zero precipitati.">
 <meta name="theme-color" content="#2d5a3d">
+<link rel="canonical" href="https://gaetanodevito93-bot.github.io/FertiQuota/">
+<meta property="og:site_name" content="FertiQuota">
+<meta property="og:url" content="https://gaetanodevito93-bot.github.io/FertiQuota/">
 <meta property="og:title" content="FertiQuota — Calcolatore Fertirrigazione & Guide Soluzioni Madri A/B/C">
-<meta property="og:description" content="Motore termodinamico Davies/SIT per soluzioni nutritive in coco coir: calcolo automatico dosi (NNLS), speciazione ionica, compatibilità serbatoi A/B/C, 5 guide tecniche e attrezzatura consigliata.">
+<meta property="og:description" content="Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, equilibrio ionico Davies/SIT, pH, EC e 5 guide tecniche.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FertiQuota — Calcolatore Fertirrigazione & Soluzioni Madri A/B/C">
+<meta name="twitter:description" content="Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, equilibrio ionico Davies/SIT, pH, EC e 5 guide tecniche.">
+<meta name="twitter:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/icon-512.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -15,10 +24,21 @@
     {
       "@type": "WebApplication",
       "name": "FertiQuota",
+      "url": "https://gaetanodevito93-bot.github.io/FertiQuota/",
+      "softwareVersion": "2.4",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "inLanguage": ["it", "en"],
-      "description": "Calcolatore professionale per fertirrigazione e preparazione di soluzioni madri concentrate A/B/C in fibra di cocco con motore termodinamico Davies/SIT."
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Gaetano De Vito"
+      },
+      "description": "Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri concentrate A/B/C con motore termodinamico Davies/SIT."
     },
     {
       "@type": "FAQPage",
@@ -656,7 +676,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div class="hbadge">v2.4</div>
 </header>
-<div class="tabs" role="tablist" aria-label="Menu principale">
+<div class="tabs" role="tablist" aria-label="Menu principale" data-i18n-aria="aria.mainMenu">
 <button type="button" class="tab active" role="tab" id="tabbtn-guide" data-tab="guide" aria-selected="true" tabindex="0" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
 <button type="button" class="tab" role="tab" id="tabbtn-acqua" data-tab="acqua" aria-selected="false" tabindex="-1" onclick="showTab('acqua')" data-i18n="tab.acqua">💧 Acqua</button>
 <button type="button" class="tab" role="tab" id="tabbtn-ricette" data-tab="ricette" aria-selected="false" tabindex="-1" onclick="showTab('ricette')" data-i18n="tab.ricette">🌿 Ricette</button>
@@ -680,32 +700,32 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 </div>
 <div class="ghero-visual" aria-hidden="true">
-<div class="ghero-visual-top"><span>SCHEMA INIEZIONE A / B / C</span><span class="ghero-visual-ok">● SI &lt; 0 · OK</span></div>
+<div class="ghero-visual-top"><span data-i18n="guide.svg.top">SCHEMA INIEZIONE A / B / C</span><span class="ghero-visual-ok">● SI &lt; 0 · OK</span></div>
 <svg class="ghero-svg" viewBox="0 0 360 198" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="10" y="16" width="90" height="72" rx="10" fill="rgba(36,113,163,0.22)" stroke="#5dade2" stroke-width="1.5"/>
 <rect x="10" y="54" width="90" height="34" rx="8" fill="rgba(52,152,219,0.28)"/>
-<text x="55" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. A</text>
+<text x="55" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" data-i18n="guide.svg.tankA">SERB. A</text>
 <text x="55" y="53" text-anchor="middle" fill="#aed6f1" font-family="Inter,sans-serif" font-size="9">K · P · Mg · Fe</text>
-<text x="55" y="75" text-anchor="middle" fill="#d6eaf8" font-family="JetBrains Mono,monospace" font-size="8.5">1:100 · ACIDO</text>
+<text x="55" y="75" text-anchor="middle" fill="#d6eaf8" font-family="JetBrains Mono,monospace" font-size="8.5" data-i18n="guide.svg.acid">1:100 · ACIDO</text>
 
 <rect x="135" y="16" width="90" height="72" rx="10" fill="rgba(46,204,113,0.2)" stroke="#58d68d" stroke-width="1.5"/>
 <rect x="135" y="54" width="90" height="34" rx="8" fill="rgba(46,204,113,0.26)"/>
-<text x="180" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. B</text>
+<text x="180" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" data-i18n="guide.svg.tankB">SERB. B</text>
 <text x="180" y="53" text-anchor="middle" fill="#abebc6" font-family="Inter,sans-serif" font-size="9">Ca(NO₃)₂ · Mg</text>
 <text x="180" y="75" text-anchor="middle" fill="#d5f5e3" font-family="JetBrains Mono,monospace" font-size="8.5">1:100 · ZERO P/S</text>
 
 <rect x="260" y="16" width="90" height="72" rx="10" fill="rgba(155,89,182,0.22)" stroke="#bb8fce" stroke-width="1.5"/>
 <rect x="260" y="54" width="90" height="34" rx="8" fill="rgba(155,89,182,0.26)"/>
-<text x="305" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700">SERB. C</text>
+<text x="305" y="38" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" data-i18n="guide.svg.tankC">SERB. C</text>
 <text x="305" y="53" text-anchor="middle" fill="#e8daef" font-family="Inter,sans-serif" font-size="9">K₂SiO₃ · KOH</text>
-<text x="305" y="75" text-anchor="middle" fill="#f5eef8" font-family="JetBrains Mono,monospace" font-size="8.5">ALCALINO</text>
+<text x="305" y="75" text-anchor="middle" fill="#f5eef8" font-family="JetBrains Mono,monospace" font-size="8.5" data-i18n="guide.svg.alkaline">ALCALINO</text>
 
 <path d="M55 88 V118 Q55 128 65 128 H140" stroke="#5dade2" stroke-width="2" stroke-dasharray="4 3"/>
 <path d="M180 88 V128" stroke="#58d68d" stroke-width="2" stroke-dasharray="4 3"/>
 <path d="M305 88 V118 Q305 128 295 128 H220" stroke="#bb8fce" stroke-width="2" stroke-dasharray="4 3"/>
 
 <rect x="64" y="132" width="232" height="52" rx="11" fill="rgba(255,255,255,0.09)" stroke="rgba(243,163,94,0.65)" stroke-width="1.5"/>
-<text x="180" y="152" text-anchor="middle" fill="#f3a35e" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="700">SOLUZIONE FINALE BILANCIATA</text>
+<text x="180" y="152" text-anchor="middle" fill="#f3a35e" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="700" data-i18n="guide.svg.final">SOLUZIONE FINALE BILANCIATA</text>
 <text x="180" y="170" text-anchor="middle" fill="#fff" font-family="JetBrains Mono,monospace" font-size="10.5" font-weight="600">pH 5.8 · EC 2.0 mS/cm · Ca/K OK</text>
 </svg>
 </div>
@@ -931,7 +951,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 </section>
 
-<aside class="gbanner" aria-label="Inizia con FertiQuota">
+<aside class="gbanner" aria-label="Inizia con FertiQuota" data-i18n-aria="aria.startBanner">
 <div>
 <div class="gbanner-title" data-i18n="guide.bannerTitle">Pronto a formulare la tua prima soluzione nutritiva?</div>
 <div class="gbanner-sub" data-i18n="guide.bannerSub">Inserisci i parametri della tua acqua e ottieni in pochi secondi dosi esatte per Serbatoi A, B e C, correzione pH e costo per 1000 litri.</div>
@@ -1671,6 +1691,17 @@ it: {
 'ing.el.Na': '% Na (sodio)',
 'ion.ca': 'Calcio', 'ion.mg': 'Magnesio', 'ion.k': 'Potassio', 'ion.na': 'Sodio',
 'ion.so4': 'Solfati', 'ion.cl': 'Cloruri', 'ion.hco3': 'Bicarbonati', 'ion.no3': 'Nitrati', 'ion.fe': 'Ferro',
+'meta.title': 'FertiQuota — Calcolatore Fertirrigazione',
+'meta.desc': 'FertiQuota — Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, EC, pH, bicarbonati, 5 guide e zero precipitati.',
+'aria.mainMenu': 'Menu principale',
+'aria.startBanner': 'Inizia con FertiQuota',
+'guide.svg.top': 'SCHEMA INIEZIONE A / B / C',
+'guide.svg.tankA': 'SERB. A',
+'guide.svg.acid': '1:100 · ACIDO',
+'guide.svg.tankB': 'SERB. B',
+'guide.svg.tankC': 'SERB. C',
+'guide.svg.alkaline': 'ALCALINO',
+'guide.svg.final': 'SOLUZIONE FINALE BILANCIATA',
 },
 en: {
 'header.subtitle': '— Mother solution calculator for fertigation ',
@@ -1955,6 +1986,17 @@ en: {
 'ing.el.Na': '% Na (sodium)',
 'ion.ca': 'Calcium', 'ion.mg': 'Magnesium', 'ion.k': 'Potassium', 'ion.na': 'Sodium',
 'ion.so4': 'Sulfates', 'ion.cl': 'Chlorides', 'ion.hco3': 'Bicarbonates', 'ion.no3': 'Nitrates', 'ion.fe': 'Iron',
+'meta.title': 'FertiQuota — Fertigation Calculator',
+'meta.desc': 'FertiQuota — Free hydroponic & coco coir fertigation calculator: A/B/C stock solutions, EC, pH, bicarbonates, 5 technical guides and zero precipitates.',
+'aria.mainMenu': 'Main menu',
+'aria.startBanner': 'Get started with FertiQuota',
+'guide.svg.top': 'A / B / C INJECTION SCHEME',
+'guide.svg.tankA': 'TANK A',
+'guide.svg.acid': '1:100 · ACID',
+'guide.svg.tankB': 'TANK B',
+'guide.svg.tankC': 'TANK C',
+'guide.svg.alkaline': 'ALKALINE',
+'guide.svg.final': 'BALANCED FINAL SOLUTION',
 }
 };
 let currentLang = localStorage.getItem('fc_lang') || 'it';
@@ -1990,17 +2032,20 @@ aggiornaStat();
 }
 function applyLang() {
 document.getElementById('html-root').lang = currentLang;
+document.title = t('meta.title');
+const metaDescEl = document.querySelector('meta[name="description"]');
+if(metaDescEl) metaDescEl.setAttribute('content', t('meta.desc'));
 document.querySelectorAll('[data-i18n]').forEach(el => {
-el.textContent = t(el.dataset.i18n);
+el.textContent = t(el.getAttribute('data-i18n'));
 });
 document.querySelectorAll('[data-i18n-html]').forEach(el => {
-el.innerHTML = t(el.dataset.i18nHtml);
+el.innerHTML = t(el.getAttribute('data-i18n-html'));
 });
 document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-el.placeholder = t(el.dataset.i18nPlaceholder);
+el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
 });
 document.querySelectorAll('[data-i18n-aria]').forEach(el => {
-el.setAttribute('aria-label', t(el.dataset.i18nAria));
+el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
 });
 document.querySelectorAll('.lang-btn').forEach(btn => {
 btn.classList.toggle('active', btn.dataset.lang === currentLang);
@@ -7185,7 +7230,7 @@ const PRIVACY_CONFIG = {
 // ============================================================
 // MONETIZZAZIONE: CONFIGURAZIONE AFFILIAZIONE AMAZON & ADSENSE
 // ============================================================
-// 1. Sostituisci 'INSERISCI_TUO_TAG-21' con il tuo Store ID Amazon.it (es. 'fertiquota-21').
+// 1. Store ID Amazon.it configurato in tags.default ('aitane93-21').
 //    I campi opzionali (attrezzatura, catalogo, checklist) usali solo se hai creato
 //    ID di monitoraggio separati nella dashboard Amazon Associates; se vuoti usano 'default'.
 // 2. Per Google AdSense: dopo approvazione del dominio e attivazione CMP GDPR su AdSense,

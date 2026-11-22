@@ -48,4 +48,4 @@ Apri una **Issue** descrivendo: cosa ti aspettavi, cosa è successo, i passi per
 
 ## Sicurezza
 
-Non inviare dati sensibili nelle Issue pubbliche. L'app non trasmette dati verso l'esterno: qualunque comportamento contrario è un bug da segnalare con priorità.
+Non inviare dati sensibili nelle Issue pubbliche. Senza consenso GDPR esplicito, l'app non trasmette dati verso l'esterno: qualunque richiesta di rete esterna prima del consenso è un bug da segnalare con priorità.

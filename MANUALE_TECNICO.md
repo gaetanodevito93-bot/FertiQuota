@@ -435,7 +435,7 @@ Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare i
 - **⬆ Importa**: carica un JSON esportato. Le ricette e gli ingredienti custom vengono **uniti** agli esistenti; i valori numerici sui sali default vengono sanificati con `cleanNum` e le eventuali personalizzazioni `_elCustom` validate con `normalizeImportedEl`. Ogni campo importato è normalizzato e sanificato (`normalizeImportedEl`, `normalizeImportedFase`, `stripTags`, `isSafeId`).
 - **↺ Reset**: ripristino completo ai valori di fabbrica (catalogo default, scorta piena, zero ricette custom, **cancellazione profili acqua salvati**, ripristino acqua `media`, azzeramento `fc_acido`→`auto` e Serbatoio C→off) con doppia conferma.
 - **📊 Stato attuale**: contatori live (ingredienti, disponibili in scorta, ricette custom, ricette predefinite).
-- Link donazione PayPal (l'app è gratuita e senza pubblicità né tracking).
+- Link donazione PayPal (l'app è gratuita; link affiliati Amazon e statistiche GA4 opzionali con consenso GDPR).
 
 ---
 
@@ -474,8 +474,8 @@ Attenzione: `localStorage` è **per browser e per origine** — aprendo il file 
 - **`safeParse`**: ogni lettura da localStorage è protetta — un dato corrotto degrada ai default invece di bloccare lo script a livello top-level (che lascerebbe l'app vuota).
 - **Sanificazione**: `stripTags` rimuove `<`, `>`, `"` da tutti i testi salvati/importati; `esc` fa l'escape in rendering; `sanitizeName` e `isSafeId` validano nomi e ID importati. Obiettivo: nessuna injection HTML da un JSON malevolo o da vecchi dati.
 - **Immutabilità degli input**: la pipeline di calcolo lavora su copie (`wRighe`); i dati di fabbrica (`SALI_DEFAULT`, `PIANTE_BUILTIN`) non vengono mai mutati.
-- **Test a ogni modifica del motore**: la suite (`tests/run-tests.js`, S1–S37) gira in ~10 s con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
-- **Nessun tracking**: nessuno script di analytics (rimosso esplicitamente nella storia del progetto).
+- **Test a ogni modifica del motore**: la suite (`tests/run-tests.js`, S1–S40) gira in ~10 s con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
+- **Privacy by default (GDPR)**: font self-hosted in locale e blocco preventivo totale di GA4/AdSense tramite Google Consent Mode v2 (0 richieste esterne prima del consenso).
 
 ---
 
