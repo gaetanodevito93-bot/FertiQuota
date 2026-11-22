@@ -2443,14 +2443,14 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     return out;
   });
 
-  // File checks: CSS singolo, scrollbar visibile, badge v2.4, header SVG, sw.js
+  // File checks: CSS singolo, scrollbar visibile, badge v1.0, header SVG, sw.js
   const idxSrc36 = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const swSrc36 = fs.readFileSync(path.join(__dirname, '..', 'sw.js'), 'utf8');
   const styleTags = (idxSrc36.split('</head>')[0].match(/<style>/g) || []).length;
   const hasHideScroll = /html\s*,\s*body\s*\{\s*scrollbar-width\s*:\s*none/i.test(idxSrc36);
-  const hasV24 = /<div class="hbadge">v2\.4<\/div>/.test(idxSrc36);
+  const hasV10 = /<div class="hbadge">v1\.0<\/div>/.test(idxSrc36);
   const hasCleanSvg = /M4\.5 9V6a2 2 0 0 1 4 0v3M17\.5 9V6a2 2 0 0 1 4 0v3/.test(idxSrc36);
-  const swOk36 = /CACHE_VERSION\s*=\s*'v2\.4\.\d+'/.test(swSrc36) &&
+  const swOk36 = /CACHE_VERSION\s*=\s*'v1\.0\.\d+'/.test(swSrc36) &&
     /'icons\/apple-touch-icon\.png'/.test(swSrc36) &&
     (swSrc36.match(/if\s*\(\s*res\s*&&\s*res\.ok\s*\)/g) || []).length >= 2;
 
@@ -2480,9 +2480,9 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
   check('S36.M1-M5: UI Cl/Si/Na, _elCustom in merge, eseguiReset completo, guard tank-B, costo acido isolato, validaInput',
     s36.m.el15Saved && s36.m.k2Untouched && s36.m.customMerged && s36.m.resetOk && s36.m.expOk && s36.m.hasCostAcidOnly && s36.m.valInputOk,
     JSON.stringify(s36.m));
-  check('S36.M6: singolo <style>, scrollbar desktop attiva, badge v2.4, SVG header corretto e sw.js v2.4.0 con guard res.ok',
-    styleTags === 1 && !hasHideScroll && hasV24 && hasCleanSvg && swOk36,
-    `styles=${styleTags} hideScroll=${hasHideScroll} v24=${hasV24} svg=${hasCleanSvg} sw=${swOk36}`);
+  check('S36.M6: singolo <style>, scrollbar desktop attiva, badge v1.0, SVG header corretto e sw.js v1.0.x con guard res.ok',
+    styleTags === 1 && !hasHideScroll && hasV10 && hasCleanSvg && swOk36,
+    `styles=${styleTags} hideScroll=${hasHideScroll} v10=${hasV10} svg=${hasCleanSvg} sw=${swOk36}`);
 
   // ────────────────────────────────────────────────
   console.log('\n═══ S37. Motore v2.4: Benchmark PHREEQC/MINTEQ, coppie ioniche, SIT, Mix/H₂SO₄, bilancio protonico, ACP/OCP/Brucite, chelati Ca²⁺/Fe³⁺ ═══');
@@ -3158,6 +3158,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
       const faq = (ld['@graph'] || []).find(g => g['@type'] === 'FAQPage');
       ldValid = !!webApp && webApp.name === 'FertiQuota' &&
         /\/FertiQuota\/$/.test(webApp.url || '') &&
+        webApp.softwareVersion === '1.0' &&
         webApp.offers?.price === '0' &&
         webApp.author?.name === 'Gaetano De Vito' &&
         !!faq && Array.isArray(faq.mainEntity) && faq.mainEntity.length >= 3;
@@ -3215,7 +3216,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     i18n40.itTitleRestored === 'FertiQuota — Calcolatore Fertirrigazione',
     JSON.stringify(i18n40));
 
-  // S40.4: Integrità codice & coerenza docs (0 ID duplicati, APP_SHELL/icons su disco, SW v2.4.4, docs allineate)
+  // S40.4: Integrità codice & coerenza docs (0 ID duplicati, APP_SHELL/icons su disco, SW v1.0.0, docs allineate)
   const swShellM = swSrc39.match(/const APP_SHELL = \[([\s\S]*?)\];/);
   const swShellFiles = swShellM ? [...swShellM[1].matchAll(/'([^']+)'/g)].map(x => x[1]) : [];
   const manifest40 = JSON.parse(fs.readFileSync(path.join(APPDIR, 'manifest.webmanifest'), 'utf8'));
@@ -3231,9 +3232,9 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     document.querySelectorAll('[id]').forEach(el => { c[el.id] = (c[el.id] || 0) + 1; });
     return Object.entries(c).filter(([, n]) => n > 1);
   });
-  check('S40.4: integrità codice/PWA & coerenza docs (0 ID duplicati, asset on disk, SW v2.4.4, docs S1–S40 GDPR)',
+  check('S40.4: integrità codice/PWA & coerenza docs (0 ID duplicati, asset on disk, SW v1.0.0, docs S1–S40 GDPR)',
     dupIds40.length === 0 && allShellFilesExist && allManifestIconsExist &&
-    /CACHE_VERSION\s*=\s*'v2\.4\.4'/.test(swSrc39) && docsClean40,
+    /CACHE_VERSION\s*=\s*'v1\.0\.0'/.test(swSrc39) && docsClean40,
     JSON.stringify({ dupIds40, allShellFilesExist, allManifestIconsExist, docsClean40 }));
 
   console.log(`\n════════════════════════════════════════`);

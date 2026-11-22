@@ -25,7 +25,7 @@
       "@type": "WebApplication",
       "name": "FertiQuota",
       "url": "https://gaetanodevito93-bot.github.io/FertiQuota/",
-      "softwareVersion": "2.4",
+      "softwareVersion": "1.0",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "inLanguage": ["it", "en"],
@@ -674,7 +674,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <button class="lang-btn active" data-lang="it" onclick="setLang('it')">IT</button>
 <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
 </div>
-<div class="hbadge">v2.4</div>
+<div class="hbadge">v1.0</div>
 </header>
 <div class="tabs" role="tablist" aria-label="Menu principale" data-i18n-aria="aria.mainMenu">
 <button type="button" class="tab active" role="tab" id="tabbtn-guide" data-tab="guide" aria-selected="true" tabindex="0" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
@@ -690,7 +690,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <section class="ghero" aria-labelledby="guide-hero-title">
 <div class="ghero-grid">
 <div>
-<div class="ghero-eyebrow"><span class="ghero-dot" aria-hidden="true"></span><span data-i18n="guide.heroBadge">FertiQuota Academy · Motore Termodinamico v2.4</span></div>
+<div class="ghero-eyebrow"><span class="ghero-dot" aria-hidden="true"></span><span data-i18n="guide.heroBadge">FertiQuota Academy · Motore Termodinamico v1.0</span></div>
 <h2 class="ghero-title" id="guide-hero-title" data-i18n-html="guide.heroTitle">Calcola i grammi esatti di ogni fertilizzante — <em>partendo dalla tua acqua</em>.</h2>
 <p class="ghero-lead" data-i18n="guide.heroLead">FertiQuota è un calcolatore gratuito di soluzioni nutritive per idroponica e coco: inserisci l'analisi della tua acqua, scegli coltura e fase, e ottieni le dosi di ogni sale per i serbatoi A/B/C, con EC e pH previsti e senza precipitati.</p>
 <div class="ghero-actions">
@@ -1245,7 +1245,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </div>
 <div class="fc-footer-box">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-<strong style="color:var(--vs)">🌿 FertiQuota v2.4</strong>
+<strong style="color:var(--vs)">🌿 FertiQuota v1.0</strong>
 <span data-i18n="footer.affiliate">Amazon Affiliate</span>
 </div>
 <div class="fc-footer-links">
@@ -1419,7 +1419,7 @@ it: {
 'tab.attrezzatura': '🛒 Attrezzatura',
 'tab.dati': '💾 Dati',
 'guide.title': '📖 Guide Pratiche alla Fertirrigazione',
-'guide.heroBadge': 'FertiQuota Academy · Motore Termodinamico v2.4',
+'guide.heroBadge': 'FertiQuota Academy · Motore Termodinamico v1.0',
 'guide.heroTitle': 'Calcola i grammi esatti di ogni fertilizzante — <em>partendo dalla tua acqua</em>.',
 'guide.heroLead': 'FertiQuota è un calcolatore gratuito di soluzioni nutritive per idroponica e coco: inserisci l\'analisi della tua acqua, scegli coltura e fase, e ottieni le dosi di ogni sale per i serbatoi A/B/C, con EC e pH previsti e senza precipitati.',
 'guide.startBtn': '💧 Inizia da Acqua →',
@@ -1714,7 +1714,7 @@ en: {
 'tab.attrezzatura': '🛒 Gear & Tools',
 'tab.dati': '💾 Data',
 'guide.title': '📖 Practical Fertigation Guides',
-'guide.heroBadge': 'FertiQuota Academy · Thermodynamic Engine v2.4',
+'guide.heroBadge': 'FertiQuota Academy · Thermodynamic Engine v1.0',
 'guide.heroTitle': 'Get the exact grams of every fertilizer — <em>based on your own water</em>.',
 'guide.heroLead': 'FertiQuota is a free nutrient-solution calculator for hydroponics and coco: enter your water analysis, pick crop and growth stage, and get the dose of every salt for your A/B/C tanks, with predicted EC and pH and no precipitates.',
 'guide.startBtn': '💧 Start from Water →',
@@ -5779,7 +5779,7 @@ const ecPrecisa = ecFromIons(profilo, pH, tempC);
 const bal = meqBalance(profilo, pH);
 const siConc = worstSerbSI(wRighe, aq, dil);
 html+=`<div class="card tech-info" style="margin-top:12px">
-      <div class="ch" style="background:#1a5a8a">${TT('🔬 Verifica Chimica Precisa (motore FertiQuota v2)','🔬 Precise Chemical Verification (FertiQuota v2 engine)')}</div>
+      <div class="ch" style="background:#1a5a8a">${TT('🔬 Verifica Chimica Precisa (motore FertiQuota v1.0)','🔬 Precise Chemical Verification (FertiQuota v1.0 engine)')}</div>
       <div class="cb">
         <div class="ri-grid" style="grid-template-columns:repeat(4,1fr)">
           <div class="ri-box"><div class="ri-lbl">${TT('EC precisa','Precise EC')}</div><div class="ri-val" style="color:#1a5a8a">${ecPrecisa.toFixed(2)}</div><div class="ri-sub">${TT('mS/cm · conducibilità ioniche','mS/cm · ionic conductivities')}</div></div>
@@ -7011,7 +7011,7 @@ function esportaDati(){
 const payload = {
 _meta: {
 app: 'FertiQuota',
-version: '2.4',
+version: '1.0',
 esportato: new Date().toISOString(),
 descrizione: 'Backup catalogo ingredienti, ricette personalizzate, scorta magazzino e analisi acqua'
 },

@@ -1,6 +1,6 @@
 # FertiQuota — Manuale Tecnico
 
-**Versione applicazione:** v2.4
+**Versione applicazione:** v1.0
 **File:** `index.html`
 
 Questo documento spiega com'è pensato FertiQuota, come è costruito e quali funzionalità offre. È rivolto a chi riceve il file e vuole capirne la logica interna: utenti avanzati, sviluppatori e chiunque voglia modificarlo o estenderlo.
@@ -431,7 +431,7 @@ Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare i
 
 ## Capitolo 12 — Scheda Dati
 
-- **⬇ Esporta**: scarica un JSON (`_meta.version: "2.4"`) con catalogo, scorta, ricette personalizzate, analisi acqua corrente e profili acqua salvati — backup o condivisione della configurazione tra dispositivi/utenti.
+- **⬇ Esporta**: scarica un JSON (`_meta.version: "1.0"`) con catalogo, scorta, ricette personalizzate, analisi acqua corrente e profili acqua salvati — backup o condivisione della configurazione tra dispositivi/utenti.
 - **⬆ Importa**: carica un JSON esportato. Le ricette e gli ingredienti custom vengono **uniti** agli esistenti; i valori numerici sui sali default vengono sanificati con `cleanNum` e le eventuali personalizzazioni `_elCustom` validate con `normalizeImportedEl`. Ogni campo importato è normalizzato e sanificato (`normalizeImportedEl`, `normalizeImportedFase`, `stripTags`, `isSafeId`).
 - **↺ Reset**: ripristino completo ai valori di fabbrica (catalogo default, scorta piena, zero ricette custom, **cancellazione profili acqua salvati**, ripristino acqua `media`, azzeramento `fc_acido`→`auto` e Serbatoio C→off) con doppia conferma.
 - **📊 Stato attuale**: contatori live (ingredienti, disponibili in scorta, ricette custom, ricette predefinite).
@@ -527,4 +527,4 @@ La lingua scelta persiste in `fc_lang` e si cambia dall'header senza ricaricare.
 
 ---
 
-*Manuale generato per la versione v2.4 del file `index.html`. In caso di modifiche al codice, aggiornare i riferimenti alle righe indicati nel Capitolo 2.*
+*Manuale generato per la versione v1.0 del file `index.html`. In caso di modifiche al codice, aggiornare i riferimenti alle righe indicati nel Capitolo 2.*

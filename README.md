@@ -6,7 +6,7 @@
 
 *Dalla ricetta nutritiva alle soluzioni madri concentrate — con motore chimico-termodinamico quantitativo (Davies/SIT, speciazione accoppiata), compatibilità serbatoi A/B/C e scheda operativa stampabile.*
 
-[![Version](https://img.shields.io/badge/versione-v2.4-2d5a3d)](index.html)
+[![Version](https://img.shields.io/badge/versione-v1.0-2d5a3d)](index.html)
 [![License: Proprietaria](https://img.shields.io/badge/licenza-proprietaria%20%C2%B7%20tutti%20i%20diritti%20riservati-b03a2e)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
