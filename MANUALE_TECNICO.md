@@ -49,15 +49,15 @@ A differenza dei semplici calcolatori di dosi, FertiQuota include un **motore ch
 
 ### 2.1 Un solo file, nessuna dipendenza
 
-L'intera applicazione vive in **un unico file HTML** (~6.360 righe, ~425 KB) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
+L'intera applicazione vive in **un unico file HTML** (~8.630 righe) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
 
 - **Zero installazione**: si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
-- **Zero backend**: nessun server, nessun account, nessuna trasmissione di dati. Tutto gira in locale.
+- **Zero backend**: nessun server, nessun account, nessuna trasmissione di dati senza consenso esplicito. Tutto gira in locale.
 - **Zero build**: niente bundler, framework o transpiler. Il codice è JavaScript "vanilla" leggibile direttamente nel file.
 - **Portabilità totale**: il file si può inviare via mail o chiavetta; i dati personali restano nel browser di chi lo usa (vedi Capitolo 14).
-- L'unica risorsa esterna sono i **font Google** (Inter, JetBrains Mono): senza connessione l'app funziona comunque, con i font di sistema.
+- **Zero chiamate esterne obbligatorie**: i font *Inter* e *JetBrains Mono* (licenza open source **SIL OFL 1.1**, vedi `fonts/OFL.txt`) sono inclusi in locale nella cartella `fonts/`.
 
-Il singolo file resta il cuore dell'app; accanto ad esso vivono alcuni file **opzionali** che la trasformano in **Progressive Web App** (`manifest.webmanifest`, `sw.js`, `icons/`). Sono inerti se l'app è aperta da `file://` e non intaccano la portabilità: entrano in gioco solo quando l'app è servita via HTTP(S) (vedi §2.4).
+Il singolo file resta il cuore dell'app; accanto ad esso vivono i file **PWA / SEO / Asset** (`manifest.webmanifest`, `sw.js`, `icons/`, `fonts/`, `robots.txt`, `sitemap.xml`). Sono inerti se l'app è aperta da `file://` e non intaccano la portabilità: entrano in gioco solo quando l'app è servita via HTTP(S) (vedi §2.4).
 
 ### 2.2 Organizzazione interna del file
 
@@ -65,18 +65,17 @@ Il file è ordinato in blocchi riconoscibili:
 
 | Sezione | Contenuto | Zona indicativa |
 |---|---|---|
-| `<head>` + `<style>` | Meta tag, favicon SVG inline, CSS unificato (variabili tema, componenti, media query, stili stampa) | righe 1–319 |
-| Markup | Header, splash screen, barra tab, i 5 pannelli, i modali (ingrediente, ricetta, conferme) | righe 320–722 |
-| i18n | Dizionari IT/EN e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 723–1185 |
-| Costanti chimiche | Masse molari `MM`, conduttività `LAMBDA` (incluse coppie ioniche 1:1), `PH_DEFAULT` | righe 1186–1207 |
-| Motore chimico | `debyeHuckelA(T)`, `vantHoffPka`/`LogK`, Ksp(`CaCO₃`, `CaSO₄`, brushite, struvite, `ACP`, `OCP`, brucite), `speciate`, `speciateFull` (12 coppie ioniche), `SIT_EPS`/`sitGamma`/`gammaIon`, SI, EC, bilancio meq, acido (`molaritaAcido`, `h3po4EqPerMol`, `calcAcidVolume`, `acidoPrescritto` con `mix`/`H₂SO₄`), `stimaPhSerbatoio` (bilancio protonico), `SOLUBILITA_G_L`, `verificaSolubilitaSerb` (`K₂SO₄`/`KNO₃`/`KH₂PO₄` + 10 °C) | righe 1208–1889 |
-| Dati di fabbrica & stato | `SALI_DEFAULT` (catalogo), `mergeCatalogoDefaults`, `PIANTE_BUILTIN` (ricette), `localStorage`, `statoCalc`, traduzioni dati | righe 1890–2599 |
-| UI Ricette & editor | `initPiante`, selezione pianta/fase, editor ricette custom, editor target, `renderCalcTabella` | righe 2600–3167 |
-| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `valutaStabilitaChelatoFe`, `risolviMicro`, `solverTarget`, `sostituisciNonDisponibili`, `ricalcolaConDisponibili` | righe 3168–3651 |
-| Compatibilità | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `capNH4NO3`, `autoRisolvi`, `autoBilanciaSali`, `checkNeedSerbC` | righe 3652–4180 |
-| Verifica e calcolo | `verificaSicurezza`, `correggiDosi`, `validaInput`, `calcola` e rendering risultati | righe 4181–5307 |
-| Stampa | `stampaMiscela`, `stampaMiscelaDaRisultato` (con escaping XSS), `stampaCatalogo`, iframe di stampa | righe 5308–5704 |
-| Catalogo e Dati | `renderBilanciaReport`, `renderCatalogo`, CRUD ingredienti (15 elementi + `_elCustom`), scorta, export/import/reset | righe 5705–6359 |
+| `<head>` + `<style>` | Meta SEO, JSON-LD `WebApplication`/`FAQPage`, favicon, CSS unificato (variabili WCAG, componenti, popover toast, media query, stili stampa) | righe 1–671 |
+| Markup | Header, splash screen, barra tab (7 schede), pannelli (`Guide`, `Acqua`, `Ricette`, `Calcola`, `Catalogo`, `Attrezzatura`, `Dati`), footer legale, modali e `<dialog>` GDPR/Termini | righe 672–1518 |
+| i18n | Dizionari `TRANSLATIONS.it`/`en` e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 1519–2180 |
+| Costanti & Motore chimico | Masse molari `MM`, `LAMBDA`, `debyeHuckelA(T)`, `vantHoffPka`/`LogK`, Ksp (`CaCO₃`, `CaSO₄`, brushite, struvite, `ACP`, `OCP`, brucite), `speciate`, `speciateFull` (12 coppie ioniche), `SIT_EPS`/`gammaIon`, EC, acidi/mix, `stimaPhSerbatoio`, solubilità + 10 °C | righe 2181–2884 |
+| Dati di fabbrica & stato | `SALI_DEFAULT` (22 sali), `mergeCatalogoDefaults`, `PIANTE_BUILTIN`, `localStorage`, `statoCalc`, traduzioni dati | righe 2885–3710 |
+| UI Ricette & editor | `initPiante`, selezione pianta/fase, `#ricetta-gear-bar`, editor custom/target, `renderCalcTabella`, `updateRicalcolaBar` + strip riordino | righe 3711–4300 |
+| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `valutaStabilitaChelatoFe`, `risolviMicro`, `solverTarget`, `ricalcolaConDisponibili` | righe 4301–4900 |
+| Compatibilità & Verifica | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `autoRisolvi`, `verificaSicurezza`, `validaInput` | righe 4901–5689 |
+| Calcolo & Rendering | `calcola()` e rendering risultati (`#risultato-stampa`, Info tecniche, procedura, `#calc-gear-strip`) | righe 5690–6485 |
+| Stampa & Catalogo | `stampaMiscela`, `stampaMiscelaDaRisultato`, `stampaCatalogo`, `lanciaStampaIframe`, `renderCatalogo`, CRUD ingredienti, toast Popover, backup/reset | righe 6486–7515 |
+| Monetizzazione, Guide EN & GDPR | `PRIVACY_CONFIG`, `AFFILIATE_CONFIG`, `buildAmazonUrl` (`aitane93-21`), `ATTREZZATURA_ITEMS`, `GUIDES_EN_HTML`, Consent Mode v2, GA4/AdSense, Privacy & Termini, bootstrap SW | righe 7516–8632 |
 
 ### 2.3 Convenzioni
 
@@ -91,8 +90,9 @@ Servita via HTTP(S), FertiQuota è installabile e utilizzabile offline. I pezzi:
 | File | Ruolo |
 |---|---|
 | `manifest.webmanifest` | Metadati d'installazione: nome, `display: standalone`, `theme_color`, icone. `start_url` e `scope` sono **relativi**, così la PWA funziona anche da una sottocartella (es. GitHub Pages). |
-| `sw.js` | Service worker. **Install**: precache dell'app shell (HTML, manifest, icone). **Activate**: pulizia delle cache vecchie. **Fetch**: *network-first* per l'HTML (prende l'ultima versione se online, altrimenti la cache) e *cache-first* per gli asset statici. I font Google (cross-origin) restano in rete e offline degradano ai font di sistema. |
-| `icons/` | Icone PNG 192/512, una **maskable** 512 e l'apple-touch-icon 180. |
+| `sw.js` | Service worker. **Install**: precache dell'app shell (HTML, manifest, icone, 4 font WOFF2 locali). **Activate**: pulizia delle cache vecchie. **Fetch**: *network-first* per l'HTML (prende l'ultima versione se online, altrimenti la cache) e *cache-first* per gli asset statici inclusi i font self-hosted. |
+| `icons/` | Icone PNG 192/512, una **maskable** 512, apple-touch-icon 180 e card social `og-card.png` (1200×630). |
+| `fonts/` | Font locali WOFF2 (*Inter* e *JetBrains Mono*) con licenza `OFL.txt` (SIL Open Font License 1.1). |
 
 Nell'`<head>` ci sono `<link rel="manifest">`, l'apple-touch-icon e i meta Apple; a fine `<body>` uno script registra il service worker **solo se `location.protocol`** inizia con `http` — da `file://` non fa nulla. Un pulsante flottante "Installa app" compare quando il browser emette `beforeinstallprompt` e sparisce dopo l'installazione.
 
@@ -102,17 +102,19 @@ Regola operativa: **a ogni modifica dell'app, incrementa `CACHE_VERSION` in `sw.
 
 ## Capitolo 3 — Flusso di lavoro e interfaccia
 
-L'interfaccia è una SPA a schede (tab). Il flusso pensato è **lineare, da sinistra a destra**:
+L'interfaccia è una SPA a **7 schede (tab)** sincronizzate con l'hash URL (`#guide`, `#acqua`, `#ricette`, `#calcola`, `#catalogo`, `#attrezzatura`, `#dati`). Il flusso pensato è **lineare, da sinistra a destra**:
 
 ```
-① 💧 ACQUA  →  ② 🌿 RICETTE  →  ③ ⚗️ CALCOLA  →  (④ 📦 CATALOGO, ⑤ 💾 DATI a supporto)
+① 📖 GUIDE  →  ② 💧 ACQUA  →  ③ 🌿 RICETTE  →  ④ ⚗️ CALCOLA  ·  (⑤ 📦 CATALOGO, ⑥ 🛒 ATTREZZATURA, ⑦ 💾 DATI a supporto)
 ```
 
-1. **Acqua** — inserisci l'analisi dell'acqua di partenza (o scegli un preset).
-2. **Ricette** — scegli una coltura e la fase di crescita, oppure crea/clona una ricetta tua; premi "→ Calcola" per caricarla.
-3. **Calcola** — imposta volumi serbatoi, diluizione e pH finale; premi "Calcola Dosaggi" e ottieni la scheda completa con dosi, verifiche e stampa.
-4. **Catalogo** — gestisci i fertilizzanti: composizione, prezzo, note e soprattutto la **scorta** (cosa hai davvero in magazzino).
-5. **Dati** — esporta/importa il backup JSON, ripristina i valori di fabbrica, controlla le statistiche.
+1. **Guide** — 5 guide tecniche passo-passo con box strumenti contestuali.
+2. **Acqua** — inserisci l'analisi dell'acqua di partenza (o scegli un preset).
+3. **Ricette** — scegli una coltura e la fase di crescita, oppure crea/clona una ricetta tua; premi "→ Usa questa ricetta" per caricarla.
+4. **Calcola** — imposta volumi serbatoi, diluizione e pH finale; premi "Calcola Dosaggi" e ottieni la scheda completa con dosi, verifiche e stampa.
+5. **Catalogo** — gestisci i fertilizzanti: composizione, prezzo, note, riordino su Amazon e soprattutto la **scorta** (cosa hai davvero in magazzino).
+6. **Attrezzatura** — vetrina strumenti fertirrigazione (19 schede con filtri, Starter Kit e link affiliati Amazon).
+7. **Dati** — esporta/importa il backup JSON, ripristina i valori di fabbrica, controlla le statistiche.
 
 Elementi trasversali dell'interfaccia:
 
@@ -441,10 +443,10 @@ Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare i
 
 ## Capitolo 13 — Stampa e output operativi
 
-Due output cartacei, generati come documenti HTML autonomi e stampati via iframe dedicato (`lanciaStampaIframe`, senza popup):
+Due output cartacei autonomi privi di banner o link commerciali:
 
-1. **Scheda miscela** (`stampaMiscela`): l'output completo del calcolo in formato operativo — intestazione con data/ora, parametri impianto, dosi per serbatoio in grammi reali, riepilogo EC/costi, indici di saturazione, prescrizioni (acido, ordine di scioglimento) e una **procedura di preparazione con caselle di spunta** da seguire fisicamente davanti ai serbatoi.
-2. **Catalogo** (`stampaCatalogo`): l'elenco ingredienti con composizioni, prezzi e note.
+1. **Scheda miscela** (`stampaMiscela` / `stampaMiscelaDaRisultato`): generata in una nuova finestra (`window.open`, con fallback via iframe `lanciaStampaIframe` se il browser blocca i popup), riporta intestazione con data/ora, parametri impianto, dosi per serbatoio in grammi reali, riepilogo EC/costi, indici di saturazione, prescrizioni e procedura con caselle di spunta.
+2. **Catalogo** (`stampaCatalogo`): stampata direttamente tramite iframe dedicato (`lanciaStampaIframe`, senza popup) con l'elenco ingredienti, composizioni, prezzi e note.
 
 Il CSS contiene inoltre regole `@media print` per la stampa diretta della pagina (nasconde header, tab e pulsanti).
 
@@ -466,6 +468,7 @@ Tutto in `localStorage` del browser — nessun dato lascia il dispositivo:
 | `fc_ricette` | Ricette personalizzate |
 | `fc_scorta` | ID degli ingredienti disponibili in magazzino |
 | `fc_acido` | Acido scelto per i bicarbonati (`auto` / `mix` / `HNO3` / `H3PO4` / `H2SO4`) |
+| `fc_gdpr_consent` | Consenso granulare GDPR (necessari/analytics/ads, ID ricevuta, scadenza 180 gg) |
 
 Attenzione: `localStorage` è **per browser e per origine** — aprendo il file da un percorso diverso o in un altro browser i dati non seguono. Per trasferirli si usa l'export JSON.
 
@@ -474,8 +477,8 @@ Attenzione: `localStorage` è **per browser e per origine** — aprendo il file 
 - **`safeParse`**: ogni lettura da localStorage è protetta — un dato corrotto degrada ai default invece di bloccare lo script a livello top-level (che lascerebbe l'app vuota).
 - **Sanificazione**: `stripTags` rimuove `<`, `>`, `"` da tutti i testi salvati/importati; `esc` fa l'escape in rendering; `sanitizeName` e `isSafeId` validano nomi e ID importati. Obiettivo: nessuna injection HTML da un JSON malevolo o da vecchi dati.
 - **Immutabilità degli input**: la pipeline di calcolo lavora su copie (`wRighe`); i dati di fabbrica (`SALI_DEFAULT`, `PIANTE_BUILTIN`) non vengono mai mutati.
-- **Test a ogni modifica del motore**: la suite (`tests/run-tests.js`, S1–S40) gira in ~10 s con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
-- **Privacy by default (GDPR)**: font self-hosted in locale e blocco preventivo totale di GA4/AdSense tramite Google Consent Mode v2 (0 richieste esterne prima del consenso).
+- **Test a ogni modifica**: la suite (`tests/run-tests.js`, S1–S41) verifica motore chimico, UI, GDPR, SEO, link affiliazione e conformità legale con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
+- **Privacy by default & Conformità Legale**: font self-hosted in locale (`fonts/OFL.txt`), blocco preventivo totale di GA4/AdSense tramite Google Consent Mode v2 (0 richieste esterne prima del consenso), finestra `<dialog id="dlg-terms">` per Reg. (UE) 2019/1148, CLP/REACH, L. 242/2016 e informativa Amazon Associates.
 
 ---
 
@@ -483,7 +486,7 @@ Attenzione: `localStorage` è **per browser e per origine** — aprendo il file 
 
 Doppia lingua **italiano/inglese** con architettura a tre livelli:
 
-1. **Markup statico**: attributi `data-i18n`, `data-i18n-html`, `data-i18n-placeholder` risolti da `applyLang()` contro i dizionari `I18N.it` / `I18N.en`.
+1. **Markup statico**: attributi `data-i18n`, `data-i18n-html`, `data-i18n-placeholder`, `data-i18n-aria` risolti da `applyLang()` contro i dizionari `TRANSLATIONS.it` / `TRANSLATIONS.en`.
 2. **Stringhe generate da JS**: helper `t(chiave)` e `TT(testoIT, testoEN)` per i template inline.
 3. **Dati**: i contenuti originali (nomi sali, note, ricette) restano in italiano nel dato; `SALI_I18N` e `RICETTE_I18N` forniscono le traduzioni **solo in visualizzazione** quando `currentLang === 'en'` (accessor `salNome`, `salNote`, `ricNome`, `faseNome`…). Questo evita di duplicare o migrare i dati salvati dagli utenti.
 

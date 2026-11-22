@@ -20,6 +20,8 @@ IL SOFTWARE È FORNITO "COSÌ COM'È", SENZA GARANZIE DI ALCUN TIPO, ESPRESSE O 
 
 Richieste di autorizzazione: aprire una Issue sul repository GitHub del progetto.
 
+Nota componenti di terze parti: i file dei font tipografici "Inter" e "JetBrains Mono" inclusi nella cartella `fonts/` sono distribuiti dai rispettivi autori sotto licenza open source SIL Open Font License 1.1 (vedi `fonts/OFL.txt`).
+
 [EN]
 FertiQuota (software, source code, texts, guides, graphics, icons, recipes, catalog and data) is the exclusive property of Gaetano De Vito ("Owner").
 
@@ -32,3 +34,5 @@ Versions published before this license was adopted were distributed under the MI
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. CALCULATED DOSES ARE INDICATIVE AND MUST BE VERIFIED BY THE USER. IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THE SOFTWARE.
 
 Permission requests: open an Issue on the project's GitHub repository.
+
+Third-party components notice: the "Inter" and "JetBrains Mono" typeface files included in the `fonts/` directory are distributed by their respective authors under the SIL Open Font License 1.1 (see `fonts/OFL.txt`).

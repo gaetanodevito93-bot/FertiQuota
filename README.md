@@ -10,7 +10,7 @@
 [![License: Proprietaria](https://img.shields.io/badge/licenza-proprietaria%20%C2%B7%20tutti%20i%20diritti%20riservati-b03a2e)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
-[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S40-2471a3)](tests)
+[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S41-2471a3)](tests)
 [![i18n](https://img.shields.io/badge/lingue-IT%20%C2%B7%20EN-d4660a)](#-internazionalizzazione)
 
 [Funzionalità](#-funzionalità) · [Come si usa](#-come-si-usa) · [Struttura](#-struttura-del-progetto) · [Test](#-test) · [Documentazione](MANUALE_TECNICO.md)
@@ -62,23 +62,25 @@ Nessuna build, nessuna dipendenza per l'uso quotidiano.
 3. Segui il flusso lineare dell'interfaccia (da sinistra a destra):
 
 ```
-① 💧 ACQUA  →  ② 🌿 RICETTE  →  ③ ⚗️ CALCOLA  →  (④ 📦 CATALOGO · ⑤ 💾 DATI a supporto)
+① 📖 GUIDE  →  ② 💧 ACQUA  →  ③ 🌿 RICETTE  →  ④ ⚗️ CALCOLA  ·  (⑤ 📦 CATALOGO · ⑥ 🛒 ATTREZZATURA · ⑦ 💾 DATI a supporto)
 ```
 
+- **Guide** — 5 guide tecniche passo-passo (compatibilità A/B/C, controllo pH, fertirrigazione in cocco e guida attrezzatura).
 - **Acqua** — inserisci l'analisi dell'acqua di partenza o scegli un preset.
-- **Ricette** — scegli coltura e fase, oppure crea/clona una ricetta tua, poi premi *→ Calcola*.
+- **Ricette** — scegli coltura e fase, oppure crea/clona una ricetta tua, poi premi *→ Usa questa ricetta*.
 - **Calcola** — imposta volumi serbatoi, diluizione, pH finale (default 5.8) e acido (automatico o a scelta); premi *Calcola Dosaggi* e ottieni la scheda completa con dosi, verifiche e stampa.
-- **Catalogo** — gestisci fertilizzanti, prezzi e scorta.
+- **Catalogo** — gestisci fertilizzanti, prezzi, riordino rapido e scorta.
+- **Attrezzatura** — strumenti consigliati per pH/EC, bilance di precisione, serbatoi HDPE, miscelatori e DPI.
 - **Dati** — esporta/importa il backup JSON o ripristina i valori di fabbrica.
 
-> 💡 Il file funziona anche **offline**: l'unica risorsa esterna sono i font Google, in loro assenza si usano i font di sistema.
+> 💡 L'app funziona al 100% anche **offline**: i font tipografici (*Inter* e *JetBrains Mono*, licenza [SIL OFL 1.1](fonts/OFL.txt)) sono inclusi in locale nella cartella [`fonts/`](fonts) (zero chiamate esterne).
 
 ### 📲 Installazione come app (PWA)
 
 FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS** (es. GitHub Pages o qualsiasi hosting statico), il browser propone di **installarla** come app: icona sul dispositivo, avvio a tutto schermo e **funzionamento offline** (l'app viene messa in cache da un service worker).
 
 - I service worker richiedono un contesto sicuro (`https://` o `localhost`): aperta con doppio clic da `file://` l'app resta pienamente funzionante, ma **non** installabile.
-- File a supporto della PWA (accanto all'app): [`manifest.webmanifest`](manifest.webmanifest), [`sw.js`](sw.js), [`icons/`](icons). Sono opzionali: non influiscono sull'uso da `file://`.
+- File a supporto della PWA (accanto all'app): [`manifest.webmanifest`](manifest.webmanifest), [`sw.js`](sw.js), [`icons/`](icons), [`fonts/`](fonts). Sono opzionali: non influiscono sull'uso da `file://`.
 - Percorsi relativi → la PWA funziona anche servita da una sottocartella. Dopo un aggiornamento dell'app, incrementa `CACHE_VERSION` in `sw.js` per propagare la nuova versione.
 
 ---
@@ -87,9 +89,17 @@ FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS**
 
 ```
 ├── index.html              # L'applicazione completa (CSS + markup + JS in un solo file)
+├── manifest.webmanifest    # Metadati PWA installabile
+├── sw.js                   # Service worker offline-first (cache shell + font locali)
+├── robots.txt              # Direttive crawler SEO
+├── sitemap.xml             # Mappa URL per i motori di ricerca
+├── LICENSE                 # Licenza proprietaria + note componenti terze parti (OFL 1.1)
+├── CONTRIBUTING.md         # Linee guida sviluppo e workflow test
 ├── MANUALE_TECNICO.md      # Manuale tecnico: architettura, motore chimico, solver, sicurezza
+├── fonts/                  # Font WOFF2 self-hosted (Inter & JetBrains Mono) + OFL.txt
+├── icons/                  # Icone PWA (192/512/maskable/apple-touch) + og-card.png (1200×630)
 └── tests/
-    ├── run-tests.js        # Suite Playwright (S1–S40) sull'app reale in Chromium headless
+    ├── run-tests.js        # Suite Playwright (S1–S41) sull'app reale in Chromium headless
     ├── hooks/pre-commit    # Esegue la suite a ogni commit che tocca app o test
     └── README.md           # Cosa copre ogni sezione di test
 .github/workflows/test.yml  # Stessa suite su GitHub Actions a ogni push/PR
@@ -113,7 +123,7 @@ Interfaccia completa **italiano / inglese** con architettura a tre livelli: mark
 
 ## 🧪 Test
 
-La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza, GDPR/SEO e UI — 40 sezioni (S1–S40) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira in ~10 secondi, a ogni commit (hook) e a ogni push (GitHub Actions).
+La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza, GDPR/SEO/CRO, conformità legale e UI — 41 sezioni (S1–S41) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira a ogni commit (hook) e a ogni push (GitHub Actions).
 
 ```bash
 # Requisiti: Node.js ≥ 18
@@ -141,7 +151,8 @@ Il **[Manuale Tecnico](MANUALE_TECNICO.md)** (17 capitoli) documenta in dettagli
 
 - Le soglie e le ricette sono calibrate per la coltivazione in **coco coir**; per NFT, lana di roccia o suolo i profili vanno adattati.
 - L'EC è **stimata**: va sempre verificata col conduttimetro. Il motore verifica la chimica della soluzione, **non** sostituisce il giudizio agronomico.
-- Acidi e basi (HNO₃, H₃PO₄, H₂SO₄, KOH) sono pericolosi: le prescrizioni presuppongono DPI e procedura corretta.
+- Acidi e basi (`HNO₃`, `H₃PO₄`, `H₂SO₄`, `KOH`) e acido borico (`H₃BO₃`) richiedono DPI e verifica delle normative applicabili (**Reg. UE 2019/1148** sui precursori di esplosivi, **CLP/REACH**); vedere la sezione *Termini & Disclaimer* nel footer dell'app.
+- **Trasparenza commerciale:** in qualità di Affiliato Amazon, FertiQuota riceve un guadagno dagli acquisti idonei effettuati tramite i link con tag `aitane93-21` (senza costi aggiuntivi per l'utente).
 
 ---
 
@@ -178,7 +189,7 @@ Everything lives in **a single HTML file** — no install, no backend, no accoun
 
 **Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Guides → Water → Recipes → Calculate** (with **Catalog**, **Gear & Tools** and **Data** as support).
 
-**Tests:** a Playwright suite (S1–S40) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
+**Tests:** a Playwright suite (S1–S41) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
 
 ```bash
 npm install playwright && npx playwright install chromium

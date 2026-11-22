@@ -39,7 +39,7 @@ Dopo ogni modifica all'app incrementa `CACHE_VERSION` in `sw.js`, così le insta
 - **Un solo file**: CSS, markup e JavaScript restano dentro `index.html`. Niente bundler, framework o transpiler.
 - **Stile difensivo**: ogni lettura da `localStorage` passa per `safeParse`; ogni testo salvato/importato va sanificato (`stripTags`, `esc`); il calcolo lavora su copie, mai mutando gli input.
 - **Dati di fabbrica immutabili**: `SALI_DEFAULT` e `PIANTE_BUILTIN` non si mutano mai a runtime.
-- **Bilingue**: ogni nuova stringa dell'interfaccia va aggiunta ai dizionari `I18N.it` / `I18N.en` (o gestita con `TT()` / `t()`).
+- **Bilingue**: ogni nuova stringa dell'interfaccia va aggiunta ai dizionari `TRANSLATIONS.it` / `TRANSLATIONS.en` (o gestita con `TT()` / `t()`).
 - **Commit**: messaggi chiari e in ambito (`feat:`, `fix:`, `refactor:`, `docs:`…).
 
 ## Segnalare un bug

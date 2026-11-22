@@ -42,6 +42,7 @@
 //   S38. Guide SEO (5 guide), Attrezzatura Amazon, Riordino Catalogo, AdSense guard & link tag=aitane93-21
 //   S39. Audit GDPR completo (font locali, Consent Mode v2, GA4/AdSense HTTP Gate, cookie purge, fail-closed, policy Art. 13)
 //   S40. Audit finale pre-pubblicazione (congruenza nomi, SEO, i18n SVG/title, integrità codice/docs)
+//   S41. Audit legale, CRO 100% affiliazione (IT/EN, ogni tab), bug fix live Chromium & layout CSS
 //
 // Uso:  node tests/run-tests.js   (in automatico: hook tests/hooks/pre-commit e GitHub Actions)
 // Requisiti: Playwright + Chromium (vedi tests/README.md)
@@ -3170,7 +3171,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     seo40.descLen > 0 && seo40.descLen <= 160 && seo40.descHasBrand &&
     /\/FertiQuota\/$/.test(seo40.canon) && seo40.ogSite === 'FertiQuota' &&
     seo40.ogUrl === seo40.canon && /FertiQuota/.test(seo40.ogTitle) && seo40.ogDesc.length > 0 &&
-    /\/FertiQuota\/icons\/icon-512\.png$/.test(seo40.ogImg) && seo40.twCard === 'summary' &&
+    /\/FertiQuota\/icons\/og-card\.png$/.test(seo40.ogImg) && seo40.twCard === 'summary_large_image' &&
     seo40.h1Count === 1 && seo40.ldValid &&
     /Sitemap:\s*https:\/\/gaetanodevito93-bot\.github\.io\/FertiQuota\/sitemap\.xml/.test(robotsTxt) &&
     /<loc>https:\/\/gaetanodevito93-bot\.github\.io\/FertiQuota\/<\/loc>/.test(sitemapXml),
@@ -3232,10 +3233,258 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     document.querySelectorAll('[id]').forEach(el => { c[el.id] = (c[el.id] || 0) + 1; });
     return Object.entries(c).filter(([, n]) => n > 1);
   });
-  check('S40.4: integrità codice/PWA & coerenza docs (0 ID duplicati, asset on disk, SW v1.0.0, docs S1–S40 GDPR)',
-    dupIds40.length === 0 && allShellFilesExist && allManifestIconsExist &&
-    /CACHE_VERSION\s*=\s*'v1\.0\.0'/.test(swSrc39) && docsClean40,
-    JSON.stringify({ dupIds40, allShellFilesExist, allManifestIconsExist, docsClean40 }));
+  const oflExists40 = fs.existsSync(path.join(APPDIR, 'fonts', 'OFL.txt'));
+  const ogExists40 = fs.existsSync(path.join(APPDIR, 'icons', 'og-card.png'));
+  check('S40.4: integrità codice/PWA & coerenza docs (0 ID duplicati, asset on disk, SW v1.0.x, docs GDPR)',
+    dupIds40.length === 0 && allShellFilesExist && allManifestIconsExist && oflExists40 && ogExists40 &&
+    /CACHE_VERSION\s*=\s*'v1\.0\.\d+'/.test(swSrc39) && docsClean40,
+    JSON.stringify({ dupIds40, allShellFilesExist, allManifestIconsExist, oflExists40, ogExists40, docsClean40 }));
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S41. Audit Legale, CRO 100% Affiliazione, Bug Fix Live Chromium & Layout CSS ═══');
+  const s41PageErrors = [];
+  const onS41Err = err => s41PageErrors.push(String(err));
+  page.on('pageerror', onS41Err);
+
+  // S41.1: 100% commission guarantee su OGNI tab IT + EN e zero link commerciali non affiliati
+  const s41_1 = await page.evaluate(() => {
+    const ALLOWED_NON_AMAZON = ['paypal.com', 'github.com', 'garanteprivacy.it'];
+    const langs = {};
+    for (const lang of ['it', 'en']) {
+      setLang(lang);
+      showTab('guide');
+      document.querySelectorAll('#guides-list details.guide-item').forEach(d => { d.open = true; });
+      const guideBoxCount = document.querySelectorAll('[data-guide-gear]').length;
+      const guideLinks = [...document.querySelectorAll('[data-guide-gear] a[href]')];
+
+      showTab('ricette');
+      selPianta('pomodoro', 'builtin');
+      selFase(1);
+      const rgb = document.getElementById('ricetta-gear-bar');
+      const ricettaLinks = [...document.querySelectorAll('#ricetta-gear-bar a[href]')];
+
+      showTab('catalogo');
+      toggleScortaUI('KH2PO4', false);
+      showTab('calcola');
+      caricaRicettaCorrente();
+      calcola({ noScroll: true });
+      const ricalcolaStrip = document.getElementById('ricalcola-buy-strip');
+      const ricalcolaVisible = !!(ricalcolaStrip && !ricalcolaStrip.hidden && getComputedStyle(ricalcolaStrip).display !== 'none');
+      const ricalcolaLinks = [...document.querySelectorAll('#ricalcola-buy-strip a[href]')];
+      const calcStripLinks = [...document.querySelectorAll('#calc-gear-strip a[href]')];
+      toggleScortaUI('KH2PO4', true);
+
+      showTab('attrezzatura');
+      const kitLinks = [...document.querySelectorAll('#gear-kit-banner a.gear-kit-btn')];
+      const gridCards = document.querySelectorAll('#attrezzatura-grid .tool-card').length;
+      const gridLinks = [...document.querySelectorAll('#attrezzatura-grid a.btn-amazon')];
+
+      renderPrivacyPolicy();
+      renderTermsDialog();
+
+      const allLinks = [...document.querySelectorAll('a[href]')];
+      const amazonLinks = allLinks.filter(a => /amazon\./i.test(a.getAttribute('href') || ''));
+      const badAmazon = amazonLinks.filter(a => {
+        const href = a.getAttribute('href') || '';
+        const rel = (a.getAttribute('rel') || '').split(/\s+/);
+        return !href.includes('tag=aitane93-21') ||
+          a.getAttribute('target') !== '_blank' ||
+          !['sponsored', 'nofollow', 'noopener', 'noreferrer'].every(t => rel.includes(t));
+      }).map(a => a.getAttribute('href'));
+
+      const externalOther = allLinks.filter(a => {
+        const href = a.getAttribute('href') || '';
+        return /^https?:/i.test(href) && !/amazon\./i.test(href);
+      }).filter(a => {
+        try {
+          const host = new URL(a.href).hostname.toLowerCase();
+          return !ALLOWED_NON_AMAZON.some(d => host === d || host.endsWith('.' + d));
+        } catch { return true; }
+      }).map(a => a.href);
+
+      let printCalc = '', printCat = '';
+      const oOpen = window.open;
+      window.open = () => ({ document: { open() {}, write(s) { printCalc = String(s); }, close() {} } });
+      stampaMiscela();
+      window.open = oOpen;
+      const oLancia = window.lanciaStampaIframe;
+      window.lanciaStampaIframe = h => { printCat = String(h); };
+      stampaCatalogo();
+      window.lanciaStampaIframe = oLancia;
+      const printsClean = !/amazon\.|tag=/i.test(printCalc + printCat);
+
+      langs[lang] = {
+        guideBoxCount,
+        guideTaggedCount: guideLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        ricettaVisible: !!(rgb && !rgb.hidden),
+        ricettaTaggedCount: ricettaLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        ricalcolaVisible,
+        ricalcolaTaggedCount: ricalcolaLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        calcStripCount: calcStripLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        kitCount: kitLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        gridCards,
+        gridCount: gridLinks.filter(a => a.href.includes('tag=aitane93-21')).length,
+        totalAmazon: amazonLinks.length,
+        badAmazon,
+        externalOther,
+        printsClean
+      };
+    }
+    setLang('it');
+    showTab('guide');
+    return langs;
+  });
+  check('S41.1: 100% link Amazon IT/EN con tag=aitane93-21, target=_blank, rel complete; zero link commerciali non affiliati; stampe pulite',
+    ['it', 'en'].every(l => {
+      const r = s41_1[l];
+      return r.guideBoxCount === 4 && r.guideTaggedCount >= 10 &&
+        r.ricettaVisible && r.ricettaTaggedCount >= 3 &&
+        r.ricalcolaVisible && r.ricalcolaTaggedCount >= 1 && r.calcStripCount >= 3 &&
+        r.kitCount === 3 && r.gridCards === 19 && r.gridCount === 19 &&
+        r.totalAmazon >= 50 && r.badAmazon.length === 0 && r.externalOther.length === 0 && r.printsClean;
+    }), JSON.stringify(s41_1));
+
+  // S41.2: Conformità legale (Amazon IT/EN, #dlg-terms 2019/1148 CLP/REACH/242-2016, Privacy DPF/122 4 righe, OFL.txt, Canapa industriale)
+  const oflSrc41 = fs.existsSync(path.join(APPDIR, 'fonts', 'OFL.txt')) ? fs.readFileSync(path.join(APPDIR, 'fonts', 'OFL.txt'), 'utf8') : '';
+  const licSrc41 = fs.readFileSync(path.join(APPDIR, 'LICENSE'), 'utf8');
+  const s41_2 = await page.evaluate(() => {
+    setLang('it');
+    const footerIt = document.getElementById('fc-footer')?.innerText || '';
+    const copyrightIt = document.getElementById('fc-copyright')?.innerText || '';
+    openTermsDialog();
+    const termsIt = document.getElementById('dlg-terms-content')?.innerText || '';
+    document.getElementById('dlg-terms')?.close();
+    openPrivacyDialog();
+    const privIt = document.getElementById('dlg-privacy-content')?.innerText || '';
+    const privItRows = document.querySelectorAll('#dlg-privacy-content table.gdpr-tbl tbody tr').length;
+    document.getElementById('dlg-privacy')?.close();
+    const hempIt = ricNome(PIANTE_BUILTIN.find(p => p.id === 'cannabis'));
+
+    setLang('en');
+    const footerEn = document.getElementById('fc-footer')?.innerText || '';
+    openTermsDialog();
+    const termsEn = document.getElementById('dlg-terms-content')?.innerText || '';
+    document.getElementById('dlg-terms')?.close();
+    openPrivacyDialog();
+    const privEn = document.getElementById('dlg-privacy-content')?.innerText || '';
+    const privEnRows = document.querySelectorAll('#dlg-privacy-content table.gdpr-tbl tbody tr').length;
+    document.getElementById('dlg-privacy')?.close();
+    const hempEn = ricNome(PIANTE_BUILTIN.find(p => p.id === 'cannabis'));
+
+    setLang('it');
+    return { footerIt, copyrightIt, termsIt, privIt, privItRows, hempIt, footerEn, termsEn, privEn, privEnRows, hempEn };
+  });
+  check('S41.2: conformità legale completa (Affiliazione IT/EN, Termini 2019/1148/CLP/REACH/242-2016, Privacy DPF/Art.122 4 righe, OFL.txt/LICENSE, Canapa industriale)',
+    /In qualità di Affiliato Amazon/.test(s41_2.footerIt) &&
+    /As an Amazon Associate/.test(s41_2.footerEn) &&
+    /Gaetano De Vito/.test(s41_2.copyrightIt) && /SIL OFL 1\.1/.test(s41_2.copyrightIt) && !/MIT License/.test(s41_2.copyrightIt) &&
+    ['termsIt', 'termsEn'].every(k => /2019\/1148/.test(s41_2[k]) && /CLP/.test(s41_2[k]) && /REACH/.test(s41_2[k]) && /Gaetano De Vito/.test(s41_2[k]) && /SIL/.test(s41_2[k]) && /242\/2016/.test(s41_2[k])) &&
+    /Data Privacy Framework/.test(s41_2.privIt) && /122/.test(s41_2.privIt) && s41_2.privItRows === 4 &&
+    /Data Privacy Framework/.test(s41_2.privEn) && /122/.test(s41_2.privEn) && s41_2.privEnRows === 4 &&
+    /SIL OPEN FONT LICENSE/i.test(oflSrc41) && /OFL/i.test(licSrc41) &&
+    s41_2.hempIt === 'Canapa industriale' && s41_2.hempEn === 'Industrial Hemp',
+    JSON.stringify({ hempIt: s41_2.hempIt, hempEn: s41_2.hempEn, privItRows: s41_2.privItRows, privEnRows: s41_2.privEnRows, copyrightIt: s41_2.copyrightIt }));
+
+  // S41.3: Verifica live bug risolti (fcScrollTo, showToast popover + contrasto su #tab-acqua, Tank A/B print, Escape/inert modali)
+  await page.evaluate(() => {
+    showTab('guide');
+    document.querySelectorAll('#guides-list details.guide-item').forEach(d => { d.open = true; });
+    window.scrollTo(0, 0);
+    const target = document.querySelector('#guides-list details.guide-item:nth-child(4)');
+    fcScrollTo(target);
+  });
+  await page.waitForTimeout(450);
+  const scrollOk41 = await page.evaluate(() => (document.documentElement.scrollTop || window.scrollY) > 50);
+  const toastOk41 = await page.evaluate(() => {
+    window.scrollTo(0, 0);
+    showTab('acqua');
+    showToast('Test OK');
+    const el = document.getElementById('ie-toast');
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    const visOk = r.width > 80 && r.height > 24 && cs.color === 'rgb(255, 255, 255)' && cs.backgroundColor !== 'rgb(255, 255, 255)' && el.innerText.includes('Test OK');
+    hideToast();
+    const hiddenAfter = !el.classList.contains('open');
+    return { visOk, hiddenAfter, width: r.width, height: r.height, color: cs.color, bg: cs.backgroundColor };
+  });
+  const printTankColors41 = await page.evaluate(() => {
+    selPianta('pomodoro', 'builtin'); selFase(1); caricaRicettaCorrente(); calcola({ noScroll: true });
+    let html = '';
+    const oOpen = window.open;
+    window.open = () => ({ document: { open() {}, write(s) { html = String(s); }, close() {} } });
+    stampaMiscela();
+    window.open = oOpen;
+    const idxA = html.indexOf('#2471a3');
+    const idxB = html.indexOf('#1e8449');
+    return { idxA, idxB, orderOk: idxA > 0 && idxB > idxA, clean: !/amazon\.|tag=/i.test(html) };
+  });
+  await page.evaluate(() => { window._pendingDelete = { tipo: 'ricetta', ri: 0 }; openModal('modal-del'); });
+  const modalOpenState41 = await page.evaluate(() => {
+    const m = document.getElementById('modal-del');
+    return {
+      isOpen: m.classList.contains('open'),
+      role: m.getAttribute('role'),
+      modal: m.getAttribute('aria-modal'),
+      headerInert: !!document.querySelector('header')?.inert
+    };
+  });
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  const modalClosedAfterEsc41 = await page.evaluate(() => !document.getElementById('modal-del').classList.contains('open') && !document.querySelector('header')?.inert);
+  check('S41.3: bug fix live Chromium (fcScrollTo, showToast Top-Layer accessibile, colori stampa A/B, Escape/inert modali)',
+    scrollOk41 && toastOk41.visOk && toastOk41.hiddenAfter && printTankColors41.orderOk && printTankColors41.clean &&
+    modalOpenState41.isOpen && modalOpenState41.role === 'dialog' && modalOpenState41.modal === 'true' && modalOpenState41.headerInert &&
+    modalClosedAfterEsc41,
+    JSON.stringify({ scrollOk41, toastOk41, printTankColors41, modalOpenState41, modalClosedAfterEsc41 }));
+
+  // S41.4: Layout CSS desktop (.serb-grid/.alert/z-index/select SVG), og-card.png 1200x630, hash routing & 0 overflow mobile
+  await page.setViewportSize({ width: 1280, height: 860 });
+  const layout41 = await page.evaluate(() => {
+    showTab('calcola');
+    selPianta('pomodoro', 'builtin'); selFase(1); caricaRicettaCorrente(); calcola({ noScroll: true });
+    const grid = document.querySelector('#risultato-stampa .serb-grid');
+    const cards = grid ? [...grid.querySelectorAll('.serb-card')] : [];
+    const rectA = cards[0]?.getBoundingClientRect();
+    const rectB = cards[1]?.getBoundingClientRect();
+    const al = document.querySelector('#risultato-stampa .alert');
+    const modalZ = parseInt(getComputedStyle(document.getElementById('modal-del')).zIndex || '0', 10);
+    const gdprZ = parseInt(getComputedStyle(document.getElementById('gdpr-banner')).zIndex || '0', 10);
+    const selBg = getComputedStyle(document.getElementById('acido-tipo')).backgroundImage || '';
+    location.hash = '#attrezzatura';
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    const hashSwitched = document.getElementById('tab-attrezzatura').classList.contains('active');
+    showTab('guide');
+    return {
+      gridDisplay: grid ? getComputedStyle(grid).display : '',
+      sideBySide: !!(rectA && rectB && rectB.left > rectA.left),
+      alertDisplay: al ? getComputedStyle(al).display : '',
+      zIndexOk: modalZ > gdprZ,
+      selHasArrow: selBg.includes('data:image/svg+xml'),
+      hashSwitched
+    };
+  });
+  const ogBuf41 = fs.readFileSync(path.join(APPDIR, 'icons', 'og-card.png'));
+  const ogWidth41 = ogBuf41.readUInt32BE(16);
+  const ogHeight41 = ogBuf41.readUInt32BE(20);
+  await page.setViewportSize({ width: 375, height: 812 });
+  const mobileOverflow41 = await page.evaluate(() => {
+    const overflows = [];
+    for (const tid of ['guide', 'acqua', 'ricette', 'calcola', 'catalogo', 'attrezzatura', 'dati']) {
+      showTab(tid);
+      if (document.documentElement.scrollWidth > document.documentElement.clientWidth + 1) {
+        overflows.push({ tid, sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth });
+      }
+    }
+    showTab('guide');
+    return overflows;
+  });
+  await page.setViewportSize({ width: 1280, height: 860 });
+  page.off('pageerror', onS41Err);
+  check('S41.4: layout desktop (.serb-grid/.alert/z-index/select), og-card.png 1200×630, hash #attrezzatura, 0 overflow mobile e 0 pageerror',
+    layout41.gridDisplay === 'grid' && layout41.sideBySide && layout41.alertDisplay === 'flex' &&
+    layout41.zIndexOk && layout41.selHasArrow && layout41.hashSwitched &&
+    ogWidth41 === 1200 && ogHeight41 === 630 && mobileOverflow41.length === 0 && s41PageErrors.length === 0,
+    JSON.stringify({ layout41, ogWidth41, ogHeight41, mobileOverflow41, s41PageErrors }));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);

@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="FertiQuota — Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, EC, pH, bicarbonati, 5 guide e zero precipitati.">
 <meta name="theme-color" content="#2d5a3d">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://gaetanodevito93-bot.github.io/FertiQuota/">
 <meta property="og:site_name" content="FertiQuota">
 <meta property="og:url" content="https://gaetanodevito93-bot.github.io/FertiQuota/">
@@ -12,11 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:locale:alternate" content="en_US">
-<meta property="og:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/icon-512.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FertiQuota — Calcolatore Fertirrigazione e Soluzioni Madri A/B/C">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FertiQuota — Calcolatore Fertirrigazione & Soluzioni Madri A/B/C">
 <meta name="twitter:description" content="Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, equilibrio ionico Davies/SIT, pH, EC e 5 guide tecniche.">
-<meta name="twitter:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/icon-512.png">
+<meta name="twitter:image" content="https://gaetanodevito93-bot.github.io/FertiQuota/icons/og-card.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,6 +33,14 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "inLanguage": ["it", "en"],
+      "screenshot": "https://gaetanodevito93-bot.github.io/FertiQuota/icons/og-card.png",
+      "featureList": [
+        "Calcolo soluzioni madri concentrate A, B e C senza precipitati",
+        "Motore chimico-termodinamico PHREEQC / Davies / SIT con 12 coppie ioniche",
+        "Neutralizzazione bicarbonati (HNO3, H3PO4, H2SO4, Mix automatico)",
+        "Solver a target NNLS e gestione scorta reale di magazzino",
+        "11 colture e 35 fasi per fibra di cocco con scheda stampabile e PWA offline"
+      ],
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -66,6 +78,22 @@
             "@type": "Answer",
             "text": "In coco coir il target tipico di Calcio varia da 70–90 mg/L in radicamento fino a 140–180 mg/L in vegetativa e fruttificazione (circa 500–1060 g/1000 L di Ca(NO₃)₂·4H₂O al netto dell'acqua di partenza), mantenendo NH₄ ≤ 10% dell'azoto totale."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Quali strumenti di misura e bilance servono per fertirrigazione precisa?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Servono un pHmetro digitale con compensazione ATC calibrato a due punti (pH 4,01 e 7,01) e conservato in soluzione KCl, un conduttivimetro EC (0–10+ mS/cm) con standard 1413 µS/cm e una doppia bilancia: 0,01 g per micronutrienti e 0,1 g / 3–5 kg per macronutrienti."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Come gestire EC di drenaggio e tamponamento della fibra di cocco?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usa fibra di cocco lavata e pre-tamponata con Calcio e Magnesio per evitare blocchi cationici iniziali di K⁺ e Na⁺, mantenendo un drenaggio (run-off) del 15–20% con EC di scolo entro EC input + 0,5–1,0 mS/cm."
+          }
         }
       ]
     }
@@ -73,6 +101,7 @@
 }
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d5a3d'/><text x='16' y='23' text-anchor='middle' font-size='20'>🌿</text></svg>">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -89,9 +118,9 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(./fonts/jetbrains-mono-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(./fonts/jetbrains-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
---vs:#0f3528; --vm:#1c5740; --vc:#3f9268;
+--vs:#0f3528; --vm:#1c5740; --vc:#3f9268; --vc-dk:#27704a;
 --cr:#f7f4ec; --cs:#ece4d5; --bl:#ffffff;
---ar:#d96a2b; --as:#f3a35e;
+--ar:#d96a2b; --ar-dk:#ad460f; --as:#f3a35e;
 --tx:#16201a; --ts:#5c6657; --bo:#e2dac9;
 --ro:#c0392b; --az:#2471a3; --vi:#7b3f9e;
 --sa:#2471a3; --sb:#1e8449;
@@ -153,9 +182,10 @@ header span{font-family:var(--mono);font-size:.66rem;opacity:.6;font-weight:400;
 .ch::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ar)}
 .cb{padding:18px}
 label{display:block;margin-bottom:6px;font-family:var(--mono);font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ts)}
-input[type="number"],input[type="text"],select,textarea{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.82rem;color:var(--tx);background:var(--bl);border:1.5px solid var(--bo);border-radius:var(--r);box-shadow:0 1px 0 rgba(15,53,40,.04);transition:var(--transition);-moz-appearance:textfield;-webkit-appearance:none}
+input[type="number"],input[type="text"],select,textarea{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.82rem;color:var(--tx);background:var(--bl);border:1.5px solid var(--bo);border-radius:var(--r);box-shadow:0 1px 0 rgba(15,53,40,.04);transition:var(--transition);-moz-appearance:textfield;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231c5740' d='M1.4 0L6 4.6 10.6 0 12 1.4l-6 6-6-6z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;cursor:pointer}
 input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);background:#fff;box-shadow:0 0 0 4px rgba(63,146,104,.18)}
+input:focus,select:focus,textarea:focus{outline:2px solid transparent;border-color:var(--vc);background-color:#fff;box-shadow:0 0 0 4px rgba(63,146,104,.18)}
 .field{margin-bottom:14px}
 .sep{height:1px;background:var(--cs);margin:12px 0}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -166,38 +196,36 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;cursor:pointer;border:none;border-radius:var(--r);font-family:var(--mono);font-size:.76rem;font-weight:600;letter-spacing:.01em;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:var(--transition)}
 .btn:active{transform:scale(.97);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 .btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
-.btn-pr{width:100%;color:#fff;background:linear-gradient(135deg,var(--ar) 0%,#bf551f 100%);box-shadow:0 6px 18px rgba(217,106,43,.32)}
-.btn-pr:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(217,106,43,.42)}
-.btn-se{background:transparent;border:1.5px solid var(--vc);color:var(--vm)}
-.btn-se:hover{background:var(--vc);color:#fff;transform:translateY(-1px);box-shadow:0 6px 16px rgba(63,146,104,.3)}
+.btn-pr{width:100%;color:#fff;background:linear-gradient(135deg,var(--ar-dk) 0%,#8f3909 100%);box-shadow:0 6px 18px rgba(173,70,15,.30)}
+.btn-pr:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(173,70,15,.40)}
+.btn-se{background:transparent;border:1.5px solid var(--vc-dk);color:var(--vm)}
+.btn-se:hover{background:var(--vc-dk);color:#fff;transform:translateY(-1px);box-shadow:0 6px 16px rgba(39,112,74,.28)}
 .btn-del{background:transparent;border:1.5px solid var(--bo);color:var(--ro);padding:6px 12px}
 .btn-del:hover{background:var(--ro);color:#fff;border-color:var(--ro);box-shadow:0 4px 12px rgba(192,57,43,.3)}
 .btn-sm{padding:6px 12px;font-size:.72rem}
-.ba{background:linear-gradient(135deg,var(--sa),#1a5a8a);color:#fff;border-radius:var(--r);padding:3px 8px;font-family:var(--mono);font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(36,113,163,.2)}
-.bb{background:linear-gradient(135deg,var(--sb),#145a32);color:#fff;border-radius:var(--r);padding:3px 8px;font-family:var(--mono);font-size:.65rem;font-weight:700;box-shadow:0 2px 6px rgba(30,132,73,.2)}
 .bcat{border-radius:4px;padding:2px 6px;font-size:.6rem;font-weight:700;color:#fff}
-.tag-fix{font-size:.6rem;color:var(--ts);margin-top:3px;text-align:center}
 .el-txt{font-size:.65rem;color:var(--vi);font-family:'JetBrains Mono',monospace;margin-top:3px}
-.badge-ok{background:linear-gradient(135deg,var(--vc),#3a7a4e);color:#fff;border-radius:var(--r);padding:2px 8px;font-family:var(--mono);font-size:.62rem;font-weight:700}
+.badge-ok{background:linear-gradient(135deg,var(--vc-dk),#1e5c3b);color:#fff;border-radius:var(--r);padding:2px 8px;font-family:var(--mono);font-size:.62rem;font-weight:700}
 .badge-no{background:linear-gradient(135deg,var(--ro),#a52818);color:#fff;border-radius:var(--r);padding:2px 8px;font-family:var(--mono);font-size:.62rem;font-weight:700}
 .alert{display:flex;gap:10px;align-items:flex-start;width:100%;margin-bottom:10px;padding:12px 14px;border-radius:var(--r);font-size:.78rem;line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .al-err{background:#f8d7da;border-left:4px solid var(--ro);color:#721c24}
-.al-ok {background:#d4edda;border-left:4px solid var(--vc);color:#155724}
-.al-inf{background:#fff3cd;border-left:4px solid #f0a500;color:#856404}
+.al-ok {background:#d4edda;border-left:4px solid var(--vc-dk);color:#155724}
+.al-inf{background:#fff3cd;border-left:4px solid #c78500;color:#6e5002}
 .al-blu{background:#d1ecf1;border-left:4px solid #0c7b8e;color:#0c5460}
 .pianta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
 @media(min-width:500px){.pianta-grid{grid-template-columns:repeat(4,1fr)}}
 .pianta-btn{background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:12px 8px;text-align:center;cursor:pointer;transition:var(--transition);font-size:.75rem;font-weight:600;color:var(--tx);line-height:1.3;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.pianta-btn:hover,.pianta-btn.active{border-color:var(--vc);background:#fff;color:var(--vm);box-shadow:0 4px 16px rgba(74,140,94,.15);transform:translateY(-2px)}
+.pianta-btn:hover,.pianta-btn.active{border-color:var(--vc-dk);background:#fff;color:var(--vm);box-shadow:0 4px 16px rgba(39,112,74,.15);transform:translateY(-2px)}
+.pianta-btn:focus-visible,.fase-btn:focus-visible,.mode-btn:focus-visible,.gear-pill:focus-visible,.lang-btn:focus-visible,.modal-close:focus-visible,.fc-footer-link:focus-visible,.btn-cat-buy:focus-visible{outline:2px solid var(--ar-dk);outline-offset:2px}
 .pianta-btn .em{font-size:1.5rem;display:block;margin-bottom:4px}
 .fase-row{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
 .fase-btn{flex:1;min-width:110px;background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--ts);transition:var(--transition);line-height:1.4;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.fase-btn:hover,.fase-btn.active{border-color:var(--ar);background:#fff;color:var(--ar);box-shadow:0 4px 16px rgba(212,102,10,.15);transform:translateY(-2px)}
+.fase-btn:hover,.fase-btn.active{border-color:var(--ar-dk);background:#fff;color:var(--ar-dk);box-shadow:0 4px 16px rgba(173,70,15,.15);transform:translateY(-2px)}
 .serb-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:14px;width:100%}
 @media(min-width:768px){.serb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.serb-grid-3{grid-template-columns:1fr 1fr 1fr}}
 #calc-out{display:block;width:100%}
-#calc-out>#risultato-stampa{display:block!important;width:100%}
-#calc-out>#risultato-stampa>*{display:block!important;width:100%!important;min-width:0!important;box-sizing:border-box}
+#calc-out>#risultato-stampa{display:block;width:100%}
+#calc-out>#risultato-stampa>:not(.serb-grid):not(.alert){display:block;width:100%;min-width:0;box-sizing:border-box}
 .serb-card{border-radius:var(--r);overflow:hidden;border:2px solid;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:var(--transition)}
 .serb-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
 .serb-card.a{border-color:var(--sa)}
@@ -206,17 +234,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .serb-title{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff}
 .serb-card.a .serb-title{background:linear-gradient(135deg,var(--sa) 0%,#1a5a8a 100%)}
 .serb-card.b .serb-title{background:linear-gradient(135deg,var(--sb) 0%,#145a32 100%)}
+.serb-card.c .serb-title{background:linear-gradient(135deg,#7b3f9e 0%,#5b2c6f 100%)}
 .sale-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 14px;border-bottom:1px solid var(--cs);font-size:.78rem;gap:8px;flex-wrap:wrap;transition:background 0.15s ease}
 .sale-row:hover{background:rgba(0,0,0,.02)}
 .sale-row:last-child{border-bottom:none}
 .sale-nome{flex:1;min-width:0;word-break:break-word}
-.gr-a{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sa);white-space:nowrap;flex-shrink:0}
-.gr-b{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--sb);white-space:nowrap;flex-shrink:0}
 .tot-row{background:linear-gradient(135deg,var(--cs) 0%,#e8e1d4 100%);font-weight:700}
 .costo-txt{font-size:.65rem;color:var(--ts);white-space:nowrap}
 .eco-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:.78rem;border-bottom:1px solid var(--cs);gap:8px;flex-wrap:wrap}
 .eco-row:last-child{border-bottom:none}
-.eco-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;color:var(--ar);flex-shrink:0}
+.eco-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;color:var(--ar-dk);flex-shrink:0}
 .steps{list-style:none;counter-reset:sc}
 .steps li{counter-increment:sc;display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--cs);font-size:.78rem;line-height:1.6}
 .steps li:last-child{border-bottom:none}
@@ -261,8 +288,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .ricetta-card-meta{font-size:.68rem;color:var(--ts)}
 .ricetta-card-body{padding:12px 14px;display:none}
 .ricetta-card.open .ricetta-card-body{display:block}
-.prezzo-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap;box-shadow:0 2px 6px rgba(212,102,10,.2)}
-.costo-totale{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--ar);font-weight:700}
+.prezzo-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:linear-gradient(135deg,var(--ar-dk) 0%,#8f3909 100%);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap;box-shadow:0 2px 6px rgba(173,70,15,.22)}
 .tw{position:relative;display:inline-block;vertical-align:middle}
 .tw .tip{visibility:hidden;opacity:0;background:var(--tx);color:#fff;border-radius:8px;padding:8px 12px;font-size:.68rem;width:220px;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);transition:var(--transition);pointer-events:none;line-height:1.5;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .tw:hover .tip{visibility:visible;opacity:1}
@@ -276,9 +302,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .row-calc-miss{background:#fff0f0 !important}
 .row-calc-miss td{opacity:.8}
 .miss-tag{display:inline-block;background:linear-gradient(135deg,var(--ro) 0%,#a52818 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(192,57,43,.2)}
-.miss-alt{display:inline-block;background:linear-gradient(135deg,var(--as) 0%,var(--ar) 100%);color:#fff;font-size:.62rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-top:4px;box-shadow:0 2px 6px rgba(212,102,10,.2)}
-.ie-toast{display:none;font-size:.78rem;font-weight:700;animation:fadeout 3s forwards;padding:10px 14px;border-radius:var(--r);background:var(--vc);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-@keyframes fadeout{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+#ie-toast-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1200;pointer-events:none;display:flex;justify-content:center;width:min(92vw,460px)}
+.ie-toast{display:none;align-items:center;gap:10px;justify-content:space-between;pointer-events:auto;width:fit-content;max-width:min(92vw,460px);font-family:var(--sans);font-size:.82rem;font-weight:700;padding:11px 14px 11px 16px;border-radius:10px;background:var(--vc-dk);color:#fff;box-shadow:0 12px 32px rgba(15,53,40,.30);border:1px solid rgba(255,255,255,.18);opacity:0;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease,display .22s allow-discrete,overlay .22s allow-discrete;transition-behavior:allow-discrete}
+.ie-toast[popover]{position:fixed;inset:auto auto 20px 50%;transform:translate(-50%,8px);margin:0}
+.ie-toast.open,.ie-toast:is(:popover-open,.\:popover-open){display:flex;opacity:1;transform:translateY(0)}
+.ie-toast[popover]:is(:popover-open,.\:popover-open){transform:translate(-50%,0)}
+.ie-toast.ie-toast-err{background:var(--ro)}
+.ie-toast-x{flex-shrink:0;background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:6px;width:26px;height:26px;font-size:.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.ie-toast-x:hover{background:rgba(255,255,255,.32)}
+.ie-toast-x:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@starting-style{.ie-toast.open,.ie-toast:is(:popover-open,.\:popover-open){opacity:0}}
 .gauge-wrap{margin-bottom:12px}
 .gauge{margin-bottom:10px}
 .gauge .gtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
@@ -304,17 +337,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 .ratio-box .rl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:3px}
 .ratio-box .rv{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;color:var(--vm)}
 .ratio-box .rn{font-size:.6rem;color:var(--ts);margin-top:2px}
-.ion-profile{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:6px}
-.ion-profile th{background:var(--cs);padding:6px 8px;text-align:left;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);white-space:nowrap}
-.ion-profile td{padding:6px 8px;border-bottom:1px solid var(--cs);font-family:'JetBrains Mono',monospace}
-.ion-profile td.dev-ok{color:var(--vc)}
-.ion-profile td.dev-warn{color:var(--ar)}
-.ion-profile td.dev-bad{color:var(--ro)}
-.ion-profile tr:last-child td{border-bottom:none}
-.mono,code,.num{font-family:var(--mono)}
+.mono,.num{font-family:var(--mono)}
 .sec-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.sec-h h4{font-family:var(--disp);font-size:.92rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--vs)}
-.modal-bg{display:none;position:fixed;inset:0;z-index:100;padding:20px 12px;overflow-y:auto;align-items:flex-start;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;transition:opacity .22s cubic-bezier(.22,1,.36,1),backdrop-filter .22s ease;pointer-events:none}
+.sec-h h2,.sec-h h4{font-family:var(--disp);font-size:.92rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--vs)}
+.modal-bg{display:none;position:fixed;inset:0;z-index:1000;padding:20px 12px;overflow-y:auto;align-items:flex-start;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;transition:opacity .22s cubic-bezier(.22,1,.36,1),backdrop-filter .22s ease;pointer-events:none}
 .modal-bg.open{display:flex;opacity:1;pointer-events:auto}
 .modal-bg.closing{opacity:0;pointer-events:none}
 .modal-bg.closing .modal{animation:fcModalOut .20s cubic-bezier(.4,0,1,1) forwards}
@@ -333,10 +359,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--vc);back
 body{padding-bottom:env(safe-area-inset-bottom)}
 }
 @media print{
-.no-print,.tabbar,.topbar,header,.tabs,#fc-footer,#adsense-bottom-wrap,#gdpr-banner,dialog.gdpr-dialog{display:none!important}
+.no-print,header,.tabs,#fc-footer,#adsense-bottom-wrap,#gdpr-banner,dialog.gdpr-dialog,.modal-bg,#splash,#ie-toast-wrap{display:none!important}
 body{background:#fff!important}
 .card{break-inside:avoid;box-shadow:none!important;border-color:#ccc}
 }
+@media(hover:none){body{background-attachment:scroll}}
 @media(max-width:600px){
 header{padding:14px 16px}
 header h1{font-size:.9rem}
@@ -371,7 +398,7 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 .ghero-title em{font-style:normal;color:var(--as)}
 .ghero-lead{font-size:clamp(.88rem,.82rem + .25vw,.98rem);line-height:1.68;color:rgba(247,244,236,.84);max-inline-size:58ch;margin-bottom:22px;text-wrap:pretty}
 .ghero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.gbtn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;min-block-size:44px;border-radius:9px;border:none;cursor:pointer;font-family:var(--sans);font-size:.84rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#e27536 0%,#c7561b 100%);box-shadow:0 8px 22px rgba(217,106,43,.36);transition:var(--transition)}
+.gbtn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;min-block-size:44px;border-radius:9px;border:none;cursor:pointer;font-family:var(--sans);font-size:.84rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--ar-dk) 0%,#8f3909 100%);box-shadow:0 8px 22px rgba(173,70,15,.36);transition:var(--transition)}
 .gbtn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(217,106,43,.46)}
 .gbtn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;min-block-size:44px;border-radius:9px;border:1px solid rgba(255,255,255,.28);cursor:pointer;font-family:var(--sans);font-size:.83rem;font-weight:600;color:#fff;background:rgba(255,255,255,.09);backdrop-filter:blur(6px);transition:var(--transition)}
 .gbtn-ghost:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);transform:translateY(-1px)}
@@ -389,7 +416,7 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 .ghero-stat-lbl{font-size:.71rem;color:rgba(247,244,236,.72);line-height:1.35}
 .gsection{margin-bottom:32px}
 .gsection-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.gsection-kicker{font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ar);margin-bottom:4px}
+.gsection-kicker{font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ar-dk);margin-bottom:4px}
 .gsection-title{font-family:var(--sans);font-size:clamp(1.18rem,1.02rem + .8vw,1.52rem);font-weight:700;letter-spacing:-.02em;color:var(--vs);line-height:1.22;text-wrap:balance}
 .gsection-sub{font-size:.84rem;color:var(--ts);line-height:1.6;max-inline-size:66ch;margin-top:6px;text-wrap:pretty}
 .gsteps-grid{display:grid;grid-template-columns:1fr;gap:14px}
@@ -411,11 +438,11 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 .gstep-4{--step-c:#d96a2b;--step-bg:rgba(217,106,43,.13)}
 .gtoc-wrap{background:rgba(255,255,255,.82);border:1px solid var(--bo);border-radius:12px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px rgba(15,53,40,.04)}
 .gtoc-label{font-family:var(--mono);font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:10px}
-.gtoc-pills{display:flex;flex-wrap:wrap;flex-wrap:balance;gap:8px}
+.gtoc-pills{display:flex;flex-wrap:wrap;gap:8px}
 .gtoc-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;min-block-size:36px;border-radius:999px;border:1px solid var(--bo);background:var(--cr);color:var(--vs);font-size:.76rem;font-weight:600;cursor:pointer;transition:var(--transition)}
 .gtoc-pill:hover{background:#fff;border-color:var(--vc);color:var(--vm);transform:translateY(-1px);box-shadow:0 4px 10px rgba(15,53,40,.08)}
 .gtoc-pill:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
-.gtoc-pill b{font-family:var(--mono);font-size:.66rem;color:var(--ar)}
+.gtoc-pill b{font-family:var(--mono);font-size:.66rem;color:var(--ar-dk)}
 .accordion{display:flex;flex-direction:column;gap:14px}
 #guides-list{display:flex;flex-direction:column;gap:14px}
 .guide-item{position:relative;background:var(--bl);border:1px solid var(--bo);border-radius:13px;box-shadow:0 4px 18px rgba(15,53,40,.055);overflow:clip;transition:border-color .2s ease,box-shadow .2s ease}
@@ -492,10 +519,10 @@ input[type="number"],input[type="text"],select,textarea{min-height:44px}
 .gbanner-sub{font-size:.83rem;color:rgba(247,244,236,.82);max-inline-size:52ch;line-height:1.55;text-wrap:pretty}
 .gbanner-btns{display:flex;flex-wrap:wrap;gap:10px}
 body:has(#tab-guide.active) #fc-footer{max-width:1080px}
-#tabbtn-attrezzatura{background:linear-gradient(135deg,#f3a847 0%,#d96a2b 100%)!important;color:#fff!important;font-weight:700!important;border:1px solid #b85418!important;box-shadow:0 3px 10px rgba(217,106,43,.25)!important}
-#tabbtn-attrezzatura:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(217,106,43,.35)!important}
-#tabbtn-attrezzatura.active,#tabbtn-attrezzatura[aria-selected="true"]{background:linear-gradient(135deg,#e69027 0%,#c45619 100%)!important;box-shadow:0 4px 14px rgba(217,106,43,.45)!important}
-#tabbtn-attrezzatura[aria-selected="true"]::after{border-block-end:3px solid #fff!important}
+.tabs #tabbtn-attrezzatura{background:linear-gradient(135deg,#ffad33 0%,#f08804 100%);color:#1a1205;font-weight:700;border:1px solid #c46d00;box-shadow:0 3px 10px rgba(196,109,0,.22)}
+.tabs #tabbtn-attrezzatura:hover{background:linear-gradient(135deg,#ffb84d 0%,#e67e00 100%);transform:translateY(-1px);box-shadow:0 6px 16px rgba(196,109,0,.32)}
+.tabs #tabbtn-attrezzatura.active,.tabs #tabbtn-attrezzatura[aria-selected="true"]{background:linear-gradient(135deg,#f8a326 0%,#df7600 100%);color:#1a1205;border-color:#9e5300;box-shadow:0 4px 14px rgba(196,109,0,.40)}
+.tabs #tabbtn-attrezzatura[aria-selected="true"]::after{border-block-end:3px solid #1a1205}
 .gear-toolbar{display:flex;flex-direction:column;gap:10px;background:var(--cs);border:1px solid var(--bo);border-radius:var(--r);padding:12px;margin-bottom:14px}
 .gear-pills{display:flex;gap:6px;flex-wrap:wrap}
 .gear-pill{padding:6px 12px;font-size:.72rem;font-weight:600;border-radius:16px;border:1px solid var(--bo);background:#fff;color:var(--tx);cursor:pointer;transition:var(--transition)}
@@ -503,27 +530,51 @@ body:has(#tab-guide.active) #fc-footer{max-width:1080px}
 .gear-pill.active{background:var(--vs);color:#fff;border-color:var(--vs)}
 .gear-search-wrap{display:flex;gap:8px;align-items:center}
 .gear-search-wrap label{margin:0;white-space:nowrap}
+.gear-kit-banner{background:linear-gradient(135deg,#fdf6ea 0%,#fff 100%);border:1.5px solid #d98218;border-radius:var(--r-lg);padding:14px 16px;margin-bottom:14px;box-shadow:var(--sh)}
+.gear-kit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.gear-kit-title{font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--vs)}
+.gear-kit-sub{font-size:.73rem;color:var(--ts)}
+.gear-kit-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:680px){.gear-kit-grid{grid-template-columns:repeat(3,1fr)}}
+.gear-kit-item{display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:11px 12px;background:#fff;border:1px solid var(--bo);border-radius:var(--r)}
+.gear-kit-item strong{font-size:.79rem;color:var(--vs);line-height:1.35}
+.gear-kit-item span{font-size:.71rem;color:var(--ts);line-height:1.45}
+.gear-kit-btn,.btn-amazon{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:var(--r);background:linear-gradient(135deg,#ffad33 0%,#f08804 100%);border:1px solid #c46d00;color:#1a1205;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:700;box-shadow:0 3px 10px rgba(196,109,0,.22);transition:var(--transition)}
+.gear-kit-btn:hover,.btn-amazon:hover{background:linear-gradient(135deg,#ffb84d 0%,#e67e00 100%);transform:translateY(-1px);box-shadow:0 6px 16px rgba(196,109,0,.32)}
+.gear-kit-btn:focus-visible,.btn-amazon:focus-visible{outline:2px solid var(--vs);outline-offset:2px}
+.gear-count{font-family:var(--mono);font-size:.7rem;color:var(--ts);margin-bottom:10px;font-weight:600}
 .gear-grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:680px){.gear-grid{grid-template-columns:1fr 1fr}}
 .tool-card{display:flex;flex-direction:column;height:100%;margin-bottom:0;background:var(--bl);border:1px solid var(--bo);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:var(--transition)}
 .tool-card:hover{box-shadow:var(--sh-hover);transform:translateY(-2px)}
 .tool-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:linear-gradient(135deg,#fbf9f4 0%,var(--cs) 100%);border-bottom:1px solid var(--bo)}
 .tool-cat{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:var(--vs);color:var(--cr)}
+.tool-badge{font-family:var(--mono);font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:999px;background:#fef0d4;color:#734200;border:1px solid #e5b769;white-space:nowrap}
 .tool-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:8px}
 .tool-title{font-size:.9rem;font-weight:700;color:var(--vs);line-height:1.3}
 .tool-desc{font-size:.78rem;color:var(--ts);line-height:1.55}
 .tool-specs{margin:2px 0 0 18px;font-size:.74rem;color:var(--tx);line-height:1.55}
 .tool-footer{padding:12px 14px;border-top:1px solid var(--cs);background:#fcfaf5;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.btn-amazon{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:var(--r);background:linear-gradient(135deg,#f3a847 0%,#d96a2b 100%);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:700;box-shadow:0 3px 10px rgba(217,106,43,.25);transition:var(--transition)}
-.btn-amazon:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(217,106,43,.35)}
-.btn-amazon:focus-visible{outline:2px solid var(--vs);outline-offset:2px}
 .btn-cat-buy{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:var(--r);font-family:var(--mono);font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--bo);color:var(--vm);background:#fff;transition:var(--transition);white-space:nowrap}
-.btn-cat-buy:hover{border-color:var(--ar);color:var(--ar)}
-.btn-cat-buy.reorder{background:linear-gradient(135deg,var(--ar) 0%,#bf551f 100%);color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(217,106,43,.28)}
+.btn-cat-buy:hover{border-color:var(--ar-dk);color:var(--ar-dk)}
+.btn-cat-buy.reorder{background:linear-gradient(135deg,var(--ar-dk) 0%,#8f3909 100%);color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(173,70,15,.28)}
 .gear-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:10px}
 .gear-mini{display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--bo);border-radius:var(--r);background:#fcfaf5}
 .gear-mini-t{font-size:.76rem;font-weight:700;color:var(--vs)}
 .gear-mini-d{font-size:.7rem;color:var(--ts);line-height:1.45}
+.guide-rec-box{margin:16px 0 6px;padding:12px 14px;border-radius:10px;background:#fdf8ee;border:1px solid #e7c994;display:flex;flex-direction:column;gap:8px}
+.guide-rec-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.75rem;font-weight:700;color:var(--vs)}
+.guide-rec-note{font-size:.66rem;font-weight:500;color:var(--ts)}
+.guide-rec-links{display:flex;flex-wrap:wrap;gap:8px}
+.guide-rec-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:7px;background:#fff;border:1.5px solid #d99b38;color:var(--vs);text-decoration:none;font-family:var(--mono);font-size:.71rem;font-weight:700;transition:var(--transition)}
+.guide-rec-btn:hover{background:#ffad33;color:#1a1205;border-color:#c46d00}
+.guide-rec-btn:focus-visible,.miss-buy-chip:focus-visible,.btn-share:focus-visible{outline:2px solid var(--ar-dk);outline-offset:2px}
+.miss-buy-strip{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(192,57,43,.35)}
+.miss-buy-lbl{font-size:.68rem;font-weight:700;color:#721c24}
+.miss-buy-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;background:#fff;border:1px solid var(--ar-dk);color:var(--ar-dk);text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;transition:var(--transition)}
+.miss-buy-chip:hover{background:var(--ar-dk);color:#fff}
+.ricetta-gear-bar{margin-top:12px;padding:11px 14px;border-radius:var(--r);background:#fdf8ee;border:1px solid #e7c994;display:flex;flex-direction:column;gap:8px}
+.fc-legal-copy{font-size:.69rem;color:var(--ts);margin-top:8px;line-height:1.5}
 #fc-footer{width:100%;max-width:900px;margin:8px auto 72px;padding:0 12px}
 .fc-footer-box{background:rgba(255,255,255,.78);border:1px solid var(--bo);border-radius:var(--r);padding:14px 16px;font-size:.74rem;color:var(--ts);line-height:1.6}
 .fc-footer-links{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
@@ -614,13 +665,13 @@ body:has(#gdpr-banner:not([hidden])) #pwa-install{visibility:hidden!important;po
 #splash,#splash *{animation:none!important}
 #splash .splash-liquid{transform:scaleY(1)}
 #splash .splash-bar{display:none}
-.panel.active,.modal,.modal-bg,.modal-bg.closing .modal,#card-fasi-wrap,#ricetta-out-wrap,.ricetta-card-body{animation:none!important;transition:none!important}
+.panel.active,.modal,.modal-bg,.modal-bg.closing .modal,#card-fasi-wrap,#ricetta-out-wrap,.card,.btn,.tab,.gstep-card,.tool-card,.pianta-btn,.fase-btn,.ie-toast{animation:none!important;transition:none!important}
 }
 </style>
 </head>
 <body>
 <div id="splash" aria-hidden="true">
-<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo FertiQuota">
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo FertiQuota" data-i18n-aria="aria.logo">
 <defs>
 <clipPath id="splash-clip-a"><rect x="16" y="42" width="38" height="58" rx="9"/></clipPath>
 <clipPath id="splash-clip-b"><rect x="66" y="42" width="38" height="58" rx="9"/></clipPath>
@@ -697,6 +748,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <button type="button" class="gbtn-primary" onclick="showTab('acqua')" data-i18n="guide.startBtn">💧 Inizia da Acqua →</button>
 <button type="button" class="gbtn-ghost" onclick="fcScrollTo(document.getElementById('guides-accordion'),{extra:12})" data-i18n="guide.heroReadBtn">📚 Leggi le 5 Guide</button>
 <button type="button" class="gbtn-gold" onclick="showTab('attrezzatura')" data-i18n="guide.heroGearBtn">🛒 Attrezzatura</button>
+<button type="button" class="gbtn-ghost btn-share" onclick="shareApp()" data-i18n="guide.shareBtn">🔗 Condividi</button>
 </div>
 </div>
 <div class="ghero-visual" aria-hidden="true">
@@ -855,6 +907,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <li>Porta entrambi a volume finale (100%) e <strong>non miscelare mai i concentrati direttamente</strong>: vanno iniettati separatamente nella linea idrica.</li>
 <li>Attenzione al <strong>raffreddamento notturno (10 °C)</strong>: se prepari madri a <code>1:200</code> con molto K₂SO₄ o KNO₃, abbassa la diluizione a <code>1:100</code> o <code>1:50</code> per evitare cristallizzazioni sul fondo.</li>
 </ol>
+<div class="guide-rec-box no-print" data-guide-gear="serbatoi"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('calcola')">⚗️ Prova nel Calcolatore</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ Vedi Serbatoi &amp; Miscelatori</button>
@@ -884,6 +937,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <h4>Stabilità dei chelati di Ferro e ruolo dell'ammonio</h4>
 <p>A pH <code>5.5–6.2</code> in cocco <strong>Fe-EDTA</strong> è stabile (purché Ca non sia eccessivo), mentre sopra pH <code>6.5</code> conviene passare a <strong>Fe-DTPA</strong> (fino a pH 7,0) o <strong>Fe-EDDHA</strong> (fino a pH 9). Mantenere l'azoto ammoniacale (<strong>NH₄⁺ ≤ 10%</strong> dell'N totale) stabilizza lievemente il pH in zona radicale senza indurre tossicità.</p>
+<div class="guide-rec-box no-print" data-guide-gear="ph"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Inserisci HCO₃⁻ e pH</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pHmetri &amp; DPI Acidi</button>
@@ -914,6 +968,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <li><strong>Ca(NO₃)₂·4H₂O vs Calcinit commerciale:</strong> FertiQuota usa di default il profilo puro <code>N 11,8% · Ca 17%</code>; se usi Calcinit commerciale (<code>N 15,5%</code> con ~1,1% NH₄⁺, <code>Ca 19%</code>), aggiorna i valori direttamente in <strong>📦 Catalogo</strong>.</li>
 <li><strong>Monitoraggio drenaggio (run-off 15–20%):</strong> misura regolarmente EC e pH dello scolo. In cocco sano l'EC di drenaggio resta entro <code>EC input + 0,5–1,0 mS/cm</code>.</li>
 </ul>
+<div class="guide-rec-box no-print" data-guide-gear="cocco"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('ricette')">🌿 Esplora le 11 Colture</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configura CaN in Catalogo</button>
@@ -942,6 +997,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="ggear-card"><strong>🌀 Miscelazione e iniezione</strong>Agitatore elettrico/frusta o pompa ricircolo per sciogliere K₂SO₄ senza grumi; Venturi o pompe peristaltiche in linea.</div>
 <div class="ggear-card"><strong>🥽 Sicurezza obbligatoria (DPI)</strong>Guanti chimici in nitrile spessi, occhiali antispruzzo e cilindri/pipette graduati in polipropilene (PP) per acidi e KOH.</div>
 </div>
+<div class="guide-rec-box no-print" data-guide-gear="kit"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Vai alla sezione Attrezzatura &amp; Acquisti →</button>
 </div>
@@ -971,29 +1027,29 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div class="row3" style="margin-bottom:8px">
 <div class="tg-box">
-<div class="tg-lbl"><span data-i18n="acqua.ec">EC acqua</span> <span class="tg-unit">mS/cm</span></div>
+<label class="tg-lbl" for="aq-ec"><span data-i18n="acqua.ec">EC acqua</span> <span class="tg-unit">mS/cm</span></label>
 <input type="number" id="aq-ec" value="0.52" min="0" step="0.01">
 </div>
 <div class="tg-box">
-<div class="tg-lbl" data-i18n="acqua.ph">pH acqua</div>
+<label class="tg-lbl" for="aq-ph" data-i18n="acqua.ph">pH acqua</label>
 <input type="number" id="aq-ph" value="7.2" min="0" max="14" step="0.1">
 </div>
 <div class="tg-box">
-<div class="tg-lbl"><span data-i18n="acqua.temp">Temperatura</span> <span class="tg-unit">°C</span></div>
+<label class="tg-lbl" for="aq-temp"><span data-i18n="acqua.temp">Temperatura</span> <span class="tg-unit">°C</span></label>
 <input type="number" id="aq-temp" value="20" min="1" max="45" step="0.5">
 </div>
 </div>
 <div style="font-size:.65rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px" data-i18n="acqua.ions">Ioni presenti (mg/L)</div>
 <div class="row3">
-<div class="tg-box"><div class="tg-lbl"><span>Ca²⁺<span class="tg-name" data-i18n="ion.ca">Calcio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-ca" value="60" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Mg²⁺<span class="tg-name" data-i18n="ion.mg">Magnesio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-mg" value="15" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>K⁺<span class="tg-name" data-i18n="ion.k">Potassio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-k" value="4" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Na⁺<span class="tg-name" data-i18n="ion.na">Sodio</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-na" value="20" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>SO₄²⁻<span class="tg-name" data-i18n="ion.so4">Solfati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-so4" value="60" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Cl⁻<span class="tg-name" data-i18n="ion.cl">Cloruri</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-cl" value="42" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>HCO₃⁻<span class="tg-name" data-i18n="ion.hco3">Bicarbonati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-hco3" value="160" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>NO₃⁻<span class="tg-name" data-i18n="ion.no3">Nitrati</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-no3" value="10" min="0" step="1"></div>
-<div class="tg-box"><div class="tg-lbl"><span>Fe<span class="tg-name" data-i18n="ion.fe">Ferro</span></span><span class="tg-unit">mg/L</span></div><input type="number" id="aq-fe" value="0.1" min="0" step="0.01"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-ca"><span>Ca²⁺<span class="tg-name" data-i18n="ion.ca">Calcio</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-ca" value="60" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-mg"><span>Mg²⁺<span class="tg-name" data-i18n="ion.mg">Magnesio</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-mg" value="15" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-k"><span>K⁺<span class="tg-name" data-i18n="ion.k">Potassio</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-k" value="4" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-na"><span>Na⁺<span class="tg-name" data-i18n="ion.na">Sodio</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-na" value="20" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-so4"><span>SO₄²⁻<span class="tg-name" data-i18n="ion.so4">Solfati</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-so4" value="60" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-cl"><span>Cl⁻<span class="tg-name" data-i18n="ion.cl">Cloruri</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-cl" value="42" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-hco3"><span>HCO₃⁻<span class="tg-name" data-i18n="ion.hco3">Bicarbonati</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-hco3" value="160" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-no3"><span>NO₃⁻<span class="tg-name" data-i18n="ion.no3">Nitrati</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-no3" value="10" min="0" step="1"></div>
+<div class="tg-box"><label class="tg-lbl" for="aq-fe"><span>Fe<span class="tg-name" data-i18n="ion.fe">Ferro</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-fe" value="0.1" min="0" step="0.01"></div>
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
 <button class="btn btn-se btn-sm" onclick="presetAcqua('ottima')" data-i18n="preset.ottima">💧 Ottima (EC 0.1)</button>
@@ -1007,6 +1063,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div style="font-size:.65rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px" data-i18n="acqua.profili">💾 I tuoi profili salvati</div>
 <div id="acqua-profili-list" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
 <div class="urow">
+<label for="acqua-profilo-nome" class="visually-hidden" data-i18n="acqua.profili">💾 I tuoi profili salvati</label>
 <input type="text" id="acqua-profilo-nome" maxlength="40" data-i18n-placeholder="ph.acqua.profilo" placeholder="Es. Pozzo — analisi giugno 2026">
 <button class="btn btn-se btn-sm" onclick="salvaProfiloAcqua()" data-i18n="acqua.salvaProfilo">💾 Salva profilo</button>
 </div>
@@ -1015,8 +1072,8 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div class="panel" id="tab-ricette" role="tabpanel" aria-labelledby="tabbtn-ricette">
 <div class="sec-h">
-<h4 data-i18n="ricette.title">🌿 Le tue Ricette</h4>
-<button class="btn btn-se btn-sm" onclick="openNuovaRicetta()" aria-label="Crea una nuova ricetta" data-i18n="ricette.nuova">+ Nuova Ricetta</button>
+<h2 data-i18n="ricette.title">🌿 Le tue Ricette</h2>
+<button class="btn btn-se btn-sm" onclick="openNuovaRicetta()" aria-label="Crea una nuova ricetta" data-i18n-aria="aria.newRecipe" data-i18n="ricette.nuova">+ Nuova Ricetta</button>
 </div>
 <div class="card">
 <div class="ch" data-i18n="ricette.cocoHeader">🌱 Ricette — Coco Coir</div>
@@ -1044,6 +1101,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="ch" style="background:var(--vm)" data-i18n="ricette.noteTitle">📋 Note Agronomiche</div>
 <div class="cb" id="note-agronomiche" style="font-size:.8rem;line-height:1.7;color:var(--ts)"></div>
 </div>
+<div id="ricetta-gear-bar" class="ricetta-gear-bar no-print" hidden></div>
 </div>
 </div>
 <div class="panel" id="tab-calcola" role="tabpanel" aria-labelledby="tabbtn-calcola">
@@ -1051,16 +1109,16 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="ch" data-i18n="calcola.params">⚙️ Parametri Impianto</div>
 <div class="cb" style="padding:10px 12px">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px;margin-bottom:8px">
-<div class="field" style="margin-bottom:0"><label data-i18n="calcola.serbA">Serbatoio A (L)</label>
+<div class="field" style="margin-bottom:0"><label for="volA" data-i18n="calcola.serbA">Serbatoio A (L)</label>
 <div class="urow"><input type="number" id="volA" value="100" min="1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="if(document.getElementById('risultato-stampa'))calcola({noScroll:true})"><span class="utag">L</span></div>
 </div>
-<div class="field" style="margin-bottom:0"><label data-i18n="calcola.serbB">Serbatoio B (L)</label>
+<div class="field" style="margin-bottom:0"><label for="volB" data-i18n="calcola.serbB">Serbatoio B (L)</label>
 <div class="urow"><input type="number" id="volB" value="100" min="1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="if(document.getElementById('risultato-stampa'))calcola({noScroll:true})"><span class="utag">L</span></div>
 </div>
-<div class="field" style="margin-bottom:0"><label><span data-i18n="calcola.diluzione">Fattore diluizione 1 : X</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.dil.tip">1 L concentrato produce X L soluzione finale. ⚠️ Più X è grande, più la soluzione madre è concentrata e maggiore il rischio precipitazioni. Es: 1:200 = madre 200× concentrata (rischio alto). 1:50 = madre 50× concentrata (più sicuro). Il motore suggerirà il fattore ottimale in base alle dosi inserite.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="diluizione"><span data-i18n="calcola.diluzione">Fattore diluizione 1 : X</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.dil.tip">1 L concentrato produce X L soluzione finale. ⚠️ Più X è grande, più la soluzione madre è concentrata e maggiore il rischio precipitazioni. Es: 1:200 = madre 200× concentrata (rischio alto). 1:50 = madre 50× concentrata (più sicuro). Il motore suggerirà il fattore ottimale in base alle dosi inserite.</span></span></label>
 <div class="urow"><span class="utag">1 :</span><input type="number" id="diluizione" value="100" min="1" oninput="aggiornaDiluizioneWarning();if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="aggiornaDiluizioneWarning();if(document.getElementById('risultato-stampa'))calcola({noScroll:true})"></div>
 </div>
-<div class="field" style="margin-bottom:0"><label><span data-i18n="calcola.phFinale">pH soluzione finale</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.ph.tip">pH a cui la soluzione finale viene mantenuta in coltura (correzione con acido/base). Determina il rischio di precipitazione del fosfato di calcio: a pH ≤ 6 il fosfato resta in soluzione, sopra 6.3 tende a precipitare. Il motore usa questo valore per la verifica anti-precipitazione e può suggerirti il pH ottimale.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="ph-finale"><span data-i18n="calcola.phFinale">pH soluzione finale</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.ph.tip">pH a cui la soluzione finale viene mantenuta in coltura (correzione con acido/base). Determina il rischio di precipitazione del fosfato di calcio: a pH ≤ 6 il fosfato resta in soluzione, sopra 6.3 tende a precipitare. Il motore usa questo valore per la verifica anti-precipitazione e può suggerirti il pH ottimale.</span></span></label>
 <div class="urow"><span class="utag">pH</span><input type="number" id="ph-finale" value="5.8" min="4.5" max="7.5" step="0.1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=3&&+this.value<=9)calcola({noScroll:true})" onchange="if(document.getElementById('calc-out').innerHTML.trim())calcola({noScroll:true})"></div>
 </div>
 </div>
@@ -1068,7 +1126,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <span>⚠️</span><span id="diluizione-warning-txt"></span>
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;align-items:center">
-<div class="field" style="margin-bottom:0"><label><span data-i18n="calcola.acido">Acido per i bicarbonati</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.acido.tip">Acido usato per neutralizzare i bicarbonati dell'acqua (HCO₃⁻ &gt; 50 mg/L). Il motore conta l'azoto (HNO₃) o il fosforo (H₃PO₄) che l'acido apporta e riduce di conseguenza i sali. Con «Automatico» sceglie da solo l'acido che riproduce meglio la ricetta; puoi sempre forzarne uno.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="acido-tipo"><span data-i18n="calcola.acido">Acido per i bicarbonati</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.acido.tip">Acido usato per neutralizzare i bicarbonati dell'acqua (HCO₃⁻ &gt; 50 mg/L). Il motore conta l'azoto (HNO₃) o il fosforo (H₃PO₄) che l'acido apporta e riduce di conseguenza i sali. Con «Automatico» sceglie da solo l'acido che riproduce meglio la ricetta; puoi sempre forzarne uno.</span></span></label>
 <select id="acido-tipo" onchange="salvaAcidoTipo();if(document.getElementById('calc-out').innerHTML.trim())calcola({noScroll:true})" style="padding:6px 8px;font-size:.78rem">
 <option value="auto" data-i18n="calcola.acido.auto">Automatico — il più adatto alla ricetta</option>
 <option value="mix" data-i18n="calcola.acido.mix">Mix automatico: H₃PO₄ + HNO₃ — copre P poi completa con N</option>
@@ -1104,7 +1162,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 <div style="padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap">
 <button class="btn btn-se btn-sm" onclick="aggiungiRigaCalc()" style="flex:1" data-i18n="calcola.aggiungiSale">+ Aggiungi sale</button>
-<button class="btn btn-pr btn-sm" onclick="calcola()" style="flex:1" aria-label="Calcola i dosaggi dei sali" data-i18n="calcola.calcola">⚗️ Calcola Dosaggi</button>
+<button class="btn btn-pr btn-sm" onclick="calcola()" style="flex:1" aria-label="Calcola i dosaggi dei sali" data-i18n-aria="aria.calcBtn" data-i18n="calcola.calcola">⚗️ Calcola Dosaggi</button>
 </div>
 </div>
 </div>
@@ -1127,6 +1185,7 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 📦 Vai al Catalogo → aggiorna scorta
 </button>
 </div>
+<div id="ricalcola-buy-strip" class="miss-buy-strip no-print"></div>
 </div>
 </div>
 </div>
@@ -1137,9 +1196,9 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 </div>
 <div class="panel" id="tab-catalogo" role="tabpanel" aria-labelledby="tabbtn-catalogo">
 <div class="sec-h">
-<h4 data-i18n="catalogo.title">📦 Catalogo Ingredienti</h4>
+<h2 data-i18n="catalogo.title">📦 Catalogo Ingredienti</h2>
 <div style="display:flex;gap:6px">
-<button class="btn btn-se btn-sm" onclick="stampaCatalogo()" aria-label="Stampa l'elenco degli ingredienti" data-i18n="catalogo.stampa">🖨️ Stampa</button>
+<button class="btn btn-se btn-sm" onclick="stampaCatalogo()" aria-label="Stampa l'elenco degli ingredienti" data-i18n-aria="aria.printCatalog" data-i18n="catalogo.stampa">🖨️ Stampa</button>
 <button class="btn btn-se btn-sm" onclick="openNuovoIngrediente()" data-i18n="catalogo.nuovo">+ Nuovo</button>
 </div>
 </div>
@@ -1156,36 +1215,38 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 <div class="alert al-inf" style="margin-bottom:12px">
 <span>🛒</span>
 <div>
-<div data-i18n-html="attr.disclosure"><strong>Amazon Affiliate:</strong> link consigliati e sponsorizzati verso Amazon.</div>
+<div data-i18n-html="attr.disclosure"><strong>Trasparenza Affiliazione:</strong> In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei.</div>
 </div>
 </div>
+<div id="gear-kit-banner" class="gear-kit-banner no-print"></div>
 <div class="gear-toolbar">
-<div class="gear-pills" id="gear-pills" role="group" aria-label="Categorie attrezzatura"></div>
+<div class="gear-pills" id="gear-pills" role="group" aria-label="Categorie attrezzatura" data-i18n-aria="aria.gearCats"></div>
 <div class="gear-search-wrap">
 <label for="attr-search" data-i18n="attr.searchLbl">Cerca</label>
 <input type="text" id="attr-search" oninput="setAttrezzaturaQuery(this.value)" data-i18n-placeholder="attr.searchPh" placeholder="Es. pHmetro, bilancia 0.01, serbatoio, miscelatore…">
 </div>
 </div>
+<div id="gear-count" class="gear-count"></div>
 <div id="attrezzatura-grid" class="gear-grid"></div>
 </div>
 <div class="panel" id="tab-dati" role="tabpanel" aria-labelledby="tabbtn-dati">
-<div class="sec-h"><h4 data-i18n="dati.title">💾 Gestione Dati</h4></div>
+<div class="sec-h"><h2 data-i18n="dati.title">💾 Gestione Dati</h2></div>
 <div class="card">
-<div class="ch" style="background:var(--vc)" data-i18n="dati.esporta">⬇ Esporta</div>
+<div class="ch" style="background:var(--vc-dk)" data-i18n="dati.esporta">⬇ Esporta</div>
 <div class="cb">
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:12px" data-i18n-html="dati.esportaDesc">
 Scarica un file JSON con <strong>catalogo ingredienti</strong>, <strong>scorta magazzino</strong> e <strong>ricette personalizzate</strong>. Usalo per backup o per condividere la configurazione.
 </p>
-<button class="btn btn-pr" style="background:var(--vc)" onclick="esportaDati()" data-i18n="dati.esportaBtn">⬇ Scarica backup JSON</button>
+<button class="btn btn-pr" style="background:var(--vc-dk)" onclick="esportaDati()" data-i18n="dati.esportaBtn">⬇ Scarica backup JSON</button>
 </div>
 </div>
 <div class="card">
-<div class="ch" style="background:var(--as)" data-i18n="dati.importa">⬆ Importa</div>
+<div class="ch" style="background:var(--ar-dk)" data-i18n="dati.importa">⬆ Importa</div>
 <div class="cb">
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:12px" data-i18n="dati.importaDesc">
 Carica un file JSON precedentemente esportato da FertiQuota. Le ricette e gli ingredienti personalizzati vengono uniti a quelli esistenti. I prezzi degli ingredienti del catalogo vengono aggiornati.
 </p>
-<button class="btn btn-pr" style="background:var(--as)" onclick="document.getElementById('ie-file-input').click()" data-i18n="dati.importaBtn">⬆ Carica file JSON</button>
+<button class="btn btn-pr" style="background:var(--ar-dk)" onclick="document.getElementById('ie-file-input').click()" data-i18n="dati.importaBtn">⬆ Carica file JSON</button>
 <input type="file" id="ie-file-input" accept=".json,application/json" style="display:none" onchange="importaDati(this)">
 </div>
 </div>
@@ -1221,9 +1282,6 @@ Ripristina il catalogo ai valori predefiniti ed elimina tutte le ricette persona
 </div>
 </div>
 </div>
-<div id="ie-toast-wrap" style="min-height:28px;display:flex;align-items:center;padding:0 4px">
-<span class="ie-toast" id="ie-toast" style="font-size:.82rem"></span>
-</div>
 <div class="card" style="margin-top:8px;border-color:#0070ba">
 <div class="ch" style="background:#0070ba" data-i18n="dati.supporta">💙 Supporta FertiQuota</div>
 <div class="cb" style="text-align:center">
@@ -1246,7 +1304,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="fc-footer-box">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
 <strong style="color:var(--vs)">🌿 FertiQuota v1.0</strong>
-<span data-i18n="footer.affiliate">Amazon Affiliate</span>
+<span data-i18n="footer.affiliate">In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei.</span>
 </div>
 <div class="fc-footer-links">
 <button type="button" class="fc-footer-link" onclick="showTab('guide')" data-i18n="tab.guide">📖 Guide</button>
@@ -1260,10 +1318,13 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="fc-legal-bar">
 <div class="fc-legal-actions">
 <button type="button" class="fc-legal-btn" onclick="openPrivacyDialog()" data-i18n="footer.privacyPolicy">🔒 Privacy &amp; Cookie Policy</button>
+<button type="button" class="fc-legal-btn" onclick="openTermsDialog()" data-i18n="footer.terms">⚖️ Termini &amp; Disclaimer</button>
 <button type="button" class="fc-legal-btn" onclick="openCookiePrefsDialog()" data-i18n="footer.manageCookies">🍪 Gestisci Cookie</button>
+<button type="button" class="fc-legal-btn btn-share" onclick="shareApp()" data-i18n="guide.shareBtn">🔗 Condividi</button>
 </div>
 <span class="fc-consent-pill" id="fc-consent-status">Cookie: solo necessari</span>
 </div>
+<div id="fc-copyright" class="fc-legal-copy"></div>
 </div>
 </footer>
 
@@ -1309,7 +1370,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 
 <div class="gdpr-cat">
 <div class="gdpr-cat-row">
-<label class="gdpr-cat-lbl" for="sw-gdpr-ads"><span data-i18n="gdpr.catAds">Pubblicità (Google AdSense)</span></label>
+<label class="gdpr-cat-lbl" for="sw-gdpr-ads"><span data-i18n="gdpr.catAds">Pubblicità (Google AdSense)</span><span id="gdpr-ads-status-badge" class="gdpr-cat-badge" style="display:none;background:var(--cs);color:var(--ts)"></span></label>
 <input id="sw-gdpr-ads" class="gdpr-switch" type="checkbox" switch>
 </div>
 <p class="gdpr-cat-desc" data-i18n="gdpr.catAdsDesc">Mostra spazi pubblicitari non invasivi a fondo pagina per mantenere FertiQuota gratuito (attivo solo quando configurato sul dominio). Disattivato di default senza consenso.</p>
@@ -1335,50 +1396,62 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <button type="button" class="gdpr-btn gdpr-btn-accept" onclick="document.getElementById('dlg-privacy').close()" data-i18n="btn.chiudi">Chiudi</button>
 </div>
 </dialog>
+
+<dialog id="dlg-terms" class="gdpr-dialog" closedby="any" aria-labelledby="dlg-terms-title">
+<div class="gdpr-d-head">
+<h2 id="dlg-terms-title" data-i18n="gdpr.termsTitle">⚖️ Termini d'Uso, Disclaimer Chimico &amp; Licenza</h2>
+<button type="button" class="gdpr-d-x" onclick="document.getElementById('dlg-terms').close()" aria-label="Chiudi" data-i18n-aria="btn.chiudi" autofocus>✕</button>
+</div>
+<div class="gdpr-d-body" id="dlg-terms-content"></div>
+<div class="gdpr-d-foot">
+<button type="button" class="gdpr-btn gdpr-btn-prefs" onclick="document.getElementById('dlg-terms').close();openPrivacyDialog()" data-i18n="footer.privacyPolicy">🔒 Privacy &amp; Cookie Policy</button>
+<button type="button" class="gdpr-btn gdpr-btn-accept" onclick="document.getElementById('dlg-terms').close()" data-i18n="btn.chiudi">Chiudi</button>
+</div>
+</dialog>
 <div class="modal-bg" id="modal-ing" role="dialog" aria-modal="true" aria-labelledby="modal-ing-title">
 <div class="modal">
-<div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra">✕</button></div>
+<div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
 <div class="modal-b">
 <input type="hidden" id="ing-edit-id">
-<div class="field"><label data-i18n="modal.ing.nome">Nome prodotto</label><input type="text" id="ing-nome" data-i18n-placeholder="ph.ing.nome" placeholder="Es. Nitrato di Potassio KNO₃"></div>
+<div class="field"><label for="ing-nome" data-i18n="modal.ing.nome">Nome prodotto</label><input type="text" id="ing-nome" data-i18n-placeholder="ph.ing.nome" placeholder="Es. Nitrato di Potassio KNO₃"></div>
 <div class="row2">
-<div class="field"><label data-i18n="modal.ing.cat">Categoria</label>
+<div class="field"><label for="ing-cat" data-i18n="modal.ing.cat">Categoria</label>
 <select id="ing-cat"><option value="macro">Macronutriente</option><option value="micro">Micronutriente</option><option value="ph">Correttore pH</option></select>
 </div>
 </div>
 <div class="sep"></div>
 <div class="sec-h"><h4 data-i18n="modal.ing.compo">Composizione chimica (%)</h4></div>
 <div class="row3">
-<div class="field"><label data-i18n="ing.el.N">% N (azoto)</label><input type="number" id="ing-N" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.P">% P (fosforo)</label><input type="number" id="ing-P" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.K">% K (potassio)</label><input type="number" id="ing-K" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Ca">% Ca (calcio)</label><input type="number" id="ing-Ca" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Mg">% Mg (magnesio)</label><input type="number" id="ing-Mg" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.S">% S (zolfo)</label><input type="number" id="ing-S" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Fe">% Fe (ferro)</label><input type="number" id="ing-Fe" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Mn">% Mn (manganese)</label><input type="number" id="ing-Mn" value="0" min="0" max="100" step="0.01"></div>
-<div class="field"><label data-i18n="ing.el.Zn">% Zn (zinco)</label><input type="number" id="ing-Zn" value="0" min="0" max="100" step="0.01"></div>
-<div class="field"><label data-i18n="ing.el.B">% B (boro)</label><input type="number" id="ing-B" value="0" min="0" max="100" step="0.01"></div>
-<div class="field"><label data-i18n="ing.el.Cu">% Cu (rame)</label><input type="number" id="ing-Cu" value="0" min="0" max="100" step="0.01"></div>
-<div class="field"><label data-i18n="ing.el.Mo">% Mo (molibdeno)</label><input type="number" id="ing-Mo" value="0" min="0" max="100" step="0.01"></div>
-<div class="field"><label data-i18n="ing.el.Cl">% Cl (cloro)</label><input type="number" id="ing-Cl" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Si">% Si (silicio)</label><input type="number" id="ing-Si" value="0" min="0" max="100" step="0.1"></div>
-<div class="field"><label data-i18n="ing.el.Na">% Na (sodio)</label><input type="number" id="ing-Na" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-N" data-i18n="ing.el.N">% N (azoto)</label><input type="number" id="ing-N" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-P" data-i18n="ing.el.P">% P (fosforo)</label><input type="number" id="ing-P" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-K" data-i18n="ing.el.K">% K (potassio)</label><input type="number" id="ing-K" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Ca" data-i18n="ing.el.Ca">% Ca (calcio)</label><input type="number" id="ing-Ca" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Mg" data-i18n="ing.el.Mg">% Mg (magnesio)</label><input type="number" id="ing-Mg" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-S" data-i18n="ing.el.S">% S (zolfo)</label><input type="number" id="ing-S" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Fe" data-i18n="ing.el.Fe">% Fe (ferro)</label><input type="number" id="ing-Fe" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Mn" data-i18n="ing.el.Mn">% Mn (manganese)</label><input type="number" id="ing-Mn" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label for="ing-Zn" data-i18n="ing.el.Zn">% Zn (zinco)</label><input type="number" id="ing-Zn" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label for="ing-B" data-i18n="ing.el.B">% B (boro)</label><input type="number" id="ing-B" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label for="ing-Cu" data-i18n="ing.el.Cu">% Cu (rame)</label><input type="number" id="ing-Cu" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label for="ing-Mo" data-i18n="ing.el.Mo">% Mo (molibdeno)</label><input type="number" id="ing-Mo" value="0" min="0" max="100" step="0.01"></div>
+<div class="field"><label for="ing-Cl" data-i18n="ing.el.Cl">% Cl (cloro)</label><input type="number" id="ing-Cl" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Si" data-i18n="ing.el.Si">% Si (silicio)</label><input type="number" id="ing-Si" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label for="ing-Na" data-i18n="ing.el.Na">% Na (sodio)</label><input type="number" id="ing-Na" value="0" min="0" max="100" step="0.1"></div>
 </div>
-<div class="field"><label><span data-i18n="modal.ing.nh4">% N ammoniacale (quota su N totale)</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="modal.ing.nh4.tip">Percentuale dell'azoto dichiarato che è in forma ammoniacale (NH₄⁺). Es: nitrato d'ammonio = 50, MAP = 100, solfato ammonico = 100, nitrato di calcio = 0. Serve per il limite NH₄ ≤ 10% dell'N in coco e per il rischio struvite.</span></span></label><input type="number" id="ing-nh4" value="0" min="0" max="100" step="1"></div>
+<div class="field"><label for="ing-nh4"><span data-i18n="modal.ing.nh4">% N ammoniacale (quota su N totale)</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="modal.ing.nh4.tip">Percentuale dell'azoto dichiarato che è in forma ammoniacale (NH₄⁺). Es: nitrato d'ammonio = 50, MAP = 100, solfato ammonico = 100, nitrato di calcio = 0. Serve per il limite NH₄ ≤ 10% dell'N in coco e per il rischio struvite.</span></span></label><input type="number" id="ing-nh4" value="0" min="0" max="100" step="1"></div>
 <div class="row2">
 <div class="field" style="display:flex;align-items:center;gap:8px;margin-bottom:0">
 <input type="checkbox" id="ing-liquid" style="width:18px;height:18px;flex-shrink:0" onchange="document.getElementById('ing-density').disabled=!this.checked">
 <label for="ing-liquid" style="margin:0;cursor:pointer" data-i18n="modal.ing.liquid">Prodotto liquido (dosato in mL)</label>
 </div>
-<div class="field" style="margin-bottom:0"><label data-i18n="modal.ing.density">Densità kg/L</label><input type="number" id="ing-density" value="0" min="0" max="3" step="0.01" disabled></div>
+<div class="field" style="margin-bottom:0"><label for="ing-density" data-i18n="modal.ing.density">Densità kg/L</label><input type="number" id="ing-density" value="0" min="0" max="3.5" step="0.01" disabled></div>
 </div>
 <div class="sep"></div>
 <div class="row2">
-<div class="field"><label data-i18n="modal.ing.prezzo">Prezzo €/kg</label><input type="number" id="ing-prezzo" value="0" min="0" step="0.01" placeholder="0.00"></div>
-<div class="field"><label data-i18n="modal.ing.dose">g/1000L tipico</label><input type="number" id="ing-dose" value="0" min="0" step="0.1"></div>
+<div class="field"><label for="ing-prezzo" data-i18n="modal.ing.prezzo">Prezzo €/kg</label><input type="number" id="ing-prezzo" value="0" min="0" step="0.01" placeholder="0.00"></div>
+<div class="field"><label for="ing-dose" data-i18n="modal.ing.dose">g/1000L tipico</label><input type="number" id="ing-dose" value="0" min="0" step="0.1"></div>
 </div>
-<div class="field"><label data-i18n="modal.ing.note">Note</label><textarea id="ing-note" rows="2" style="resize:vertical"></textarea></div>
+<div class="field"><label for="ing-note" data-i18n="modal.ing.note">Note</label><textarea id="ing-note" rows="2" style="resize:vertical"></textarea></div>
 </div>
 <div class="modal-f">
 <button class="btn btn-se" onclick="closeModal('modal-ing')" data-i18n="btn.annulla">Annulla</button>
@@ -1388,14 +1461,14 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </div>
 <div class="modal-bg" id="modal-ricetta" role="dialog" aria-modal="true" aria-labelledby="modal-ric-title">
 <div class="modal">
-<div class="modal-h"><h3 id="modal-ric-title" data-i18n="modal.ricetta.title">🌱 Nuova Ricetta</h3><button class="modal-close" onclick="closeModal('modal-ricetta')" aria-label="Chiudi finestra">✕</button></div>
+<div class="modal-h"><h3 id="modal-ric-title" data-i18n="modal.ricetta.title">🌱 Nuova Ricetta</h3><button class="modal-close" onclick="closeModal('modal-ricetta')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
 <div class="modal-b">
 <input type="hidden" id="ric-edit-id">
 <div class="row2">
-<div class="field"><label data-i18n="modal.ricetta.nome">Nome pianta / ricetta</label><input type="text" id="ric-nome" data-i18n-placeholder="ph.ric.nome" placeholder="Es. Pomodoro Cherry"></div>
-<div class="field"><label data-i18n="modal.ricetta.emoji">Emoji 🌿</label><input type="text" id="ric-emoji" value="🌱" maxlength="4"></div>
+<div class="field"><label for="ric-nome" data-i18n="modal.ricetta.nome">Nome pianta / ricetta</label><input type="text" id="ric-nome" data-i18n-placeholder="ph.ric.nome" placeholder="Es. Pomodoro Cherry"></div>
+<div class="field"><label for="ric-emoji" data-i18n="modal.ricetta.emoji">Emoji 🌿</label><input type="text" id="ric-emoji" value="🌱" maxlength="4"></div>
 </div>
-<div class="field"><label data-i18n="modal.ricetta.note">Note generali</label><textarea id="ric-note" rows="2" style="resize:vertical" data-i18n-placeholder="ph.ric.note" placeholder="Indica substrato, ph target, avvertenze…"></textarea></div>
+<div class="field"><label for="ric-note" data-i18n="modal.ricetta.note">Note generali</label><textarea id="ric-note" rows="2" style="resize:vertical" data-i18n-placeholder="ph.ric.note" placeholder="Indica substrato, ph target, avvertenze…"></textarea></div>
 <div class="sep"></div>
 <div class="sec-h"><h4 data-i18n="modal.ricetta.fasi">Fasi di crescita</h4><button class="btn btn-se btn-sm" onclick="aggiungiFase()" data-i18n="modal.ricetta.addFase">+ Fase</button></div>
 <div id="fasi-editor"></div>
@@ -1406,11 +1479,47 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </div>
 </div>
 </div>
+<div class="modal-bg" id="modal-del" role="dialog" aria-modal="true" aria-labelledby="modal-del-title">
+<div class="modal">
+<div class="modal-h" style="background:var(--ro)">
+<h3 id="modal-del-title" data-i18n="modal.del.title">🗑️ Conferma eliminazione</h3>
+<button class="modal-close" onclick="closeModal('modal-del')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
+</div>
+<div class="modal-b">
+<p id="modal-del-msg" style="font-size:.85rem;line-height:1.6;color:var(--tx)"></p>
+<p style="font-size:.75rem;color:var(--ts);margin-top:8px" data-i18n="modal.del.warn">Questa azione non è reversibile.</p>
+</div>
+<div class="modal-f">
+<button class="btn btn-se" onclick="closeModal('modal-del')" data-i18n="btn.annulla">Annulla</button>
+<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiElimina()" data-i18n="modal.del.btn">🗑️ Elimina</button>
+</div>
+</div>
+</div>
+<div class="modal-bg" id="modal-reset" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title">
+<div class="modal">
+<div class="modal-h" style="background:var(--ro)">
+<h3 id="modal-reset-title" data-i18n="modal.reset.title">↺ Ripristina valori di fabbrica</h3>
+<button class="modal-close" onclick="closeModal('modal-reset')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
+</div>
+<div class="modal-b">
+<div class="alert al-err" style="margin-bottom:12px">
+<span>⚠️</span>
+<span data-i18n-html="modal.reset.warn"><strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate e i profili acqua salvati, ripristinerà catalogo, acqua e scorta ai valori di fabbrica. L'operazione non è reversibile.</span>
+</div>
+<p style="font-size:.82rem;color:var(--ts);line-height:1.6" data-i18n-html="modal.reset.desc">
+Esporta un backup dalla sezione <strong>💾 Dati → Scarica JSON</strong> prima di procedere se vuoi conservare i dati attuali.
+</p>
+</div>
+<div class="modal-f">
+<button class="btn btn-se" onclick="closeModal('modal-reset')" data-i18n="btn.annulla">Annulla</button>
+<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiReset()" data-i18n="modal.reset.btn">↺ Sì, ripristina tutto</button>
+</div>
+</div>
+</div>
 <script>
 const TRANSLATIONS = {
 it: {
 'header.subtitle': '— Calcolatore soluzioni madri per fertirrigazione ',
-'howto.text': '<b>Come si usa.</b> Inizia dalle <b>📖 Guide</b> per capire il metodo, poi segui il flusso: <b>① Acqua</b> — inserisci l\'analisi dell\'acqua di partenza. <b>② Ricette</b> — scegli o crea la ricetta e la fase di crescita. <b>③ Calcola</b> — ottieni dosi dei sali per serbatoi A/B/C, EC/pH e avvisi di precipitazione. <b>④ Catalogo</b> — gestisci fertilizzanti, prezzi e scorte. <b>⑤ Attrezzatura</b> — strumenti e serbatoi consigliati. <b>⑥ Dati</b> — esporta/importa tutto.',
 'tab.guide': '📖 Guide',
 'tab.acqua': '💧 Acqua',
 'tab.ricette': '🌿 Ricette',
@@ -1418,7 +1527,6 @@ it: {
 'tab.catalogo': '📦 Catalogo',
 'tab.attrezzatura': '🛒 Attrezzatura',
 'tab.dati': '💾 Dati',
-'guide.title': '📖 Guide Pratiche alla Fertirrigazione',
 'guide.heroBadge': 'FertiQuota Academy · Motore Termodinamico v1.0',
 'guide.heroTitle': 'Calcola i grammi esatti di ogni fertilizzante — <em>partendo dalla tua acqua</em>.',
 'guide.heroLead': 'FertiQuota è un calcolatore gratuito di soluzioni nutritive per idroponica e coco: inserisci l\'analisi della tua acqua, scegli coltura e fase, e ottieni le dosi di ogni sale per i serbatoi A/B/C, con EC e pH previsti e senza precipitati.',
@@ -1466,15 +1574,17 @@ it: {
 'guide.bannerSub': 'Inserisci i parametri della tua acqua e ottieni in pochi secondi dosi esatte per Serbatoi A, B e C, correzione pH e costo per 1000 litri.',
 'guide.bannerBtn1': '💧 Configura l\'Acqua →',
 'guide.bannerBtn2': '🛒 Attrezzatura Consigliata',
+'guide.shareBtn': '🔗 Condividi',
 'attr.title': '🛒 Attrezzatura & Strumenti Consigliati',
 'attr.toGuide': '📖 Guida alla scelta',
-'attr.disclosure': '<strong>Amazon Affiliate:</strong> link consigliati e sponsorizzati verso Amazon.',
+'attr.disclosure': '<strong>Trasparenza Affiliazione:</strong> In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei.',
 'attr.searchLbl': 'Cerca',
 'attr.searchPh': 'Es. pHmetro, bilancia 0.01, serbatoio, miscelatore…',
 'attr.empty': 'Nessuno strumento trovato per questo filtro. Prova a cambiare categoria o parola chiave.',
 'footer.adLabel': 'Spazio sponsorizzato',
-'footer.affiliate': 'Amazon Affiliate',
+'footer.affiliate': 'In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei.',
 'footer.privacyPolicy': '🔒 Privacy & Cookie Policy',
+'footer.terms': '⚖️ Termini & Disclaimer',
 'footer.manageCookies': '🍪 Gestisci Cookie',
 'btn.chiudi': 'Chiudi',
 'gdpr.bannerTitle': '🍪 Informativa Cookie & Privacy (GDPR)',
@@ -1495,8 +1605,7 @@ it: {
 'gdpr.catAds': 'Pubblicità (Google AdSense)',
 'gdpr.catAdsDesc': 'Mostra spazi pubblicitari non invasivi a fondo pagina per mantenere FertiQuota gratuito (attivo solo quando configurato sul dominio). Disattivato di default senza consenso.',
 'gdpr.policyTitle': '🔒 Privacy & Cookie Policy (GDPR)',
-'footer.privacyTitle': 'Privacy, Cookie e Dati Locali',
-'footer.privacyBody': 'I calcoli, le ricette personalizzate, l\'analisi dell\'acqua e l\'inventario restano salvati esclusivamente nel localStorage del tuo browser. I link Amazon rimandano ad Amazon solo quando ci clicchi. Eventuali annunci Google AdSense vengono attivati solo su dominio configurato e previo consenso GDPR.',
+'gdpr.termsTitle': '⚖️ Termini d\'Uso, Disclaimer Chimico & Licenza',
 'acqua.title': '💧 Acqua di Partenza',
 'acqua.subtitle': '(acquedotto / pozzo / osmosi)',
 'acqua.info': 'Inserisci l\'analisi della tua acqua. FertiQuota sottrarrà automaticamente i minerali già presenti e segnala rischi di precipitazione anche nel concentrato.',
@@ -1518,8 +1627,6 @@ it: {
 'ricette.cocoHeader': '🌱 Ricette — Coco Coir',
 'ricette.fasi': '📅 Fase di Crescita',
 'ricette.composizione': '🔬 Composizione',
-'ricette.modifica': '✏️ Modifica',
-'ricette.calcola': '→ Calcola',
 'ricette.noteTitle': '📋 Note Agronomiche',
 'calcola.params': '⚙️ Parametri Impianto',
 'calcola.serbA': 'Serbatoio A (L)',
@@ -1607,7 +1714,6 @@ it: {
 'js.nonDisp': '✗ NON disponibile',
 'js.nessunSale': 'Nessun sale — aggiungi o carica una ricetta.',
 'js.totale': 'TOTALE',
-'js.serbatorio': 'Serbatoio',
 'js.componenti': 'Componenti',
 'js.sali': 'sali',
 'js.voto.ok': 'Soluzione sicura e ottimale',
@@ -1628,8 +1734,6 @@ it: {
 'js.procedura': '📋 Procedura',
 'js.audit': '🔍 Audit — Controlli di Sicurezza Eseguiti',
 'js.stampa': '🖨️ Stampa la miscela',
-'js.costoPer1000': '💰 Costo totale per 1000 L finali:',
-'js.prezziDa': '(prezzi da Catalogo)',
 'js.modifica': '✏️ Modifica',
 'js.clona': '✏️ Clona e modifica',
 'js.ripristinaOriginali': '↺ Ripristina dosi originali',
@@ -1695,6 +1799,15 @@ it: {
 'meta.desc': 'FertiQuota — Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, EC, pH, bicarbonati, 5 guide e zero precipitati.',
 'aria.mainMenu': 'Menu principale',
 'aria.startBanner': 'Inizia con FertiQuota',
+'aria.logo': 'Logo FertiQuota',
+'aria.newRecipe': 'Crea una nuova ricetta',
+'aria.calcBtn': 'Calcola i dosaggi dei sali',
+'aria.printCatalog': 'Stampa l\'elenco degli ingredienti',
+'aria.gearCats': 'Categorie attrezzatura',
+'aria.closeModal': 'Chiudi finestra',
+'aria.notifications': 'Notifiche',
+'js.shareTitle': 'FertiQuota — Calcolatore Fertirrigazione A/B/C',
+'js.shareCopied': 'Link copiato negli appunti',
 'guide.svg.top': 'SCHEMA INIEZIONE A / B / C',
 'guide.svg.tankA': 'SERB. A',
 'guide.svg.acid': '1:100 · ACIDO',
@@ -1705,7 +1818,6 @@ it: {
 },
 en: {
 'header.subtitle': '— Mother solution calculator for fertigation ',
-'howto.text': '<b>How to use.</b> Start from <b>📖 Guides</b> to follow the method, then move step-by-step: <b>① Water</b> — enter your source water analysis. <b>② Recipes</b> — pick or create a crop stage. <b>③ Calculate</b> — get Tank A/B/C salt doses, expected EC/pH and precipitation alerts. <b>④ Catalog</b> — manage salts, prices and stock. <b>⑤ Gear & Tools</b> — recommended meters, tanks and mixers. <b>⑥ Data</b> — export/import.',
 'tab.guide': '📖 Guides',
 'tab.acqua': '💧 Water',
 'tab.ricette': '🌿 Recipes',
@@ -1713,7 +1825,6 @@ en: {
 'tab.catalogo': '📦 Catalog',
 'tab.attrezzatura': '🛒 Gear & Tools',
 'tab.dati': '💾 Data',
-'guide.title': '📖 Practical Fertigation Guides',
 'guide.heroBadge': 'FertiQuota Academy · Thermodynamic Engine v1.0',
 'guide.heroTitle': 'Get the exact grams of every fertilizer — <em>based on your own water</em>.',
 'guide.heroLead': 'FertiQuota is a free nutrient-solution calculator for hydroponics and coco: enter your water analysis, pick crop and growth stage, and get the dose of every salt for your A/B/C tanks, with predicted EC and pH and no precipitates.',
@@ -1761,15 +1872,17 @@ en: {
 'guide.bannerSub': 'Enter your source water profile and get exact Tank A, B and C salt doses, acid correction and cost per 1000 L in seconds.',
 'guide.bannerBtn1': '💧 Set up Source Water →',
 'guide.bannerBtn2': '🛒 Recommended Gear',
+'guide.shareBtn': '🔗 Share',
 'attr.title': '🛒 Recommended Gear & Tools',
 'attr.toGuide': '📖 Buying guide',
-'attr.disclosure': '<strong>Amazon Affiliate:</strong> recommended and sponsored links to Amazon.',
+'attr.disclosure': '<strong>Affiliate Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.',
 'attr.searchLbl': 'Search',
 'attr.searchPh': 'E.g. pH meter, 0.01g scale, tank, mixer…',
 'attr.empty': 'No tools match this filter. Try another category or keyword.',
 'footer.adLabel': 'Sponsored',
-'footer.affiliate': 'Amazon Affiliate',
+'footer.affiliate': 'As an Amazon Associate I earn from qualifying purchases.',
 'footer.privacyPolicy': '🔒 Privacy & Cookie Policy',
+'footer.terms': '⚖️ Terms & Disclaimer',
 'footer.manageCookies': '🍪 Manage Cookies',
 'btn.chiudi': 'Close',
 'gdpr.bannerTitle': '🍪 Cookie & Privacy Notice (GDPR)',
@@ -1790,8 +1903,7 @@ en: {
 'gdpr.catAds': 'Advertising (Google AdSense)',
 'gdpr.catAdsDesc': 'Displays non-intrusive ads at the bottom of the page to keep FertiQuota free (only active once configured on the domain). Off by default without consent.',
 'gdpr.policyTitle': '🔒 Privacy & Cookie Policy (GDPR)',
-'footer.privacyTitle': 'Privacy, Cookies & Local Storage',
-'footer.privacyBody': 'Calculations, custom recipes, water profiles and stock are stored exclusively in your browser localStorage. Amazon links only navigate to Amazon when clicked. Any Google AdSense units are loaded only on a configured domain after GDPR consent.',
+'gdpr.termsTitle': '⚖️ Terms of Use, Chemical Disclaimer & License',
 'acqua.title': '💧 Source Water',
 'acqua.subtitle': '(tap / well / reverse osmosis)',
 'acqua.info': 'Enter your water analysis. FertiQuota will automatically subtract minerals already present and flag precipitation risks in the concentrate.',
@@ -1813,8 +1925,6 @@ en: {
 'ricette.cocoHeader': '🌱 Recipes — Coco Coir',
 'ricette.fasi': '📅 Growth Stage',
 'ricette.composizione': '🔬 Composition',
-'ricette.modifica': '✏️ Edit',
-'ricette.calcola': '→ Calculate',
 'ricette.noteTitle': '📋 Agronomic Notes',
 'calcola.params': '⚙️ System Parameters',
 'calcola.serbA': 'Tank A (L)',
@@ -1902,7 +2012,6 @@ en: {
 'js.nonDisp': '✗ NOT available',
 'js.nessunSale': 'No salt — add one or load a recipe.',
 'js.totale': 'TOTAL',
-'js.serbatorio': 'Tank',
 'js.componenti': 'Components',
 'js.sali': 'salts',
 'js.voto.ok': 'Safe and optimal solution',
@@ -1923,8 +2032,6 @@ en: {
 'js.procedura': '📋 Procedure',
 'js.audit': '🔍 Audit — Safety Checks Performed',
 'js.stampa': '🖨️ Print mixture',
-'js.costoPer1000': '💰 Total cost per 1000 L final:',
-'js.prezziDa': '(prices from Catalog)',
 'js.modifica': '✏️ Edit',
 'js.clona': '✏️ Clone & edit',
 'js.ripristinaOriginali': '↺ Restore original doses',
@@ -1990,6 +2097,15 @@ en: {
 'meta.desc': 'FertiQuota — Free hydroponic & coco coir fertigation calculator: A/B/C stock solutions, EC, pH, bicarbonates, 5 technical guides and zero precipitates.',
 'aria.mainMenu': 'Main menu',
 'aria.startBanner': 'Get started with FertiQuota',
+'aria.logo': 'FertiQuota Logo',
+'aria.newRecipe': 'Create a new recipe',
+'aria.calcBtn': 'Calculate salt doses',
+'aria.printCatalog': 'Print ingredient list',
+'aria.gearCats': 'Equipment categories',
+'aria.closeModal': 'Close modal',
+'aria.notifications': 'Notifications',
+'js.shareTitle': 'FertiQuota — A/B/C Fertigation Calculator',
+'js.shareCopied': 'Link copied to clipboard',
 'guide.svg.top': 'A / B / C INJECTION SCHEME',
 'guide.svg.tankA': 'TANK A',
 'guide.svg.acid': '1:100 · ACID',
@@ -2059,6 +2175,7 @@ ingCat.options[2].textContent = t('cat.ph');
 if(typeof updateSaliPrepBadge==='function') updateSaliPrepBadge();
 if(typeof renderGuidesLang==='function') renderGuidesLang();
 if(typeof renderAttrezzatura==='function') renderAttrezzatura();
+if(typeof updateRicalcolaBar==='function') updateRicalcolaBar();
 if(typeof updateGdprUi==='function') updateGdprUi();
 }
 const MM={Ca:40.078,Mg:24.305,K:39.098,N:14.007,Na:22.990,Cl:35.453,S:32.06,P:30.974,Si:28.085,
@@ -2847,10 +2964,14 @@ const base = SALI_DEFAULT.map(d=>{
 const s = saved.find(x=>x && x.id===d.id);
 if(!s) return {...d};
 const customEl = s._elCustom && s.el && typeof s.el==='object';
+const customNome = !!(s._nomeCustom || (typeof s.nome==='string' && s.nome.trim() && s.nome !== d.nome));
+const customNote = !!(s._noteCustom || (typeof s.note==='string' && s.note !== d.note));
 return {
 ...d,
+...(customNome ? { nome: stripTags(s.nome), _nomeCustom: true } : {}),
 prezzo:s.prezzo??d.prezzo,
 note:s.note!=null?stripTags(s.note):d.note,
+...(customNote ? { _noteCustom: true } : {}),
 dose:s.dose??d.dose,
 ...(customEl ? { el:s.el, nh4Frac:s.nh4Frac, ecC:s.ecC??d.ecC, _elCustom:true, ...(s.isLiquid?{isLiquid:true,density:s.density}:{}) } : {})
 };
@@ -2862,7 +2983,7 @@ let catalogo = safeParse('fc_catalogo', null);
 if(!Array.isArray(catalogo)) catalogo = SALI_DEFAULT.map(s=>({...s}));
 else if(safeParse('fc_catalogo_v', 0) !== CATALOG_VERSION) catalogo = mergeCatalogoDefaults(catalogo);
 try{ localStorage.setItem('fc_catalogo_v', JSON.stringify(CATALOG_VERSION)); }catch(e){}
-catalogo = catalogo.map(s=>({...s, nome:stripTags(s.nome), note:stripTags(s.note)}));
+catalogo = catalogo.filter(s=>s && isSafeId(s.id)).map(s=>({...s, nome:stripTags(s.nome), note:stripTags(s.note)}));
 let ricetteCustom = safeParse('fc_ricette', []);
 ricetteCustom = (Array.isArray(ricetteCustom)?ricetteCustom:[])
 .filter(r=>r && Array.isArray(r.fasi))
@@ -2980,8 +3101,8 @@ sali:[{id:"CaN",g:765},{id:"KNO3",g:372},{id:"KH2PO4",g:158},{id:"MgNO3",g:400},
 note:"Ca=150 K=234 P=38 Mg=44 N≈220 mg/L. K alto per zuccheri. Ca contro spaccatura.",
 sali:[{id:"CaN",g:882},{id:"KNO3",g:481},{id:"KH2PO4",g:167},{id:"MgNO3",g:463},{id:"MixCh",g:22}]},
 ]},
-{ id:"cannabis", nome:"Cannabis / Canapa", emoji:"🌿",
-note:"Nutrizione intensa. N alto in vegetativo, P e K alti in flora. pH 5.8-6.2.",
+{ id:"cannabis", nome:"Canapa industriale", emoji:"🌿",
+note:"Scheda agronomica per canapa industriale autorizzata (L. 242/2016). Nutrizione intensa: N alto in vegetativo, P e K alti in fioritura. pH 5.8-6.2.",
 fasi:[
 {nome:"Germinazione / Cloni",icon:"🌱",ec:[0.8,1.2],ph:[5.8,6.2],
 note:"EC 0.8-1.2. Ca=90 K=130 P=30 Mg=28 mg/L. Radici molto sensibili.",
@@ -3105,7 +3226,7 @@ fragola: {nome:"Strawberry", note:"High Ca for fruit structure. Medium-low EC. p
 {nome:"Vegetative", note:"Ca=130 K=189 P=36 Mg=38 N≈185 mg/L. Balanced N and Ca."},
 {nome:"Flowering and Fruit", note:"Ca=150 K=234 P=38 Mg=44 N≈220 mg/L. High K for sugars. Ca against cracking."},
 ]},
-cannabis: {nome:"Cannabis / Hemp", note:"Intensive nutrition. High N in vegetative, high P and K in flowering. pH 5.8-6.2.", fasi:[
+cannabis: {nome:"Industrial Hemp", note:"Agronomic profile for licensed industrial hemp cultivation. Intensive nutrition: high N in vegetative, high P and K in flowering. pH 5.8-6.2.", fasi:[
 {nome:"Germination / Clones", note:"EC 0.8-1.2. Ca=90 K=130 P=30 Mg=28 mg/L. Very sensitive roots."},
 {nome:"Vegetative (weeks 2-5)", note:"Ca=165 K=286 P=43 Mg=52 N≈257 mg/L. Very high N, Ca and Mg for structure."},
 {nome:"Stretch / Early Flower", note:"Ca=155 K=295 P=46 Mg=50 N≈237 mg/L. Reduce N, increase P and K."},
@@ -3132,8 +3253,25 @@ rucola: {nome:"Arugula", note:"Very short cycle (25-35 days). Moderate EC. pH 5.
 {nome:"Pre-harvest (5 days)", note:"Ca=70 K=100 P=22 Mg=19 N≈96 mg/L. Reduce EC to intensify aromas."},
 ]},
 };
-function salNome(s){ if(currentLang==='en' && s){ const tr=SALI_I18N[s.id]; if(tr&&tr.nome) return tr.nome; } return s?(s.nome||''):''; }
-function salNote(s){ const out = (currentLang==='en' && s && SALI_I18N[s.id]?.note) ? SALI_I18N[s.id].note : (s?(s.note||''):''); return expandElementRefs(out); }
+function salNome(s){
+  if(!s) return '';
+  if(currentLang==='en'){
+    const def = SALI_DEFAULT.find(x=>x.id===s.id);
+    const isCustom = !!(s._nomeCustom || (def && s.nome && s.nome !== def.nome));
+    if(!isCustom){ const tr=SALI_I18N[s.id]; if(tr&&tr.nome) return tr.nome; }
+  }
+  return s.nome||'';
+}
+function salNote(s){
+  if(!s) return '';
+  let out = s.note||'';
+  if(currentLang==='en'){
+    const def = SALI_DEFAULT.find(x=>x.id===s.id);
+    const isCustom = !!(s._noteCustom || (def && s.note !== def.note));
+    if(!isCustom && SALI_I18N[s.id]?.note) out = SALI_I18N[s.id].note;
+  }
+  return expandElementRefs(out);
+}
 function ricNome(r){ if(currentLang==='en' && r){ const tr=RICETTE_I18N[r.id]; if(tr&&tr.nome) return tr.nome; } return r?(r.nome||''):''; }
 function ricNote(r){ const out = (currentLang==='en' && r && RICETTE_I18N[r.id]?.note) ? RICETTE_I18N[r.id].note : (r?(r.note||''):''); return expandElementRefs(out); }
 function faseNome(r,fi,f){ if(currentLang==='en' && r){ const tr=RICETTE_I18N[r.id]; if(tr&&tr.fasi&&tr.fasi[fi]&&tr.fasi[fi].nome) return tr.fasi[fi].nome; } return f?(f.nome||''):''; }
@@ -3243,7 +3381,12 @@ return hdr ? hdr.offsetHeight : 0;
 function fcScrollTo(targetY, opts){
 opts = opts || {};
 fcCancelScroll();
-const dest = Math.max(0, Math.min(fcMaxScroll(), Math.round(targetY)));
+let numericY = targetY;
+if(targetY && typeof targetY === 'object' && typeof targetY.getBoundingClientRect === 'function'){
+numericY = (window.scrollY || window.pageYOffset || 0) + targetY.getBoundingClientRect().top - fcStickyOffset(opts.extra != null ? opts.extra : 12);
+}
+if(!Number.isFinite(+numericY)) return 0;
+const dest = Math.max(0, Math.min(fcMaxScroll(), Math.round(+numericY)));
 const start = window.scrollY || window.pageYOffset || 0;
 const delta = dest - start;
 const dist = Math.abs(delta);
@@ -3336,9 +3479,17 @@ if(opts.category && typeof setAttrezzaturaCat==='function') setAttrezzaturaCat(o
 else if(typeof renderAttrezzatura==='function') renderAttrezzatura();
 }
 if(id==='dati'||id==='catalogo') setTimeout(aggiornaStat,0);
+if(!opts.noHash && id){
+try{
+const targetHash = '#' + id;
+if(location.hash !== targetHash && !/^#guida-[1-5]$/.test(location.hash)) history.replaceState(null, '', targetHash);
+}catch(e){}
+}
 const anchor = fcTabsAnchor();
 const curY = window.scrollY || window.pageYOffset || 0;
-if(opts.resetTop){
+if(opts.noScroll){
+// Preserva la posizione di scorrimento corrente (navigazione da tastiera su tablist)
+} else if(opts.resetTop){
 const nextY = curY > anchor ? anchor : curY;
 window.scrollTo(0, Math.min(nextY, fcMaxScroll()));
 _tabScrollY[id] = window.scrollY || 0;
@@ -3350,6 +3501,20 @@ window.scrollTo(0, Math.min(anchor, fcMaxScroll()));
 }
 }
 }
+function applyHashRoute(){
+const raw = (location.hash || '').replace(/^#/, '').toLowerCase();
+if(!raw) return;
+const gMatch = raw.match(/^guida-([1-5])$/);
+if(gMatch){
+showTab('guide', {noHash:true});
+setTimeout(()=>openGuideIndex(parseInt(gMatch[1],10)-1), 60);
+return;
+}
+if(['guide','acqua','ricette','calcola','catalogo','attrezzatura','dati'].includes(raw)){
+showTab(raw, {noHash:true});
+}
+}
+window.addEventListener('hashchange', applyHashRoute);
 (function(){
 const tabList = document.querySelector('.tabs[role="tablist"]');
 if(!tabList) return;
@@ -3366,14 +3531,57 @@ if(next < 0) return;
 e.preventDefault();
 const targetTab = tabs[next];
 const targetId = targetTab.dataset.tab;
-if(targetId) showTab(targetId);
+if(targetId) showTab(targetId, { noScroll: true });
 targetTab.focus({ preventScroll: true });
 });
 })();
 function saveCatalogo(){ try{ localStorage.setItem('fc_catalogo', JSON.stringify(catalogo)); }catch(e){ console.warn('Salvataggio catalogo fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 function saveRicette(){ try{ localStorage.setItem('fc_ricette', JSON.stringify(ricetteCustom)); }catch(e){ console.warn('Salvataggio ricette fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
-function openModal(id){ var el=document.getElementById(id); if(!el) return; el.classList.remove('closing'); el.classList.add('open'); }
-function closeModal(id){ var el=document.getElementById(id); if(!el||!el.classList.contains('open')) return; el.classList.add('closing'); setTimeout(function(){ el.classList.remove('open'); el.classList.remove('closing'); }, 200); }
+let _modalLastFocus = null;
+function setBackgroundInert(active){
+['header', '.tabs', '#main-content', '#fc-footer'].forEach(sel=>{
+const node = document.querySelector(sel);
+if(node) node.inert = !!active;
+});
+}
+function openModal(id){
+var el=document.getElementById(id); if(!el) return;
+if(el._closeTimer){ clearTimeout(el._closeTimer); el._closeTimer=null; }
+_modalLastFocus = document.activeElement;
+el.classList.remove('closing'); el.classList.add('open');
+setBackgroundInert(true);
+const focusTarget = el.querySelector('[autofocus], input:not([type="hidden"]), select, textarea, .modal-close');
+if(focusTarget && typeof focusTarget.focus==='function'){
+try{ focusTarget.focus({preventScroll:true}); }catch(e){}
+}
+}
+function closeModal(id){
+var el=document.getElementById(id); if(!el||!el.classList.contains('open')) return;
+if(el._closeTimer){ clearTimeout(el._closeTimer); el._closeTimer=null; }
+el.classList.add('closing');
+const stillOpen=[...document.querySelectorAll('.modal-bg.open:not(.closing)')];
+if(!stillOpen.length){
+setBackgroundInert(false);
+if(_modalLastFocus && typeof _modalLastFocus.focus==='function' && (el.contains(document.activeElement) || !document.activeElement || document.activeElement===document.body)){
+try{ _modalLastFocus.focus({preventScroll:true}); }catch(e){}
+}
+_modalLastFocus = null;
+}
+el._closeTimer = setTimeout(function(){
+el.classList.remove('open'); el.classList.remove('closing'); el._closeTimer=null;
+}, 200);
+}
+(function initCustomModalDismiss(){
+window.addEventListener('keydown', e=>{
+if(e.key !== 'Escape') return;
+const openModals = [...document.querySelectorAll('.modal-bg.open')];
+if(openModals.length){ e.preventDefault(); closeModal(openModals[openModals.length-1].id); }
+});
+document.addEventListener('click', e=>{
+const bg = e.target && e.target.classList && e.target.classList.contains('modal-bg') && e.target.classList.contains('open') ? e.target : null;
+if(bg) closeModal(bg.id);
+});
+})();
 function esc(s){
 return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
@@ -3522,7 +3730,7 @@ ricetteCustom.forEach((ric, ri)=>{
 const d = document.createElement('div');
 d.className='pianta-btn'; d.dataset.id=ri; d.dataset.tipo='custom';
 d.style.position='relative';
-d.innerHTML=`<span class="em">${esc(ric.emoji)||'🌱'}</span>${esc(ric.nome)}<button class="btn-del btn-sm" style="position:absolute;top:4px;right:4px;padding:2px 6px;font-size:.6rem" onclick="event.stopPropagation();eliminaRicettaCustom(${ri})" aria-label="Elimina ricetta ${esc(ric.nome)}">✕</button>`;
+d.innerHTML=`<span class="em">${esc(ric.emoji)||'🌱'}</span>${esc(ric.nome)}<button class="btn-del btn-sm" style="position:absolute;top:4px;right:4px;padding:2px 6px;font-size:.6rem" onclick="event.stopPropagation();eliminaRicetta(${ri})" aria-label="${esc(TT('Elimina ricetta','Delete recipe'))} ${esc(ric.nome)}">✕</button>`;
 d.onclick=()=>selPianta(ri, 'custom');
 grid.appendChild(d);
 });
@@ -3531,11 +3739,7 @@ grid.innerHTML=`<div class="ph" style="grid-column:1/-1"><p>${t('js.nessunaRicet
 }
 }
 function eliminaRicettaCustom(ri){
-if(!confirm(TT(`Eliminare la ricetta "${ricetteCustom[ri].nome}"?`,`Delete the recipe "${ricetteCustom[ri].nome}"?`))) return;
-ricetteCustom.splice(ri, 1);
-saveRicette();
-renderRicetteCustom();
-showToast(t('js.ricettaEliminata'));
+eliminaRicetta(ri);
 }
 function selPianta(id, tipo, opts){
 const _noScroll = !!(opts && opts.noScroll);
@@ -3627,6 +3831,40 @@ const sub = costoAcido > 0
 : (aq ? TT('sol. finale (con acqua)','final sol. (with water)') : TT('sol. finale','final sol.'));
 return { tot: costoSali + costoAcido, sali: costoSali, acido: costoAcido, sub };
 }
+function renderRicettaGearBar(pianta, fase){
+const bar = document.getElementById('ricetta-gear-bar');
+if(!bar) return;
+if(!pianta || !fase || typeof buildAmazonUrl !== 'function'){
+bar.hidden = true;
+bar.style.display = 'none';
+bar.innerHTML = '';
+return;
+}
+const pickItem = (id, fb) => (ATTREZZATURA_ITEMS.find(x => x.id === id) || fb);
+const phItem = pickItem('phmetro', { asinIt: 'B0BY7XTB5Y', qIt: 'YINMIK pH EC TDS metro idroponica', qEn: 'digital pH meter hydroponics' });
+const ecItem = pickItem('ecmetro', { qIt: 'EC TDS metro conducibilita idroponica', qEn: 'EC TDS meter hydroponics' });
+const cocoItem = { qIt: 'fibra di cocco perlite substrato idroponica tamponata', qEn: 'buffered coco coir perlite hydroponic substrate' };
+const scaleItem = pickItem('bilancia-micro', { qIt: 'bilancia precisione 0.01g sali fertirrigazione', qEn: '0.01g precision digital scale fertilizers' });
+const phUrl = buildAmazonUrl(phItem, 'ricetta');
+const ecUrl = buildAmazonUrl(ecItem, 'ricetta');
+const cocoUrl = buildAmazonUrl(cocoItem, 'ricetta');
+const scaleUrl = buildAmazonUrl(scaleItem, 'ricetta');
+const rel = 'sponsored nofollow noopener noreferrer';
+const disc = TT('Link affiliato Amazon (#pubblicità) · Nessun costo extra','Amazon affiliate links (#ad) · No extra cost');
+bar.innerHTML = `<div class="guide-rec-head">
+  <span>🛒 ${esc(TT('Kit consigliato per questa ricetta','Recommended gear for this recipe'))}</span>
+  <span class="guide-rec-note">${esc(disc)}</span>
+</div>
+<div class="guide-rec-links">
+  <a class="guide-rec-btn" href="${esc(cocoUrl)}" target="_blank" rel="${rel}">🥥 ${esc(TT('Fibra di cocco + Perlite','Coco Coir + Perlite'))} →</a>
+  <a class="guide-rec-btn" href="${esc(phUrl)}" target="_blank" rel="${rel}">🧪 ${esc(TT('pH-metro YINMIK 4-in-1','YINMIK 4-in-1 pH Meter'))} →</a>
+  <a class="guide-rec-btn" href="${esc(ecUrl)}" target="_blank" rel="${rel}">⚡ ${esc(TT('EC / TDS-metro','EC / TDS Meter'))} →</a>
+  <a class="guide-rec-btn" href="${esc(scaleUrl)}" target="_blank" rel="${rel}">⚖️ ${esc(TT('Bilancia 0,01 g','0.01 g Scale'))} →</a>
+  <button type="button" class="btn btn-sc btn-sm" onclick="showTab('attrezzatura')">🛠️ ${esc(TT('Tutti gli strumenti →','All gear →'))}</button>
+</div>`;
+bar.hidden = false;
+bar.style.removeProperty('display');
+}
 function renderRicettaOut(pianta, fase, tipo){
 const fi = pianta.fasi.indexOf(fase);
 const pNome = ricNome(pianta), pNote = ricNote(pianta)||'—';
@@ -3651,6 +3889,7 @@ html+=`<tr><td><strong>${elLabel(el)}</strong></td><td style="text-align:right;f
 html+=`</tbody></table></div>`;
 html+=`<button class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-top:10px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
 document.getElementById('ricetta-out').innerHTML=html;
+renderRicettaGearBar(pianta, fase);
 return;
 }
 const saliFase = fase.sali||[];
@@ -3684,6 +3923,7 @@ if(perX.length){
 html+=`<div class="alert al-inf" style="margin-top:6px">⚠️ ${perX.length} ${t('js.idNonTrovato')}: ${perX.map(s=>esc(s.id||s.nome||'?')).join(', ')}.</div>`;
 }
 document.getElementById('ricetta-out').innerHTML=html;
+renderRicettaGearBar(pianta, fase);
 }
 function caricaRicettaCorrente(){
 if(!piantaSel || !faseSel) return;
@@ -3772,7 +4012,7 @@ return {id:s.id||null,nome:s.nome||(info?salNome(info):s.id),dose:s.g,prezzo:inf
 renderCalcTabella();
 } else {
 calcRighe=[];
-document.getElementById('calc-tbody').innerHTML=`<tr><td colspan="5" style="padding:12px;text-align:center;color:var(--ts);font-size:.78rem">${t('js.targetHint')}</td></tr>`;
+document.getElementById('calc-tbody').innerHTML=`<tr><td colspan="4" style="padding:12px;text-align:center;color:var(--ts);font-size:.78rem">${t('js.targetHint')}</td></tr>`;
 }
 window._targetAttivo=null;
 resetStatoCalc(f.modo==='target' ? {targets:{...(f.targets||{})}, pianta:ric.nome, fase:f.nome} : null);
@@ -3791,6 +4031,9 @@ const p=window._pendingDelete;
 if(!p) return;
 if(p.tipo==='ricetta'){
 ricetteCustom.splice(p.ri,1);
+saveRicette(); renderRicetteCustom();
+showToast(t('js.ricettaEliminata'));
+window._pendingDelete=null; return;
 } else if(p.tipo==='ingrediente'){
 catalogo=catalogo.filter(s=>s.id!==p.id);
 if(scorta.delete(p.id)) saveScorta();
@@ -3953,7 +4196,7 @@ Object.entries(lbl).forEach(([cat,l])=>{
 const arr=gruppi[cat];
 if(!arr||!arr.length) return;
 h+=`<optgroup label="${l}">`;
-arr.forEach(s=>{ h+=`<option value="${s.id}"${s.id===selId?' selected':''}>${salNome(s)}</option>`; });
+arr.forEach(s=>{ h+=`<option value="${s.id}"${s.id===selId?' selected':''}>${esc(salNome(s))}</option>`; });
 h+='</optgroup>';
 });
 return h;
@@ -3962,8 +4205,9 @@ function salvaRicetta(){
 const nome=sanitizeName(document.getElementById('ric-nome').value.trim());
 if(!nome){ alert(t('js.nomeRicetta')); return; }
 if(!fasiBozza.length){ alert(t('js.nomeFase')); return; }
-const fasi=JSON.parse(JSON.stringify(fasiBozza)).map(f=>({...f, nome:sanitizeName(f.nome), note:sanitizeName(f.note)}));
-const ric={nome, emoji:document.getElementById('ric-emoji').value, note:sanitizeName(document.getElementById('ric-note').value.trim()), fasi};
+const sanitizeEmoji = s => String(s||'').replace(/[<>"'&]/g,'').trim().slice(0,8);
+const fasi=JSON.parse(JSON.stringify(fasiBozza)).map(f=>({...f, icon:sanitizeEmoji(f.icon||'🌱')||'🌱', nome:sanitizeName(f.nome), note:sanitizeName(f.note)}));
+const ric={nome, emoji:sanitizeEmoji(document.getElementById('ric-emoji').value)||'🌱', note:sanitizeName(document.getElementById('ric-note').value.trim()), fasi};
 let savedRi;
 if(editRicId!==null){ ricetteCustom[editRicId]=ric; savedRi=editRicId; } else { ricetteCustom.push(ric); savedRi=ricetteCustom.length-1; }
 saveRicette(); renderRicetteCustom(); closeModal('modal-ricetta');
@@ -4037,14 +4281,42 @@ function getMancanti(){ return calcRighe.filter(r=>r.id!=='__custom'&&!isDisponi
 function updateRicalcolaBar(){
 updateSaliPrepBadge();
 const bar=document.getElementById('ricalcola-bar');
+const strip=document.getElementById('ricalcola-buy-strip');
 if(!bar) return;
 const mancanti=getMancanti();
 if(mancanti.length>0){
 bar.style.display='block';
 document.getElementById('ricalcola-count').textContent=mancanti.length;
 setSaliPrepCollapsed(false);
+if(strip){
+const seen = new Set();
+const chips = [];
+mancanti.forEach(r => {
+  if(!r || seen.has(r.id)) return;
+  seen.add(r.id);
+  const sObj = getSale(r.id) || { id: r.id, nome: r.nome || r.id };
+  const url = typeof getCatalogoAmazonUrl === 'function' ? getCatalogoAmazonUrl(sObj) : '';
+  if(!url) return;
+  const lbl = salNome(sObj);
+  chips.push(`<a class="miss-buy-chip" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer">🛒 ${esc(lbl)} →</a>`);
+});
+if(chips.length){
+  strip.innerHTML = `<span class="miss-buy-lbl">${esc(TT('Acquista i sali mancanti su Amazon (Link affiliato #pubblicità):','Buy missing salts on Amazon (Affiliate link #ad):'))}</span>${chips.join('')}`;
+  strip.hidden = false;
+  strip.style.removeProperty('display');
+} else {
+  strip.hidden = true;
+  strip.style.display = 'none';
+  strip.innerHTML = '';
+}
+}
 } else {
 bar.style.display='none';
+if(strip){
+strip.hidden = true;
+strip.style.display = 'none';
+strip.innerHTML = '';
+}
 }
 }
 function aggiungiRigaCalc(){
@@ -5591,11 +5863,11 @@ html+=`<div id="serbC-box" style="background:#f3e8ff;border:2px solid #7b3f9e;bo
               ${motiviC.map(m=>`<li>${m}</li>`).join('')}
             </ul>
           </div>`:''}
-          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.82rem;font-weight:600;color:#7b3f9e;letter-spacing:0">
+          <label for="chk-serbC" style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.82rem;font-weight:600;color:#7b3f9e;letter-spacing:0">
             <input type="checkbox" id="chk-serbC" ${usaSerbC?'checked':''} onchange="toggleSerbC(this.checked)" style="width:18px;height:18px;accent-color:#7b3f9e;flex-shrink:0">
             ${usaSerbC ? t('js.usaSerbC') : t('js.abilitaSerbC')}
           </label>
-          ${usaSerbC?`<div style="margin-top:8px"><label style="font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#7b3f9e">${TT('Volume Serb. C (L)','Tank C volume (L)')}</label><div style="display:flex;gap:6px;margin-top:4px"><input type="number" id="volC" value="${volC||100}" min="1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="if(document.getElementById('risultato-stampa'))calcola({noScroll:true})" style="max-width:100px;background:#fff"><span style="font-size:.78rem;color:#7b3f9e;align-self:center">L</span></div></div>`:''}
+          ${usaSerbC?`<div style="margin-top:8px"><label for="volC" style="font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#7b3f9e">${TT('Volume Serb. C (L)','Tank C volume (L)')}</label><div style="display:flex;gap:6px;margin-top:4px"><input type="number" id="volC" value="${volC||100}" min="1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="if(document.getElementById('risultato-stampa'))calcola({noScroll:true})" style="max-width:100px;background:#fff"><span style="font-size:.78rem;color:#7b3f9e;align-self:center">L</span></div></div>`:''}
         </div>
       </div>
     </div>`;
@@ -6141,7 +6413,7 @@ html+=`<div class="card" style="margin-top:12px">
       <li>${stepBFill}</li>
       ${stepBTop}
       ${serbCNote}
-      <li>${TT('<strong>Non mischiare mai i concentrati direttamente.</strong> FertiQuota doserà separatamente ogni serbatoio nella linea.','<strong>Never mix the concentrates directly.</strong> FertiQuota will dose each tank separately in the line.')}</li>
+      <li>${TT('<strong>Non mischiare mai i concentrati direttamente.</strong> L\'impianto doserà separatamente ogni serbatoio nella linea.','<strong>Never mix the concentrates directly.</strong> The dosing system will inject each tank separately into the line.')}</li>
       <li>${TT(`Misura EC e pH finali al punto di consegna (target pH ${phFinale}). Drain EC target = input + 0.5–1.0 mS/cm.`,`Measure final EC and pH at the delivery point (target pH ${phFinale}). Drain EC target = input + 0.5–1.0 mS/cm.`)}</li>
     </ol></div>
   </div>`;
@@ -6261,7 +6533,7 @@ params.push({l:TT('Diluizione','Dilution'), v:'1:'+pDil, s:TT('conc. \u2192 fina
 params.push({l:TT('pH finale','Final pH'), v:pPh, s:TT('in coltura','in culture')});
 if(ecFinale) params.push({l:TT('EC prevista','Expected EC'), v:ecFinale.replace(/\s*mS\/cm/,''), s:'mS/cm'});
 const paramsHtml = params.map(p=>`<div class="pbox"><div class="pl">${esc(p.l)}</div><div class="pv">${esc(p.v)}</div><div class="ps">${esc(p.s)}</div></div>`).join('');
-const TANK_COLORS = ['#1e8449','#2471a3','#7b3f9e'];
+const TANK_COLORS = ['#2471a3','#1e8449','#7b3f9e'];
 let serbHtml = '';
 const serbCards = contenuto.querySelectorAll('.serb-card');
 const nSerb = serbCards.length || 2;
@@ -6805,7 +7077,7 @@ wrap.appendChild(invBar);
 const affNote=document.createElement('div');
 affNote.className='alert al-inf no-print';
 affNote.style.cssText='margin-bottom:12px;font-size:.73rem;padding:8px 12px';
-affNote.innerHTML='<span>🛒</span><span>'+TT('<strong>Riordino rapido:</strong> i pulsanti <em>Acquista / Riordina</em> portano su Amazon (Amazon Affiliate).','<strong>Quick reorder:</strong> <em>Buy / Reorder</em> buttons link to Amazon (Amazon Affiliate).')+'</span>';
+affNote.innerHTML='<span>🛒</span><span>'+TT('<strong>Riordino rapido (Link affiliati Amazon · #pubblicità):</strong> i pulsanti <em>Acquista / Riordina</em> rimandano ad Amazon e possono generare una commissione senza costi aggiuntivi per te.','<strong>Quick reorder (Amazon Affiliate links · #ad):</strong> <em>Buy / Reorder</em> buttons link to Amazon and may earn a small commission at no extra cost to you.')+'</span>';
 wrap.appendChild(affNote);
 let lastCat='';
 let currentGroup=null;
@@ -6836,8 +7108,8 @@ const buyUrl=typeof getCatalogoAmazonUrl==='function' ? getCatalogoAmazonUrl(s) 
 const buyLbl=disp ? TT('Acquista','Buy') : TT('Riordina','Reorder');
 const buyLink=buyUrl ? `<a class="btn-cat-buy${disp?'':' reorder'} no-print" href="${esc(buyUrl)}" target="_blank" rel="sponsored nofollow noopener noreferrer"><span class="cat-buy-lbl">🛒 ${buyLbl}</span><span class="visually-hidden"> — ${esc(salNome(s))}</span></a>` : '';
 row.innerHTML=`
-      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;flex:1;min-width:0;margin:0">
-        <input type="checkbox" class="flag-check" ${disp?'checked':''} onchange="toggleScortaUI('${s.id}',this.checked)" style="margin-top:2px">
+      <label for="cat-chk-${esc(s.id)}" style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;flex:1;min-width:0;margin:0">
+        <input type="checkbox" id="cat-chk-${esc(s.id)}" class="flag-check" ${disp?'checked':''} onchange="toggleScortaUI('${s.id}',this.checked)" style="margin-top:2px">
         <div style="flex:1;min-width:0">
           <div class="cat-nome">
             <span class="bcat" style="background:${c.bg}">${c.label}</span> ${esc(salNome(s))}
@@ -6938,16 +7210,21 @@ liqChanged = isLiquid !== !!def.isLiquid || (isLiquid && Math.abs(density - (+de
 }
 const isCustomizedDefault = !!(def && (elChanged || nh4Changed || liqChanged));
 const autoSerb = el.Si ? 'C' : (el.Ca && !el.P && !el.S && !el.Fe ? 'B' : 'A');
+const note = sanitizeName(document.getElementById('ing-note').value.trim());
 const s={
 id: editIngId || ('custom_'+Date.now()),
 nome, cat:document.getElementById('ing-cat').value,
 serb: def ? (isCustomizedDefault ? autoSerb : def.serb) : autoSerb,
 el: (def && !isCustomizedDefault) ? {...def.el} : el,
-note:sanitizeName(document.getElementById('ing-note').value.trim()),
+note,
 prezzo:Math.max(0, parseFloat(document.getElementById('ing-prezzo').value)||0),
 dose:Math.max(0, parseFloat(document.getElementById('ing-dose').value)||0),
 ecC: (def && !isCustomizedDefault) ? def.ecC : stimaEcC(el, nh4Frac)
 };
+if(def){
+if(nome !== def.nome) s._nomeCustom = true;
+if(note !== (def.note||'')) s._noteCustom = true;
+}
 if(def && !isCustomizedDefault){
 if(def.nh4Frac != null) s.nh4Frac = def.nh4Frac;
 if(def.isLiquid){ s.isLiquid=true; s.density=def.density; }
@@ -6982,19 +7259,47 @@ window._pendingDelete={tipo:'ingrediente',id};
 document.getElementById('modal-del-msg').textContent=t('js.eliminaIngrediente');
 openModal('modal-del');
 }
+let _toastTimer = null;
+function hideToast(){
+clearTimeout(_toastTimer);
+const el = document.getElementById('ie-toast');
+if(!el) return;
+el.classList.remove('open');
+try {
+if(typeof el.hidePopover === 'function' && el.matches(':popover-open')) el.hidePopover();
+} catch(_){}
+}
 function showToast(msg, ok=true){
-const t=document.getElementById('ie-toast');
-t.style.animation='none';
-t.style.display='none';
-requestAnimationFrame(()=>{
-t.textContent=(ok?'✓ ':'✗ ')+msg;
-t.style.color=ok?'var(--vc)':'var(--ro)';
-t.style.display='inline';
-t.style.animation='none';
-void t.offsetWidth;
-t.style.animation='fadeout 3s forwards';
-setTimeout(()=>{ t.style.display='none'; }, 3200);
-});
+const el = document.getElementById('ie-toast');
+if(!el){ aggiornaStat(); return; }
+const msgEl = document.getElementById('ie-toast-msg');
+const txt = (ok?'✓ ':'✗ ')+msg;
+if(msgEl) msgEl.textContent = txt;
+else el.textContent = txt;
+el.classList.toggle('ie-toast-err', !ok);
+clearTimeout(_toastTimer);
+if(!el._toastBound){
+el._toastBound = true;
+const pause = () => clearTimeout(_toastTimer);
+const resume = () => { clearTimeout(_toastTimer); _toastTimer = setTimeout(hideToast, 3500); };
+el.addEventListener('pointerenter', pause);
+el.addEventListener('pointerleave', resume);
+el.addEventListener('focusin', pause);
+el.addEventListener('focusout', e => { if(!el.contains(e.relatedTarget)) resume(); });
+}
+el.classList.add('open');
+try {
+if(typeof el.showPopover === 'function'){
+if(el.matches(':popover-open')) el.hidePopover();
+el.showPopover();
+}
+} catch(_){}
+if(typeof document.ariaNotify === 'function'){
+try { document.ariaNotify(txt); } catch(_){}
+}
+if(!el.matches(':hover') && !el.contains(document.activeElement)){
+_toastTimer = setTimeout(hideToast, 3500);
+}
 aggiornaStat();
 }
 function aggiornaStat(){
@@ -7052,21 +7357,29 @@ if(!importato) return d;
 const prezzo = importato.prezzo!==undefined ? cleanNum(importato.prezzo,d.prezzo,0,1000000) : d.prezzo;
 const dose = importato.dose!==undefined ? cleanNum(importato.dose,d.dose,0,5000) : d.dose;
 const note = importato.note!=null ? sanitizeName(importato.note) : d.note;
+const customNome = (importato._nomeCustom || (typeof importato.nome==='string' && importato.nome.trim() && importato.nome.trim()!==d.nome));
+const customNote = (importato._noteCustom || note !== d.note);
 if(importato._elCustom && importato.el && typeof importato.el==='object'){
 const impEl = normalizeImportedEl(importato.el);
 if(Object.keys(impEl).length>0){
 const nh4 = impEl.N>0 && importato.nh4Frac!==undefined ? cleanNum(importato.nh4Frac,0,0,100) : undefined;
 const ecC = importato.ecC!==undefined ? cleanNum(importato.ecC,d.ecC,0,100) : stimaEcC(impEl, nh4);
-const dens = cleanNum(importato.density,0,0,3);
+const dens = cleanNum(importato.density,0,0,3.5);
 return {
 ...d, prezzo, note, dose, el:impEl, ecC, _elCustom:true,
+...(customNome ? { nome: sanitizeName(importato.nome.trim()), _nomeCustom: true } : {}),
+...(customNote ? { _noteCustom: true } : {}),
 serb: impEl.Si ? 'C' : (impEl.Ca && !impEl.P && !impEl.S && !impEl.Fe ? 'B' : d.serb),
 ...(nh4!==undefined ? {nh4Frac:nh4} : {}),
 ...(importato.isLiquid===true && dens>0 ? {isLiquid:true, density:dens} : {})
 };
 }
 }
-return {...d, prezzo, note, dose};
+return {
+...d, prezzo, note, dose,
+...(customNome ? { nome: sanitizeName(importato.nome.trim()), _nomeCustom: true } : {}),
+...(customNote ? { _noteCustom: true } : {})
+};
 });
 const custom = data.catalogo.filter(s=>!defaultIds.has(s.id));
 const nuoviCustom = custom
@@ -7085,7 +7398,7 @@ ecC:cleanNum(s.ecC,0,0,100)
 };
 const nh4 = cleanNum(s.nh4Frac,0,0,100);
 if(nh4>0 && out.el.N) out.nh4Frac = nh4;
-const dens = cleanNum(s.density,0,0,3);
+const dens = cleanNum(s.density,0,0,3.5);
 if(s.isLiquid===true && dens>0){ out.isLiquid = true; out.density = dens; }
 return out;
 })
@@ -7218,6 +7531,9 @@ const PRIVACY_CONFIG = {
   siteDomain: 'gaetanodevito93-bot.github.io/FertiQuota',
   controllerName: 'Gaetano De Vito',
   controllerEmail: 'gaetano.devito93@gmail.com',
+  // Compila vatNumber e legalAddress qualora l'attività superi la soglia occasionale / richieda P.IVA esposta in footer
+  vatNumber: '',
+  legalAddress: '',
   hostingProvider: 'GitHub Pages',
   lastUpdated: '22/11/2026',
   consentVersion: 1,
@@ -7287,6 +7603,7 @@ const ATTREZZATURA_CATEGORIES = [
 const ATTREZZATURA_ITEMS = [
   {
     id: 'phmetro', cat: 'misura', icon: '🧪', asinIt: 'B0BY7XTB5Y', asinEn: '',
+    badgeIt: '⭐ Scelta #1', badgeEn: '⭐ Top Pick',
     titoloIt: 'pHmetro digitale professionale YINMIK con ATC', titoloEn: 'Digital pH Meter with ATC & Replaceable Probe',
     descIt: 'Indispensabile per portare la soluzione finale esattamente a pH 5,8 ed evitare precipitazioni di fosfati di calcio o blocco del ferro.',
     descEn: 'Essential for dialing final solution pH to 5.8 and avoiding calcium phosphate scaling or iron lockout.',
@@ -7296,6 +7613,7 @@ const ATTREZZATURA_ITEMS = [
   },
   {
     id: 'ecmetro', cat: 'misura', icon: '⚡', asinIt: '', asinEn: '',
+    badgeIt: '⚡ Essenziale', badgeEn: '⚡ Essential',
     titoloIt: 'Conduttivimetro / EC-metro digitale (mS/cm)', titoloEn: 'Digital EC / TDS Conductivity Meter (mS/cm)',
     descIt: 'Verifica l\'EC reale dell\'acqua di partenza, controlla la soluzione finale in vasca e monitora l\'EC di drenaggio nel cocco.',
     descEn: 'Verifies source water EC, final reservoir EC and coco coir runoff EC to prevent salt accumulation.',
@@ -7323,6 +7641,7 @@ const ATTREZZATURA_ITEMS = [
   },
   {
     id: 'bilancia-micro', cat: 'bilance', icon: '⚖️', asinIt: '', asinEn: '',
+    badgeIt: '🎯 Precisione 0,01 g', badgeEn: '🎯 0.01 g Accuracy',
     titoloIt: 'Bilancia di precisione 0,01 g (per microelementi)', titoloEn: '0.01 g Precision Micro Scale (for Micronutrients)',
     descIt: 'Obbligatoria per dosi piccole come Molibdato di Sodio (0,12 g), Solfato di Zinco (2 g), Acido Borico e Mix Chelati senza errori tossici.',
     descEn: 'Mandatory for small doses like Sodium Molybdate (0.12 g), Zinc Sulfate (2 g), Boric Acid and Chelate Mix.',
@@ -7440,6 +7759,7 @@ const ATTREZZATURA_ITEMS = [
   },
   {
     id: 'dpi-acidi', cat: 'sicurezza', icon: '🥽', asinIt: '', asinEn: '',
+    badgeIt: '🛡️ Sicurezza Acidi', badgeEn: '🛡️ Acid Safety',
     titoloIt: 'Guanti in nitrile spessi + occhiali antispruzzo (DPI)', titoloEn: 'Chemical-Resistant Nitrile Gloves + Splash Goggles',
     descIt: 'Obbligatori ogni volta che prepari soluzioni con Acido Nitrico 38%, Acido Fosforico 75%, Acido Solforico 38% o KOH 50%.',
     descEn: 'Mandatory whenever handling Nitric Acid 38%, Phosphoric Acid 75%, Sulfuric Acid 38% or Potassium Hydroxide.',
@@ -7449,6 +7769,7 @@ const ATTREZZATURA_ITEMS = [
   },
   {
     id: 'cocco-tamponato', cat: 'sicurezza', icon: '🥥', asinIt: '', asinEn: '',
+    badgeIt: '🥥 Top per Cocco', badgeEn: '🥥 Best for Coco',
     titoloIt: 'Substrato fibra di cocco lavata e tamponata (Coco Coir)', titoloEn: 'Washed & Buffered Coco Coir Substrate',
     descIt: 'Il cocco già tamponato con Ca/Mg riduce il rilascio iniziale di K⁺/Na⁺ e stabilizza subito EC e pH delle ricette FertiQuota.',
     descEn: 'Pre-buffered Ca/Mg coco coir prevents initial K⁺/Na⁺ lockout and stabilizes FertiQuota EC/pH targets.',
@@ -7459,24 +7780,28 @@ const ATTREZZATURA_ITEMS = [
 ];
 let attrezzaturaCat = 'all';
 let attrezzaturaQuery = '';
+const DEFAULT_AMAZON_TAG = 'aitane93-21';
 function getActiveAmazonTag(placement){
   const tgs = AFFILIATE_CONFIG.tags || {};
   if(currentLang === 'en' && AFFILIATE_CONFIG.amazonTagEn && !/INSERISCI/i.test(AFFILIATE_CONFIG.amazonTagEn)){
-    return { domain: AFFILIATE_CONFIG.amazonDomainEn, tag: AFFILIATE_CONFIG.amazonTagEn };
+    const enTag = String(AFFILIATE_CONFIG.amazonTagEn).trim() || DEFAULT_AMAZON_TAG;
+    return { domain: AFFILIATE_CONFIG.amazonDomainEn, tag: enTag };
   }
-  const tag = (placement && tgs[placement]) || tgs.default || '';
+  const rawTag = (placement && tgs[placement]) || tgs.default || DEFAULT_AMAZON_TAG;
+  const tag = String(rawTag || '').trim() || DEFAULT_AMAZON_TAG;
   return { domain: AFFILIATE_CONFIG.amazonDomainIt, tag };
 }
 function buildAmazonUrl(opts, placement){
   const { domain, tag } = getActiveAmazonTag(placement);
   const useEnStore = domain === AFFILIATE_CONFIG.amazonDomainEn;
-  const asin = useEnStore ? (opts.asinEn || '') : (opts.asinIt || '');
-  const query = useEnStore ? (opts.qEn || opts.qIt || '') : (opts.qIt || opts.qEn || '');
-  const base = asin
-    ? `https://${domain}/dp/${encodeURIComponent(asin)}`
-    : `https://${domain}/s?k=${encodeURIComponent(query)}`;
-  if(!tag) return base;
-  return base + (base.includes('?') ? '&' : '?') + 'tag=' + encodeURIComponent(tag);
+  const asin = String(useEnStore ? (opts.asinEn || '') : (opts.asinIt || '')).trim();
+  const query = String(useEnStore ? (opts.qEn || opts.qIt || '') : (opts.qIt || opts.qEn || '')).trim();
+  const url = asin
+    ? new URL(`https://${domain}/dp/${encodeURIComponent(asin)}`)
+    : new URL(`https://${domain}/s`);
+  if(!asin && query) url.searchParams.set('k', query);
+  url.searchParams.set('tag', tag || DEFAULT_AMAZON_TAG);
+  return url.toString();
 }
 function getCatalogoAmazonUrl(s){
   if(!s) return '';
@@ -7497,7 +7822,35 @@ function setAttrezzaturaQuery(q){
 function renderAttrezzatura(){
   const pillsEl = document.getElementById('gear-pills');
   const gridEl = document.getElementById('attrezzatura-grid');
+  const kitEl = document.getElementById('gear-kit-banner');
+  const countEl = document.getElementById('gear-count');
   if(!pillsEl || !gridEl) return;
+  const btnLbl = currentLang === 'en' ? 'Check price on Amazon →' : 'Vedi offerta su Amazon →';
+  if(kitEl){
+    const starterIds = ['phmetro', 'ecmetro', 'bilancia-micro'];
+    const starterItems = starterIds.map(id => ATTREZZATURA_ITEMS.find(x => x.id === id)).filter(Boolean);
+    const kitTitle = TT('Starter Kit Fertirrigazione (Top 3 essenziali)', 'Fertigation Starter Kit (Top 3 essentials)');
+    const kitSub = TT('In qualità di Affiliato Amazon ricevo un guadagno dagli acquisti idonei (#pubblicità)', 'As an Amazon Associate I earn from qualifying purchases (#ad)');
+    kitEl.hidden = attrezzaturaQuery.length > 0;
+    kitEl.innerHTML = `<div class="gear-kit-head">
+        <span class="gear-kit-title">🚀 ${esc(kitTitle)}</span>
+        <span class="gear-kit-sub">${esc(kitSub)}</span>
+      </div>
+      <div class="gear-kit-grid">${starterItems.map(item => {
+        const title = currentLang === 'en' ? item.titoloEn : item.titoloIt;
+        const badge = currentLang === 'en' ? (item.badgeEn || '') : (item.badgeIt || '');
+        const desc = currentLang === 'en' ? item.descEn : item.descIt;
+        const url = buildAmazonUrl(item, 'attrezzatura');
+        return `<div class="gear-kit-item">
+          <div>
+            <strong>${item.icon} ${esc(title)}</strong>
+            ${badge ? `<div style="margin-top:4px"><span class="tool-badge">${esc(badge)}</span></div>` : ''}
+            <span style="display:block;margin-top:4px">${esc(desc)}</span>
+          </div>
+          <a class="gear-kit-btn" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer">🛒 ${esc(btnLbl)}<span class="visually-hidden"> — ${esc(title)}</span></a>
+        </div>`;
+      }).join('')}</div>`;
+  }
   pillsEl.innerHTML = ATTREZZATURA_CATEGORIES.map(c => {
     const lbl = currentLang === 'en' ? c.en : c.it;
     const active = attrezzaturaCat === c.id;
@@ -7509,22 +7862,31 @@ function renderAttrezzatura(){
     const hay = [item.titoloIt, item.titoloEn, item.descIt, item.descEn, ...(item.specsIt||[]), ...(item.specsEn||[])].join(' ').toLowerCase();
     return hay.includes(attrezzaturaQuery);
   });
+  if(countEl){
+    countEl.textContent = TT(
+      `Mostrati ${filtered.length} di ${ATTREZZATURA_ITEMS.length} strumenti consigliati`,
+      `Showing ${filtered.length} of ${ATTREZZATURA_ITEMS.length} recommended tools`
+    );
+  }
   if(!filtered.length){
     gridEl.innerHTML = `<div class="card" style="grid-column:1/-1"><div class="cb" style="text-align:center;color:var(--ts)">${esc(t('attr.empty'))}</div></div>`;
     return;
   }
   const catMap = Object.fromEntries(ATTREZZATURA_CATEGORIES.map(c => [c.id, currentLang === 'en' ? c.en : c.it]));
-  const btnLbl = currentLang === 'en' ? 'View on Amazon' : 'Vedi su Amazon';
   const noteLbl = currentLang === 'en' ? 'Live price & stock on Amazon' : 'Prezzo e disponibilità live su Amazon';
   gridEl.innerHTML = filtered.map(item => {
     const title = currentLang === 'en' ? item.titoloEn : item.titoloIt;
     const desc = currentLang === 'en' ? item.descEn : item.descIt;
     const specs = (currentLang === 'en' ? item.specsEn : item.specsIt) || [];
+    const badge = currentLang === 'en' ? (item.badgeEn || '') : (item.badgeIt || '');
     const url = buildAmazonUrl(item, 'attrezzatura');
     const catLbl = catMap[item.cat] || item.cat;
     return `<article class="tool-card">
       <div class="tool-head">
-        <span class="tool-cat">${esc(catLbl)}</span>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span class="tool-cat">${esc(catLbl)}</span>
+          ${badge ? `<span class="tool-badge">${esc(badge)}</span>` : ''}
+        </div>
         <span aria-hidden="true" style="font-size:1.25rem">${item.icon}</span>
       </div>
       <div class="tool-body">
@@ -7552,11 +7914,12 @@ function renderCalcGearStrip(ctx){
   const cards = picks.slice(0, 4).map(item => {
     const title = currentLang === 'en' ? item.titoloEn : item.titoloIt;
     const desc = currentLang === 'en' ? item.descEn : item.descIt;
+    const badge = currentLang === 'en' ? (item.badgeEn || '') : (item.badgeIt || '');
     const url = buildAmazonUrl(item, 'checklist');
-    const cta = currentLang === 'en' ? 'Check on Amazon' : 'Vedi su Amazon';
+    const cta = currentLang === 'en' ? 'Check on Amazon →' : 'Vedi offerta su Amazon →';
     return `<div class="gear-mini">
       <div>
-        <div class="gear-mini-t">${item.icon} ${esc(title)}</div>
+        <div class="gear-mini-t">${item.icon} ${esc(title)} ${badge ? `<span class="tool-badge" style="margin-left:4px">${esc(badge)}</span>` : ''}</div>
         <div class="gear-mini-d">${esc(desc)}</div>
       </div>
       <a class="btn-cat-buy" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer" style="align-self:flex-start">🛒 ${esc(cta)}<span class="visually-hidden"> — ${esc(title)}</span></a>
@@ -7568,7 +7931,7 @@ function renderCalcGearStrip(ctx){
       <button type="button" class="btn btn-sm" onclick="showTab('attrezzatura')" style="background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.45)">${TT('Tutta l\'attrezzatura →','All gear →')}</button>
     </div>
     <div class="cb">
-      <div style="font-size:.72rem;color:var(--ts)">${TT('Amazon Affiliate — Strumenti per la preparazione','Amazon Affiliate — Tools for preparation')}</div>
+      <div style="font-size:.72rem;color:var(--ts)">${TT('In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei (#pubblicità) — Strumenti consigliati per questo lotto','As an Amazon Associate I earn from qualifying purchases (#ad) — Amazon Affiliate tools for this batch')}</div>
       <div class="gear-strip">${cards}</div>
     </div>
   </div>`;
@@ -7634,6 +7997,7 @@ const GUIDES_EN_HTML = `
 <li>Top up to 100% volume and <strong>never mix pure concentrates together</strong>—always inject separately into the irrigation line.</li>
 <li>Watch for <strong>cold-night drops (10 °C)</strong>: at <code>1:200</code> high-K recipes can crystallize overnight; lower dilution to <code>1:100</code> or <code>1:50</code> if warned.</li>
 </ol>
+<div class="guide-rec-box no-print" data-guide-gear="serbatoi"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('calcola')">⚗️ Open Calculator</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'serbatoi'})">🛢️ View Tanks &amp; Mixers</button>
@@ -7662,6 +8026,7 @@ const GUIDES_EN_HTML = `
 </div>
 <h4>Iron chelate stability &amp; ammonium ratio</h4>
 <p>At coco target pH <code>5.5–6.2</code>, <strong>Fe-EDTA</strong> remains stable (unless Ca²⁺ is very high), whereas above pH <code>6.5</code> switch to <strong>Fe-DTPA</strong> (up to pH 7.0) or <strong>Fe-EDDHA</strong> (up to pH 9). Keeping ammonium nitrogen <strong>NH₄⁺ ≤ 10%</strong> of total N gently stabilizes root-zone pH without toxicity.</p>
+<div class="guide-rec-box no-print" data-guide-gear="ph"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('acqua')">💧 Enter HCO₃⁻ &amp; pH</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('attrezzatura',{category:'misura'})">📏 pH Meters &amp; Acid PPE</button>
@@ -7691,6 +8056,7 @@ const GUIDES_EN_HTML = `
 <li><strong>Ca(NO₃)₂·4H₂O vs Commercial Calcinit:</strong> FertiQuota defaults to pure tetrahydrate (<code>N 11.8% · Ca 17%</code>); if using Calcinit (<code>N 15.5%</code>, <code>Ca 19%</code>), update it in <strong>📦 Catalog</strong>.</li>
 <li><strong>Runoff monitoring (15–20% drain):</strong> track drain EC and pH regularly. Healthy coco runoff stays within <code>input EC + 0.5–1.0 mS/cm</code>.</li>
 </ul>
+<div class="guide-rec-box no-print" data-guide-gear="cocco"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('ricette')">🌿 Browse 11 Crops</button>
 <button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')">📦 Configure CaN in Catalog</button>
@@ -7718,6 +8084,7 @@ const GUIDES_EN_HTML = `
 <div class="ggear-card"><strong>🌀 Mixing &amp; inline dosing</strong>Electric mixer paddle or recirculation pump for clean K₂SO₄ dissolution; Venturi or peristaltic pumps.</div>
 <div class="ggear-card"><strong>🥽 Mandatory safety PPE</strong>Chemical-resistant nitrile gloves, splash goggles and PP graduated cylinders for acids and KOH.</div>
 </div>
+<div class="guide-rec-box no-print" data-guide-gear="kit"></div>
 <div class="guide-cta-row">
 <button type="button" class="btn btn-pr btn-sm" style="width:auto" onclick="showTab('attrezzatura')">🛒 Open Gear &amp; Tools Shop →</button>
 </div>
@@ -7752,6 +8119,33 @@ function toggleAllGuides(){
   list.querySelectorAll('details.guide-item').forEach(d => { d.open = expand; });
   updateGuidesToggleBtn();
 }
+const GUIDE_GEAR_MAP = {
+  serbatoi: ['taniche-abc', 'miscelatore-elettrico', 'iniettore-venturi'],
+  ph: ['phmetro', 'tamponi', 'dpi-acidi'],
+  cocco: ['cocco-tamponato', 'ecmetro', 'gocciolatori-filtro'],
+  kit: ['phmetro', 'ecmetro', 'bilancia-micro', 'dpi-acidi']
+};
+function hydrateGuideAffiliateLinks(){
+  const boxes = document.querySelectorAll('[data-guide-gear]');
+  if(!boxes.length) return;
+  const headTxt = TT('Strumenti consigliati su Amazon per questa guida','Recommended gear on Amazon for this guide');
+  const noteTxt = TT('Link affiliato Amazon (#pubblicità)','Amazon affiliate link (#ad)');
+  const rel = 'sponsored nofollow noopener noreferrer';
+  boxes.forEach(box => {
+    const key = box.getAttribute('data-guide-gear') || '';
+    const ids = GUIDE_GEAR_MAP[key] || ['phmetro', 'ecmetro'];
+    const links = ids.map(id => {
+      const item = ATTREZZATURA_ITEMS.find(x => x.id === id);
+      if(!item) return '';
+      const lbl = currentLang === 'en' ? item.titoloEn : item.titoloIt;
+      const url = buildAmazonUrl(item, 'guide');
+      return `<a class="guide-rec-btn" href="${esc(url)}" target="_blank" rel="${rel}">${item.icon} ${esc(lbl)} →</a>`;
+    }).filter(Boolean).join('');
+    if(!links){ box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    box.innerHTML = `<div class="guide-rec-head"><span>🛒 ${esc(headTxt)}</span><span class="guide-rec-note">${esc(noteTxt)}</span></div><div class="guide-rec-links">${links}</div>`;
+  });
+}
 function renderGuidesLang(){
   const list = document.getElementById('guides-list');
   if(!list) return;
@@ -7766,7 +8160,41 @@ function renderGuidesLang(){
       newItems.forEach((d, idx) => { d.open = openStates[idx]; });
     }
   }
+  hydrateGuideAffiliateLinks();
   updateGuidesToggleBtn();
+}
+async function shareApp(){
+  const shareUrl = location.href.split('#')[0] + (location.hash || '');
+  const shareTitle = t('js.shareTitle');
+  const shareText = t('meta.desc');
+  if(navigator.share){
+    try {
+      await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+      return;
+    } catch(e){
+      if(e && e.name === 'AbortError') return;
+    }
+  }
+  try {
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(shareUrl);
+      showToast(t('js.shareCopied'));
+      return;
+    }
+  } catch(_){}
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = shareUrl;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;opacity:0;left:-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showToast(t('js.shareCopied'));
+  } catch(_){
+    showToast(shareUrl, true);
+  }
 }
 (function(){
   const acc = document.getElementById('guides-accordion');
@@ -7821,11 +8249,15 @@ function gdprPurgeTrackingCookies(){
     for(let i = 0; i < parts.length - 1; i++){
       domains.push('.' + parts.slice(i).join('.'));
     }
+    const basePath = (location.pathname || '/').replace(/\/[^/]*$/, '') || '/';
+    const paths = [...new Set(['/', basePath, basePath.endsWith('/') ? basePath : basePath + '/'])];
     const uniqueDomains = [...new Set(domains)];
     names.forEach(name => {
       uniqueDomains.forEach(dom => {
         const dAttr = dom ? `; domain=${dom}` : '';
-        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=/${dAttr}`;
+        paths.forEach(pAttr => {
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=${pAttr}${dAttr}`;
+        });
       });
     });
   } catch(e){}
@@ -7867,6 +8299,8 @@ function initAdSenseBottom(consent){
   const adsAllowed = !!(consent && consent.ads);
   if(!adsAllowed || !cfg || !cfg.enabled || !/^ca-pub-\d{10,}$/.test(cfg.client || '') || location.protocol.indexOf('http') !== 0){
     wrap.hidden = true;
+    cont.innerHTML = '';
+    delete cont.dataset.initialized;
     return;
   }
   wrap.hidden = false;
@@ -7908,66 +8342,110 @@ function renderPrivacyPolicy(){
   if(!box) return;
   const p = PRIVACY_CONFIG;
   const gaId = (p.ga4 && p.ga4.measurementId) ? p.ga4.measurementId : 'G-XXXXXXXXXX';
+  const extraLegalIt = [p.vatNumber ? `P.IVA: <code>${esc(p.vatNumber)}</code>` : '', p.legalAddress ? esc(p.legalAddress) : ''].filter(Boolean).join(' · ');
+  const extraLegalEn = [p.vatNumber ? `VAT: <code>${esc(p.vatNumber)}</code>` : '', p.legalAddress ? esc(p.legalAddress) : ''].filter(Boolean).join(' · ');
   const isEn = currentLang === 'en';
   if(isEn){
     box.innerHTML = `
       <h3>1. Data Controller (Art. 13 GDPR)</h3>
-      <p><strong>${esc(p.controllerName)}</strong> — Website: <code>${esc(p.siteDomain)}</code> · Contact email: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Last updated: ${esc(p.lastUpdated)}.</p>
-      <h3>2. Data Processed &amp; Strictly Local Storage</h3>
-      <p>FertiQuota is a client-side web application with no user registration or database. Your water analyses, custom recipes, catalog prices, stock checkboxes and language preference are stored exclusively in your browser's <code>localStorage</code> and never leave your device. The hosting provider (<strong>${esc(p.hostingProvider)}</strong>) may process standard technical server logs (IP address, timestamp) solely for security and delivery (Art. 6(1)(f) GDPR).</p>
+      <p><strong>${esc(p.controllerName)}</strong>${extraLegalEn ? ' (' + extraLegalEn + ')' : ''} — Website: <code>${esc(p.siteDomain)}</code> · Contact email: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Last updated: ${esc(p.lastUpdated)}.</p>
+      <h3>2. Data Processed &amp; Strictly Local Storage (Art. 13(2)(e) GDPR)</h3>
+      <p>FertiQuota is a client-side web application with no user registration or database. Provision of any personal data is strictly optional and unnecessary: your water analyses, custom recipes, catalog prices, stock checkboxes and language preference remain exclusively in your browser's <code>localStorage</code> and never leave your device, even offline. The hosting provider (<strong>${esc(p.hostingProvider)}</strong> / GitHub Inc.) may process standard technical server logs (IP address, timestamp) solely for security and delivery (Art. 6(1)(f) GDPR).</p>
       <h3>3. Locally Hosted Fonts (Zero Google Fonts Tracking)</h3>
-      <p>The <em>Inter</em> and <em>JetBrains Mono</em> typefaces are self-hosted directly on this domain (<code>/fonts/</code>). No connection or IP address is sent to Google Fonts servers.</p>
+      <p>The <em>Inter</em> and <em>JetBrains Mono</em> typefaces (licensed under SIL OFL 1.1) are self-hosted directly on this domain (<code>/fonts/</code>). No connection or IP address is sent to Google Fonts servers.</p>
       <h3>4. Visit Measurement (Google Analytics 4 &amp; Google Search Console)</h3>
       <ul>
-        <li><strong>Google Analytics 4 (optional, consent required — Art. 6(1)(a) GDPR):</strong> uses Google Consent Mode v2 with strict preventive blocking. No script loads and no analytics cookies are set unless you explicitly opt in to <em>Visit statistics</em>. IP anonymization is enabled and consent can be withdrawn anytime.</li>
+        <li><strong>Google Analytics 4 (optional, consent required — Art. 6(1)(a) GDPR &amp; Art. 122 Italian Legislative Decree 196/2003):</strong> uses Google Consent Mode v2 with strict preventive blocking. No script loads and no analytics cookies are set unless you explicitly opt in to <em>Visit statistics</em>. IP anonymization is enabled, GA4 aggregate retention is set to 14 months, and consent can be withdrawn anytime with instant cookie purge.</li>
         <li><strong>Google Search Console:</strong> aggregates anonymous search queries directly on Google Search without installing scripts or cookies on this website.</li>
       </ul>
       <h3>5. Affiliate Links (Amazon) &amp; Voluntary Tips (PayPal)</h3>
-      <p>Links in <em>Gear &amp; Tools</em>, <em>Catalog</em> and the <em>Calculate</em> strip point to Amazon (Amazon Affiliate program, Store ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). No cookies are placed while browsing FertiQuota; clicking an external link takes you to Amazon EU S.à r.l. or PayPal (Europe) S.à r.l., governed by their own privacy policies.</p>
-      <h3>6. Advertising (Google AdSense)</h3>
-      <p>Optional ads at the bottom of the page load strictly after explicit consent for the <em>Advertising</em> category and only when enabled on the live domain.</p>
-      <h3>7. Complete Cookie &amp; Local Storage Inventory</h3>
+      <p>External links across <em>Guides</em>, <em>Recipes</em>, <em>Gear &amp; Tools</em>, <em>Catalog</em> and the <em>Calculate</em> strips point to Amazon (Amazon Associates program, Store ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). No cookies are placed while browsing FertiQuota; clicking an external link takes you to Amazon EU S.à r.l. or PayPal (Europe) S.à r.l., governed by their own privacy policies.</p>
+      <h3>6. Advertising (Google AdSense &amp; TCF v2.2)</h3>
+      <p>Optional ads at the bottom of the page load strictly after explicit consent for the <em>Advertising</em> category and only when enabled on the live domain; if activated in the EEA/UK, ad vendor signals are governed via a Google-certified IAB TCF v2.2 CMP.</p>
+      <h3>7. Extra-EEA Data Transfers (Art. 13(1)(f) GDPR)</h3>
+      <p>Static hosting (<strong>GitHub Inc.</strong>) and, solely upon consent, <strong>Google LLC</strong> services may involve transfers to the United States protected under the <strong>EU-US Data Privacy Framework (DPF)</strong> adequacy decision and/or EU Standard Contractual Clauses (SCCs).</p>
+      <h3>8. Complete Cookie &amp; Local Storage Inventory</h3>
       <div class="gdpr-tbl-wrap"><table class="gdpr-tbl">
         <thead><tr><th>Key / Cookie</th><th>Provider</th><th>Category &amp; Purpose</th><th>Duration</th></tr></thead>
         <tbody>
           <tr><td><code>fc_acqua</code>, <code>fc_acqua_profili</code>, <code>fc_acido</code>, <code>fc_catalogo</code>, <code>fc_catalogo_v</code>, <code>fc_ricette</code>, <code>fc_scorta</code>, <code>fc_lang</code></td><td>FertiQuota (<code>localStorage</code>)</td><td>Strictly necessary — stores calculator data locally on your device</td><td>Until user reset / browser clear</td></tr>
           <tr><td><code>fc_gdpr_consent</code></td><td>FertiQuota (<code>localStorage</code>)</td><td>Strictly necessary — stores your GDPR choice &amp; receipt ID</td><td>${p.consentMaxDays} days (6 months)</td></tr>
-          <tr><td><code>_ga</code>, <code>_ga_${esc(gaId.replace(/^G-/i,''))}</code></td><td>Google Ireland Ltd. (GA4)</td><td>Statistics (opt-in only) — aggregated daily visitor count</td><td>Up to 24 months / instant purge on revoke</td></tr>
+          <tr><td><code>_ga</code>, <code>_ga_${esc(gaId.replace(/^G-/i,''))}</code></td><td>Google Ireland Ltd. (GA4)</td><td>Statistics (opt-in only) — aggregated daily visitor count</td><td>Up to 14–24 months / instant purge on revoke</td></tr>
           <tr><td><code>__gads</code>, <code>__gpi</code>, <code>IDE</code></td><td>Google Ireland Ltd. (AdSense)</td><td>Advertising (opt-in only, when enabled) — ad delivery</td><td>Per Google policy / instant disable on revoke</td></tr>
         </tbody>
       </table></div>
-      <h3>8. Retention &amp; Your GDPR Rights (Arts. 15–22)</h3>
-      <p>Your cookie choice is stored locally for <strong>${p.consentMaxDays} days</strong> (6 months). You may change or withdraw consent at any time via <strong>Manage Cookies</strong> in the footer, clear local data via <em>Data → Reset</em>, request access/erasure by emailing <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>, or lodge a complaint with your EU Data Protection Authority.</p>
+      <h3>9. Retention &amp; Your GDPR Rights (Arts. 15–22)</h3>
+      <p>Your cookie choice is stored locally for <strong>${p.consentMaxDays} days</strong> (6 months). You may change or withdraw consent at any time via <strong>Manage Cookies</strong> in the footer, clear local data via <em>Data → Reset</em>, request access/erasure by emailing <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>, or lodge a complaint with your EU Data Protection Authority (in Italy: Garante Privacy).</p>
     `;
   } else {
     box.innerHTML = `
       <h3>1. Titolare del trattamento (Art. 13 GDPR)</h3>
-      <p><strong>${esc(p.controllerName)}</strong> — Sito web: <code>${esc(p.siteDomain)}</code> · Email di contatto: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Ultimo aggiornamento: ${esc(p.lastUpdated)}.</p>
-      <h3>2. Dati trattati e salvataggio esclusivamente locale</h3>
-      <p>FertiQuota è una web app che funziona interamente sul tuo dispositivo senza registrazione né database remoto. Profili acqua, ricette personalizzate, prezzi, scorte e lingua restano nel <code>localStorage</code> del tuo browser (archiviazione tecnica necessaria, esente da consenso). Il fornitore di hosting (<strong>${esc(p.hostingProvider)}</strong>) può trattare log tecnici di sicurezza (indirizzo IP, data/ora richiesta) per legittimo interesse alla sicurezza del servizio (Art. 6(1)(f) GDPR).</p>
+      <p><strong>${esc(p.controllerName)}</strong>${extraLegalIt ? ' (' + extraLegalIt + ')' : ''} — Sito web: <code>${esc(p.siteDomain)}</code> · Email di contatto: <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>. Ultimo aggiornamento: ${esc(p.lastUpdated)}.</p>
+      <h3>2. Dati trattati, natura del conferimento e salvataggio locale (Art. 13(2)(e) GDPR)</h3>
+      <p>FertiQuota è una web app client-side senza registrazione né database remoto. Il conferimento dei dati è facoltativo e non necessario per l'uso del calcolatore: profili acqua, ricette personalizzate, prezzi, scorte e lingua restano nel <code>localStorage</code> del tuo browser (archiviazione tecnica necessaria esente da consenso ai sensi dell'<strong>Art. 122 D.Lgs. 196/2003</strong>). Il fornitore di hosting (<strong>${esc(p.hostingProvider)}</strong> / GitHub Inc.) può trattare log tecnici di sicurezza (indirizzo IP, data/ora richiesta) per legittimo interesse alla sicurezza del servizio (Art. 6(1)(f) GDPR).</p>
       <h3>3. Font ospitati in locale (zero invio IP a Google Fonts)</h3>
-      <p>I caratteri tipografici <em>Inter</em> e <em>JetBrains Mono</em> sono caricati direttamente in locale da questo dominio (cartella <code>/fonts/</code>): nessuna connessione e nessun indirizzo IP viene inviato ai server di Google Fonts.</p>
+      <p>I caratteri tipografici <em>Inter</em> e <em>JetBrains Mono</em> (licenza SIL OFL 1.1) sono caricati direttamente in locale da questo dominio (cartella <code>/fonts/</code>): nessuna connessione e nessun indirizzo IP viene inviato ai server di Google Fonts.</p>
       <h3>4. Conteggio visite giornaliere (Google Analytics 4 &amp; Google Search Console)</h3>
       <ul>
-        <li><strong>Google Analytics 4 (facoltativo, solo previo consenso — Art. 6(1)(a) GDPR):</strong> configurato con <strong>Google Consent Mode v2</strong> e blocco preventivo. Nessuno script e nessun cookie analitico viene caricato finché non attivi esplicitamente <em>Statistiche visite</em>. L'anonimizzazione IP è attiva e puoi revocare il consenso in ogni momento.</li>
+        <li><strong>Google Analytics 4 (facoltativo, solo previo consenso — Art. 6(1)(a) GDPR &amp; Art. 122 D.Lgs. 196/2003):</strong> configurato con <strong>Google Consent Mode v2</strong> e blocco preventivo. Nessuno script e nessun cookie analitico viene caricato finché non attivi esplicitamente <em>Statistiche visite</em>. L'anonimizzazione IP è attiva, la conservazione aggregata GA4 è impostata a 14 mesi e puoi revocare il consenso in ogni momento con rimozione immediata dei cookie.</li>
         <li><strong>Google Search Console:</strong> mostra dati aggregati delle ricerche su Google senza installare alcuno script né cookie su questo sito.</li>
       </ul>
       <h3>5. Link affiliati Amazon e contributi PayPal</h3>
-      <p>I pulsanti di acquisto nelle sezioni <em>Attrezzatura</em>, <em>Catalogo</em> e <em>Calcola</em> sono link esterni affiliati (Programma Affiliazione Amazon, ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). Durante la navigazione su FertiQuota non viene installato alcun cookie Amazon o PayPal; solo cliccando sul link esterno si accede ai siti di Amazon EU S.à r.l. o PayPal (Europe) S.à r.l., regolati dalle rispettive informative privacy.</p>
-      <h3>6. Pubblicità (Google AdSense)</h3>
-      <p>Eventuali spazi pubblicitari a fondo pagina vengono caricati esclusivamente su dominio configurato e solo dopo consenso esplicito alla categoria <em>Pubblicità</em>.</p>
-      <h3>7. Elenco completo Cookie e Archiviazione Locale</h3>
+      <p>I pulsanti di acquisto nelle sezioni <em>Guide</em>, <em>Ricette</em>, <em>Attrezzatura</em>, <em>Catalogo</em> e <em>Calcola</em> sono link esterni affiliati (Programma Affiliazione Amazon, ID <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>). Durante la navigazione su FertiQuota non viene installato alcun cookie Amazon o PayPal; solo cliccando sul link esterno si accede ai siti di Amazon EU S.à r.l. o PayPal (Europe) S.à r.l., regolati dalle rispettive informative privacy.</p>
+      <h3>6. Pubblicità (Google AdSense &amp; TCF v2.2)</h3>
+      <p>Eventuali spazi pubblicitari a fondo pagina vengono caricati esclusivamente su dominio abilitato e solo dopo consenso esplicito alla categoria <em>Pubblicità</em>; in caso di attivazione nello SEE/UK, i segnali ai fornitori terzi seguono una CMP certificata Google IAB TCF v2.2.</p>
+      <h3>7. Trasferimenti extra-SEE (Art. 13(1)(f) GDPR)</h3>
+      <p>L'infrastruttura di hosting statico (<strong>GitHub Inc.</strong>) e, solo previo consenso espresso, i servizi <strong>Google LLC</strong> possono comportare trasferimenti tecnici verso gli Stati Uniti assistiti dalla decisione di adeguatezza <strong>EU-US Data Privacy Framework (DPF)</strong> e/o da Clausole Contrattuali Standard (SCC).</p>
+      <h3>8. Elenco completo Cookie e Archiviazione Locale</h3>
       <div class="gdpr-tbl-wrap"><table class="gdpr-tbl">
         <thead><tr><th>Chiave / Cookie</th><th>Fornitore</th><th>Categoria &amp; Finalità</th><th>Durata</th></tr></thead>
         <tbody>
           <tr><td><code>fc_acqua</code>, <code>fc_acqua_profili</code>, <code>fc_acido</code>, <code>fc_catalogo</code>, <code>fc_catalogo_v</code>, <code>fc_ricette</code>, <code>fc_scorta</code>, <code>fc_lang</code></td><td>FertiQuota (<code>localStorage</code>)</td><td>Tecnico necessario — salva i tuoi calcoli in locale sul dispositivo</td><td>Fino a reset app / pulizia browser</td></tr>
           <tr><td><code>fc_gdpr_consent</code></td><td>FertiQuota (<code>localStorage</code>)</td><td>Tecnico necessario — registra scelta consenso GDPR e ricevuta</td><td>${p.consentMaxDays} giorni (6 mesi)</td></tr>
-          <tr><td><code>_ga</code>, <code>_ga_${esc(gaId.replace(/^G-/i,''))}</code></td><td>Google Ireland Ltd. (GA4)</td><td>Statistiche (solo previo consenso) — conteggio visite giornaliere</td><td>Fino a 24 mesi / rimozione immediata su revoca</td></tr>
+          <tr><td><code>_ga</code>, <code>_ga_${esc(gaId.replace(/^G-/i,''))}</code></td><td>Google Ireland Ltd. (GA4)</td><td>Statistiche (solo previo consenso) — conteggio visite giornaliere</td><td>Fino a 14–24 mesi / rimozione immediata su revoca</td></tr>
           <tr><td><code>__gads</code>, <code>__gpi</code>, <code>IDE</code></td><td>Google Ireland Ltd. (AdSense)</td><td>Pubblicità (solo previo consenso e attivazione) — erogazione annunci</td><td>Secondo policy Google / blocco immediato su revoca</td></tr>
         </tbody>
       </table></div>
-      <h3>8. Conservazione e diritti dell'interessato (Artt. 15–22 GDPR)</h3>
+      <h3>9. Conservazione e diritti dell'interessato (Artt. 15–22 GDPR)</h3>
       <p>La tua preferenza sui cookie viene memorizzata localmente per <strong>${p.consentMaxDays} giorni</strong> (6 mesi, secondo le Linee guida del Garante Privacy). Puoi modificare o revocare il consenso in qualsiasi momento cliccando <strong>🍪 Gestisci Cookie</strong> nel footer, cancellare i dati locali da <em>Dati → Ripristina</em>, esercitare i diritti di accesso/cancellazione scrivendo a <a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>, o proporre reclamo al <strong>Garante per la protezione dei dati personali</strong> (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer">garanteprivacy.it</a>).</p>
+    `;
+  }
+}
+
+function renderTermsDialog(){
+  const box = document.getElementById('dlg-terms-content');
+  if(!box) return;
+  const p = PRIVACY_CONFIG;
+  const isEn = currentLang === 'en';
+  if(isEn){
+    box.innerHTML = `
+      <h3>1. Tool Nature &amp; Limitation of Liability</h3>
+      <p><strong>FertiQuota</strong> is a technical support calculator for fertigation and hydroponics. All thermodynamic and ionic estimates are provided "as is" without warranties: you remain solely responsible for verifying laboratory water analyses, calibrated pH/EC measurements and crop tolerances. The author assumes no liability for crop loss, equipment damage or chemical handling incidents.</p>
+      <h3>2. Explosive Precursors Compliance — Reg. (EU) 2019/1148</h3>
+      <p>Fertigation recipes may reference regulated substances under <strong>Regulation (EU) 2019/1148</strong> on marketing and use of explosives precursors, including Nitric Acid (<code>HNO₃ &gt; 3% w/w</code>), Sulfuric Acid (<code>H₂SO₄ &gt; 15% w/w</code>) and Ammonium Nitrate (<code>NH₄NO₃ ≥ 16% N</code>). Acquisition, possession and use of restricted concentrations require verified professional-user declarations or national licenses.</p>
+      <h3>3. Chemical Safety — Reg. (EC) 1272/2008 (CLP) &amp; REACH</h3>
+      <p>Strong acids (<code>HNO₃</code>, <code>H₃PO₄</code>, <code>H₂SO₄</code>) and alkalis (<code>KOH</code>) are severely corrosive; Boric Acid (<code>H₃BO₃</code>) is classified <strong>Repr. 1B</strong> (SVHC under REACH). Always wear certified chemical PPE (nitrile gloves EN 374, splash goggles EN 166), read supplier Safety Data Sheets (SDS), and <strong>never mix pure concentrates from Tanks A, B and C</strong>.</p>
+      <h3>4. Permitted Crops — Certified Industrial Hemp (Italian Law 242/2016)</h3>
+      <p>The built-in <strong>"Industrial Hemp"</strong> profile refers exclusively to certified EU/national industrial hemp varieties grown in compliance with applicable law (such as Italian <strong>Law 242/2016</strong>). Any unlawful cultivation is strictly outside the intended scope.</p>
+      <h3>5. Commercial Transparency (Amazon Associates &amp; PayPal)</h3>
+      <p><strong>Affiliate disclosure (#ad):</strong> As an Amazon Associate I earn from qualifying purchases (Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>), at no extra cost to you. External links lead to third-party merchants subject to their own Terms of Sale. Any contributions made via PayPal are strictly voluntary project donations and do not establish a commercial contract.</p>
+      <h3>6. Copyright &amp; Software License</h3>
+      <p>© 2026 <strong>${esc(p.controllerName)}</strong> (<a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>) — All rights reserved (proprietary software license, see <code>LICENSE</code>). Bundled typefaces (<em>Inter</em>, <em>JetBrains Mono</em>) licensed under <strong>SIL Open Font License 1.1</strong> (<code>fonts/OFL.txt</code>).</p>
+    `;
+  } else {
+    box.innerHTML = `
+      <h3>1. Natura dello strumento e limitazione di responsabilità</h3>
+      <p><strong>FertiQuota</strong> è uno strumento informatico di calcolo a supporto della fertirrigazione e dell'idroponica. I risultati fisico-chimici e termodinamici sono forniti «così come sono» senza garanzia alcuna: l'utente è responsabile della verifica delle analisi di laboratorio dell'acqua, delle misure pH/EC con strumenti tarati e della compatibilità con la coltura. L'autore declina ogni responsabilità per perdite colturali o danni a cose e persone.</p>
+      <h3>2. Precursori di esplosivi — Regolamento (UE) 2019/1148</h3>
+      <p>Alcune formulazioni citano sostanze disciplinate dal <strong>Reg. (UE) 2019/1148</strong> relativo all'immissione sul mercato e all'uso di precursori di esplosivi, in particolare Acido Nitrico (<code>HNO₃ &gt; 3% p/p</code>), Acido Solforico (<code>H₂SO₄ &gt; 15% p/p</code>) e Nitrato d'Ammonio (<code>NH₄NO₃ ≥ 16% N</code>). L'acquisto, la detenzione e l'impiego di concentrazioni soggette a restrizione sono consentiti esclusivamente a utilizzatori professionali verificati o soggetti muniti di licenza secondo la normativa nazionale vigente.</p>
+      <h3>3. Sicurezza chimica — Reg. (CE) 1272/2008 (CLP) &amp; REACH</h3>
+      <p>Acidi forti (<code>HNO₃</code>, <code>H₃PO₄</code>, <code>H₂SO₄</code>) e basi (<code>KOH</code>) sono fortemente corrosivi; l'Acido Borico (<code>H₃BO₃</code>) è classificato <strong>Repr. 1B</strong> (sostanza SVHC ai sensi REACH). Indossa sempre DPI chimici idonei (guanti in nitrile EN 374, occhiali antispruzzo EN 166), consulta le schede di sicurezza (SDS) del fornitore e <strong>non miscelare mai direttamente i concentrati dei Serbatoi A, B e C</strong>.</p>
+      <h3>4. Ambito colturale — Canapa industriale (Legge 242/2016)</h3>
+      <p>Il profilo predefinito <strong>«Canapa industriale»</strong> si riferisce esclusivamente alla canapa agricola e industriale da seme/fibra certificata ai sensi della <strong>Legge 2 dicembre 2016, n. 242</strong> e della normativa europea vigente. È escluso qualsiasi impiego illecito.</p>
+      <h3>5. Trasparenza commerciale (Affiliazione Amazon &amp; PayPal)</h3>
+      <p><strong>Informativa affiliazione (#pubblicità):</strong> In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei effettuati tramite i link con Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>, senza alcun sovrapprezzo per l'utente. Eventuali contributi tramite PayPal costituiscono donazioni volontarie a sostegno del progetto e non generano obblighi contrattuali.</p>
+      <h3>6. Copyright e Licenza Software</h3>
+      <p>© 2026 <strong>${esc(p.controllerName)}</strong> (<a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>) — Tutti i diritti riservati (licenza proprietaria, vedi <code>LICENSE</code>). Font locali <em>Inter</em> e <em>JetBrains Mono</em> distribuiti sotto licenza <strong>SIL Open Font License 1.1</strong> (<code>fonts/OFL.txt</code>).</p>
     `;
   }
 }
@@ -7990,10 +8468,27 @@ function updateGdprUi(){
   const swAds = document.getElementById('sw-gdpr-ads');
   if(swAna) swAna.checked = !!(saved && saved.analytics);
   if(swAds) swAds.checked = !!(saved && saved.ads);
+  const adsActive = AFFILIATE_CONFIG.adsense.enabled && /^ca-pub-\d{10,}$/.test(AFFILIATE_CONFIG.adsense.client || '');
+  const adsBadge = document.getElementById('gdpr-ads-status-badge');
+  if(adsBadge){
+    if(adsActive){
+      adsBadge.style.display = 'none';
+    } else {
+      adsBadge.textContent = currentLang === 'en' ? 'Inactive on this domain' : 'Non attivo su questo dominio';
+      adsBadge.style.display = 'inline-block';
+    }
+  }
+  const copyEl = document.getElementById('fc-copyright');
+  if(copyEl){
+    const p = PRIVACY_CONFIG;
+    const vatPart = p.vatNumber ? ` · P.IVA ${p.vatNumber}` : '';
+    const addrPart = p.legalAddress ? ` · ${p.legalAddress}` : '';
+    const rightsTxt = currentLang === 'en' ? 'All rights reserved' : 'Tutti i diritti riservati';
+    copyEl.textContent = `© 2026 ${p.controllerName}${vatPart}${addrPart} · ${rightsTxt} · Font: SIL OFL 1.1`;
+  }
   const metaEl = document.getElementById('gdpr-prefs-meta');
   if(metaEl){
     const gaActive = PRIVACY_CONFIG.ga4.enabled && /^G-[A-Z0-9]{6,}$/i.test(PRIVACY_CONFIG.ga4.measurementId || '') && !/X{4,}/i.test(PRIVACY_CONFIG.ga4.measurementId || '');
-    const adsActive = AFFILIATE_CONFIG.adsense.enabled && /^ca-pub-\d{10,}$/.test(AFFILIATE_CONFIG.adsense.client || '');
     const gpcNote = navigator.globalPrivacyControl === true ? ' · GPC: ON' : '';
     const receipt = saved && saved.id ? ` [ID: ${saved.id}]` : '';
     const savedTxt = saved && saved.ts
@@ -8005,6 +8500,7 @@ function updateGdprUi(){
     metaEl.textContent = savedTxt + ' — ' + cfgTxt;
   }
   renderPrivacyPolicy();
+  renderTermsDialog();
 }
 
 function gdprSaveConsent(opts, closeDialog, source){
@@ -8051,6 +8547,12 @@ function openPrivacyDialog(){
   if(dlg && !dlg.open) dlg.showModal();
 }
 
+function openTermsDialog(){
+  renderTermsDialog();
+  const dlg = document.getElementById('dlg-terms');
+  if(dlg && !dlg.open) dlg.showModal();
+}
+
 function initGdpr(){
   if(!('closedBy' in HTMLDialogElement.prototype)){
     const outside = (e, dialog) => {
@@ -8087,49 +8589,18 @@ renderCalcTabella();
 setTimeout(aggiornaStat, 0);
 applyLang();
 initGdpr();
-</script><div class="modal-bg" id="modal-del">
-<div class="modal">
-<div class="modal-h" style="background:var(--ro)">
-<h3 data-i18n="modal.del.title">🗑️ Conferma eliminazione</h3>
-<button class="modal-close" onclick="closeModal('modal-del')">✕</button>
-</div>
-<div class="modal-b">
-<p id="modal-del-msg" style="font-size:.85rem;line-height:1.6;color:var(--tx)"></p>
-<p style="font-size:.75rem;color:var(--ts);margin-top:8px" data-i18n="modal.del.warn">Questa azione non è reversibile.</p>
-</div>
-<div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-del')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiElimina()" data-i18n="modal.del.btn">🗑️ Elimina</button>
-</div>
-</div>
-</div>
-<div class="modal-bg" id="modal-reset">
-<div class="modal">
-<div class="modal-h" style="background:var(--ro)">
-<h3 data-i18n="modal.reset.title">↺ Ripristina valori di fabbrica</h3>
-<button class="modal-close" onclick="closeModal('modal-reset')">✕</button>
-</div>
-<div class="modal-b">
-<div class="alert al-err" style="margin-bottom:12px">
-<span>⚠️</span>
-<span data-i18n-html="modal.reset.warn"><strong>Attenzione:</strong> questa operazione cancellerà tutte le ricette personalizzate e i profili acqua salvati, ripristinerà catalogo, acqua e scorta ai valori di fabbrica. L'operazione non è reversibile.</span>
-</div>
-<p style="font-size:.82rem;color:var(--ts);line-height:1.6" data-i18n-html="modal.reset.desc">
-Esporta un backup dalla sezione <strong>💾 Dati → Scarica JSON</strong> prima di procedere se vuoi conservare i dati attuali.
-</p>
-</div>
-<div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-reset')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiReset()" data-i18n="modal.reset.btn">↺ Sì, ripristina tutto</button>
-</div>
-</div>
-</div>
-<script>
-applyLang();
+hydrateGuideAffiliateLinks();
+applyHashRoute();
 </script>
+<div id="ie-toast-wrap" class="no-print" role="region" aria-label="Notifiche" data-i18n-aria="aria.notifications">
+  <div id="ie-toast" class="ie-toast" popover="manual" role="status" aria-live="polite">
+    <span id="ie-toast-msg"></span>
+    <button type="button" class="ie-toast-x" onclick="hideToast()" aria-label="Chiudi" data-i18n-aria="btn.chiudi">✕</button>
+  </div>
+</div>
 <!-- PWA: registrazione service worker + pulsante d'installazione.
      Attivi solo su http(s); da file:// l'app resta identica a prima. -->
-<button id="pwa-install" class="no-print" style="display:none;position:fixed;right:14px;bottom:14px;z-index:9999;background:linear-gradient(135deg,var(--vs),var(--vm));color:var(--cr);border:none;border-radius:24px;padding:11px 18px;font-size:.78rem;font-weight:700;letter-spacing:.03em;box-shadow:0 6px 20px rgba(26,58,42,.35);cursor:pointer">⬇️ Installa app</button>
+<button id="pwa-install" class="no-print" style="display:none;position:fixed;right:14px;bottom:14px;z-index:850;background:linear-gradient(135deg,var(--vs),var(--vm));color:var(--cr);border:none;border-radius:24px;padding:11px 18px;font-size:.78rem;font-weight:700;letter-spacing:.03em;box-shadow:0 6px 20px rgba(26,58,42,.35);cursor:pointer">⬇️ Installa app</button>
 <script>
 (function(){
   if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
