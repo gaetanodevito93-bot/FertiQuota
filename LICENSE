@@ -1,21 +1,34 @@
-MIT License
+FertiControl — Licenza proprietaria / Proprietary License
 
-Copyright (c) 2026 Gaetano De Vito
+Copyright (c) 2026 Gaetano De Vito. Tutti i diritti riservati. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+[IT]
+FertiControl (software, codice sorgente, testi, guide, grafica, icone, ricette, catalogo e dati) è di proprietà esclusiva di Gaetano De Vito ("Titolare").
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Il codice sorgente è reso visibile su GitHub esclusivamente a scopo di consultazione. Senza previa autorizzazione scritta del Titolare è vietato, in tutto o in parte:
+- copiare o riprodurre il software o i suoi contenuti;
+- modificarlo o crearne opere derivate;
+- distribuirlo, pubblicarlo, ospitarlo o renderlo disponibile a terzi;
+- concederlo in sublicenza, venderlo o usarlo a fini commerciali;
+- utilizzare il nome o il logo "FertiControl" per altri prodotti o servizi.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Agli utenti finali è consentito solo l'uso personale dell'applicazione web pubblicata dal Titolare.
+
+Le versioni pubblicate prima dell'adozione di questa licenza erano distribuite con licenza MIT: tale licenza resta valida unicamente per le copie di quelle versioni già ottenute. Ogni versione successiva è soggetta esclusivamente alla presente licenza.
+
+IL SOFTWARE È FORNITO "COSÌ COM'È", SENZA GARANZIE DI ALCUN TIPO, ESPRESSE O IMPLICITE. I DOSAGGI CALCOLATI SONO INDICATIVI E VANNO VERIFICATI DALL'UTENTE. IN NESSUN CASO IL TITOLARE SARÀ RESPONSABILE PER DANNI DERIVANTI DALL'USO DEL SOFTWARE.
+
+Richieste di autorizzazione: aprire una Issue sul repository GitHub del progetto.
+
+[EN]
+FertiControl (software, source code, texts, guides, graphics, icons, recipes, catalog and data) is the exclusive property of Gaetano De Vito ("Owner").
+
+The source code is made visible on GitHub for viewing purposes only. Without the Owner's prior written permission you may not, in whole or in part: copy or reproduce it; modify it or create derivative works; distribute, publish, host or make it available to third parties; sublicense, sell or use it commercially; use the "FertiControl" name or logo for other products or services.
+
+End users may only use the web application published by the Owner for personal purposes.
+
+Versions published before this license was adopted were distributed under the MIT License, which remains valid only for copies of those versions already obtained. All later versions are governed exclusively by this license.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. CALCULATED DOSES ARE INDICATIVE AND MUST BE VERIFIED BY THE USER. IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THE SOFTWARE.
+
+Permission requests: open an Issue on the project's GitHub repository.

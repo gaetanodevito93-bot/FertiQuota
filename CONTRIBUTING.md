@@ -1,6 +1,8 @@
-# Contribuire a FertiControl
+# Linee guida di sviluppo — FertiControl
 
-Grazie per l'interesse! FertiControl è un progetto volutamente semplice da mantenere: **un solo file HTML**, nessuna build, nessuna dipendenza a runtime. Queste linee guida servono a mantenerlo affidabile.
+> **Progetto proprietario** — © 2026 Gaetano De Vito, tutti i diritti riservati (vedi [LICENSE](LICENSE)). Questo documento è a uso interno: non si accettano fork, pull request o contributi esterni senza accordo scritto con il titolare.
+
+FertiControl è un progetto volutamente semplice da mantenere: **un solo file HTML**, nessuna build, nessuna dipendenza a runtime. Queste linee guida servono a mantenerlo affidabile.
 
 ## Regola d'oro: i test
 
@@ -24,13 +26,13 @@ La stessa suite gira su GitHub Actions a ogni push e pull request. Per verificar
 
 Dopo ogni modifica all'app incrementa `CACHE_VERSION` in `sw.js`, così le installazioni PWA ricevono la nuova versione.
 
-## Come proporre una modifica
+## Flusso di lavoro
 
-1. **Forka** il repository e crea un branch descrittivo (`fix/precipitazione-brushite`, `feat/ricetta-basilico`).
+1. Crea un branch descrittivo (`fix/precipitazione-brushite`, `feat/ricetta-basilico`).
 2. Fai le tue modifiche mantenendo lo stile del codice esistente (JavaScript "vanilla", nessuna libreria esterna).
 3. Verifica che la suite di test passi (`node tests/run-tests.js`).
 4. Se hai aggiunto funzionalità o cambiato l'architettura, aggiorna il **[Manuale Tecnico](MANUALE_TECNICO.md)** — in particolare i riferimenti alle righe nel Capitolo 2.
-5. Apri una **Pull Request** con una descrizione chiara di *cosa* cambia e *perché*.
+5. Unisci il branch solo dopo aver verificato test e anteprima locale.
 
 ## Convenzioni
 

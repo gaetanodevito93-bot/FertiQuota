@@ -7,7 +7,7 @@
 *Dalla ricetta nutritiva alle soluzioni madri concentrate — con motore chimico-termodinamico quantitativo (Davies/SIT, speciazione accoppiata), compatibilità serbatoi A/B/C e scheda operativa stampabile.*
 
 [![Version](https://img.shields.io/badge/versione-v2.4-2d5a3d)](index.html)
-[![License: MIT](https://img.shields.io/badge/licenza-MIT-blue.svg)](LICENSE)
+[![License: Proprietaria](https://img.shields.io/badge/licenza-proprietaria%20%C2%B7%20tutti%20i%20diritti%20riservati-b03a2e)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
 [![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S37-2471a3)](tests)
@@ -145,15 +145,15 @@ Il **[Manuale Tecnico](MANUALE_TECNICO.md)** (17 capitoli) documenta in dettagli
 
 ---
 
-## 🤝 Contribuire
+## 🛠️ Sviluppo
 
-I contributi sono benvenuti — vedi **[CONTRIBUTING.md](CONTRIBUTING.md)**. In sintesi: la regola d'oro è **lanciare la suite di test prima e dopo ogni modifica** al file HTML, e trasformare ogni bug corretto in un nuovo test.
+Progetto proprietario: non si accettano contributi esterni, fork o redistribuzioni senza autorizzazione scritta. Le linee guida di sviluppo interne (test, convenzioni) sono in **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ---
 
 ## 📄 Licenza
 
-Distribuito con licenza **MIT** — vedi il file [LICENSE](LICENSE). L'app è gratuita, senza pubblicità né tracking.
+© 2026 Gaetano De Vito — **Tutti i diritti riservati.** Il codice è visibile solo a scopo di consultazione: copia, modifica, redistribuzione e uso commerciale sono vietati senza autorizzazione scritta. Vedi [LICENSE](LICENSE). Le versioni precedenti erano rilasciate con licenza MIT.
 
 ---
 
@@ -185,6 +185,6 @@ npm install playwright && npx playwright install chromium
 node tests/run-tests.js
 ```
 
-See the [Technical Manual](MANUALE_TECNICO.md) (Italian) for full documentation. Licensed under **MIT**.
+See the [Technical Manual](MANUALE_TECNICO.md) (Italian) for full documentation. Proprietary software — © 2026 Gaetano De Vito, all rights reserved. See [LICENSE](LICENSE).
 
 </details>
