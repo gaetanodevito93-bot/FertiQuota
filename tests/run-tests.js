@@ -104,7 +104,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     sali: catalogo.length, defaults: SALI_DEFAULT.length, piante: PIANTE_BUILTIN.length,
     tabs: document.querySelectorAll('.tab').length,
   }));
-  check(`catalogo inizializzato (${init.sali} sali = ${init.defaults} default)`, init.sali === init.defaults && init.defaults === 22);
+  check(`catalogo inizializzato (${init.sali} sali = ${init.defaults} default)`, init.sali === init.defaults && init.defaults === 23);
   check(`ricette builtin presenti (${init.piante})`, init.piante === 11);
   check('7 tab renderizzate (Guide, Acqua, Ricette, Calcola, Catalogo, Attrezzatura, Dati)', init.tabs === 7);
 
@@ -2059,8 +2059,6 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
 
     // 5. Inventario / Scorta: nuovo custom auto-in-scorta, validazioni composizione/densità, eliminazione senza ID fantasma, filtro DOM
     const alerts = [];
-    const origAlert = window.alert;
-    window.alert = msg => alerts.push(msg);
     // Tentativo non valido (>100%)
     openNuovoIngrediente();
     document.getElementById('ing-nome').value = 'Sale Impossibile';
@@ -2068,6 +2066,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     document.getElementById('ing-K').value = 55;
     salvaIngrediente();
     const lenAfterInvalidSum = catalogo.length;
+    if (document.getElementById('ie-toast')?.classList.contains('ie-toast-err')) alerts.push(document.getElementById('ie-toast-msg')?.textContent || 'err1');
     // Tentativo liquido con densità 0
     openNuovoIngrediente();
     document.getElementById('ing-nome').value = 'Liquido Senza Densita';
@@ -2077,7 +2076,7 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     document.getElementById('ing-density').value = 0;
     salvaIngrediente();
     const lenAfterInvalidDens = catalogo.length;
-    window.alert = origAlert;
+    if (document.getElementById('ie-toast')?.classList.contains('ie-toast-err')) alerts.push(document.getElementById('ie-toast-msg')?.textContent || 'err2');
 
     // Creazione custom valido → subito in scorta
     openNuovoIngrediente();
@@ -3481,6 +3480,132 @@ const close = (a, b, tol) => Math.abs(a - b) <= tol;
     layout41.zIndexOk && layout41.selHasArrow && layout41.hashSwitched &&
     ogWidth41 === 1200 && ogHeight41 === 630 && mobileOverflow41.length === 0 && s41PageErrors.length === 0,
     JSON.stringify({ layout41, ogWidth41, ogHeight41, mobileOverflow41, s41PageErrors }));
+
+  // ────────────────────────────────────────────────
+  console.log('\n═══ S42. Audit pre-rilascio (expandElementRefs, H₂SO₄, NaMoO₄, target micro, sicurezza/CSP, a11y, GDPR) ═══');
+  await resetMotore();
+    // 3. Sicurezza prototype-key & import velenoso & CSP meta
+    const poisonFile = path.join(os.tmpdir(), 'fc-poison-s42.json');
+    fs.writeFileSync(poisonFile, JSON.stringify({
+      catalogo: [{ id: 'toString', nome: 'Poison', cat: 'macro', serb: 'A', el: { N: 10 }, ecC: 1 }],
+      ricetteCustom: [],
+      scorta: ['toString', 'CaN'],
+    }));
+    await page.setInputFiles('#ie-file-input', poisonFile);
+    await page.waitForTimeout(350);
+    try { fs.unlinkSync(poisonFile); } catch (_) {}
+    const sec42 = await page.evaluate(() => {
+      const safeChecks = !isSafeId('toString') && !isSafeId('constructor') && !isSafeId('__proto__') && isSafeId('custom_123');
+      const noPoisonInCat = !catalogo.some(s => s.id === 'toString');
+      const toastTxt = document.getElementById('ie-toast')?.innerText || '';
+      calcola({ noScroll: true });
+      const noNaN = !/NaN\s*mS\/cm/i.test(document.getElementById('calc-out')?.innerText || '');
+      const cspMeta = document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || '';
+      eseguiReset();
+      return { safeChecks, noPoisonInCat, poisonedDiscarded: /scartat|discarded/i.test(toastTxt), noNaN, hasCsp: /object-src\s+'none'/.test(cspMeta) };
+    });
+
+    // 4. Keyboard A11y (.pianta-btn, .fase-btn, #ch-sali-calc, .ii) & inert banners/PWA + autofocus Cancel
+    const rest42 = await page.evaluate(() => {
+      const out = {};
+      // 1. Regressioni expandElementRefs
+      out.exp = {
+        tankAB: expandElementRefs('Serb. A e B') === 'Serb. A e B',
+        borN: /boro|boron/i.test(expandElementRefs('apporto di B e N')) && /azoto|nitrogen/i.test(expandElementRefs('apporto di B e N')),
+        saliB: expandElementRefs('altri sali B') === 'altri sali B',
+        tankBSalts: expandElementRefs('other Tank B salts') === 'other Tank B salts',
+        poliSiIt: expandElementRefs('Polimeri Si') === 'Polimeri Si',
+        poliSiEn: expandElementRefs('Si polymers') === 'Si polymers',
+        mixFormula: expandElementRefs('Mix Chelati EDTA (Fe+Mn+Zn+Cu+B+Mo)') === 'Mix Chelati EDTA (Fe+Mn+Zn+Cu+B+Mo)',
+      };
+
+      // 2. H2SO4 in SALI_DEFAULT + NaMoO4 Na + target micro scoperto
+      const h2so4 = getSale('H2SO4');
+      const namoo4 = getSale('NaMoO4');
+      const incK2Si = coppiaIncompatibile(getSale('K2SiO3'), h2so4);
+      const incKoh = coppiaIncompatibile(getSale('KOH'), h2so4);
+      const aqHard = { ec: 0.7, ph: 7.8, temp: 20, ca: 180, mg: 45, k: 8, na: 60, so4: 90, cl: 80, hco3: 320, no3: 15, fe: 0.2, acido: 'H2SO4' };
+      const h2so4Cost = calcolaCostoAcidoPerMille(aqHard, 5.8);
+
+      scorta.delete('MixCh');
+      saveScorta();
+      resetStatoCalc({ targets: { N: 150, P: 40, K: 200, Ca: 150, Mg: 40, Cu: 0.05 }, pianta: 'Test S42', fase: 'Target' });
+      calcola({ noScroll: true });
+      const saliBodyVis = document.getElementById('sali-prep-body')?.style.display !== 'none';
+      const hasMicroScopBanner = !!document.querySelector('#calc-out [data-micro-scop="1"]');
+      const secScop = verificaSicurezza(calcRighe, 100, getAcqua(), 5.8);
+      const auditMicroScop = secScop.audit.some(a => /Copertura micronutrienti|Micronutrient coverage/i.test(a.check) && a.esito === 'AVVISO');
+      scorta.add('MixCh');
+      saveScorta();
+      out.chem = {
+        h2so4Ok: !!(h2so4 && h2so4.cat === 'ph' && h2so4.isLiquid && h2so4.el?.S === 12.4 && ecCoeffSale('H2SO4') === 1.85 && h2so4Cost > 0),
+        incompatOk: !!(incK2Si.incompat && incKoh.incompat),
+        namoo4NaOk: !!(namoo4 && namoo4.el?.Na === 19),
+        saliBodyVis, hasMicroScopBanner, auditMicroScop,
+      };
+
+      // 4. Keyboard A11y (.pianta-btn, .fase-btn, #ch-sali-calc, .ii) & inert banners/PWA + autofocus Cancel
+      showTab('ricette');
+      const pBtn = document.querySelector('.pianta-btn[data-id="pomodoro"]');
+      pBtn.focus();
+      pBtn.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      const fBtns = [...document.querySelectorAll('.fase-btn')];
+      const faseBtnOk = fBtns.length > 0 && fBtns[0].tagName === 'BUTTON' && fBtns[0].getAttribute('type') === 'button' && fBtns[0].getAttribute('aria-pressed') === 'true';
+      const chSali = document.getElementById('ch-sali-calc');
+      const expBefore = chSali.getAttribute('aria-expanded');
+      chSali.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      const expAfter = chSali.getAttribute('aria-expanded');
+      chSali.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+      const iiBtns = [...document.querySelectorAll('.ii')];
+      const iiOk = iiBtns.length >= 4 && iiBtns.every(el => el.tabIndex === 0 && el.getAttribute('role') === 'button');
+      window._pendingDelete = { tipo: 'ricetta', ri: 0 };
+      openModal('modal-del');
+      const inertOnModal = !!(document.getElementById('gdpr-banner')?.inert && document.getElementById('pwa-install')?.inert);
+      const focusCancel = document.activeElement?.getAttribute('data-i18n') === 'btn.annulla';
+      closeModal('modal-del');
+      out.a11y = {
+        piantaKb: pBtn.getAttribute('role') === 'button' && pBtn.tabIndex === 0 && pBtn.getAttribute('aria-pressed') === 'true',
+        faseBtnOk,
+        saliToggleAria: expBefore !== expAfter,
+        iiOk,
+        inertOnModal,
+        focusCancel,
+      };
+
+      // 5. GDPR parity, button type="button", Terms no-P.IVA/no-sales
+      const rejBg = getComputedStyle(document.querySelector('.gdpr-btn-reject')).backgroundColor;
+      const accBg = getComputedStyle(document.querySelector('.gdpr-btn-accept')).backgroundColor;
+      const noUntypedBtns = document.querySelectorAll('button:not([type])').length === 0;
+      setLang('it');
+      openTermsDialog();
+      const termsIt = document.getElementById('dlg-terms-content')?.innerText || '';
+      document.getElementById('dlg-terms')?.close();
+      setLang('en');
+      openTermsDialog();
+      const termsEn = document.getElementById('dlg-terms-content')?.innerText || '';
+      document.getElementById('dlg-terms')?.close();
+      setLang('it');
+      out.legal = {
+        gdprParity: rejBg === accBg && rejBg !== 'rgb(255, 255, 255)',
+        noUntypedBtns,
+        termsVatIt: /Partita IVA/i.test(termsIt) && /alcuna vendita diretta/i.test(termsIt),
+        termsVatEn: /VAT number/i.test(termsEn) && /no direct sale/i.test(termsEn),
+        lastUpdatedOk: PRIVACY_CONFIG.lastUpdated === '26/11/2026',
+      };
+      return out;
+    });
+    const s42 = { ...rest42, sec: sec42 };
+
+  check('S42.1: expandElementRefs evita falsi positivi (sali B, Polimeri Si, EDTA Fe+Mn...) mantenendo Serb. A e B / B e N',
+    Object.values(s42.exp).every(Boolean), JSON.stringify(s42.exp));
+  check('S42.2: H₂SO₄ in SALI_DEFAULT (costo e incompatibilità), NaMoO₄ Na=19%, alert & sblocco tabella micro target scoperto',
+    Object.values(s42.chem).every(Boolean), JSON.stringify(s42.chem));
+  check('S42.3: isSafeId blocca prototype keys, import velenoso scartato senza NaN EC e meta CSP attivo',
+    Object.values(s42.sec).every(Boolean), JSON.stringify(s42.sec));
+  check('S42.4: tastiera su .pianta-btn/.fase-btn/#ch-sali-calc/.ii, inert su banner/PWA e autofocus su Annulla modale',
+    Object.values(s42.a11y).every(Boolean), JSON.stringify(s42.a11y));
+  check('S42.5: parità GDPR reject/accept, zero <button> senza type, Termini no-P.IVA/no-vendite e lastUpdated 26/11/2026',
+    Object.values(s42.legal).every(Boolean), JSON.stringify(s42.legal));
 
   console.log(`\n════════════════════════════════════════`);
   console.log(`RISULTATO FINALE: ${pass} passati, ${fail} falliti`);

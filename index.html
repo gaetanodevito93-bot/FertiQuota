@@ -5,6 +5,7 @@
 <meta name="description" content="FertiQuota — Calcolatore gratuito di fertirrigazione per idroponica e coco coir: soluzioni madri A/B/C, EC, pH, bicarbonati, 5 guide e zero precipitati.">
 <meta name="theme-color" content="#2d5a3d">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="canonical" href="https://gaetanodevito93-bot.github.io/FertiQuota/">
 <meta property="og:site_name" content="FertiQuota">
 <meta property="og:url" content="https://gaetanodevito93-bot.github.io/FertiQuota/">
@@ -161,7 +162,7 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;ba
 header::before{content:"";position:absolute;top:-60%;right:-5%;width:280px;height:280px;background:radial-gradient(circle,rgba(243,163,94,.18),transparent 65%);pointer-events:none}
 header h1{font-family:var(--mono);font-size:1rem;font-weight:700;letter-spacing:-.01em;line-height:1.15}
 header h1::before{content:"› ";color:var(--as);font-weight:700}
-header span{font-family:var(--mono);font-size:.66rem;opacity:.6;font-weight:400;text-transform:none}
+header span{font-family:var(--mono);font-size:.66rem;opacity:.82;font-weight:400;text-transform:none}
 .hbadge{margin-left:auto;flex-shrink:0;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--as);background:rgba(255,255,255,.1);border:1px solid rgba(243,163,94,.5);padding:5px 11px;border-radius:8px;backdrop-filter:blur(6px)}
 .tabs{display:flex;gap:6px;width:100%;padding:8px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(15,53,40,.04);border-bottom:1px solid var(--bo)}
 .tabs::-webkit-scrollbar{display:none}
@@ -219,7 +220,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid transparent;border-col
 .pianta-btn:focus-visible,.fase-btn:focus-visible,.mode-btn:focus-visible,.gear-pill:focus-visible,.lang-btn:focus-visible,.modal-close:focus-visible,.fc-footer-link:focus-visible,.btn-cat-buy:focus-visible{outline:2px solid var(--ar-dk);outline-offset:2px}
 .pianta-btn .em{font-size:1.5rem;display:block;margin-bottom:4px}
 .fase-row{display:flex;gap:8px;padding:14px;flex-wrap:wrap}
-.fase-btn{flex:1;min-width:110px;background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--ts);transition:var(--transition);line-height:1.4;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.fase-btn{flex:1;min-width:110px;background:var(--cs);border:2px solid transparent;border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:600;color:var(--ts);transition:var(--transition);line-height:1.4;box-shadow:0 2px 6px rgba(0,0,0,.05)}
 .fase-btn:hover,.fase-btn.active{border-color:var(--ar-dk);background:#fff;color:var(--ar-dk);box-shadow:0 4px 16px rgba(173,70,15,.15);transform:translateY(-2px)}
 .serb-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:14px;width:100%}
 @media(min-width:768px){.serb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.serb-grid-3{grid-template-columns:1fr 1fr 1fr}}
@@ -290,10 +291,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid transparent;border-col
 .ricetta-card.open .ricetta-card-body{display:block}
 .prezzo-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:linear-gradient(135deg,var(--ar-dk) 0%,#8f3909 100%);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap;box-shadow:0 2px 6px rgba(173,70,15,.22)}
 .tw{position:relative;display:inline-block;vertical-align:middle}
-.tw .tip{visibility:hidden;opacity:0;background:var(--tx);color:#fff;border-radius:8px;padding:8px 12px;font-size:.68rem;width:220px;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);transition:var(--transition);pointer-events:none;line-height:1.5;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2)}
-.tw:hover .tip{visibility:visible;opacity:1}
+.tw .tip{visibility:hidden;opacity:0;background:var(--tx);color:#fff;border-radius:8px;padding:8px 12px;font-size:.68rem;width:220px;max-width:min(220px,86vw);position:absolute;bottom:120%;left:50%;transform:translateX(-50%);transition:var(--transition);pointer-events:none;line-height:1.5;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.tw:hover .tip,.tw:focus-within .tip{visibility:visible;opacity:1}
 .ii{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--bo);color:var(--ts);font-size:.6rem;font-weight:700;cursor:default;margin-left:4px;transition:var(--transition)}
-.ii:hover{background:var(--vc);color:#fff}
+.ii:hover,.ii:focus-visible{background:var(--vc-dk);color:#fff;outline:2px solid var(--ar-dk);outline-offset:1px}
 .flag-check{width:20px;height:20px;cursor:pointer;accent-color:var(--vc);flex-shrink:0;transition:var(--transition)}
 .flag-check:hover{transform:scale(1.1)}
 .row-dispon{border-left:4px solid var(--vc);transition:var(--transition)}
@@ -601,8 +602,8 @@ body:has(#tab-guide.active) #fc-footer{max-width:1080px}
 .gdpr-b-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
 .gdpr-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;min-block-size:40px;border-radius:8px;font-family:var(--sans);font-size:.79rem;font-weight:700;cursor:pointer;transition:var(--transition);border:1.5px solid transparent}
 .gdpr-btn:focus-visible{outline:2px solid var(--ar);outline-offset:2px}
-.gdpr-btn-reject{background:#fff;color:var(--vs);border-color:var(--vs)}
-.gdpr-btn-reject:hover{background:var(--cr)}
+.gdpr-btn-reject{background:var(--vs);color:#fff;border-color:var(--vs)}
+.gdpr-btn-reject:hover{background:var(--vm);border-color:var(--vm)}
 .gdpr-btn-prefs{background:var(--cs);color:var(--vs);border-color:var(--bo)}
 .gdpr-btn-prefs:hover{background:#e4dac7;border-color:var(--ts)}
 .gdpr-btn-accept{background:var(--vs);color:#fff;border-color:var(--vs)}
@@ -719,11 +720,11 @@ setTimeout(hideSplash,1950);
 if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{waitAnims();}
 })();
 </script><header>
-<svg width="24" height="24" viewBox="0 0 26 26" fill="none"><rect x="2" y="9" width="9" height="14" rx="2" fill="#4a8c5e" stroke="#fff" stroke-width="1"/><rect x="15" y="9" width="9" height="14" rx="2" fill="#2471a3" stroke="#fff" stroke-width="1.2"/><path d="M4.5 9V6a2 2 0 0 1 4 0v3M17.5 9V6a2 2 0 0 1 4 0v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="4" r="2.5" fill="#d4660a"/></svg>
+<svg width="24" height="24" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="2" y="9" width="9" height="14" rx="2" fill="#4a8c5e" stroke="#fff" stroke-width="1"/><rect x="15" y="9" width="9" height="14" rx="2" fill="#2471a3" stroke="#fff" stroke-width="1.2"/><path d="M4.5 9V6a2 2 0 0 1 4 0v3M17.5 9V6a2 2 0 0 1 4 0v3" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="4" r="2.5" fill="#d4660a"/></svg>
 <div><h1>FertiQuota <span data-i18n="header.subtitle">— Calcolatore soluzioni madri per fertirrigazione </span></h1></div>
 <div class="lang-selector" id="lang-selector">
-<button class="lang-btn active" data-lang="it" onclick="setLang('it')">IT</button>
-<button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+<button type="button" class="lang-btn active" data-lang="it" aria-label="Italiano" aria-pressed="true" onclick="setLang('it')">IT</button>
+<button type="button" class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false" onclick="setLang('en')">EN</button>
 </div>
 <div class="hbadge">v1.0</div>
 </header>
@@ -1019,6 +1020,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </aside>
 </div>
 <div class="panel" id="tab-acqua" role="tabpanel" aria-labelledby="tabbtn-acqua">
+<h2 class="visually-hidden" data-i18n="acqua.title">💧 Acqua di Partenza</h2>
 <div class="card">
 <div class="ch"><span data-i18n="acqua.title">💧 Acqua di Partenza</span> <span style="font-size:.65rem;font-weight:400;opacity:.75" data-i18n="acqua.subtitle">(acquedotto / pozzo / osmosi)</span></div>
 <div class="cb">
@@ -1052,12 +1054,12 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="tg-box"><label class="tg-lbl" for="aq-fe"><span>Fe<span class="tg-name" data-i18n="ion.fe">Ferro</span></span><span class="tg-unit">mg/L</span></label><input type="number" id="aq-fe" value="0.1" min="0" step="0.01"></div>
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-<button class="btn btn-se btn-sm" onclick="presetAcqua('ottima')" data-i18n="preset.ottima">💧 Ottima (EC 0.1)</button>
-<button class="btn btn-se btn-sm" onclick="presetAcqua('media')" data-i18n="preset.media">🚰 Acquedotto medio</button>
-<button class="btn btn-se btn-sm" onclick="presetAcqua('dura')" data-i18n="preset.dura">🪨 Acqua dura</button>
-<button class="btn btn-se btn-sm" onclick="presetAcqua('osmosi')" data-i18n="preset.osmosi">🔬 Osmosi inversa</button>
-<button class="btn btn-se btn-sm" onclick="presetAcqua('piovana')" data-i18n="preset.piovana">🌧️ Piovana</button>
-<button class="btn btn-se btn-sm" onclick="presetAcqua('personalizzata')" data-i18n="preset.personalizzata">⚙️ Personalizzata</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('ottima')" data-i18n="preset.ottima">💧 Ottima (EC 0.1)</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('media')" data-i18n="preset.media">🚰 Acquedotto medio</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('dura')" data-i18n="preset.dura">🪨 Acqua dura</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('osmosi')" data-i18n="preset.osmosi">🔬 Osmosi inversa</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('piovana')" data-i18n="preset.piovana">🌧️ Piovana</button>
+<button type="button" class="btn btn-se btn-sm" onclick="presetAcqua('personalizzata')" data-i18n="preset.personalizzata">⚙️ Personalizzata</button>
 </div>
 <div class="sep"></div>
 <div style="font-size:.65rem;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px" data-i18n="acqua.profili">💾 I tuoi profili salvati</div>
@@ -1065,7 +1067,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="urow">
 <label for="acqua-profilo-nome" class="visually-hidden" data-i18n="acqua.profili">💾 I tuoi profili salvati</label>
 <input type="text" id="acqua-profilo-nome" maxlength="40" data-i18n-placeholder="ph.acqua.profilo" placeholder="Es. Pozzo — analisi giugno 2026">
-<button class="btn btn-se btn-sm" onclick="salvaProfiloAcqua()" data-i18n="acqua.salvaProfilo">💾 Salva profilo</button>
+<button type="button" class="btn btn-se btn-sm" onclick="salvaProfiloAcqua()" data-i18n="acqua.salvaProfilo">💾 Salva profilo</button>
 </div>
 </div>
 </div>
@@ -1073,7 +1075,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="panel" id="tab-ricette" role="tabpanel" aria-labelledby="tabbtn-ricette">
 <div class="sec-h">
 <h2 data-i18n="ricette.title">🌿 Le tue Ricette</h2>
-<button class="btn btn-se btn-sm" onclick="openNuovaRicetta()" aria-label="Crea una nuova ricetta" data-i18n-aria="aria.newRecipe" data-i18n="ricette.nuova">+ Nuova Ricetta</button>
+<button type="button" class="btn btn-se btn-sm" onclick="openNuovaRicetta()" aria-label="Crea una nuova ricetta" data-i18n-aria="aria.newRecipe" data-i18n="ricette.nuova">+ Nuova Ricetta</button>
 </div>
 <div class="card">
 <div class="ch" data-i18n="ricette.cocoHeader">🌱 Ricette — Coco Coir</div>
@@ -1082,7 +1084,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="sep" style="margin:0"></div>
 <div class="ch" style="background:var(--vm);font-size:.68rem;justify-content:space-between">
 <span id="fasi-header-title" data-i18n="ricette.fasi">📅 Fase di Crescita</span>
-<button class="btn btn-sm" id="btn-clona-pianta" onclick="editCurrentRicetta()" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.55);color:#fff">✏️ Clona e modifica</button>
+<button type="button" class="btn btn-sm" id="btn-clona-pianta" onclick="editCurrentRicetta()" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.55);color:#fff">✏️ Clona e modifica</button>
 </div>
 <div class="fase-row" id="fase-row"></div>
 </div>
@@ -1105,6 +1107,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 </div>
 <div class="panel" id="tab-calcola" role="tabpanel" aria-labelledby="tabbtn-calcola">
+<h2 class="visually-hidden" data-i18n="tab.calcola">⚗️ Calcola</h2>
 <div class="card" style="margin-bottom:8px">
 <div class="ch" data-i18n="calcola.params">⚙️ Parametri Impianto</div>
 <div class="cb" style="padding:10px 12px">
@@ -1115,10 +1118,10 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="field" style="margin-bottom:0"><label for="volB" data-i18n="calcola.serbB">Serbatoio B (L)</label>
 <div class="urow"><input type="number" id="volB" value="100" min="1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="if(document.getElementById('risultato-stampa'))calcola({noScroll:true})"><span class="utag">L</span></div>
 </div>
-<div class="field" style="margin-bottom:0"><label for="diluizione"><span data-i18n="calcola.diluzione">Fattore diluizione 1 : X</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.dil.tip">1 L concentrato produce X L soluzione finale. ⚠️ Più X è grande, più la soluzione madre è concentrata e maggiore il rischio precipitazioni. Es: 1:200 = madre 200× concentrata (rischio alto). 1:50 = madre 50× concentrata (più sicuro). Il motore suggerirà il fattore ottimale in base alle dosi inserite.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="diluizione"><span data-i18n="calcola.diluzione">Fattore diluizione 1 : X</span> <span class="tw"><span class="ii" tabindex="0" role="button" aria-label="Info">i</span><span class="tip" data-i18n="calcola.dil.tip">1 L concentrato produce X L soluzione finale. ⚠️ Più X è grande, più la soluzione madre è concentrata e maggiore il rischio precipitazioni. Es: 1:200 = madre 200× concentrata (rischio alto). 1:50 = madre 50× concentrata (più sicuro). Il motore suggerirà il fattore ottimale in base alle dosi inserite.</span></span></label>
 <div class="urow"><span class="utag">1 :</span><input type="number" id="diluizione" value="100" min="1" oninput="aggiornaDiluizioneWarning();if(document.getElementById('risultato-stampa')&&+this.value>=1)calcola({noScroll:true})" onchange="aggiornaDiluizioneWarning();if(document.getElementById('risultato-stampa'))calcola({noScroll:true})"></div>
 </div>
-<div class="field" style="margin-bottom:0"><label for="ph-finale"><span data-i18n="calcola.phFinale">pH soluzione finale</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.ph.tip">pH a cui la soluzione finale viene mantenuta in coltura (correzione con acido/base). Determina il rischio di precipitazione del fosfato di calcio: a pH ≤ 6 il fosfato resta in soluzione, sopra 6.3 tende a precipitare. Il motore usa questo valore per la verifica anti-precipitazione e può suggerirti il pH ottimale.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="ph-finale"><span data-i18n="calcola.phFinale">pH soluzione finale</span> <span class="tw"><span class="ii" tabindex="0" role="button" aria-label="Info">i</span><span class="tip" data-i18n="calcola.ph.tip">pH a cui la soluzione finale viene mantenuta in coltura (correzione con acido/base). Determina il rischio di precipitazione del fosfato di calcio: a pH ≤ 6 il fosfato resta in soluzione, sopra 6.3 tende a precipitare. Il motore usa questo valore per la verifica anti-precipitazione e può suggerirti il pH ottimale.</span></span></label>
 <div class="urow"><span class="utag">pH</span><input type="number" id="ph-finale" value="5.8" min="4.5" max="7.5" step="0.1" oninput="if(document.getElementById('risultato-stampa')&&+this.value>=3&&+this.value<=9)calcola({noScroll:true})" onchange="if(document.getElementById('calc-out').innerHTML.trim())calcola({noScroll:true})"></div>
 </div>
 </div>
@@ -1126,7 +1129,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <span>⚠️</span><span id="diluizione-warning-txt"></span>
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;align-items:center">
-<div class="field" style="margin-bottom:0"><label for="acido-tipo"><span data-i18n="calcola.acido">Acido per i bicarbonati</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="calcola.acido.tip">Acido usato per neutralizzare i bicarbonati dell'acqua (HCO₃⁻ &gt; 50 mg/L). Il motore conta l'azoto (HNO₃) o il fosforo (H₃PO₄) che l'acido apporta e riduce di conseguenza i sali. Con «Automatico» sceglie da solo l'acido che riproduce meglio la ricetta; puoi sempre forzarne uno.</span></span></label>
+<div class="field" style="margin-bottom:0"><label for="acido-tipo"><span data-i18n="calcola.acido">Acido per i bicarbonati</span> <span class="tw"><span class="ii" tabindex="0" role="button" aria-label="Info">i</span><span class="tip" data-i18n="calcola.acido.tip">Acido usato per neutralizzare i bicarbonati dell'acqua (HCO₃⁻ &gt; 50 mg/L). Il motore conta l'azoto (HNO₃) o il fosforo (H₃PO₄) che l'acido apporta e riduce di conseguenza i sali. Con «Automatico» sceglie da solo l'acido che riproduce meglio la ricetta; puoi sempre forzarne uno.</span></span></label>
 <select id="acido-tipo" onchange="salvaAcidoTipo();if(document.getElementById('calc-out').innerHTML.trim())calcola({noScroll:true})" style="padding:6px 8px;font-size:.78rem">
 <option value="auto" data-i18n="calcola.acido.auto">Automatico — il più adatto alla ricetta</option>
 <option value="mix" data-i18n="calcola.acido.mix">Mix automatico: H₃PO₄ + HNO₃ — copre P poi completa con N</option>
@@ -1144,7 +1147,7 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 </div>
 </div>
 <div class="card" style="margin-bottom:10px">
-<div class="ch" id="ch-sali-calc" style="cursor:pointer;justify-content:space-between;user-select:none" onclick="toggleSaliPrep()">
+<div class="ch" id="ch-sali-calc" role="button" tabindex="0" aria-expanded="true" aria-controls="sali-prep-body" style="cursor:pointer;justify-content:space-between;user-select:none" onclick="toggleSaliPrep()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSaliPrep();}">
 <span data-i18n="calcola.sali">🧂 Sali da Preparare</span>
 <span id="sali-prep-badge" style="font-size:.68rem;font-weight:500;opacity:.92;text-transform:none">▲</span>
 </div>
@@ -1152,17 +1155,17 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 <div class="tbl-wrap">
 <table class="tbl" id="calc-table">
 <thead><tr>
-<th data-i18n="tbl.sale">Sale / Fertilizzante</th>
-<th style="text-align:right" data-i18n="tbl.dose">g/1000L fin.</th>
-<th>€/kg</th>
-<th></th>
+<th scope="col" data-i18n="tbl.sale">Sale / Fertilizzante</th>
+<th scope="col" style="text-align:right" data-i18n="tbl.dose">g/1000L fin.</th>
+<th scope="col">€/kg</th>
+<th scope="col"><span class="visually-hidden">Azioni</span></th>
 </tr></thead>
 <tbody id="calc-tbody"></tbody>
 </table>
 </div>
 <div style="padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn btn-se btn-sm" onclick="aggiungiRigaCalc()" style="flex:1" data-i18n="calcola.aggiungiSale">+ Aggiungi sale</button>
-<button class="btn btn-pr btn-sm" onclick="calcola()" style="flex:1" aria-label="Calcola i dosaggi dei sali" data-i18n-aria="aria.calcBtn" data-i18n="calcola.calcola">⚗️ Calcola Dosaggi</button>
+<button type="button" class="btn btn-se btn-sm" onclick="aggiungiRigaCalc()" style="flex:1" data-i18n="calcola.aggiungiSale">+ Aggiungi sale</button>
+<button type="button" class="btn btn-pr btn-sm" onclick="calcola()" style="flex:1" aria-label="Calcola i dosaggi dei sali" data-i18n-aria="aria.calcBtn" data-i18n="calcola.calcola">⚗️ Calcola Dosaggi</button>
 </div>
 </div>
 </div>
@@ -1178,10 +1181,10 @@ if(window.requestAnimationFrame){window.requestAnimationFrame(waitAnims);}else{w
 Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi ricalcolare la ricetta usando solo gli ingredienti disponibili: il sistema tenterà di sostituirli con alternative presenti in catalogo oppure segnalerà cosa manca.
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn btn-pr btn-sm" style="width:auto;background:var(--ro)" onclick="ricalcolaConDisponibili()" data-i18n="calcola.ricalcolaBtn">
+<button type="button" class="btn btn-pr btn-sm" style="width:auto;background:var(--ro)" onclick="ricalcolaConDisponibili()" data-i18n="calcola.ricalcolaBtn">
 🔄 Ricalcola con gli ingredienti disponibili
 </button>
-<button class="btn btn-se btn-sm" onclick="showTab('catalogo')" style="font-size:.72rem" data-i18n="calcola.vaiCatalogo">
+<button type="button" class="btn btn-se btn-sm" onclick="showTab('catalogo')" style="font-size:.72rem" data-i18n="calcola.vaiCatalogo">
 📦 Vai al Catalogo → aggiorna scorta
 </button>
 </div>
@@ -1198,8 +1201,8 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 <div class="sec-h">
 <h2 data-i18n="catalogo.title">📦 Catalogo Ingredienti</h2>
 <div style="display:flex;gap:6px">
-<button class="btn btn-se btn-sm" onclick="stampaCatalogo()" aria-label="Stampa l'elenco degli ingredienti" data-i18n-aria="aria.printCatalog" data-i18n="catalogo.stampa">🖨️ Stampa</button>
-<button class="btn btn-se btn-sm" onclick="openNuovoIngrediente()" data-i18n="catalogo.nuovo">+ Nuovo</button>
+<button type="button" class="btn btn-se btn-sm" onclick="stampaCatalogo()" aria-label="Stampa l'elenco degli ingredienti" data-i18n-aria="aria.printCatalog" data-i18n="catalogo.stampa">🖨️ Stampa</button>
+<button type="button" class="btn btn-se btn-sm" onclick="openNuovoIngrediente()" data-i18n="catalogo.nuovo">+ Nuovo</button>
 </div>
 </div>
 <div class="alert al-blu" style="margin-bottom:12px">
@@ -1237,7 +1240,7 @@ Gli ingredienti evidenziati in rosso non sono presenti nel tuo magazzino. Puoi r
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:12px" data-i18n-html="dati.esportaDesc">
 Scarica un file JSON con <strong>catalogo ingredienti</strong>, <strong>scorta magazzino</strong> e <strong>ricette personalizzate</strong>. Usalo per backup o per condividere la configurazione.
 </p>
-<button class="btn btn-pr" style="background:var(--vc-dk)" onclick="esportaDati()" data-i18n="dati.esportaBtn">⬇ Scarica backup JSON</button>
+<button type="button" class="btn btn-pr" style="background:var(--vc-dk)" onclick="esportaDati()" data-i18n="dati.esportaBtn">⬇ Scarica backup JSON</button>
 </div>
 </div>
 <div class="card">
@@ -1246,7 +1249,7 @@ Scarica un file JSON con <strong>catalogo ingredienti</strong>, <strong>scorta m
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:12px" data-i18n="dati.importaDesc">
 Carica un file JSON precedentemente esportato da FertiQuota. Le ricette e gli ingredienti personalizzati vengono uniti a quelli esistenti. I prezzi degli ingredienti del catalogo vengono aggiornati.
 </p>
-<button class="btn btn-pr" style="background:var(--ar-dk)" onclick="document.getElementById('ie-file-input').click()" data-i18n="dati.importaBtn">⬆ Carica file JSON</button>
+<button type="button" class="btn btn-pr" style="background:var(--ar-dk)" onclick="document.getElementById('ie-file-input').click()" data-i18n="dati.importaBtn">⬆ Carica file JSON</button>
 <input type="file" id="ie-file-input" accept=".json,application/json" style="display:none" onchange="importaDati(this)">
 </div>
 </div>
@@ -1256,7 +1259,7 @@ Carica un file JSON precedentemente esportato da FertiQuota. Le ricette e gli in
 <p style="font-size:.8rem;color:var(--ts);line-height:1.6;margin-bottom:12px" data-i18n-html="dati.resetDesc">
 Ripristina il catalogo ai valori predefiniti ed elimina tutte le ricette personalizzate e la scorta salvata. <strong>Questa azione non è reversibile</strong> — esporta un backup prima di procedere.
 </p>
-<button class="btn btn-pr" style="background:var(--ro)" onclick="resetDati()" data-i18n="dati.resetBtn">↺ Ripristina valori di fabbrica</button>
+<button type="button" class="btn btn-pr" style="background:var(--ro)" onclick="resetDati()" data-i18n="dati.resetBtn">↺ Ripristina valori di fabbrica</button>
 </div>
 </div>
 <div class="card">
@@ -1269,11 +1272,11 @@ Ripristina il catalogo ai valori predefiniti ed elimina tutte le ricette persona
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--cs)">
 <span style="font-size:.82rem" data-i18n="dati.inscorta">In scorta (disponibili)</span>
-<strong id="stat-scorta" style="font-family:'JetBrains Mono',monospace;color:var(--vc)">—</strong>
+<strong id="stat-scorta" style="font-family:'JetBrains Mono',monospace;color:var(--vc-dk)">—</strong>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--cs)">
 <span style="font-size:.82rem" data-i18n="dati.ricettePers">Ricette personalizzate</span>
-<strong id="stat-ric" style="font-family:'JetBrains Mono',monospace;color:var(--ar)">—</strong>
+<strong id="stat-ric" style="font-family:'JetBrains Mono',monospace;color:var(--ar-dk)">—</strong>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0">
 <span style="font-size:.82rem" data-i18n="dati.ricettePred">Ricette predefinite</span>
@@ -1410,7 +1413,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </dialog>
 <div class="modal-bg" id="modal-ing" role="dialog" aria-modal="true" aria-labelledby="modal-ing-title">
 <div class="modal">
-<div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
+<div class="modal-h"><h3 id="modal-ing-title" data-i18n="modal.ing.title">✏️ Nuovo Ingrediente</h3><button type="button" class="modal-close" onclick="closeModal('modal-ing')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
 <div class="modal-b">
 <input type="hidden" id="ing-edit-id">
 <div class="field"><label for="ing-nome" data-i18n="modal.ing.nome">Nome prodotto</label><input type="text" id="ing-nome" data-i18n-placeholder="ph.ing.nome" placeholder="Es. Nitrato di Potassio KNO₃"></div>
@@ -1438,7 +1441,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="field"><label for="ing-Si" data-i18n="ing.el.Si">% Si (silicio)</label><input type="number" id="ing-Si" value="0" min="0" max="100" step="0.1"></div>
 <div class="field"><label for="ing-Na" data-i18n="ing.el.Na">% Na (sodio)</label><input type="number" id="ing-Na" value="0" min="0" max="100" step="0.1"></div>
 </div>
-<div class="field"><label for="ing-nh4"><span data-i18n="modal.ing.nh4">% N ammoniacale (quota su N totale)</span> <span class="tw"><span class="ii">i</span><span class="tip" data-i18n="modal.ing.nh4.tip">Percentuale dell'azoto dichiarato che è in forma ammoniacale (NH₄⁺). Es: nitrato d'ammonio = 50, MAP = 100, solfato ammonico = 100, nitrato di calcio = 0. Serve per il limite NH₄ ≤ 10% dell'N in coco e per il rischio struvite.</span></span></label><input type="number" id="ing-nh4" value="0" min="0" max="100" step="1"></div>
+<div class="field"><label for="ing-nh4"><span data-i18n="modal.ing.nh4">% N ammoniacale (quota su N totale)</span> <span class="tw"><span class="ii" tabindex="0" role="button" aria-label="Info">i</span><span class="tip" data-i18n="modal.ing.nh4.tip">Percentuale dell'azoto dichiarato che è in forma ammoniacale (NH₄⁺). Es: nitrato d'ammonio = 50, MAP = 100, solfato ammonico = 100, nitrato di calcio = 0. Serve per il limite NH₄ ≤ 10% dell'N in coco e per il rischio struvite.</span></span></label><input type="number" id="ing-nh4" value="0" min="0" max="100" step="1"></div>
 <div class="row2">
 <div class="field" style="display:flex;align-items:center;gap:8px;margin-bottom:0">
 <input type="checkbox" id="ing-liquid" style="width:18px;height:18px;flex-shrink:0" onchange="document.getElementById('ing-density').disabled=!this.checked">
@@ -1454,14 +1457,14 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="field"><label for="ing-note" data-i18n="modal.ing.note">Note</label><textarea id="ing-note" rows="2" style="resize:vertical"></textarea></div>
 </div>
 <div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-ing')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto" onclick="salvaIngrediente()" data-i18n="modal.ing.salva">💾 Salva</button>
+<button type="button" class="btn btn-se" onclick="closeModal('modal-ing')" data-i18n="btn.annulla">Annulla</button>
+<button type="button" class="btn btn-pr" style="width:auto" onclick="salvaIngrediente()" data-i18n="modal.ing.salva">💾 Salva</button>
 </div>
 </div>
 </div>
 <div class="modal-bg" id="modal-ricetta" role="dialog" aria-modal="true" aria-labelledby="modal-ric-title">
 <div class="modal">
-<div class="modal-h"><h3 id="modal-ric-title" data-i18n="modal.ricetta.title">🌱 Nuova Ricetta</h3><button class="modal-close" onclick="closeModal('modal-ricetta')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
+<div class="modal-h"><h3 id="modal-ric-title" data-i18n="modal.ricetta.title">🌱 Nuova Ricetta</h3><button type="button" class="modal-close" onclick="closeModal('modal-ricetta')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button></div>
 <div class="modal-b">
 <input type="hidden" id="ric-edit-id">
 <div class="row2">
@@ -1470,12 +1473,12 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 </div>
 <div class="field"><label for="ric-note" data-i18n="modal.ricetta.note">Note generali</label><textarea id="ric-note" rows="2" style="resize:vertical" data-i18n-placeholder="ph.ric.note" placeholder="Indica substrato, ph target, avvertenze…"></textarea></div>
 <div class="sep"></div>
-<div class="sec-h"><h4 data-i18n="modal.ricetta.fasi">Fasi di crescita</h4><button class="btn btn-se btn-sm" onclick="aggiungiFase()" data-i18n="modal.ricetta.addFase">+ Fase</button></div>
+<div class="sec-h"><h4 data-i18n="modal.ricetta.fasi">Fasi di crescita</h4><button type="button" class="btn btn-se btn-sm" onclick="aggiungiFase()" data-i18n="modal.ricetta.addFase">+ Fase</button></div>
 <div id="fasi-editor"></div>
 </div>
 <div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-ricetta')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto" onclick="salvaRicetta()" data-i18n="modal.ricetta.salva">💾 Salva Ricetta</button>
+<button type="button" class="btn btn-se" onclick="closeModal('modal-ricetta')" data-i18n="btn.annulla">Annulla</button>
+<button type="button" class="btn btn-pr" style="width:auto" onclick="salvaRicetta()" data-i18n="modal.ricetta.salva">💾 Salva Ricetta</button>
 </div>
 </div>
 </div>
@@ -1483,15 +1486,15 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="modal">
 <div class="modal-h" style="background:var(--ro)">
 <h3 id="modal-del-title" data-i18n="modal.del.title">🗑️ Conferma eliminazione</h3>
-<button class="modal-close" onclick="closeModal('modal-del')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
+<button type="button" class="modal-close" onclick="closeModal('modal-del')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
 </div>
 <div class="modal-b">
 <p id="modal-del-msg" style="font-size:.85rem;line-height:1.6;color:var(--tx)"></p>
 <p style="font-size:.75rem;color:var(--ts);margin-top:8px" data-i18n="modal.del.warn">Questa azione non è reversibile.</p>
 </div>
 <div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-del')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiElimina()" data-i18n="modal.del.btn">🗑️ Elimina</button>
+<button type="button" class="btn btn-se" autofocus onclick="closeModal('modal-del')" data-i18n="btn.annulla">Annulla</button>
+<button type="button" class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiElimina()" data-i18n="modal.del.btn">🗑️ Elimina</button>
 </div>
 </div>
 </div>
@@ -1499,7 +1502,7 @@ style="display:inline-flex;align-items:center;gap:8px;background:#0070ba;color:#
 <div class="modal">
 <div class="modal-h" style="background:var(--ro)">
 <h3 id="modal-reset-title" data-i18n="modal.reset.title">↺ Ripristina valori di fabbrica</h3>
-<button class="modal-close" onclick="closeModal('modal-reset')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
+<button type="button" class="modal-close" onclick="closeModal('modal-reset')" aria-label="Chiudi finestra" data-i18n-aria="aria.closeModal">✕</button>
 </div>
 <div class="modal-b">
 <div class="alert al-err" style="margin-bottom:12px">
@@ -1511,8 +1514,8 @@ Esporta un backup dalla sezione <strong>💾 Dati → Scarica JSON</strong> prim
 </p>
 </div>
 <div class="modal-f">
-<button class="btn btn-se" onclick="closeModal('modal-reset')" data-i18n="btn.annulla">Annulla</button>
-<button class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiReset()" data-i18n="modal.reset.btn">↺ Sì, ripristina tutto</button>
+<button type="button" class="btn btn-se" autofocus onclick="closeModal('modal-reset')" data-i18n="btn.annulla">Annulla</button>
+<button type="button" class="btn btn-pr" style="width:auto;background:var(--ro)" onclick="eseguiReset()" data-i18n="modal.reset.btn">↺ Sì, ripristina tutto</button>
 </div>
 </div>
 </div>
@@ -2164,7 +2167,9 @@ document.querySelectorAll('[data-i18n-aria]').forEach(el => {
 el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
 });
 document.querySelectorAll('.lang-btn').forEach(btn => {
-btn.classList.toggle('active', btn.dataset.lang === currentLang);
+const active = btn.dataset.lang === currentLang;
+btn.classList.toggle('active', active);
+btn.setAttribute('aria-pressed', active ? 'true' : 'false');
 });
 const ingCat = document.getElementById('ing-cat');
 if(ingCat) {
@@ -2796,7 +2801,7 @@ ZnSO4:  {0:740,10:840,20:960,30:1080},
 NaMoO4: {0:520,10:650,20:650,30:670}
 };
 function solubilitaSale(id, Tc){
-const tab = SOLUBILITA_G_L[id];
+const tab = Object.hasOwn(SOLUBILITA_G_L, id) ? SOLUBILITA_G_L[id] : undefined;
 if(!tab) return null;
 const T = Math.min(40, Math.max(0, validTc(Tc) ? Tc : 20));
 if(T <= 10) return tab[0] + (tab[10] - tab[0]) * (T / 10);
@@ -2935,7 +2940,7 @@ note:"Dose molto bassa: Zn fitotossico in eccesso. Non aggiungere se usi Mix Che
 el:{B:17.5},          ecC:0.02,    dose:2.8, prezzo:1.8,
 note:"Sciogliere in acqua calda. Margine carenza/tossicità stretto: rispettare la dose."},
 {id:"NaMoO4",nome:"Molibdato Sodio Na₂MoO₄·2H₂O",       cat:"micro",serb:"A",
-el:{Mo:39.7},         ecC:0.91,    dose:0.12,prezzo:12.0,
+el:{Mo:39.7,Na:19},   ecC:0.91,    dose:0.12,prezzo:12.0,
 note:"Il micro in quantità minore. Preparare soluzione madre 1 g/L e dosare da quella."},
 {id:"HNO3",  nome:"Acido Nitrico HNO₃ 38%",              cat:"ph",   serb:"A",
 el:{N:8.45},            ecC:1.40,    dose:0,   prezzo:0.8, isLiquid:true, density:1.24,
@@ -2943,6 +2948,9 @@ note:"Correttore pH verso il basso. DPI obbligatori. Sempre in A."},
 {id:"H3PO4", nome:"Acido Fosforico H₃PO₄ 75%",           cat:"ph",   serb:"A",
 el:{P:23.7},            ecC:1.30,    dose:0,   prezzo:1.2, isLiquid:true, density:1.58,
 note:"Più sicuro dell'HNO₃. Non mescolare con Ca nel concentrato."},
+{id:"H2SO4", nome:"Acido Solforico H₂SO₄ 38%",           cat:"ph",   serb:"A",
+el:{S:12.4},            ecC:1.85,    dose:0,   prezzo:0.9, isLiquid:true, density:1.29,
+note:"Correttore pH senza N né P (apporta S). Precursore UE 2019/1148 >15%: DPI obbligatori, sempre in acqua prima dei sali."},
 {id:"KOH",   nome:"Idrossido Potassio KOH 50%",           cat:"ph",   serb:"A",
 el:{K:35},            ecC:2.42,    dose:0,   prezzo:1.5, isLiquid:true, density:1.52,
 note:"Alza pH. Molto caustico. Sempre diluito."},
@@ -2957,7 +2965,7 @@ try{ const v = JSON.parse(localStorage.getItem(key)||'null'); return v===null ? 
 catch(e){ console.warn('Dati corrotti in '+key+', uso i default:', e.message); return fallback; }
 }
 function stripTags(s){ return typeof s==='string' ? s.replace(/[<>"]/g,'') : s; }
-const CATALOG_VERSION = 4;
+const CATALOG_VERSION = 5;
 function mergeCatalogoDefaults(saved){
 const defaultIds = new Set(SALI_DEFAULT.map(s=>s.id));
 const base = SALI_DEFAULT.map(d=>{
@@ -3191,6 +3199,7 @@ H3BO3: {nome:"Boric Acid H₃BO₃",                  note:"Dissolve in hot wate
 NaMoO4:{nome:"Sodium Molybdate Na₂MoO₄·2H₂O",     note:"The micro needed in the smallest amount. Prepare a 1 g/L stock solution and dose from it."},
 HNO3:  {nome:"Nitric Acid HNO₃ 38%",              note:"pH-down corrector. PPE mandatory. Always in A."},
 H3PO4: {nome:"Phosphoric Acid H₃PO₄ 75%",         note:"Safer than HNO₃. Do not mix with Ca in the concentrate."},
+H2SO4: {nome:"Sulfuric Acid H₂SO₄ 38%",          note:"N- and P-free pH-down corrector (adds S). EU Reg. 2019/1148 >15%: PPE mandatory, always add to water before salts."},
 KOH:   {nome:"Potassium Hydroxide KOH 50%",       note:"Raises pH. Very caustic. Always diluted."},
 K2SiO3:{nome:"Potassium Silicate K₂SiO₃ (sol. ~49%)",note:"Commercial liquid product ~49% K₂SiO₃ (pH 11-12). Silicon (Si) strengthens cell walls. ⚠️ Incompatible with Ca, phosphates, chelates and acids: precipitates CaSiO₃ and degrades chelates. The engine automatically moves it to Tank C if available; never mix it manually with CaN, KH₂PO₄ or Fe-chelates."},
 };
@@ -3258,7 +3267,7 @@ function salNome(s){
   if(currentLang==='en'){
     const def = SALI_DEFAULT.find(x=>x.id===s.id);
     const isCustom = !!(s._nomeCustom || (def && s.nome && s.nome !== def.nome));
-    if(!isCustom){ const tr=SALI_I18N[s.id]; if(tr&&tr.nome) return tr.nome; }
+    if(!isCustom){ const tr=Object.hasOwn(SALI_I18N, s.id)?SALI_I18N[s.id]:null; if(tr&&tr.nome) return tr.nome; }
   }
   return s.nome||'';
 }
@@ -3268,7 +3277,8 @@ function salNote(s){
   if(currentLang==='en'){
     const def = SALI_DEFAULT.find(x=>x.id===s.id);
     const isCustom = !!(s._noteCustom || (def && s.note !== def.note));
-    if(!isCustom && SALI_I18N[s.id]?.note) out = SALI_I18N[s.id].note;
+    const tr = Object.hasOwn(SALI_I18N, s.id) ? SALI_I18N[s.id] : null;
+    if(!isCustom && tr?.note) out = tr.note;
   }
   return expandElementRefs(out);
 }
@@ -3324,6 +3334,7 @@ const MOTORE_TR = {
 'pH 11-12 del silicato causa polimerizzazione dei fosfati → ostruzione tubazioni.':'Silicate pH 11-12 causes phosphate polymerization → pipe clogging.',
 'Acido fosforico neutralizza il silicato → acido polisilicico gelatinoso.':'Phosphoric acid neutralizes the silicate → gelatinous polysilicic acid.',
 'HNO₃ neutralizza K₂SiO₃ violentemente → acido silicico gelatinoso.':'HNO₃ neutralizes K₂SiO₃ violently → gelatinous silicic acid.',
+'H₂SO₄ neutralizza K₂SiO₃ violentemente → acido silicico gelatinoso.':'H₂SO₄ neutralizes K₂SiO₃ violently → gelatinous silicic acid.',
 'pH 11-12 del silicato precipita Fe(OH)₃ istantaneamente.':'Silicate pH 11-12 precipitates Fe(OH)₃ instantly.',
 'pH >9 del silicato degrada i chelati EDTA. Usare EDDHA o tenere separati.':'Silicate pH >9 degrades EDTA chelates. Use EDDHA or keep them separate.',
 'Stesso. DTPA stabile fino pH 7.5, non a pH 11.':'Same. DTPA is stable up to pH 7.5, not at pH 11.',
@@ -3539,7 +3550,7 @@ function saveCatalogo(){ try{ localStorage.setItem('fc_catalogo', JSON.stringify
 function saveRicette(){ try{ localStorage.setItem('fc_ricette', JSON.stringify(ricetteCustom)); }catch(e){ console.warn('Salvataggio ricette fallito:', e.message); showToast(TT('Errore salvataggio: spazio esaurito','Save error: storage full'), false); } }
 let _modalLastFocus = null;
 function setBackgroundInert(active){
-['header', '.tabs', '#main-content', '#fc-footer'].forEach(sel=>{
+['header', '.tabs', '#main-content', '#fc-footer', '#gdpr-banner', '#pwa-install'].forEach(sel=>{
 const node = document.querySelector(sel);
 if(node) node.inert = !!active;
 });
@@ -3550,7 +3561,7 @@ if(el._closeTimer){ clearTimeout(el._closeTimer); el._closeTimer=null; }
 _modalLastFocus = document.activeElement;
 el.classList.remove('closing'); el.classList.add('open');
 setBackgroundInert(true);
-const focusTarget = el.querySelector('[autofocus], input:not([type="hidden"]), select, textarea, .modal-close');
+const focusTarget = el.querySelector('[autofocus]') || el.querySelector('input:not([type="hidden"]), select, textarea, .modal-close');
 if(focusTarget && typeof focusTarget.focus==='function'){
 try{ focusTarget.focus({preventScroll:true}); }catch(e){}
 }
@@ -3586,7 +3597,7 @@ function esc(s){
 return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 function sanitizeName(s){ return String(s==null?'':s).replace(/[<>"]/g,'').slice(0,120); }
-function isSafeId(id){ return typeof id==='string' && /^[A-Za-z0-9_-]{1,64}$/.test(id); }
+function isSafeId(id){ return typeof id==='string' && /^[A-Za-z0-9_-]{1,64}$/.test(id) && id!=='__proto__' && !(id in Object.prototype); }
 function cleanNum(v, fallback=0, min=0, max=Number.MAX_SAFE_INTEGER){
 const n = Number(v);
 return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
@@ -3671,8 +3682,8 @@ wrap.innerHTML=`<span style="font-size:.75rem;color:var(--ts)">${TT('Nessun prof
 return;
 }
 wrap.innerHTML=acquaProfili.map((p,i)=>`<span style="display:inline-flex">
-    <button class="btn btn-se btn-sm" style="border-top-right-radius:0;border-bottom-right-radius:0" onclick="caricaProfiloAcqua(${i})" title="EC ${p.valori.ec} mS/cm — pH ${p.valori.ph}">💧 ${esc(p.nome)}</button>
-    <button class="btn btn-del btn-sm" style="border-top-left-radius:0;border-bottom-left-radius:0;border-left:0;padding:6px 9px" onclick="eliminaProfiloAcqua(${i})" aria-label="${TT('Elimina profilo','Delete profile')} ${esc(p.nome)}">✕</button>
+    <button type="button" class="btn btn-se btn-sm" style="border-top-right-radius:0;border-bottom-right-radius:0" onclick="caricaProfiloAcqua(${i})" title="EC ${p.valori.ec} mS/cm — pH ${p.valori.ph}">💧 ${esc(p.nome)}</button>
+    <button type="button" class="btn btn-del btn-sm" style="border-top-left-radius:0;border-bottom-left-radius:0;border-left:0;padding:6px 9px" onclick="eliminaProfiloAcqua(${i})" aria-label="${TT('Elimina profilo','Delete profile')} ${esc(p.nome)}">✕</button>
   </span>`).join('');
 }
 function normalizeImportedEl(el){
@@ -3718,11 +3729,16 @@ return g.toFixed(g < 10 ? 2 : 0)+' g';
 }
 function initPiante(){
 const grid = document.getElementById('pianta-grid');
-grid.innerHTML = '';
+grid.replaceChildren();
+const bindCardKb = (d) => {
+d.setAttribute('role', 'button'); d.tabIndex = 0; d.setAttribute('aria-pressed', 'false');
+d.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); d.click(); } };
+};
 PIANTE_BUILTIN.forEach(p=>{
 const d = document.createElement('div');
 d.className='pianta-btn'; d.dataset.id=p.id; d.dataset.tipo='builtin';
-d.innerHTML=`<span class="em">${p.emoji}</span>${ricNome(p)}`;
+d.innerHTML=`<span class="em" aria-hidden="true">${p.emoji}</span>${esc(ricNome(p))}`;
+bindCardKb(d);
 d.onclick=()=>selPianta(p.id, 'builtin');
 grid.appendChild(d);
 });
@@ -3730,7 +3746,8 @@ ricetteCustom.forEach((ric, ri)=>{
 const d = document.createElement('div');
 d.className='pianta-btn'; d.dataset.id=ri; d.dataset.tipo='custom';
 d.style.position='relative';
-d.innerHTML=`<span class="em">${esc(ric.emoji)||'🌱'}</span>${esc(ric.nome)}<button class="btn-del btn-sm" style="position:absolute;top:4px;right:4px;padding:2px 6px;font-size:.6rem" onclick="event.stopPropagation();eliminaRicetta(${ri})" aria-label="${esc(TT('Elimina ricetta','Delete recipe'))} ${esc(ric.nome)}">✕</button>`;
+d.innerHTML=`<span class="em" aria-hidden="true">${esc(ric.emoji)||'🌱'}</span>${esc(ric.nome)}<button type="button" class="btn-del btn-sm" style="position:absolute;top:4px;right:4px;padding:2px 6px;font-size:.6rem" onclick="event.stopPropagation();eliminaRicetta(${ri})" aria-label="${esc(TT('Elimina ricetta','Delete recipe'))} ${esc(ric.nome)}">✕</button>`;
+bindCardKb(d);
 d.onclick=()=>selPianta(ri, 'custom');
 grid.appendChild(d);
 });
@@ -3747,25 +3764,33 @@ tipoRicettaSel = tipo;
 if(tipo === 'builtin'){
 piantaSel = PIANTE_BUILTIN.find(p=>p.id===id);
 faseSel = null;
-document.querySelectorAll('.pianta-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id && b.dataset.tipo==='builtin'));
+document.querySelectorAll('.pianta-btn').forEach(b=>{
+const on = b.dataset.id===id && b.dataset.tipo==='builtin';
+b.classList.toggle('active', on);
+b.setAttribute('aria-pressed', on ? 'true' : 'false');
+});
 const fr = document.getElementById('fase-row');
-fr.innerHTML='';
+fr.replaceChildren();
 piantaSel.fasi.forEach((f,i)=>{
-const d=document.createElement('div');
-d.className='fase-btn'; d.dataset.i=i;
-d.innerHTML=`${f.icon}<br>${faseNome(piantaSel, i, f)}`;
+const d=document.createElement('button');
+d.type='button'; d.className='fase-btn'; d.dataset.i=i; d.setAttribute('aria-pressed','false');
+d.innerHTML=`${f.icon}<br>${esc(faseNome(piantaSel, i, f))}`;
 d.onclick=()=>selFase(i);
 fr.appendChild(d);
 });
 } else {
 piantaSel = ricetteCustom[id];
 faseSel = null;
-document.querySelectorAll('.pianta-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===String(id) && b.dataset.tipo==='custom'));
+document.querySelectorAll('.pianta-btn').forEach(b=>{
+const on = b.dataset.id===String(id) && b.dataset.tipo==='custom';
+b.classList.toggle('active', on);
+b.setAttribute('aria-pressed', on ? 'true' : 'false');
+});
 const fr = document.getElementById('fase-row');
-fr.innerHTML='';
+fr.replaceChildren();
 piantaSel.fasi.forEach((f,i)=>{
-const d=document.createElement('div');
-d.className='fase-btn'; d.dataset.i=i;
+const d=document.createElement('button');
+d.type='button'; d.className='fase-btn'; d.dataset.i=i; d.setAttribute('aria-pressed','false');
 d.innerHTML=`${esc(f.icon)||'🌿'}<br>${esc(f.nome)}`;
 d.onclick=()=>selFase(i);
 fr.appendChild(d);
@@ -3788,7 +3813,11 @@ document.getElementById('ricetta-out-wrap').style.display='none';
 }
 function selFase(i, noScroll){
 faseSel = piantaSel.fasi[i];
-document.querySelectorAll('.fase-btn').forEach(b=>b.classList.toggle('active',+b.dataset.i===i));
+document.querySelectorAll('.fase-btn').forEach(b=>{
+const on = +b.dataset.i===i;
+b.classList.toggle('active', on);
+b.setAttribute('aria-pressed', on ? 'true' : 'false');
+});
 fcPreserveScroll(()=>{
 renderRicettaOut(piantaSel, faseSel, tipoRicettaSel);
 document.getElementById('tab-ricette').classList.remove('fasi-focus');
@@ -3837,7 +3866,7 @@ if(!bar) return;
 if(!pianta || !fase || typeof buildAmazonUrl !== 'function'){
 bar.hidden = true;
 bar.style.display = 'none';
-bar.innerHTML = '';
+bar.replaceChildren();
 return;
 }
 const pickItem = (id, fb) => (ATTREZZATURA_ITEMS.find(x => x.id === id) || fb);
@@ -3880,14 +3909,14 @@ html+=`<div class="ri-grid">
       <div class="ri-box"><div class="ri-lbl">pH target</div><div class="ri-val">${fase.ph[0]}–${fase.ph[1]}</div><div class="ri-sub">${currentLang==='en'?'pH units':'unità pH'}</div></div>
       <div class="ri-box"><div class="ri-lbl">${totCostoTarget>0?TT('Costo / 1000L','Cost / 1000L'):(currentLang==='en'?'Mode':'Modalità')}</div><div class="ri-val"${totCostoTarget>0?'':' style="font-size:.7rem"'}>${totCostoTarget>0?fmtEuro(totCostoTarget):'Target'}</div><div class="ri-sub">${totCostoTarget>0?stimaT.sub:'mg/L'}</div></div>
     </div>`;
-html+=`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('js.elemento')}</th><th style="text-align:right">${t('js.targetMgL')}</th><th style="text-align:right">${TT('Equivalente molare','Molar equivalent')}</th></tr></thead><tbody>`;
+html+=`<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t('js.elemento')}</th><th scope="col" style="text-align:right">${t('js.targetMgL')}</th><th scope="col" style="text-align:right">${TT('Equivalente molare','Molar equivalent')}</th></tr></thead><tbody>`;
 Object.entries(tg).filter(([,v])=>v>0).forEach(([el,v])=>{
 const isMicroEl=MICRO_TARGET_ELS.includes(el);
 const unitMol=isMicroEl?'µmol/L':'mmol/L';
-html+=`<tr><td><strong>${elLabel(el)}</strong></td><td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--ar)">${v}</td><td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--ts)">${targetMgToMol(el,v)} <span style="font-weight:700;color:${isMicroEl?'var(--vi)':'var(--vc)'}">${unitMol}</span></td></tr>`;
+html+=`<tr><td><strong>${elLabel(el)}</strong></td><td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--ar-dk)">${v}</td><td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--ts)">${targetMgToMol(el,v)} <span style="font-weight:700;color:${isMicroEl?'var(--vi)':'var(--vc-dk)'}">${unitMol}</span></td></tr>`;
 });
 html+=`</tbody></table></div>`;
-html+=`<button class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-top:10px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
+html+=`<button type="button" class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-top:10px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
 document.getElementById('ricetta-out').innerHTML=html;
 renderRicettaGearBar(pianta, fase);
 return;
@@ -3903,7 +3932,7 @@ let html=`<div class="ri-grid" style="margin-bottom:8px">
     <div class="ri-box"><div class="ri-lbl">pH target</div><div class="ri-val">${fase.ph[0]}–${fase.ph[1]}</div><div class="ri-sub">${t('js.unitaPh')}</div></div>
     <div class="ri-box"><div class="ri-lbl">${totCosto>0?TT('Costo / 1000L','Cost / 1000L'):t('js.componenti')}</div><div class="ri-val">${totCosto>0?fmtEuro(totCosto):saliFase.length}</div><div class="ri-sub">${totCosto>0?stimaG.sub:t('js.sali')}</div></div>
   </div>`;
-html+=`<button class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-bottom:8px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
+html+=`<button type="button" class="btn btn-pr" onclick="caricaRicettaCorrente()" style="margin-bottom:8px">${TT('⚗️ Usa questa ricetta → Imposta serbatoi e calcola','⚗️ Use this recipe → Set tanks and calculate')}</button>`;
 html+=`<div style="display:flex;gap:6px;flex-wrap:wrap;background:var(--cs);border-radius:var(--r);padding:7px 10px;margin-bottom:8px;font-size:.73rem;align-items:center">
     <span style="font-weight:700;color:var(--ts);text-transform:uppercase;font-size:.64rem;letter-spacing:.04em">${TT('Target mg/L:','Target mg/L:')}</span>
     ${stripEls.map(el=>`<span style="background:#fff;border:1px solid var(--bo);border-radius:4px;padding:2px 7px;font-family:'JetBrains Mono',monospace"><strong>${el}</strong> ${(profBase[el]||0).toFixed(0)}</span>`).join('')}
@@ -4067,7 +4096,7 @@ const ric=ricetteCustom[ri];
 document.getElementById('ric-nome').value=ric.nome;
 document.getElementById('ric-emoji').value=ric.emoji||'🌱';
 document.getElementById('ric-note').value=ric.note||'';
-fasiBozza=JSON.parse(JSON.stringify(ric.fasi));
+fasiBozza=structuredClone(ric.fasi);
 document.getElementById('modal-ric-title').textContent=t('js.modificaRicetta');
 renderFasiEditor();
 openModal('modal-ricetta');
@@ -4093,12 +4122,17 @@ const s = String(text||'');
 const keys = Object.keys(EL_NAME).sort((a,b)=>b.length-a.length).join('|');
 const boundary = 'A-Za-zÀ-ÖØ-öø-ÿ0-9₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻';
 return s.replace(new RegExp(`(^|[^${boundary}])(${keys})(?!\\s*\\()(?=$|[^${boundary}])`,'g'), (m, pre, el, off)=>{
-const next = s[off+m.length];
-const before = s.slice(Math.max(0, off-18), off+pre.length);
-if(el === 'B' && /(?:serb\.?|serbatoi\w*|tanks?|vasc\w*|\bA\s*(?:,|\/|e|and|o|or))\s*$/i.test(before)) return m;
+const tail = s.slice(off+m.length);
+const next = tail[0];
+const before = s.slice(Math.max(0, off-22), off+pre.length);
+if(el === 'B' && /(?:serb\.?|serbatoi\w*|tanks?|vasc\w*|\bA\s*(?:,|\/|e|and|o|or)|sali)\s*$/i.test(before)) return m;
+if(el === 'B' && /^\s+salts\b/i.test(tail)) return m;
 if(/(?:serb\.?|serbatoi\w*|tanks?)\s+$/i.test(before)) return m;
-if(pre==='/' || pre==='-' || next==='/' || next==='-') return m;
-if(pre==='(') return m;
+if(el === 'Si' && /polimeri\s*$/i.test(before)) return m;
+if(el === 'Si' && /^\s+polymers\b/i.test(tail)) return m;
+if(el === 'Si' && currentLang!=='en' && /(?:^|[.!?:—–]\s+)$/.test(before) && /^\s+[a-zà-ÿ]/.test(tail)) return m;
+if(pre==='/' || pre==='-' || pre==='+' || next==='/' || next==='-' || next==='+') return m;
+if(pre==='(' || next===')') return m;
 return pre+elLabel(el);
 });
 }
@@ -4121,14 +4155,14 @@ fasiBozza[fi].targets[el] = Math.max(0, +v || 0);
 }
 function renderFasiEditor(){
 const wrap=document.getElementById('fasi-editor');
-wrap.innerHTML='';
+wrap.replaceChildren();
 fasiBozza.forEach((f,fi)=>{
 const isTarget=f.modo==='target';
 const isMol=f.targetUnit==='mol';
 const targetsHtml=isTarget?`
       <div class="mode-toggle" style="margin-top:10px;max-width:300px">
-        <button class="mode-btn ${!isMol?'active':''}" onclick="fasiBozza[${fi}].targetUnit='mg';renderFasiEditor()">mg/L</button>
-        <button class="mode-btn ${isMol?'active':''}" onclick="fasiBozza[${fi}].targetUnit='mol';renderFasiEditor()">mmol/L · µmol/L</button>
+        <button type="button" class="mode-btn ${!isMol?'active':''}" onclick="fasiBozza[${fi}].targetUnit='mg';renderFasiEditor()">mg/L</button>
+        <button type="button" class="mode-btn ${isMol?'active':''}" onclick="fasiBozza[${fi}].targetUnit='mol';renderFasiEditor()">mmol/L · µmol/L</button>
       </div>
       <div class="target-grid" style="margin-top:8px">
         ${['N','P','K','Ca','Mg','S','Fe','Mn','B','Zn','Cu','Mo'].map(el=>{
@@ -4139,7 +4173,7 @@ const oc=isMol?`setTargetMol(${fi},'${el}',this.value)`:`setTargetMg(${fi},'${el
 return `
           <div class="tg-box">
             <div class="tg-lbl"><span>${elLabel(el)}</span> <span class="tg-unit">${unitLbl}</span></div>
-            <input type="number" min="0" step="any" value="${val}" onchange="${oc}"${el==='S'?` placeholder="${TT('0 = libero','0 = free')}" title="${TT('Zolfo opzionale: 0 = libero (anione di bilanciamento, il solver lo tiene basso)','Optional sulfur: 0 = free (balancing anion, kept low by the solver)')}"`:''}>
+            <input type="number" min="0" step="any" value="${val}" aria-label="${esc(elName(el))} (${unitLbl})" onchange="${oc}"${el==='S'?` placeholder="${TT('0 = libero','0 = free')}" title="${TT('Zolfo opzionale: 0 = libero (anione di bilanciamento, il solver lo tiene basso)','Optional sulfur: 0 = free (balancing anion, kept low by the solver)')}"`:''}>
           </div>`;}).join('')}
       </div>`:'';
 let saliHtml='';
@@ -4147,28 +4181,28 @@ if(!isTarget){
 saliHtml=`<div style="margin-top:10px">`;
 (f.sali||[]).forEach((s,si)=>{
 saliHtml+=`<div style="display:flex;gap:6px;align-items:center;margin-bottom:5px;flex-wrap:wrap">
-          <select onchange="fasiBozza[${fi}].sali[${si}].id=this.value;fasiBozza[${fi}].sali[${si}].nome=this.options[this.selectedIndex].text" style="flex:1;min-width:140px;padding:5px;font-size:.76rem;background:#fff">
+          <select aria-label="${esc(TT('Sale fase','Stage salt'))}" onchange="fasiBozza[${fi}].sali[${si}].id=this.value;fasiBozza[${fi}].sali[${si}].nome=this.options[this.selectedIndex].text" style="flex:1;min-width:140px;padding:5px;font-size:.76rem;background:#fff">
             ${buildSelectOpts(s.id||null)}
           </select>
-          <input type="number" value="${s.g||0}" min="0" step="0.1" onchange="fasiBozza[${fi}].sali[${si}].g=+this.value" style="width:70px;padding:5px;font-size:.78rem">
+          <input type="number" value="${s.g||0}" min="0" step="0.1" aria-label="g/1000L" onchange="fasiBozza[${fi}].sali[${si}].g=+this.value" style="width:70px;padding:5px;font-size:.78rem">
           <span style="font-size:.68rem;color:var(--ts)">g/1000L</span>
-          <button class="btn btn-del btn-sm" onclick="fasiBozza[${fi}].sali.splice(${si},1);renderFasiEditor()">✕</button>
+          <button type="button" class="btn btn-del btn-sm" aria-label="${esc(TT('Rimuovi sale','Remove salt'))}" onclick="fasiBozza[${fi}].sali.splice(${si},1);renderFasiEditor()">✕</button>
         </div>`;
 });
-saliHtml+=`<button class="btn btn-se btn-sm" onclick="fasiBozza[${fi}].sali=fasiBozza[${fi}].sali||[];fasiBozza[${fi}].sali.push({id:'KNO3',nome:salNome(getSale('KNO3'))||'KNO₃',g:0});renderFasiEditor()">${TT('+ Sale','+ Salt')}</button></div>`;
+saliHtml+=`<button type="button" class="btn btn-se btn-sm" onclick="fasiBozza[${fi}].sali=fasiBozza[${fi}].sali||[];fasiBozza[${fi}].sali.push({id:'KNO3',nome:salNome(getSale('KNO3'))||'KNO₃',g:0});renderFasiEditor()">${TT('+ Sale','+ Salt')}</button></div>`;
 }
 const card=document.createElement('div');
 card.style.cssText='border:1.5px solid var(--bo);border-radius:6px;margin-bottom:10px;overflow:hidden';
 card.innerHTML=`
       <div style="background:var(--cs);padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <input type="text" value="${esc(f.icon)||'🌿'}" onchange="fasiBozza[${fi}].icon=this.value" style="width:38px;padding:4px;text-align:center;font-size:1rem;background:#fff">
-        <input type="text" value="${esc(f.nome)}" onchange="fasiBozza[${fi}].nome=this.value" style="flex:1;min-width:100px;padding:5px 8px;background:#fff;font-weight:600">
-        <button class="btn btn-del btn-sm" onclick="fasiBozza.splice(${fi},1);renderFasiEditor()">✕</button>
+        <input type="text" value="${esc(f.icon)||'🌿'}" aria-label="${esc(TT('Icona fase','Stage icon'))}" onchange="fasiBozza[${fi}].icon=this.value" style="width:38px;padding:4px;text-align:center;font-size:1rem;background:#fff">
+        <input type="text" value="${esc(f.nome)}" aria-label="${esc(TT('Nome fase','Stage name'))}" onchange="fasiBozza[${fi}].nome=this.value" style="flex:1;min-width:100px;padding:5px 8px;background:#fff;font-weight:600">
+        <button type="button" class="btn btn-del btn-sm" aria-label="${esc(TT('Elimina fase','Delete stage'))} ${esc(f.nome)}" onclick="fasiBozza.splice(${fi},1);renderFasiEditor()">✕</button>
       </div>
       <div style="padding:10px 12px">
         <div class="mode-toggle" style="margin-bottom:10px">
-          <button class="mode-btn ${!isTarget?'active':''}" onclick="fasiBozza[${fi}].modo='grammi';renderFasiEditor()">${TT('📊 Ricetta Fissa (g)','📊 Fixed Recipe (g)')}</button>
-          <button class="mode-btn ${isTarget?'active':''}" onclick="fasiBozza[${fi}].modo='target';renderFasiEditor()">${TT('🎯 Target Elementare (mg/L)','🎯 Elemental Target (mg/L)')}</button>
+          <button type="button" class="mode-btn ${!isTarget?'active':''}" onclick="fasiBozza[${fi}].modo='grammi';renderFasiEditor()">${TT('📊 Ricetta Fissa (g)','📊 Fixed Recipe (g)')}</button>
+          <button type="button" class="mode-btn ${isTarget?'active':''}" onclick="fasiBozza[${fi}].modo='target';renderFasiEditor()">${TT('🎯 Target Elementare (mg/L)','🎯 Elemental Target (mg/L)')}</button>
         </div>
         <div class="row2">
           <div><label style="font-size:.65rem;font-weight:700;color:var(--ts)">${TT('EC min-max (mS/cm)','EC min-max (mS/cm)')}</label>
@@ -4202,11 +4236,12 @@ h+='</optgroup>';
 return h;
 }
 function salvaRicetta(){
-const nome=sanitizeName(document.getElementById('ric-nome').value.trim());
-if(!nome){ alert(t('js.nomeRicetta')); return; }
-if(!fasiBozza.length){ alert(t('js.nomeFase')); return; }
+const nomeEl = document.getElementById('ric-nome');
+const nome=sanitizeName(nomeEl.value.trim());
+if(!nome){ showToast(t('js.nomeRicetta'), false); nomeEl?.focus(); return; }
+if(!fasiBozza.length){ showToast(t('js.nomeFase'), false); return; }
 const sanitizeEmoji = s => String(s||'').replace(/[<>"'&]/g,'').trim().slice(0,8);
-const fasi=JSON.parse(JSON.stringify(fasiBozza)).map(f=>({...f, icon:sanitizeEmoji(f.icon||'🌱')||'🌱', nome:sanitizeName(f.nome), note:sanitizeName(f.note)}));
+const fasi=structuredClone(fasiBozza).map(f=>({...f, icon:sanitizeEmoji(f.icon||'🌱')||'🌱', nome:sanitizeName(f.nome), note:sanitizeName(f.note)}));
 const ric={nome, emoji:sanitizeEmoji(document.getElementById('ric-emoji').value)||'🌱', note:sanitizeName(document.getElementById('ric-note').value.trim()), fasi};
 let savedRi;
 if(editRicId!==null){ ricetteCustom[editRicId]=ric; savedRi=editRicId; } else { ricetteCustom.push(ric); savedRi=ricetteCustom.length-1; }
@@ -4219,7 +4254,7 @@ return buildSelectOpts(selId)+`<option value="__custom"${selId==='__custom'?' se
 function renderCalcTabella(){
 return fcPreserveScroll(()=>{
 const tb=document.getElementById('calc-tbody');
-tb.innerHTML='';
+tb.replaceChildren();
 if(!calcRighe.length){
 tb.innerHTML=`<tr><td colspan="4" style="padding:12px;text-align:center;color:var(--ts);font-size:.78rem">${t('js.nessunSale')}</td></tr>`;
 updateRicalcolaBar();
@@ -4229,6 +4264,7 @@ calcRighe.forEach((r,i)=>{
 const info=r.id&&r.id!=='__custom'?getSale(r.id):null;
 const cat=info?(CAT[info.cat]||{bg:'#555',label:'?'}):{bg:'#555',label:'?'};
 const disp = r.id==='__custom' ? true : isDisponibile(r.id);
+const rowLbl = esc(r.nomeCustom || (info ? salNome(info) : r.nome) || t('js.personalizzato'));
 const tr=document.createElement('tr');
 if(!disp) tr.className='row-calc-miss';
 tr.innerHTML=`<td style="min-width:180px">
@@ -4236,20 +4272,21 @@ tr.innerHTML=`<td style="min-width:180px">
           <span class="bcat" style="background:${cat.bg}">${cat.label}</span>
           ${!disp?`<span class="miss-tag">${t('js.nonDisp')}</span>`:''}
         </div>
-        <select onchange="cambioSaleCalc(${i},this.value)" style="width:100%;font-size:.75rem;padding:5px 6px;background:#fff">
+        <select aria-label="${esc(t('tbl.sale'))} #${i+1}" onchange="cambioSaleCalc(${i},this.value)" style="width:100%;font-size:.75rem;padding:5px 6px;background:#fff">
           ${buildSelectCalc(r.id||'__custom')}
         </select>
-        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" value="${esc(r.nomeCustom)}" data-riga="${i}" data-campo="nomeCustom" oninput="calcRighe[${i}].nomeCustom=this.value" onchange="calcRighe[${i}].nomeCustom=sanitizeName(this.value);this.value=calcRighe[${i}].nomeCustom" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
+        ${!info?`<input type="text" placeholder="${TT('Nome…','Name…')}" aria-label="${esc(TT('Nome sale personalizzato','Custom salt name'))}" value="${esc(r.nomeCustom)}" data-riga="${i}" data-campo="nomeCustom" oninput="calcRighe[${i}].nomeCustom=this.value" onchange="calcRighe[${i}].nomeCustom=sanitizeName(this.value);this.value=calcRighe[${i}].nomeCustom" style="margin-top:4px;font-size:.75rem;padding:5px;background:#fff">`:``}
+        ${r._nota?`<div style="font-size:.66rem;color:var(--ar-dk);margin-top:3px;font-weight:600">${esc(r._nota)}</div>`:''}
         ${info&&info.el?`<div class="el-txt">${elPctList(info.el)}</div>`:''}
       </td>
       <td style="vertical-align:top;padding-top:20px">
-        <input type="number" value="${r.dose}" min="0" step="0.1" data-riga="${i}" data-campo="dose" onchange="calcRighe[${i}].dose=+this.value;segnaModificaManuale()" style="text-align:right;width:80px;padding:5px;background:#fff">
+        <input type="number" value="${r.dose}" min="0" step="0.1" aria-label="${esc(t('tbl.dose'))} — ${rowLbl}" data-riga="${i}" data-campo="dose" onchange="calcRighe[${i}].dose=+this.value;segnaModificaManuale()" style="text-align:right;width:80px;padding:5px;background:#fff">
       </td>
       <td style="vertical-align:top;padding-top:20px">
-        <input type="number" value="${r.prezzo||0}" min="0" step="0.01" data-riga="${i}" data-campo="prezzo" onchange="calcRighe[${i}].prezzo=+this.value;if(document.getElementById('risultato-stampa'))calcola({noScroll:true})" style="width:68px;padding:5px;background:#fff" placeholder="0.00">
+        <input type="number" value="${r.prezzo||0}" min="0" step="0.01" aria-label="€/kg — ${rowLbl}" data-riga="${i}" data-campo="prezzo" onchange="calcRighe[${i}].prezzo=+this.value;if(document.getElementById('risultato-stampa'))calcola({noScroll:true})" style="width:68px;padding:5px;background:#fff" placeholder="0.00">
       </td>
       <td style="vertical-align:top;padding-top:20px">
-        <button class="btn btn-del btn-sm" onclick="rimuoviRigaCalc(${i})">✕</button>
+        <button type="button" class="btn btn-del btn-sm" aria-label="${esc(TT('Rimuovi','Remove'))} ${rowLbl}" onclick="rimuoviRigaCalc(${i})">✕</button>
       </td>`;
 tb.appendChild(tr);
 });
@@ -4260,6 +4297,7 @@ function setSaliPrepCollapsed(collapsed){
 const body=document.getElementById('sali-prep-body');
 if(!body) return;
 body.style.display=collapsed?'none':'block';
+document.getElementById('ch-sali-calc')?.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
 updateSaliPrepBadge();
 }
 function toggleSaliPrep(){
@@ -4307,7 +4345,7 @@ if(chips.length){
 } else {
   strip.hidden = true;
   strip.style.display = 'none';
-  strip.innerHTML = '';
+  strip.replaceChildren();
 }
 }
 } else {
@@ -4315,7 +4353,7 @@ bar.style.display='none';
 if(strip){
 strip.hidden = true;
 strip.style.display = 'none';
-strip.innerHTML = '';
+strip.replaceChildren();
 }
 }
 }
@@ -4624,6 +4662,7 @@ return { righe, scoperti, ottenuto:ott };
 function rigaMicroScoperto(sc){
 return { id:'__custom', nome:TT(`⚠️ ${sc.el} richiesto — aggiungi un sale di ${elName(sc.el)} (es. Mix Chelati)`,`⚠️ ${sc.el} required — add a ${elName(sc.el)} salt (e.g. Chelate Mix)`),
 dose:0, prezzo:0, fixed:false, nomeCustom:'',
+_microScoperto:true, _elScoperto:sc.el, _deficitScoperto:sc.deficit,
 _nota:TT(`Target ${sc.el}: mancano ${sc.deficit.toFixed(3)} mg/L, nessun sale in scorta lo fornisce`,`${sc.el} target: ${sc.deficit.toFixed(3)} mg/L missing, no salt in stock provides it`) };
 }
 // Solver a target. I target sono mg/L FINALI: acqua e acido prescritto (al pH
@@ -4880,7 +4919,7 @@ function ecCoeffSale(id){
 if(id==='__custom') return 0.5;
 const s = getSale(id);
 if(s && s._elCustom && s.ecC > 0) return s.ecC;
-if(EC_COEFF_GLOBAL[id] != null) return EC_COEFF_GLOBAL[id];
+if(Object.hasOwn(EC_COEFF_GLOBAL, id) && EC_COEFF_GLOBAL[id] != null) return EC_COEFF_GLOBAL[id];
 if(!s) return 0;
 if(s.ecC > 0) return s.ecC;
 return s.el ? stimaEcC(s.el, s.nh4Frac) : 0;
@@ -4957,6 +4996,7 @@ const INCOMPAT_MATRIX = [
 {a:"K2SiO3",b:"MAP",    g:"C", p:"Polimeri Si",    m:"Stesso."},
 {a:"K2SiO3",b:"H3PO4",  g:"C", p:"Reaz. acido-base", m:"Acido fosforico neutralizza il silicato → acido polisilicico gelatinoso."},
 {a:"K2SiO3",b:"HNO3",   g:"C", p:"Reaz. acido-base", m:"HNO₃ neutralizza K₂SiO₃ violentemente → acido silicico gelatinoso."},
+{a:"K2SiO3",b:"H2SO4",  g:"C", p:"Reaz. acido-base", m:"H₂SO₄ neutralizza K₂SiO₃ violentemente → acido silicico gelatinoso."},
 {a:"K2SiO3",b:"FeSO4",  g:"C", p:"Fe(OH)₃",       m:"pH 11-12 del silicato precipita Fe(OH)₃ istantaneamente."},
 {a:"K2SiO3",b:"FeEDTA", g:"A", p:"Degr. chelato",  m:"pH >9 del silicato degrada i chelati EDTA. Usare EDDHA o tenere separati."},
 {a:"K2SiO3",b:"FeDTPA", g:"A", p:"Degr. chelato",  m:"Stesso. DTPA stabile fino pH 7.5, non a pH 11."},
@@ -4966,6 +5006,7 @@ const INCOMPAT_MATRIX = [
 {a:"K2SiO3",b:"MgNO3",  g:"C", p:"Mg(OH)₂",       m:"A pH >10 precipita idrossido/silicato di Magnesio insolubile."},
 {a:"KOH",   b:"HNO3",   g:"C", p:"Reaz. violenta", m:"Base forte + acido forte: reazione esotermica violenta. Non mescolare MAI nel concentrato."},
 {a:"KOH",   b:"H3PO4",  g:"C", p:"Reaz. violenta", m:"Stesso."},
+{a:"KOH",   b:"H2SO4",  g:"C", p:"Reaz. violenta", m:"Stesso."},
 {a:"KOH",   b:"KH2PO4", g:"C", p:"Reaz. acido-base", m:"Base forte + fosfato acido → reazione esotermica e formazione fosfati insolubili."},
 {a:"KOH",   b:"MAP",    g:"C", p:"Sviluppo NH₃",   m:"Base forte + NH₄⁺ → sviluppo di ammoniaca gassosa (NH₃)."},
 {a:"KOH",   b:"NH4NO3", g:"C", p:"Sviluppo NH₃",   m:"Base forte + NH₄⁺ → sviluppo di ammoniaca gassosa (NH₃)."},
@@ -5254,7 +5295,7 @@ CaCO3:   ['CaN','CaCl2']
 let righe = righeOriginali.map(r=>({...r}));
 if(righe.some(r=>!r.serb)) righe = autoRisolvi(righe, dil||1, aq, phFinale).righe;
 dil = dil || 1;
-const origDosi = {};
+const origDosi = Object.create(null);
 const origPerIdx = righe.map(r => r.dose);
 righe.forEach(r=>{ origDosi[r.id] = (origDosi[r.id] || 0) + r.dose; });
 const siConcInit = worstSerbSI(righe, aq, dil);
@@ -5588,6 +5629,12 @@ sale.forEach(t=>conflitti.push({gravita:'A', titolo:TT('Salinità (Na/Cl)','Sali
 audit.push({check:TT('Salinità Na/Cl','Na/Cl salinity'), esito:'OK', dettaglio:TT('Na e Cl nei limiti','Na and Cl within limits')});
 }
 }
+const microScop = righe.filter(r => r && r._microScoperto);
+if(microScop.length){
+const detScop = microScop.map(r => esc(r._nota || r.nome)).join('; ');
+audit.push({check:TT('Copertura micronutrienti (target)','Micronutrient coverage (target)'), esito:'AVVISO', dettaglio:detScop});
+microScop.forEach(r => conflitti.push({gravita:'A', titolo:TT(`Micronutriente non coperto (${r._elScoperto || ''})`,`Uncovered micronutrient (${r._elScoperto || ''})`), dettaglio:esc(r._nota || r.nome)}));
+}
 const critici = conflitti.filter(c=>c.gravita==='C');
 const avvisi  = conflitti.filter(c=>c.gravita==='A');
 const sicuro = critici.length===0;
@@ -5718,6 +5765,7 @@ targetRicetta = statoCalc.target.targets;
 sceltaAcido = risolviAcidoAuto(aq, phFinale, {targets:targetRicetta});
 syncDomCalc(); const _pzMan = new Map(calcRighe.filter(r=>r&&r.id&&r.id!=='__custom'&&r.prezzo!==undefined&&+r.prezzo!==(getSale(r.id)?.prezzo||0)).map(r=>[r.id,+r.prezzo||0])); const solved=solverTarget(targetRicetta, volA, volB, dil, aq, phFinale); solved.forEach(r=>{ if(_pzMan.has(r.id)) r.prezzo=_pzMan.get(r.id); });
 calcRighe=solved; righe=solved; renderCalcTabella();
+if(solved.some(r=>r._microScoperto)) setSaliPrepCollapsed(false);
 _fromSolver = true;
 righeNette = true;
 } else {
@@ -5820,14 +5868,14 @@ html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><sp
             <td style="padding:4px 0;font-weight:600">${esc(d.nome)}</td>
             <td style="padding:4px 0;text-align:right;font-family:'JetBrains Mono',monospace">${fmtGram(d.doseOrig)}</td>
             <td style="padding:4px 0;text-align:center;color:var(--ts)">→</td>
-            <td style="padding:4px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--vc)">${fmtGram(d.doseNew)}</td>
+            <td style="padding:4px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--vc-dk)">${fmtGram(d.doseNew)}</td>
             <td style="padding:4px 0;text-align:right;font-weight:700;color:var(--ro)">${d.pctChange.toFixed(1)}%</td>
           </tr>`).join('')}
         </table>
         <div style="font-size:.7rem;color:var(--ts);margin-top:6px">${TT('Riducendo queste dosi, la soluzione non precipiterà nei serbatoi. La EC finale resta nella stessa fascia.','By reducing these doses, the solution will not precipitate in the tanks. The final EC stays in the same range.')}</div>
       </div>`:''}
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-se btn-sm" onclick="ripristinaDosiOriginali()" style="border-color:var(--ro);color:var(--ro)">${t('js.ripristinaOriginali')}</button>
+        <button type="button" class="btn btn-se btn-sm" onclick="ripristinaDosiOriginali()" style="border-color:var(--ro);color:var(--ro)">${t('js.ripristinaOriginali')}</button>
       </div>
     </div></div>`;
 } else if(!sicurezza.sicuro){
@@ -5848,6 +5896,17 @@ html+=`<div class="alert al-inf" data-verdict="warn" style="margin-bottom:10px">
 html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.corretto')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli superati. Nessuna precipitazione attesa una volta miscelati i sali nei serbatoi indicati. Vedi log interventi qui sotto; audit completo in <em>Info tecniche</em>.`,`All ${sicurezza.audit.length} checks passed. No precipitation expected once the salts are mixed in the indicated tanks. See the intervention and audit log below (full audit under <em>Technical info</em>).`)}</span></div>`;
 } else {
 html+=`<div class="alert al-ok" data-verdict="ok" style="margin-bottom:10px"><span>✅</span><span><strong>${t('js.voto.ok')}.</strong> ${TT(`Tutti i ${sicurezza.audit.length} controlli di compatibilità superati. Nessuna precipitazione attesa.`,`All ${sicurezza.audit.length} compatibility checks passed. No precipitation expected.`)}</span></div>`;
+}
+{
+const microScop = wRighe.filter(r => r && r._microScoperto);
+if(microScop.length){
+html+=`<div class="alert al-inf" data-micro-scop="1" style="margin-bottom:10px"><span>⚠️</span><div>
+      <strong>${TT('Micronutrienti target non coperti dalla scorta attuale:','Target micronutrients not covered by current stock:')}</strong>
+      <ul style="margin:6px 0 0 16px;line-height:1.7;font-size:.76rem">
+        ${microScop.map(r => `<li>${esc(r._nota || r.nome)}</li>`).join('')}
+      </ul>
+    </div></div>`;
+}
 }
 if(needsSerbC.length>0 || usaSerbC){
 const titoloC = motiviSerbCAuto ? t('js.serbCautoTitle') : needsSerbC.length ? t('js.serbCtitle') : t('js.serbCattivo');
@@ -5896,7 +5955,7 @@ const infoR=getSale(r.id);
 const _lblSale = r.nomeCustom || r.nome || (r.id==='__custom' ? t('js.personalizzato') : r.id);
 html+=`<div class="sale-row"><span class="sale-nome">${esc(_lblSale)}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtDose(infoR,g)}</span>${pz?`<br><span class="costo-txt">${fmtEuro(pz,2)}</span>`:''}</div></div>`;
 });
-sObj.costoSerb=costoSerb; html+=`<div class="sale-row tot-row"><span>${t('js.totale')}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtTotaleSerb(righeSerb,vol)}</span>${costoSerb>0?`<br><span class="costo-txt" style="font-weight:700;color:var(--ar)">${fmtEuro(costoSerb,2)}</span>`:''}</div></div>`;
+sObj.costoSerb=costoSerb; html+=`<div class="sale-row tot-row"><span>${t('js.totale')}</span><div style="text-align:right"><span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${colore}">${fmtTotaleSerb(righeSerb,vol)}</span>${costoSerb>0?`<br><span class="costo-txt" style="font-weight:700;color:var(--ar-dk)">${fmtEuro(costoSerb,2)}</span>`:''}</div></div>`;
 }
 html+=`</div>`;
 });
@@ -5915,10 +5974,10 @@ html+=`<div style="background:#fff3e0;border:2px solid #e65100;border-radius:var
             Una diluizione <strong>1:${ivDil.dilSuggerito}</strong> porterebbe la madre a <strong>${ivDil.ecConcSugg} mS/cm</strong>.`,`At 1:${ivDil.dilAttuale} the critical mother solution reaches <strong>${ivDil.ecConcAttuale} mS/cm</strong>.
             The doses <strong>were not modified</strong>: the final EC is preserved at <strong>${ivDil.ecFin} mS/cm</strong>.<br>
             A dilution of <strong>1:${ivDil.dilSuggerito}</strong> would bring the mother solution to <strong>${ivDil.ecConcSugg} mS/cm</strong>.`)}<br>
-            <span style="color:#888;font-size:.72rem">${TT('La sicurezza è verificata dagli indici di saturazione (SI). Se il SI>0 per qualche composto, il precipitato si formerà indipendentemente dall\'EC.','Safety is verified by saturation indices (SI). If SI>0 for any compound, the precipitate will form regardless of EC.')}</span>
+            <span style="color:#666;font-size:.72rem">${TT('La sicurezza è verificata dagli indici di saturazione (SI). Se il SI>0 per qualche composto, il precipitato si formerà indipendentemente dall\'EC.','Safety is verified by saturation indices (SI). If SI>0 for any compound, the precipitate will form regardless of EC.')}</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-            <button class="btn btn-pr btn-sm" onclick="applicaDiluizione(${ivDil.dilSuggerito})" style="width:auto">
+            <button type="button" class="btn btn-pr btn-sm" onclick="applicaDiluizione(${ivDil.dilSuggerito})" style="width:auto">
               ${TT(`✅ Applica diluizione 1:${ivDil.dilSuggerito} e ricalcola`,`✅ Apply dilution 1:${ivDil.dilSuggerito} and recalculate`)}
             </button>
             <span style="font-size:.72rem;color:#888">${usaSerbC?TT(`Tutti e 3 i serbatoi useranno 1:${ivDil.dilSuggerito}`,`All 3 tanks will use 1:${ivDil.dilSuggerito}`):TT(`Entrambi i serbatoi useranno 1:${ivDil.dilSuggerito}`,`Both tanks will use 1:${ivDil.dilSuggerito}`)}</span>
@@ -5956,7 +6015,7 @@ const costoAcidoPerMille = (aq && aq.hco3 > 0) ? calcolaCostoAcidoPerMille(aq, p
 const costoAcidoBatch = costoAcidoPerMille * (volFinale1000L / 1000); const costoPerMille = costoSaliPerMille + costoAcidoPerMille; const costoSaliCicloMin = costoSaliPerMille * (volFinale1000L / 1000);
 const acidoNomeLbl = !acidoCalc ? '' : acidoCalc.tipo==='MIX' ? 'Mix H₃PO₄ + HNO₃' : acidoCalc.tipo==='H2SO4' ? 'H₂SO₄ 38%' : acidoCalc.tipo==='H3PO4' ? 'H₃PO₄ 75%' : 'HNO₃ 38%';
 html+=`<div class="card" style="margin-top:12px;margin-bottom:12px">
-    <div class="ch" style="background:var(--ar)">${TT('📊 Riepilogo — Diluizione','📊 Summary — Dilution')} 1:${dil}</div>
+    <div class="ch" style="background:var(--ar-dk)">${TT('📊 Riepilogo — Diluizione','📊 Summary — Dilution')} 1:${dil}</div>
     <div class="cb">
       <div class="eco-row"><span>${TT('EC soluzione finale','Final solution EC')}</span><span class="eco-val"><strong>${ecFin2.toFixed(2)} mS/cm</strong></span></div>
       ${serbatoi.map(s=>{
@@ -6024,12 +6083,12 @@ const rows = [['N','N'],['P','P'],['K','K'],['Ca','Ca'],['Mg','Mg'],['S','S']]
 .map(([lbl,k])=>{ const tg=rifFedelta[k]||0, ot=profFin[k]||0; return {lbl, tg, ot, dlt: tg>0?(ot-tg)/tg*100:(ot>0.5?100:0)}; })
 .filter(r=>r.tg>0 || r.ot>0.5);
 if(rows.length){
-const colDelta = d => Math.abs(d)<=5 ? 'var(--vc)' : Math.abs(d)<=15 ? 'var(--ar)' : 'var(--ro)';
+const colDelta = d => Math.abs(d)<=5 ? 'var(--vc-dk)' : Math.abs(d)<=15 ? 'var(--ar-dk)' : 'var(--ro)';
 html+=`<div class="card tech-info" style="margin-bottom:12px">
         <div class="ch" style="background:#0c7b8e">${TT('🎯 Fedeltà alla ricetta (target → ottenuto)','🎯 Recipe fidelity (target → obtained)')}</div>
         <div class="cb" style="padding:0">
           <div class="tbl-wrap"><table class="tbl" style="min-width:340px">
-            <thead><tr><th>${TT('Elemento','Element')}</th><th style="text-align:right">${TT('Target','Target')}</th><th style="text-align:right">${TT('Ottenuto','Obtained')}</th><th style="text-align:right">Δ%</th></tr></thead>
+            <thead><tr><th scope="col">${TT('Elemento','Element')}</th><th scope="col" style="text-align:right">${TT('Target','Target')}</th><th scope="col" style="text-align:right">${TT('Ottenuto','Obtained')}</th><th scope="col" style="text-align:right">Δ%</th></tr></thead>
             <tbody>${rows.map(r=>`<tr>
               <td style="font-weight:600">${r.lbl} <span style="color:var(--ts);font-weight:400;font-size:.85em">${elName(r.lbl)}</span></td>
               <td style="text-align:right;font-family:'JetBrains Mono',monospace">${r.tg.toFixed(0)}</td>
@@ -6056,12 +6115,12 @@ html+=`<div class="card tech-info" style="margin-top:12px">
         <div class="ri-grid" style="grid-template-columns:repeat(4,1fr)">
           <div class="ri-box"><div class="ri-lbl">${TT('EC precisa','Precise EC')}</div><div class="ri-val" style="color:#1a5a8a">${ecPrecisa.toFixed(2)}</div><div class="ri-sub">${TT('mS/cm · conducibilità ioniche','mS/cm · ionic conductivities')}</div></div>
           <div class="ri-box"><div class="ri-lbl">${TT('Forza ionica','Ionic strength')}</div><div class="ri-val">${si.I.toFixed(3)}</div><div class="ri-sub">mol/L</div></div>
-          <div class="ri-box"><div class="ri-lbl">${TT('Bilancio','Balance')}</div><div class="ri-val" style="color:${Math.abs(bal.cat-bal.an)/Math.max(bal.an,0.01)<0.05?'var(--vc)':'var(--ro)'}">${((bal.cat-bal.an)>=0?'+':'')+(bal.cat-bal.an).toFixed(2)}</div><div class="ri-sub">meq/L (cat-an)</div></div>
+          <div class="ri-box"><div class="ri-lbl">${TT('Bilancio','Balance')}</div><div class="ri-val" style="color:${Math.abs(bal.cat-bal.an)/Math.max(bal.an,0.01)<0.05?'var(--vc-dk)':'var(--ro)'}">${((bal.cat-bal.an)>=0?'+':'')+(bal.cat-bal.an).toFixed(2)}</div><div class="rn">meq/L (cat-an)</div></div>
           <div class="ri-box"><div class="ri-lbl">pH target</div><div class="ri-val">${pH}</div><div class="ri-sub">${TT('unità','units')}</div></div>
         </div>
       </div>
     </div>`;
-function siStatus(si){return si>0?{c:'var(--ro)',t:TT('sovrasaturo','supersaturated'),ico:'🔴'}:si>-0.5?{c:'var(--ar)',t:TT('margine ridotto','reduced margin'),ico:'🟡'}:{c:'var(--vc)',t:TT('ampio margine','wide margin'),ico:'🟢'};}
+function siStatus(si){return si>0?{c:'var(--ro)',t:TT('sovrasaturo','supersaturated'),ico:'🔴'}:si>-0.5?{c:'var(--ar-dk)',t:TT('margine ridotto','reduced margin'),ico:'🟡'}:{c:'var(--vc-dk)',t:TT('ampio margine','wide margin'),ico:'🟢'};}
 function gaugeHTML(label,sub,siVal){
 const pos=Math.max(0,Math.min(100,(siVal+3)/4*100));
 const st=siStatus(siVal);
@@ -6159,10 +6218,10 @@ azioniSI+=`<div style="background:#e7f5ff;border:2px solid #1c7ed6;border-radius
               <div style="font-size:.77rem;color:#0b3d66;line-height:1.65;margin-bottom:10px">
                 ${TT(`<strong>${peggioFin.nome}</strong> è sovrasaturo (SI +${peggioFin.si.toFixed(2)}) a pH ${phFinale}, ma è <strong>metastabile</strong>: portando la soluzione finale a <strong>pH ${sicurezza.phSuggerito}</strong> torna sotto saturazione mantenendo intatto l'apporto nutritivo della ricetta.`,`<strong>${peggioFin.nome}</strong> is supersaturated (SI +${peggioFin.si.toFixed(2)}) at pH ${phFinale}, but it is <strong>metastable</strong>: bringing the final solution to <strong>pH ${sicurezza.phSuggerito}</strong> returns it below saturation while keeping the recipe's nutrient supply intact.`)}
                 <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-                  <button class="btn btn-pr btn-sm" onclick="applicaPhFinale(${sicurezza.phSuggerito})" style="width:auto;background:#1c7ed6">
+                  <button type="button" class="btn btn-pr btn-sm" onclick="applicaPhFinale(${sicurezza.phSuggerito})" style="width:auto;background:#1c7ed6">
                     ${TT(`✅ Imposta pH ${sicurezza.phSuggerito} e ricalcola`,`✅ Set pH ${sicurezza.phSuggerito} and recalculate`)}
                   </button>
-                  <button class="btn btn-se btn-sm" onclick="calcolaBilanciato()" style="border-color:#1c7ed6;color:#1c7ed6">
+                  <button type="button" class="btn btn-se btn-sm" onclick="calcolaBilanciato()" style="border-color:#1c7ed6;color:#1c7ed6">
                     ${TT('⚖️ Oppure riduci le dosi','⚖️ Or reduce the doses')}
                   </button>
                 </div>
@@ -6191,7 +6250,7 @@ azioniSI+=`<div style="background:#fff3e0;border:2px solid #e65100;border-radius
                   ${unici.slice(0,5).map(c=>`<li>${c.consiglio}</li>`).join('')}
                 </ul>
                 ${!autoBalanceApplied ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-                  <button class="btn btn-se btn-sm" onclick="calcolaBilanciato()" style="border-color:#e65100;color:#e65100">
+                  <button type="button" class="btn btn-se btn-sm" onclick="calcolaBilanciato()" style="border-color:#e65100;color:#e65100">
                     ${TT('⚖️ Bilancia Sali — Correggi automaticamente il SI','⚖️ Balance Salts — Automatically correct the SI')}
                   </button>
                 </div>` : ''}
@@ -6202,7 +6261,7 @@ azioniSI+=`<div style="background:#fff3e0;border:2px solid #e65100;border-radius
 }
 }
 html+=`
-        <div style="background:var(--cs);border-left:3px solid var(--vc);border-radius:4px;padding:8px 12px;font-size:.72rem;color:var(--ts);margin-top:8px">
+        <div style="background:var(--cs);border-left:3px solid var(--vc-dk);border-radius:4px;padding:8px 12px;font-size:.72rem;color:var(--ts);margin-top:8px">
           <strong>${TT('Stock concentrati:','Concentrate stocks:')}</strong> ${TT('Ca in un serbatoio, solfati/fosfati in altro: non si incontrano. La sicurezza negli stock è garantita dalla separazione A/B.','Ca in one tank, sulfates/phosphates in another: they never meet. Stock safety is guaranteed by A/B separation.')}
         </div>
       </div>
@@ -6217,7 +6276,7 @@ window._bilanciaReport = null;
 const imb=bal.cat-bal.an;
 const imbpct=bal.an>0?Math.abs(imb)/bal.an*100:0;
 const ibCls=imbpct<5?'ok':imbpct<12?'warn':'danger';
-const ibColor=ibCls==='ok'?'var(--vc)':ibCls==='warn'?'var(--ar)':'var(--ro)';
+const ibColor=ibCls==='ok'?'var(--vc-dk)':ibCls==='warn'?'var(--ar-dk)':'var(--ro)';
 const ibMsg=ibCls==='ok'?TT('Ricetta elettro-coerente.','Electrically consistent recipe.'):ibCls==='warn'?TT('Lieve squilibrio: rivedi i rapporti.','Slight imbalance: review the ratios.'):TT('Squilibrio marcato: il profilo richiesto non è del tutto coerente.','Marked imbalance: the requested profile is not fully consistent.');
 html+=`<div class="card tech-info" style="margin-top:12px">
       <div class="ch" style="background:var(--vm)">${TT('⚖️ Bilancio Ionico','⚖️ Ionic Balance')}</div>
@@ -6247,14 +6306,14 @@ const mgMeq = profilo.Mg / 12.155;
 const kCa  = caMeq>0 ? kMeq/caMeq : 0;
 const kMg  = mgMeq>0 ? kMeq/mgMeq : 0;
 const caMg = mgMeq>0 ? caMeq/mgMeq : 0;
-const kCaColor  = kCa>1.5  ? 'var(--ar)' : 'var(--vc)';
-const kMgColor  = (kMg>4 || kMg<1) ? 'var(--ar)' : 'var(--vc)';
-const caMgColor = (caMg<1.5 || caMg>4.5) ? 'var(--ar)' : 'var(--vc)';
+const kCaColor  = kCa>1.5  ? 'var(--ar-dk)' : 'var(--vc-dk)';
+const kMgColor  = (kMg>4 || kMg<1) ? 'var(--ar-dk)' : 'var(--vc-dk)';
+const caMgColor = (caMg<1.5 || caMg>4.5) ? 'var(--ar-dk)' : 'var(--vc-dk)';
 const kCaNote  = kCa>1.5  ? TT('K eccessivo — rischio carenza Ca','Excess K — Ca deficiency risk') : kCa<0.3 ? TT('K basso','Low K') : TT('in range','in range');
 const kMgNote  = kMg>4 ? TT('K eccessivo — blocca Mg','Excess K — blocks Mg') : kMg<1 ? TT('Mg dominante','Mg dominant') : TT('in range','in range');
 const caMgNote = caMg<1.5 ? TT('Mg dominante — rischio carenza Ca','Mg dominant — Ca deficiency risk') : caMg>4.5 ? TT('Ca eccessivo','Excess Ca') : TT('in range','in range');
 const feMn = profilo.Mn > 0.01 ? profilo.Fe / profilo.Mn : null;
-const feMnColor = feMn!==null ? (feMn>=2&&feMn<=6 ? 'var(--vc)' : 'var(--ar)') : 'var(--ts)';
+const feMnColor = feMn!==null ? (feMn>=2&&feMn<=6 ? 'var(--vc-dk)' : 'var(--ar-dk)') : 'var(--ts)';
 const feMnNote  = feMn!==null ? (feMn<2 ? TT('Fe basso vs Mn','Low Fe vs Mn') : feMn>6 ? TT('Mn scarso — verifica','Low Mn — check') : TT('in range (2–6)','in range (2–6)')) : TT('Mn non misurato','Mn not measured');
 const ratioWarn = [];
 if(kCa>1.5)  ratioWarn.push(TT(`K/Ca meq ${kCa.toFixed(2)} > 1.5: K elevato può bloccare l'assorbimento di Ca²⁺.`,`K/Ca meq ${kCa.toFixed(2)} > 1.5: high K can block Ca²⁺ uptake.`));
@@ -6266,13 +6325,13 @@ html+=`<div class="card tech-info" style="margin-top:12px">
       <div class="ch" style="background:var(--vm)">${t('js.ratioAgro')}</div>
       <div class="cb">
         <div class="ratio-grid">
-          <div class="ratio-box"><div class="rl">${TT('NH₄ / N totale','NH₄ / total N')}</div><div class="rv" style="color:${nh4frac>0.10?'var(--ar)':'var(--vc)'}">${Math.round(nh4frac*100)}%</div><div class="rn">${nh4frac>0.10?TT('alta — vedi note','high — see notes'):TT('in range','in range')}</div></div>
+          <div class="ratio-box"><div class="rl">${TT('NH₄ / N totale','NH₄ / total N')}</div><div class="rv" style="color:${nh4frac>0.10?'var(--ar-dk)':'var(--vc-dk)'}">${Math.round(nh4frac*100)}%</div><div class="rn">${nh4frac>0.10?TT('alta — vedi note','high — see notes'):TT('in range','in range')}</div></div>
           <div class="ratio-box"><div class="rl">N : K (mg/L)</div><div class="rv">${nk.toFixed(2)}</div><div class="rn">${nk<0.5?TT('K-dominante (fioritura)','K-dominant (flowering)'):nk<0.8?TT('bilanciato','balanced'):nk<1.0?TT('N-K equilibrato','N-K balanced'):TT('N-dominante (vegetativo)','N-dominant (vegetative)')}</div></div>
           <div class="ratio-box"><div class="rl">K / Ca (meq/L)</div><div class="rv" style="color:${kCaColor}">${caMeq>0?kCa.toFixed(2):'—'}</div><div class="rn">${caMeq>0?kCaNote:'—'}</div></div>
           <div class="ratio-box"><div class="rl">K / Mg (meq/L)</div><div class="rv" style="color:${kMgColor}">${mgMeq>0?kMg.toFixed(2):'—'}</div><div class="rn">${mgMeq>0?kMgNote:'—'}</div></div>
-          <div class="ratio-box"><div class="rl">Ca / Mg (meq/L)</div><div class="rv" style="color:${caMgColor}">${mgMeq>0?caMg.toFixed(2):'—'}</div><div class="rn">${mgMeq>0?caMgNote:'—'} <span style="font-size:.55rem;opacity:.7">${TT('(ottimale 2–3.5)','(optimal 2–3.5)')}</span></div></div>
+          <div class="ratio-box"><div class="rl">Ca / Mg (meq/L)</div><div class="rv" style="color:${caMgColor}">${mgMeq>0?caMg.toFixed(2):'—'}</div><div class="rn">${mgMeq>0?caMgNote:'—'} <span style="font-size:.55rem;opacity:.8">${TT('(ottimale 2–3.5)','(optimal 2–3.5)')}</span></div></div>
           <div class="ratio-box"><div class="rl">Fe : Mn (mg/L)</div><div class="rv" style="color:${feMnColor}">${feMn!==null?feMn.toFixed(1):'—'}</div><div class="rn">${feMnNote}</div></div>
-          <div class="ratio-box"><div class="rl">${TT('Costo / 1000L','Cost / 1000L')}</div><div class="rv" style="color:var(--ar)">${fmtEuro(costoPerMille)}</div><div class="rn">${TT('soluzione finale','final solution')}</div></div>
+          <div class="ratio-box"><div class="rl">${TT('Costo / 1000L','Cost / 1000L')}</div><div class="rv" style="color:var(--ar-dk)">${fmtEuro(costoPerMille)}</div><div class="rn">${TT('soluzione finale','final solution')}</div></div>
         </div>
         ${nh4frac>0.10?`<div class="alert al-inf" style="margin-top:10px"><span>⚠️</span><span>${TT(`Frazione ammoniacale alta (${Math.round(nh4frac*100)}% di N, limite coco 10%): rischio di acidificazione e tossicità radicale, soprattutto a basse temperature.`,`High ammonium fraction (${Math.round(nh4frac*100)}% of N, coco limit 10%): risk of acidification and root toxicity, especially at low temperatures.`)}</span></div>`:''}
         ${ratioWarn.length?`<div class="alert al-inf" style="margin-top:10px"><span>⚠️</span><span><strong>${TT('Rapporti cationici (meq/L):','Cationic ratios (meq/L):')}</strong><br>${ratioWarn.join('<br>')}</span></div>`:''}
@@ -6301,7 +6360,7 @@ const pBufTxt = acido.pBufferMeq >= 0.05
   ? TT(` · Tampone fosfato da H₂PO₄⁻ dei sali ≈ ${acido.pBufferMeq.toFixed(2)} meq/L a pH ${phFinale}.`, ` · Salt H₂PO₄⁻ phosphate buffer ≈ ${acido.pBufferMeq.toFixed(2)} meq/L at pH ${phFinale}.`)
   : '';
 html+=`<div class="card" style="margin-top:12px">
-          <div class="ch" style="background:var(--ar)">${t('js.correzionePH')} → pH ${phFinale}</div>
+          <div class="ch" style="background:var(--ar-dk)">${t('js.correzionePH')} → pH ${phFinale}</div>
           <div class="cb">
             <div class="alert al-inf" style="margin-bottom:8px"><span>ℹ️</span><span>${TT(`Per portare l'acqua (pH ${aq.ph||'—'}, HCO₃⁻ ${aq.hco3} mg/L) a <strong>pH ${phFinale}</strong>: neutralizzati ${acido.meq.toFixed(2)} meq/L di HCO₃⁻. Cambiando il pH target, la dose di acido si aggiorna.`, `To bring the water (pH ${aq.ph||'—'}, HCO₃⁻ ${aq.hco3} mg/L) to <strong>pH ${phFinale}</strong>: ${acido.meq.toFixed(2)} meq/L of HCO₃⁻ neutralized. Changing the target pH updates the acid dose.`)}${pBufTxt}</span></div>
             <div class="ri-grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
@@ -6316,9 +6375,9 @@ html+=`<div class="card" style="margin-top:12px">
 }
 } else if(aq && isFinite(aq.ph) && aq.ph > phFinale + 0.3){
 html+=`<div class="card" style="margin-top:12px">
-        <div class="ch" style="background:var(--ar)">${t('js.correzionePH')} → pH ${phFinale}</div>
+        <div class="ch" style="background:var(--ar-dk)">${t('js.correzionePH')} → pH ${phFinale}</div>
         <div class="cb">
-          <div class="alert al-inf"><span>ℹ️</span><span>${TT(`Acqua a bassa alcalinità (HCO₃⁻ ${aq.hco3||0} mg/L): pochissima capacità tampone. Il pH scende con quantità minime di acido, quindi <strong>non serve una dose fissa</strong>. Aggiungi acido diluito (HNO₃ o H₃PO₄) <strong>goccia a goccia misurando</strong> fino a <strong>pH ${phFinale}</strong>, nell'acqua di miscelazione prima dei sali.`,`Low-alkalinity water (HCO₃⁻ ${aq.hco3||0} mg/L): very little buffering. pH drops with tiny amounts of acid, so <strong>no fixed dose is needed</strong>. Add diluted acid (HNO₃ or H₃PO₄) <strong>drop by drop while measuring</strong> up to <strong>pH ${phFinale}</strong>, into the mixing water before the salts.`)}</span></div>
+          <div class="alert al-inf"><span>ℹ️</span><span>${TT(`Acqua a bassa alcalinità (HCO₃⁻ ${aq.hco3||0} mg/L): pochissima capacità tampone. Il pH scende con quantità minime di acido, quindi <strong>non serve una dose fissa</strong>. Aggiungi acido diluito (HNO₃, H₃PO₄ o H₂SO₄) <strong>goccia a goccia misurando</strong> fino a <strong>pH ${phFinale}</strong>, nell'acqua di miscelazione prima dei sali.`,`Low-alkalinity water (HCO₃⁻ ${aq.hco3||0} mg/L): very little buffering. pH drops with tiny amounts of acid, so <strong>no fixed dose is needed</strong>. Add diluted acid (HNO₃, H₃PO₄ or H₂SO₄) <strong>drop by drop while measuring</strong> up to <strong>pH ${phFinale}</strong>, into the mixing water before the salts.`)}</span></div>
         </div>
       </div>`;
 }
@@ -6339,7 +6398,7 @@ html+=`<div class="card" style="margin-top:12px">
         <div class="alert al-inf" style="margin-bottom:8px"><span>${driftIco}</span><span>${driftMsg}</span></div>
         <div style="font-size:.72rem;color:var(--ts);line-height:1.6">
           ${TT('<strong>Target del feed (coco):</strong> pH 5.5–6.2. La misura che conta davvero è il <strong>pH del drenaggio</strong>, non solo quello della soluzione in ingresso.','<strong>Feed target (coco):</strong> pH 5.5–6.2. The value that really matters is the <strong>drain pH</strong>, not just the incoming solution.')}<br>
-          ${TT('<strong>Per abbassare il pH:</strong> HNO₃ o H₃PO₄ diluiti, poco alla volta, misurando.','<strong>To lower pH:</strong> diluted HNO₃ or H₃PO₄, a little at a time, while measuring.')}<br>
+          ${TT('<strong>Per abbassare il pH:</strong> HNO₃, H₃PO₄ o H₂SO₄ diluiti, poco alla volta, misurando.','<strong>To lower pH:</strong> diluted HNO₃, H₃PO₄ or H₂SO₄, a little at a time, while measuring.')}<br>
           ${TT('<strong>Per alzare il pH:</strong> KOH molto diluito, in piccole dosi (molto caustico, usa i DPI).','<strong>To raise pH:</strong> very dilute KOH, in small doses (very caustic, wear PPE).')}
         </div>
       </div>
@@ -6350,7 +6409,7 @@ if(si.CaSO4>-0.5&&si.CaSO4<=0) operNotes.push(TT('CaSO₄ prossimo a saturazione
 if(si.CaHPO4>-0.5&&si.CaHPO4<=0) operNotes.push(TT('CaHPO₄ prossimo a saturazione: mantenere pH < 6.2.','CaHPO₄ close to saturation: keep pH < 6.2.'));
 if(operNotes.length){
 html+=`<div class="card" style="margin-top:12px">
-        <div class="ch" style="background:var(--ar)">${t('js.noteOper')}</div>
+        <div class="ch" style="background:var(--ar-dk)">${t('js.noteOper')}</div>
         <div class="cb">`;
 operNotes.forEach(n=>html+=`<div class="alert al-inf" style="margin-bottom:6px"><span>📋</span><span>${n}</span></div>`);
 html+=`</div></div>`;
@@ -6363,15 +6422,15 @@ const contrib = contributoPerSostanza(wRighe);
 if (contrib.length > 1) {
 const EL_C = ['N','P','K','Ca','Mg','S','Fe'];
 html+=`<div class="card tech-info" style="margin-top:12px">
-      <div class="ch" style="cursor:pointer;justify-content:space-between;user-select:none" onclick="const b=document.getElementById('contrib-body');b.style.display=b.style.display==='none'?'block':'none'">
+      <div class="ch" role="button" tabindex="0" aria-expanded="true" aria-controls="contrib-body" style="cursor:pointer;justify-content:space-between;user-select:none" onclick="const b=document.getElementById('contrib-body');const op=b.style.display==='none';b.style.display=op?'block':'none';this.setAttribute('aria-expanded',op?'true':'false')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
         <span>${t('js.contribPerSost')}</span><span style="font-size:.8rem">▼</span>
       </div>
       <div class="cb" id="contrib-body" style="display:block;overflow-x:auto;padding:0">
         <table style="width:100%;border-collapse:collapse;font-size:.72rem;min-width:520px">
           <thead><tr style="background:var(--cs)">
-            <th style="text-align:left;padding:5px 8px">${t('js.sale')}</th>
-            <th style="padding:5px 4px;text-align:center">${t('js.serb')}</th>
-            ${EL_C.map(e=>`<th style="padding:5px 6px;text-align:right">${elLabel(e)}</th>`).join('')}
+            <th scope="col" style="text-align:left;padding:5px 8px">${t('js.sale')}</th>
+            <th scope="col" style="padding:5px 4px;text-align:center">${t('js.serb')}</th>
+            ${EL_C.map(e=>`<th scope="col" style="padding:5px 6px;text-align:right">${elLabel(e)}</th>`).join('')}
           </tr></thead>
           <tbody>
             ${contrib.map(c=>`<tr style="border-bottom:1px solid var(--cs)">
@@ -6390,8 +6449,8 @@ html+=`<div class="card tech-info" style="margin-top:12px">
     </div>`;
 }
 const acquaMadreNote = (aq && (aq.hco3 > 60 || aq.ca > 60)) ? TT(`<li><strong>Acqua nei serbatoi concentrati:</strong> prepara le soluzioni madri A/B${usaSerbC?'/C':''} preferibilmente con acqua povera di Ca²⁺ e bicarbonati (osmosi/piovana); se usi acqua dura, acidifica leggermente prima di sciogliere i sali (mai miscelare acido forte con Ca, solfati o silicati).</li>`,`<li><strong>Water for stock tanks:</strong> prepare A/B${usaSerbC?'/C':''} mother solutions preferably with low-Ca²⁺ / low-bicarbonate (RO/rain) water; if using hard water, lightly pre-acidify before dissolving salts (never mix strong acid with Ca, sulfates or silicates).</li>`) : '';
-const hco3Note = aq&&aq.hco3>50?TT(`<li><strong>Neutralizzazione HCO₃⁻ nella linea/vasca finale:</strong> dosa l'acido (HNO₃ o H₃PO₄, vedi scheda "Correzione pH") fino a <strong>pH ${phFinale}</strong> prima dell'erogazione. <em>Aggiungi sempre l'acido in acqua, mai acqua nell'acido.</em></li>`,`<li><strong>HCO₃⁻ neutralization in final tank/line:</strong> dose acid (HNO₃ or H₃PO₄, see "pH Correction" card) down to <strong>pH ${phFinale}</strong> before delivery. <em>Always add acid to water, never water to acid.</em></li>`):'';
-const hasAcidA = perA.some(r=>r.id==='HNO3'||r.id==='H3PO4');
+const hco3Note = aq&&aq.hco3>50?TT(`<li><strong>Neutralizzazione HCO₃⁻ nella linea/vasca finale:</strong> dosa l'acido (HNO₃, H₃PO₄ o H₂SO₄, vedi scheda "Correzione pH") fino a <strong>pH ${phFinale}</strong> prima dell'erogazione. <em>Aggiungi sempre l'acido in acqua, mai acqua nell'acido.</em></li>`,`<li><strong>HCO₃⁻ neutralization in final tank/line:</strong> dose acid (HNO₃, H₃PO₄ or H₂SO₄, see "pH Correction" card) down to <strong>pH ${phFinale}</strong> before delivery. <em>Always add acid to water, never water to acid.</em></li>`):'';
+const hasAcidA = perA.some(r=>r.id==='HNO3'||r.id==='H3PO4'||r.id==='H2SO4');
 const hasCaB = perB.some(r=>r.id==='CaN'||r.id==='CaCl2'||getSale(r.id)?.el?.Ca>0);
 const stepANote = hasAcidA
   ? TT(`Porta Serb. A a <strong>${volA} L</strong>. Il serbatoio contiene acido concentrato: indossa DPI e non portare a pH 5.5.`, `Bring Tank A to <strong>${volA} L</strong>. Tank contains concentrated acid: wear PPE and do not adjust to pH 5.5.`)
@@ -6399,8 +6458,8 @@ const stepANote = hasAcidA
 const stepBFill = perB.length === 0
   ? TT(`<strong>Serb. B</strong> (${volB} L): nessun sale assegnato in questa ricetta.`, `<strong>Tank B</strong> (${volB} L): no salts assigned in this recipe.`)
   : hasCaB
-    ? TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Sciogli eventuali altri sali B, poi aggiungi lentamente i sali di Calcio (CaN/CaCl₂) agitando.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Dissolve any other B salts first, then add Calcium salts (CaN/CaCl₂) slowly while stirring.`)
-    : TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Aggiungi i sali B uno alla volta fino a completa dissoluzione.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Add Tank B salts one at a time until fully dissolved.`);
+    ? TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Sciogli eventuali altri sali del Serb. B, poi aggiungi lentamente i sali di Calcio (CaN/CaCl₂) agitando.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Dissolve any other Tank B salts first, then add Calcium salts (CaN/CaCl₂) slowly while stirring.`)
+    : TT(`Riempi <strong>Serb. B</strong> a ${Math.round(volB*0.8)} L. Aggiungi i sali del Serb. B uno alla volta fino a completa dissoluzione.`, `Fill <strong>Tank B</strong> to ${Math.round(volB*0.8)} L. Add Tank B salts one at a time until fully dissolved.`);
 const stepBTop = perB.length === 0 ? '' : TT(`<li>Porta Serb. B a <strong>${volB} L</strong>.</li>`,`<li>Bring Tank B to <strong>${volB} L</strong>.</li>`);
 const serbCNote = usaSerbC?TT(`<li>Prepara <strong>Serb. C</strong> (${volC||100} L) separatamente dagli altri concentrati (es. KOH, silicato o solfato): sciogli in acqua e porta a volume finale.</li>`,`<li>Prepare <strong>Tank C</strong> (${volC||100} L) separately from the other concentrates (e.g. KOH, silicate or sulfate): dissolve in water and bring to final volume.</li>`):'';
 html+=`<div class="card" style="margin-top:12px">
@@ -6418,13 +6477,13 @@ html+=`<div class="card" style="margin-top:12px">
     </ol></div>
   </div>`;
 html+=`<div class="card tech-info" style="margin-top:12px">
-    <div class="ch" style="cursor:pointer;justify-content:space-between" onclick="document.getElementById('audit-body').style.display=document.getElementById('audit-body').style.display==='none'?'block':'none'">
+    <div class="ch" role="button" tabindex="0" aria-expanded="true" aria-controls="audit-body" style="cursor:pointer;justify-content:space-between" onclick="const b=document.getElementById('audit-body');const op=b.style.display==='none';b.style.display=op?'block':'none';this.setAttribute('aria-expanded',op?'true':'false')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
       <span>${t('js.audit')} (${sicurezza.audit.length})</span>
       <span style="font-size:.8rem">▼</span>
     </div>
     <div class="cb" id="audit-body" style="padding:0">`;
 sicurezza.audit.forEach(a=>{
-const col = a.esito==='OK' ? 'var(--vc)' : a.esito==='CONFLITTO' ? 'var(--ro)' : a.esito==='AVVISO' ? 'var(--ar)' : 'var(--az)';
+const col = a.esito==='OK' ? 'var(--vc-dk)' : a.esito==='CONFLITTO' ? 'var(--ro)' : a.esito==='AVVISO' ? 'var(--ar-dk)' : 'var(--az)';
 const ico = a.esito==='OK' ? '✅' : a.esito==='CONFLITTO' ? '🛑' : a.esito==='AVVISO' ? '⚠️' : '🔧';
 html+=`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 14px;border-bottom:1px solid var(--cs);font-size:.75rem">
       <span style="flex-shrink:0">${ico}</span>
@@ -6437,8 +6496,8 @@ html+=`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 14px
 html+=`</div></div>`;
 // contenitore neutro: i figli diretti di #risultato-stampa sono forzati a display:block (CSS)
 html+=`<div><div class="no-print" style="display:flex;gap:8px;margin:16px 0 12px;flex-wrap:wrap">
-    <button class="btn btn-pr" onclick="stampaMiscela()" style="flex:1">${t('js.stampa')}</button>
-    <button class="btn btn-se" id="btn-info-tecniche" onclick="toggleInfoTecniche()" aria-expanded="false" aria-controls="info-tecniche" style="flex:1">${TT('🔬 Info tecniche','🔬 Technical info')}</button>
+    <button type="button" class="btn btn-pr" onclick="stampaMiscela()" style="flex:1">${t('js.stampa')}</button>
+    <button type="button" class="btn btn-se" id="btn-info-tecniche" onclick="toggleInfoTecniche()" aria-expanded="false" aria-controls="info-tecniche" style="flex:1">${TT('🔬 Info tecniche','🔬 Technical info')}</button>
   </div>
   <div id="info-tecniche" style="display:none;margin-bottom:24px"></div></div>`;
 html+=`</div>`;
@@ -6903,7 +6962,7 @@ const compInit = [
 const compFinal = compInit.map(c => ({
 ...c, siNew: si[c.key]
 }));
-const statusColor = converged ? 'var(--vc)' : 'var(--ar)';
+const statusColor = converged ? 'var(--vc-dk)' : 'var(--ar-dk)';
 const statusIcon  = converged ? '✅' : '⚠️';
 const statusText  = converged ? TT('Bilanciamento riuscito','Balancing succeeded') : TT('Bilanciamento parziale','Partial balancing');
 const statusNote  = converged
@@ -6928,14 +6987,14 @@ html += `<div style="background:var(--cs);border-radius:6px;padding:10px 12px;ma
 compFinal.forEach(c => {
 const improved = c.siNew < c.si;
 const arrow = c.siNew < c.si ? '↓' : c.siNew === c.si ? '→' : '↑';
-const col = c.siNew < 0 ? 'var(--vc)' : 'var(--ro)';
+const col = c.siNew < 0 ? 'var(--vc-dk)' : 'var(--ro)';
 html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.76rem;border-bottom:1px solid var(--cs)">
         <span style="flex:1">${c.label}</span>
         <span style="font-family:'JetBrains Mono',monospace;font-weight:700">
-          <span style="color:${c.si >= 0 ? 'var(--ro)' : c.si > -0.5 ? 'var(--ar)' : 'var(--vc)'}">SI ${c.si >= 0 ? '+' : ''}${c.si.toFixed(2)}</span>
+          <span style="color:${c.si >= 0 ? 'var(--ro)' : c.si > -0.5 ? 'var(--ar-dk)' : 'var(--vc-dk)'}">SI ${c.si >= 0 ? '+' : ''}${c.si.toFixed(2)}</span>
           <span style="color:var(--ts);margin:0 4px">${arrow}</span>
           <span style="color:${col}">SI ${c.siNew >= 0 ? '+' : ''}${c.siNew.toFixed(2)}</span>
-          ${c.siNew < 0 ? '<span style="color:var(--vc);margin-left:4px">✓</span>' : '<span style="color:var(--ro);margin-left:4px">⚠</span>'}
+          ${c.siNew < 0 ? '<span style="color:var(--vc-dk);margin-left:4px">✓</span>' : '<span style="color:var(--ro);margin-left:4px">⚠</span>'}
         </span>
       </div>`;
 });
@@ -6944,14 +7003,14 @@ html += `</div>`;
 if(deviations.length > 0){
 html += `<div class="tbl-wrap" style="margin-bottom:12px"><table class="tbl" style="min-width:400px">
       <thead><tr>
-        <th>${TT('Sale','Salt')}</th>
-        <th style="text-align:right">${TT('Originale','Original')}</th>
-        <th style="text-align:right">${TT('Bilanciato','Balanced')}</th>
-        <th style="text-align:right">${TT('Variazione','Change')}</th>
-        <th>${TT('Ione','Ion')}</th>
+        <th scope="col">${TT('Sale','Salt')}</th>
+        <th scope="col" style="text-align:right">${TT('Originale','Original')}</th>
+        <th scope="col" style="text-align:right">${TT('Bilanciato','Balanced')}</th>
+        <th scope="col" style="text-align:right">${TT('Variazione','Change')}</th>
+        <th scope="col">${TT('Ione','Ion')}</th>
       </tr></thead><tbody>`;
 deviations.forEach(d => {
-const col = d.pctChange < 0 ? 'var(--ro)' : 'var(--vc)';
+const col = d.pctChange < 0 ? 'var(--ro)' : 'var(--vc-dk)';
 html += `<tr>
         <td style="font-weight:600">${esc(d.nome)}</td>
         <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmtGram(d.doseOrig)}</td>
@@ -6965,10 +7024,10 @@ html += `</tbody></table></div>`;
 html += `<div class="alert al-ok" style="margin-bottom:12px"><span>ℹ️</span><span>${TT('Nessun sale necessita di modifica — tutti gli SI erano già nella zona sicura.','No salt needs modification — all SI were already in the safe zone.')}</span></div>`;
 }
 html += `<div style="display:flex;gap:8px;flex-wrap:wrap">
-    ${!autoApplied ? `<button class="btn btn-pr btn-sm" style="width:auto;background:var(--vc)" onclick="applicaBilanciamento()">
+    ${!autoApplied ? `<button type="button" class="btn btn-pr btn-sm" style="width:auto;background:var(--vc-dk)" onclick="applicaBilanciamento()">
       ${TT('✅ Applica bilanciamento alla ricetta','✅ Apply balancing to the recipe')}
     </button>` : ''}
-    <button class="btn btn-se btn-sm" onclick="${autoApplied ? 'ripristinaDosiOriginali()' : 'ripristinaEricalcola()'}">
+    <button type="button" class="btn btn-se btn-sm" onclick="${autoApplied ? 'ripristinaDosiOriginali()' : 'ripristinaEricalcola()'}">
       ${t('js.ripristinaOriginali')}
     </button>
   </div>`;
@@ -7064,7 +7123,7 @@ card.style.display = vis > 0 ? '' : 'none';
 function renderCatalogo(){
 return fcPreserveScroll(()=>{
 const wrap=document.getElementById('catalogo-list');
-wrap.innerHTML='';
+wrap.replaceChildren();
 const legendDiv=document.createElement('div');
 legendDiv.className='alert al-blu';
 legendDiv.style.marginBottom='10px';
@@ -7122,8 +7181,8 @@ row.innerHTML=`
       </label>
       <div class="cat-actions" style="margin-left:6px">
         ${buyLink}
-        <button class="btn btn-se btn-sm" onclick="editIngrediente('${s.id}')">✏️</button>
-        ${isCustom?`<button class="btn btn-del btn-sm" onclick="eliminaIngrediente('${s.id}')">🗑️</button>`:''}
+        <button type="button" class="btn btn-se btn-sm" aria-label="${esc(TT('Modifica','Edit'))} ${esc(salNome(s))}" onclick="editIngrediente('${s.id}')">✏️</button>
+        ${isCustom?`<button type="button" class="btn btn-del btn-sm" aria-label="${esc(TT('Elimina','Delete'))} ${esc(salNome(s))}" onclick="eliminaIngrediente('${s.id}')">🗑️</button>`:''}
       </div>`;
 currentGroup.appendChild(row);
 });
@@ -7184,20 +7243,24 @@ document.getElementById('modal-ing-title').textContent=t('modal.ing.editTitle');
 openModal('modal-ing');
 }
 function salvaIngrediente(){
-const nome=sanitizeName(document.getElementById('ing-nome').value.trim());
-if(!nome){ alert(t('js.nomeIngrediente')); return; }
+const nomeEl = document.getElementById('ing-nome');
+const nome=sanitizeName(nomeEl.value.trim());
+if(!nome){ showToast(t('js.nomeIngrediente'), false); nomeEl?.focus(); return; }
 const el={};
 EL_ING_FIELDS.forEach(f=>{ const v=parseFloat(document.getElementById('ing-'+f).value)||0; if(v>0)el[f]=v; });
 const sommaEl = Object.values(el).reduce((a,b)=>a+b,0);
 if(sommaEl > 100){
-alert(TT(`La somma delle percentuali elementari (${sommaEl.toFixed(1)}%) supera il 100%. Correggi la composizione.`,`The sum of elemental percentages (${sommaEl.toFixed(1)}%) exceeds 100%. Fix the composition.`));
+showToast(TT(`La somma delle percentuali elementari (${sommaEl.toFixed(1)}%) supera il 100%. Correggi la composizione.`,`The sum of elemental percentages (${sommaEl.toFixed(1)}%) exceeds 100%. Fix the composition.`), false);
+document.getElementById('ing-N')?.focus();
 return;
 }
 const nh4Frac = el.N ? Math.min(100, Math.max(0, parseFloat(document.getElementById('ing-nh4').value)||0)) : 0;
 const isLiquid = document.getElementById('ing-liquid').checked;
-const density = isLiquid ? Math.max(0, parseFloat(document.getElementById('ing-density').value)||0) : 0;
+const densityEl = document.getElementById('ing-density');
+const density = isLiquid ? Math.max(0, parseFloat(densityEl.value)||0) : 0;
 if(isLiquid && !(density > 0 && density <= 3.5)){
-alert(TT('Per un prodotto liquido inserisci una densità valida (es. 1.20 kg/L, range 0.1–3.5).','For a liquid product enter a valid density (e.g. 1.20 kg/L, range 0.1–3.5).'));
+showToast(TT('Per un prodotto liquido inserisci una densità valida (es. 1.20 kg/L, range 0.1–3.5).','For a liquid product enter a valid density (e.g. 1.20 kg/L, range 0.1–3.5).'), false);
+densityEl?.focus();
 return;
 }
 const def = editIngId ? SALI_DEFAULT.find(x=>x.id===editIngId) : null;
@@ -7286,6 +7349,11 @@ el.addEventListener('pointerenter', pause);
 el.addEventListener('pointerleave', resume);
 el.addEventListener('focusin', pause);
 el.addEventListener('focusout', e => { if(!el.contains(e.relatedTarget)) resume(); });
+}
+if(typeof document.ariaNotify === 'function'){
+el.removeAttribute('aria-live');
+} else {
+el.setAttribute('aria-live', 'polite');
 }
 el.classList.add('open');
 try {
@@ -7506,7 +7574,7 @@ resetStatoCalc(null);
 const selAc = document.getElementById('acido-tipo'); if(selAc) selAc.value='auto';
 const infoAc = document.getElementById('acido-auto-info'); if(infoAc) infoAc.textContent='';
 const lblRic = document.getElementById('lbl-ricetta-caricata'); if(lblRic) lblRic.textContent=t('calcola.nessuna');
-const lblMod = document.getElementById('lbl-modo-caricato'); if(lblMod){ lblMod.style.display='none'; lblMod.innerHTML=''; }
+const lblMod = document.getElementById('lbl-modo-caricato'); if(lblMod){ lblMod.style.display='none'; lblMod.replaceChildren(); }
 calcRighe = [];
 renderCalcTabella();
 const calcOut = document.getElementById('calc-out');
@@ -7535,7 +7603,7 @@ const PRIVACY_CONFIG = {
   vatNumber: '',
   legalAddress: '',
   hostingProvider: 'GitHub Pages',
-  lastUpdated: '22/11/2026',
+  lastUpdated: '26/11/2026',
   consentVersion: 1,
   consentMaxDays: 180,
   ga4: {
@@ -7588,6 +7656,7 @@ const CATALOGO_AMAZON_QUERIES = {
   NaMoO4:  { it: 'molibdato di sodio fertilizzante microelemento', en: 'sodium molybdate dihydrate fertilizer' },
   HNO3:    { it: 'ph down acido nitrico crescita idroponica', en: 'pH down nitric acid hydroponics' },
   H3PO4:   { it: 'ph down acido fosforico fioritura idroponica', en: 'pH down phosphoric acid hydroponics' },
+  H2SO4:   { it: 'ph down acido solforico idroponica', en: 'sulfuric acid pH down hydroponics' },
   KOH:     { it: 'ph up idrossido di potassio idroponica', en: 'pH up potassium hydroxide hydroponics' },
   K2SiO3:  { it: 'silicato di potassio liquido idroponica silicio', en: 'potassium silicate liquid hydroponic silica' }
 };
@@ -7805,7 +7874,7 @@ function buildAmazonUrl(opts, placement){
 }
 function getCatalogoAmazonUrl(s){
   if(!s) return '';
-  const map = CATALOGO_AMAZON_QUERIES[s.id];
+  const map = Object.hasOwn(CATALOGO_AMAZON_QUERIES, s.id) ? CATALOGO_AMAZON_QUERIES[s.id] : null;
   const nomePulito = String(salNome(s) || s.id || '').replace(/[·()]/g, ' ').replace(/\s+/g, ' ').trim();
   const qIt = map ? map.it : (nomePulito + ' fertilizzante idrosolubile');
   const qEn = map ? map.en : (nomePulito + ' soluble fertilizer');
@@ -7825,7 +7894,9 @@ function renderAttrezzatura(){
   const kitEl = document.getElementById('gear-kit-banner');
   const countEl = document.getElementById('gear-count');
   if(!pillsEl || !gridEl) return;
-  const btnLbl = currentLang === 'en' ? 'Check price on Amazon →' : 'Vedi offerta su Amazon →';
+  const useEnStore = AFFILIATE_CONFIG.amazonTagEn && AFFILIATE_CONFIG.amazonDomainEn;
+  const storeLbl = useEnStore ? 'Amazon' : 'Amazon.it';
+  const btnLbl = currentLang === 'en' ? `Check price on ${storeLbl} →` : 'Vedi offerta su Amazon →';
   if(kitEl){
     const starterIds = ['phmetro', 'ecmetro', 'bilancia-micro'];
     const starterItems = starterIds.map(id => ATTREZZATURA_ITEMS.find(x => x.id === id)).filter(Boolean);
@@ -7916,7 +7987,7 @@ function renderCalcGearStrip(ctx){
     const desc = currentLang === 'en' ? item.descEn : item.descIt;
     const badge = currentLang === 'en' ? (item.badgeEn || '') : (item.badgeIt || '');
     const url = buildAmazonUrl(item, 'checklist');
-    const cta = currentLang === 'en' ? 'Check on Amazon →' : 'Vedi offerta su Amazon →';
+    const cta = currentLang === 'en' ? `Check on ${(AFFILIATE_CONFIG.amazonTagEn ? 'Amazon' : 'Amazon.it')} →` : 'Vedi offerta su Amazon →';
     return `<div class="gear-mini">
       <div>
         <div class="gear-mini-t">${item.icon} ${esc(title)} ${badge ? `<span class="tool-badge" style="margin-left:4px">${esc(badge)}</span>` : ''}</div>
@@ -8141,7 +8212,7 @@ function hydrateGuideAffiliateLinks(){
       const url = buildAmazonUrl(item, 'guide');
       return `<a class="guide-rec-btn" href="${esc(url)}" target="_blank" rel="${rel}">${item.icon} ${esc(lbl)} →</a>`;
     }).filter(Boolean).join('');
-    if(!links){ box.hidden = true; box.innerHTML = ''; return; }
+    if(!links){ box.hidden = true; box.replaceChildren(); return; }
     box.hidden = false;
     box.innerHTML = `<div class="guide-rec-head"><span>🛒 ${esc(headTxt)}</span><span class="guide-rec-note">${esc(noteTxt)}</span></div><div class="guide-rec-links">${links}</div>`;
   });
@@ -8299,7 +8370,7 @@ function initAdSenseBottom(consent){
   const adsAllowed = !!(consent && consent.ads);
   if(!adsAllowed || !cfg || !cfg.enabled || !/^ca-pub-\d{10,}$/.test(cfg.client || '') || location.protocol.indexOf('http') !== 0){
     wrap.hidden = true;
-    cont.innerHTML = '';
+    cont.replaceChildren();
     delete cont.dataset.initialized;
     return;
   }
@@ -8428,7 +8499,7 @@ function renderTermsDialog(){
       <h3>4. Permitted Crops — Certified Industrial Hemp (Italian Law 242/2016)</h3>
       <p>The built-in <strong>"Industrial Hemp"</strong> profile refers exclusively to certified EU/national industrial hemp varieties grown in compliance with applicable law (such as Italian <strong>Law 242/2016</strong>). Any unlawful cultivation is strictly outside the intended scope.</p>
       <h3>5. Commercial Transparency (Amazon Associates &amp; PayPal)</h3>
-      <p><strong>Affiliate disclosure (#ad):</strong> As an Amazon Associate I earn from qualifying purchases (Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>), at no extra cost to you. External links lead to third-party merchants subject to their own Terms of Sale. Any contributions made via PayPal are strictly voluntary project donations and do not establish a commercial contract.</p>
+      <p><strong>No direct sales &amp; VAT notice:</strong> FertiQuota is an independent informational project run by a private individual without a VAT number; no direct sale of goods or services takes place on this site. <strong>Affiliate disclosure (#ad):</strong> As an Amazon Associate I earn from qualifying purchases (Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>), at no extra cost to you. External links lead to third-party merchants subject to their own Terms of Sale. Any contributions made via PayPal are strictly voluntary project donations and do not establish a commercial contract.</p>
       <h3>6. Copyright &amp; Software License</h3>
       <p>© 2026 <strong>${esc(p.controllerName)}</strong> (<a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>) — All rights reserved (proprietary software license, see <code>LICENSE</code>). Bundled typefaces (<em>Inter</em>, <em>JetBrains Mono</em>) licensed under <strong>SIL Open Font License 1.1</strong> (<code>fonts/OFL.txt</code>).</p>
     `;
@@ -8443,7 +8514,7 @@ function renderTermsDialog(){
       <h3>4. Ambito colturale — Canapa industriale (Legge 242/2016)</h3>
       <p>Il profilo predefinito <strong>«Canapa industriale»</strong> si riferisce esclusivamente alla canapa agricola e industriale da seme/fibra certificata ai sensi della <strong>Legge 2 dicembre 2016, n. 242</strong> e della normativa europea vigente. È escluso qualsiasi impiego illecito.</p>
       <h3>5. Trasparenza commerciale (Affiliazione Amazon &amp; PayPal)</h3>
-      <p><strong>Informativa affiliazione (#pubblicità):</strong> In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei effettuati tramite i link con Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>, senza alcun sovrapprezzo per l'utente. Eventuali contributi tramite PayPal costituiscono donazioni volontarie a sostegno del progetto e non generano obblighi contrattuali.</p>
+      <p><strong>Assenza di vendite dirette e P.IVA:</strong> FertiQuota è un progetto informativo indipendente curato da un privato privo di Partita IVA; su questo sito non viene effettuata alcuna vendita diretta di beni o servizi. <strong>Informativa affiliazione (#pubblicità):</strong> In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei effettuati tramite i link con Tag <code>${esc(AFFILIATE_CONFIG.tags.default)}</code>, senza alcun sovrapprezzo per l'utente. Eventuali contributi tramite PayPal costituiscono donazioni volontarie a sostegno del progetto e non generano obblighi contrattuali.</p>
       <h3>6. Copyright e Licenza Software</h3>
       <p>© 2026 <strong>${esc(p.controllerName)}</strong> (<a href="mailto:${esc(p.controllerEmail)}">${esc(p.controllerEmail)}</a>) — Tutti i diritti riservati (licenza proprietaria, vedi <code>LICENSE</code>). Font locali <em>Inter</em> e <em>JetBrains Mono</em> distribuiti sotto licenza <strong>SIL Open Font License 1.1</strong> (<code>fonts/OFL.txt</code>).</p>
     `;
@@ -8600,7 +8671,7 @@ applyHashRoute();
 </div>
 <!-- PWA: registrazione service worker + pulsante d'installazione.
      Attivi solo su http(s); da file:// l'app resta identica a prima. -->
-<button id="pwa-install" class="no-print" style="display:none;position:fixed;right:14px;bottom:14px;z-index:850;background:linear-gradient(135deg,var(--vs),var(--vm));color:var(--cr);border:none;border-radius:24px;padding:11px 18px;font-size:.78rem;font-weight:700;letter-spacing:.03em;box-shadow:0 6px 20px rgba(26,58,42,.35);cursor:pointer">⬇️ Installa app</button>
+<button type="button" id="pwa-install" class="no-print" style="display:none;position:fixed;right:14px;bottom:14px;z-index:850;background:linear-gradient(135deg,var(--vs),var(--vm));color:var(--cr);border:none;border-radius:24px;padding:11px 18px;font-size:.78rem;font-weight:700;letter-spacing:.03em;box-shadow:0 6px 20px rgba(26,58,42,.35);cursor:pointer">⬇️ Installa app</button>
 <script>
 (function(){
   if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
@@ -8608,11 +8679,16 @@ applyHashRoute();
     // mostrare subito la versione aggiornata anche nell'app installata.
     // Ricarica solo se c'era GIA' un controller: cosi' un nuovo visitatore
     // non subisce un reload al primo avvio, mentre l'app gia' installata
-    // (che ha un controller attivo) si aggiorna da sola.
+    // (che ha un controller attivo) si aggiorna da sola (deferito se c'è una modale aperta).
     var refreshing = false;
+    var reloadSafe = function () {
+      if (document.querySelector('.modal-bg.open, dialog[open]')) return false;
+      refreshing = true; location.reload(); return true;
+    };
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.addEventListener('controllerchange', function () {
-        if (refreshing) return; refreshing = true; location.reload();
+        if (refreshing || reloadSafe()) return;
+        var iv = setInterval(function () { if (reloadSafe()) clearInterval(iv); }, 1000);
       });
     }
     window.addEventListener('load',function(){

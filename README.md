@@ -10,7 +10,7 @@
 [![License: Proprietaria](https://img.shields.io/badge/licenza-proprietaria%20%C2%B7%20tutti%20i%20diritti%20riservati-b03a2e)](LICENSE)
 [![Made with](https://img.shields.io/badge/stack-HTML%20%C2%B7%20CSS%20%C2%B7%20Vanilla%20JS-f8f6f1)](index.html)
 [![No backend](https://img.shields.io/badge/backend-nessuno-4a8c5e)](#-privacy-e-sicurezza)
-[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S41-2471a3)](tests)
+[![Tests](https://img.shields.io/badge/test-Playwright%20%C2%B7%20S1%E2%80%93S42-2471a3)](tests)
 [![i18n](https://img.shields.io/badge/lingue-IT%20%C2%B7%20EN-d4660a)](#-internazionalizzazione)
 
 [Funzionalità](#-funzionalità) · [Come si usa](#-come-si-usa) · [Struttura](#-struttura-del-progetto) · [Test](#-test) · [Documentazione](MANUALE_TECNICO.md)
@@ -44,7 +44,7 @@ Il calcolo tiene conto di:
 | **Compatibilità serbatoi** | Matrice di incompatibilità tra gruppi ionici, assegnazione automatica ai serbatoi A/B/C, risolutore di pH per bilancio protonico nei serbatoi, solubilità estesa (ione comune K₂SO₄/KNO₃/KH₂PO₄ + check freddo notturno 10 °C). Quando servono **3 soluzioni madri** il Serbatoio C si attiva da solo. |
 | **Auto-risoluzione** | Sposta i sali, sceglie da solo l'acido migliore (`Automatico`), gestisce il **Mix 2 acidi** (`H₃PO₄ + HNO₃`) e **H₂SO₄ 38%**, e ribilancia le dosi quando la soluzione esce dalla zona sicura. |
 | **Verifica di sicurezza** | Controlla precipitazioni, rapporti antagonisti, soglie NH₄/Na/Cl e segnala rischi agronomici. |
-| **Catalogo ingredienti** | 22 sali predefiniti + fertilizzanti custom, con composizione, prezzo, note e gestione della **scorta** reale in magazzino. |
+| **Catalogo ingredienti** | 23 sali predefiniti + fertilizzanti custom, con composizione, prezzo, note e gestione della **scorta** reale in magazzino. |
 | **Ricette** | 11 colture builtin (pomodoro, lattuga, cetriolo, fragola…) con fasi di crescita; editor per ricette e target personalizzati. |
 | **Output operativo** | Scheda miscela stampabile con dosi in grammi per serbatoio, EC/costi attesi, ordine di scioglimento e checklist di preparazione. |
 | **Backup dati** | Export/import JSON di catalogo, scorta, ricette e profili acqua; reset di fabbrica con doppia conferma. |
@@ -99,7 +99,7 @@ FertiQuota è anche una **Progressive Web App**. Quando è **servita via HTTPS**
 ├── fonts/                  # Font WOFF2 self-hosted (Inter & JetBrains Mono) + OFL.txt
 ├── icons/                  # Icone PWA (192/512/maskable/apple-touch) + og-card.png (1200×630)
 └── tests/
-    ├── run-tests.js        # Suite Playwright (S1–S41) sull'app reale in Chromium headless
+    ├── run-tests.js        # Suite Playwright (S1–S42) sull'app reale in Chromium headless
     ├── hooks/pre-commit    # Esegue la suite a ogni commit che tocca app o test
     └── README.md           # Cosa copre ogni sezione di test
 .github/workflows/test.yml  # Stessa suite su GitHub Actions a ogni push/PR
@@ -123,7 +123,7 @@ Interfaccia completa **italiano / inglese** con architettura a tre livelli: mark
 
 ## 🧪 Test
 
-La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza, GDPR/SEO/CRO, conformità legale e UI — 41 sezioni (S1–S41) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira a ogni commit (hook) e a ogni push (GitHub Actions).
+La suite esegue l'**app reale** in Chromium headless (Playwright) e verifica motore chimico, solver, sicurezza, persistenza, GDPR/SEO/CRO, accessibilità, conformità legale e UI — 42 sezioni (S1–S42) che includono benchmark termodinamici PHREEQC/Visual MINTEQ, golden test sul bilancio ionico e sull'EC, invarianti e **fedeltà al profilo** su tutte le fasi builtin, condizioni KKT del solver NNLS, regressioni per ogni bug del motore corretto, stress test, round-trip di persistenza e fuzzing dell'import. Gira a ogni commit (hook) e a ogni push (GitHub Actions).
 
 ```bash
 # Requisiti: Node.js ≥ 18
@@ -164,7 +164,7 @@ Progetto proprietario: non si accettano contributi esterni, fork o redistribuzio
 
 ## 📄 Licenza
 
-© 2026 Gaetano De Vito — **Tutti i diritti riservati.** Il codice è visibile solo a scopo di consultazione: copia, modifica, redistribuzione e uso commerciale sono vietati senza autorizzazione scritta. Vedi [LICENSE](LICENSE). Le versioni precedenti erano rilasciate con licenza MIT.
+© 2026 Gaetano De Vito — **Tutti i diritti riservati.** Agli utenti finali è consentito esclusivamente l'uso diretto (personale, agricolo o professionale interno) dell'applicazione web pubblicata dal Titolare; copia, modifica, mirroring, sublicenza, rivendita e redistribuzione sono vietati senza autorizzazione scritta. Vedi [LICENSE](LICENSE). Le versioni precedenti erano rilasciate con licenza MIT.
 
 ---
 
@@ -189,7 +189,7 @@ Everything lives in **a single HTML file** — no install, no backend, no accoun
 
 **Usage:** open [`index.html`](index.html) in any modern browser and follow the tabs: **Guides → Water → Recipes → Calculate** (with **Catalog**, **Gear & Tools** and **Data** as support).
 
-**Tests:** a Playwright suite (S1–S41) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
+**Tests:** a Playwright suite (S1–S42) runs the real app in headless Chromium, on every commit (pre-commit hook) and every push (GitHub Actions):
 
 ```bash
 npm install playwright && npx playwright install chromium

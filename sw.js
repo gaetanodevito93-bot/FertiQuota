@@ -7,7 +7,7 @@
  * ⚠️ Ad ogni modifica del file dell'app, incrementa CACHE_VERSION: forza
  *    l'aggiornamento della cache e il ricaricamento della nuova versione.
  */
-const CACHE_VERSION = 'v1.0.1';
+const CACHE_VERSION = 'v1.0.2';
 const CACHE_NAME = 'fertiquota-' + CACHE_VERSION;
 
 // Risorse dell'app shell (percorsi relativi allo scope del SW).
@@ -52,17 +52,23 @@ self.addEventListener('fetch', (event) => {
     (req.headers.get('accept') || '').includes('text/html');
 
   if (isHTML) {
-    // Network-first: prende sempre l'ultima versione se online, altrimenti cache.
+    // Network-first con timeout 3.5 s: prende sempre l'ultima versione se online, altrimenti cache.
+    const ac = typeof AbortController === 'function' ? new AbortController() : null;
+    const tid = ac ? setTimeout(() => ac.abort(), 3500) : null;
     event.respondWith(
-      fetch(req)
+      fetch(req, ac ? { signal: ac.signal } : undefined)
         .then((res) => {
+          if (tid) clearTimeout(tid);
           if (res && res.ok) {
             const copy = res.clone();
             caches.open(CACHE_NAME).then((c) => c.put(req, copy));
           }
           return res;
         })
-        .catch(() => caches.match(req).then((m) => m || caches.match('index.html')))
+        .catch(() => {
+          if (tid) clearTimeout(tid);
+          return caches.match(req).then((m) => m || caches.match('index.html'));
+        })
     );
   } else {
     // Cache-first per asset statici (icone, manifest).

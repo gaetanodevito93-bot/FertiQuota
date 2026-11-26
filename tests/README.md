@@ -30,7 +30,7 @@ Variabili utili:
 
 ## Esecuzione automatica
 
-- **Hook pre-commit** (locale): ogni commit che tocca `index.html`, `sw.js` o `tests/` esegue la suite e viene bloccato se fallisce. Attivazione, una volta per clone:
+- **Hook pre-commit** (locale): ogni commit che tocca `index.html`, `sw.js`, `manifest.webmanifest` o `tests/` esegue la suite e viene bloccato se fallisce. Attivazione, una volta per clone:
 
   ```bash
   git config core.hooksPath tests/hooks
@@ -42,7 +42,7 @@ Variabili utili:
 
 | Sezione | Verifica |
 |---|---|
-| S1 | Caricamento senza errori JS, stato iniziale (22 sali, 11 ricette, 7 tab) |
+| S1 | Caricamento senza errori JS, stato iniziale (23 sali, 11 ricette, 7 tab) |
 | S2 | **Golden test**: bilancio ionico chiuso (cationi ≈ anioni) per ogni sale macro del catalogo — una formula salina è elettricamente neutra |
 | S3 | **Golden test**: EC calcolata dai coefficienti vs range EC dichiarato da tutte le 35 fasi delle ricette builtin |
 | S4 | **Invarianti** su tutte le 35 fasi: output renderizzato, niente NaN/undefined, input immutabile, risultato idempotente. **Fedeltà al profilo** dopo la correzione acqua (osmosi/media/dura): con osmosi ogni macro entro ±3%; con acqua media/dura N mai sotto −30%, P e K entro ±15%; nessuna dose negativa; NH₄ mai oltre il 10% (o la quota della ricetta) |
@@ -83,6 +83,7 @@ Variabili utili:
 | S39 | **Audit GDPR completo (`S39.1–S39.10`), Google Consent Mode v2 (GA4 `G-WTB1MD5227` / AdSense), Font locali & Policy**: zero chiamate esterne Google Fonts (4 WOFF2 locali + `sw.js`), micro-server HTTP reale con sniffer rete a 0 richieste esterne prima del consenso + default Consent Mode v2 tutto `denied` + `ga-disable=true`, banner Garante Privacy non bloccante (nasconde `#pwa-install`, `✕` rifiuta con ricevuta ID 180gg persistita dopo reload), consenso granulare GA4 (`anonymize_ip`, `signals=false`) con blocco AdSense, revoca immediata + cancellazione reale cookie `_ga/_gid/_gcl_au/__gads` e riattivazione senza duplicare `<script>`, fail-closed su consenso corrotto/scaduto/versione vecchia, `<dialog>` Privacy & Cookie Policy Art. 13 IT/EN con Tabella Inventario Cookie/localStorage, doppio blocco AdSense, igiene `noopener noreferrer` su 100% link esterni, isolamento stampe e backup JSON |
 | S40 | **Audit finale pre-pubblicazione (Congruenza Nomi, SEO, i18n & Integrità Codice)**: zero residui del vecchio nome e zero placeholder in app/PWA/docs, SEO completo (`<title>`, meta description ≤ 160 car., canonical, OpenGraph `og-card.png`, Twitter `summary_large_image`, JSON-LD `WebApplication`/`FAQPage`, `robots.txt`, `sitemap.xml`, singolo `<h1>`), parità 100% chiavi `TRANSLATIONS.it` ↔ `TRANSLATIONS.en` inclusi `document.title` e SVG hero EN, zero ID duplicati/errori console su tutte le 7 tab, integrità `APP_SHELL`/`manifest` e coerenza documentazione |
 | S41 | **Audit legale, CRO & bug-fix live Chromium (`S41.1–S41.4`)**: 100% dei link Amazon across tutte le tab (Guide, Ricette `#ricetta-gear-bar`, Calcola strip + sali mancanti `#ricalcola-buy-strip`, Catalogo, Attrezzatura `#gear-kit-banner` + 19 card) in IT e EN con `tag=aitane93-21`, `target="_blank"` e `rel="sponsored nofollow noopener noreferrer"` e zero link commerciali non affiliati; conformità legale (`#dlg-terms` con Reg. UE 2019/1148, CLP/REACH, L. 242/2016 Canapa industriale, disclosure Amazon IT/EN, Privacy Policy Art. 122 e EU-US DPF con 4 righe inventario, `fonts/OFL.txt`, `LICENSE`); verifica bug reali risolti (`fcScrollTo(el)`, toast `[popover="manual"]` accessibile e leggibile, colori Serb. A/B stampa allineati alla UI, `Escape` e `role="dialog"` su modali); layout desktop `.serb-grid`/`.alert`, `og-card.png` `1200×630`, hash routing `#attrezzatura`, 0 errori JS e 0 overflow mobile 375px |
+| S42 | **Audit pre-rilascio (Chimica, Sicurezza/CSP, Accessibilità & GDPR)**: guard anti-falsi positivi in `expandElementRefs` (`sali B`/`Tank B salts`, `Polimeri Si`/`Si polymers`, `EDTA (Fe+Mn+Zn+Cu+B+Mo)` mantenendo `Serb. A e B` e `B e N`), `H₂SO₄ 38%` in `SALI_DEFAULT` con costo e incompatibilità + `Na 19%` su `NaMoO₄`, segnalazione micronutrienti target scoperti (`_microScoperto` + sblocco `#sali-prep-body`), `isSafeId` con rigetto chiavi prototipo (`toString`/`constructor`/`__proto__`) senza `NaN` EC su import malevolo + `<meta>` CSP, tastiera su `.pianta-btn`/`<button type="button" class="fase-btn">`/`#ch-sali-calc`/`.ii` + `inert` su banner/PWA + `autofocus` su `Annulla`, parità visiva GDPR e zero `<button>` senza `type` |
 
 ## Note per chi estende la suite
 

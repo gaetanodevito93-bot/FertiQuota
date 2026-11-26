@@ -49,7 +49,7 @@ A differenza dei semplici calcolatori di dosi, FertiQuota include un **motore ch
 
 ### 2.1 Un solo file, nessuna dipendenza
 
-L'intera applicazione vive in **un unico file HTML** (~8.630 righe) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
+L'intera applicazione vive in **un unico file HTML** (~8.710 righe) che contiene CSS, markup e JavaScript. Le scelte che ne derivano:
 
 - **Zero installazione**: si apre con un doppio clic in qualsiasi browser moderno, su desktop e mobile.
 - **Zero backend**: nessun server, nessun account, nessuna trasmissione di dati senza consenso esplicito. Tutto gira in locale.
@@ -65,17 +65,17 @@ Il file è ordinato in blocchi riconoscibili:
 
 | Sezione | Contenuto | Zona indicativa |
 |---|---|---|
-| `<head>` + `<style>` | Meta SEO, JSON-LD `WebApplication`/`FAQPage`, favicon, CSS unificato (variabili WCAG, componenti, popover toast, media query, stili stampa) | righe 1–671 |
-| Markup | Header, splash screen, barra tab (7 schede), pannelli (`Guide`, `Acqua`, `Ricette`, `Calcola`, `Catalogo`, `Attrezzatura`, `Dati`), footer legale, modali e `<dialog>` GDPR/Termini | righe 672–1518 |
-| i18n | Dizionari `TRANSLATIONS.it`/`en` e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 1519–2180 |
-| Costanti & Motore chimico | Masse molari `MM`, `LAMBDA`, `debyeHuckelA(T)`, `vantHoffPka`/`LogK`, Ksp (`CaCO₃`, `CaSO₄`, brushite, struvite, `ACP`, `OCP`, brucite), `speciate`, `speciateFull` (12 coppie ioniche), `SIT_EPS`/`gammaIon`, EC, acidi/mix, `stimaPhSerbatoio`, solubilità + 10 °C | righe 2181–2884 |
-| Dati di fabbrica & stato | `SALI_DEFAULT` (22 sali), `mergeCatalogoDefaults`, `PIANTE_BUILTIN`, `localStorage`, `statoCalc`, traduzioni dati | righe 2885–3710 |
-| UI Ricette & editor | `initPiante`, selezione pianta/fase, `#ricetta-gear-bar`, editor custom/target, `renderCalcTabella`, `updateRicalcolaBar` + strip riordino | righe 3711–4300 |
-| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `valutaStabilitaChelatoFe`, `risolviMicro`, `solverTarget`, `ricalcolaConDisponibili` | righe 4301–4900 |
-| Compatibilità & Verifica | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `autoRisolvi`, `verificaSicurezza`, `validaInput` | righe 4901–5689 |
-| Calcolo & Rendering | `calcola()` e rendering risultati (`#risultato-stampa`, Info tecniche, procedura, `#calc-gear-strip`) | righe 5690–6485 |
-| Stampa & Catalogo | `stampaMiscela`, `stampaMiscelaDaRisultato`, `stampaCatalogo`, `lanciaStampaIframe`, `renderCatalogo`, CRUD ingredienti, toast Popover, backup/reset | righe 6486–7515 |
-| Monetizzazione, Guide EN & GDPR | `PRIVACY_CONFIG`, `AFFILIATE_CONFIG`, `buildAmazonUrl` (`aitane93-21`), `ATTREZZATURA_ITEMS`, `GUIDES_EN_HTML`, Consent Mode v2, GA4/AdSense, Privacy & Termini, bootstrap SW | righe 7516–8632 |
+| `<head>` + `<style>` | Meta SEO, `<meta>` CSP (`object-src`/`base-uri`/`form-action`), JSON-LD `WebApplication`/`FAQPage`, favicon, CSS unificato (variabili WCAG, componenti, popover toast, media query, stili stampa) | righe 1–671 |
+| Markup | Header, splash screen, barra tab (7 schede), pannelli (`Guide`, `Acqua`, `Ricette`, `Calcola`, `Catalogo`, `Attrezzatura`, `Dati`), footer legale, modali e `<dialog>` GDPR/Termini | righe 672–1521 |
+| i18n | Dizionari `TRANSLATIONS.it`/`en` e funzioni `t()`, `setLang()`, `applyLang()`, `TT()` | righe 1522–2185 |
+| Costanti & Motore chimico | Masse molari `MM`, `LAMBDA`, `debyeHuckelA(T)`, `vantHoffPka`/`LogK`, Ksp (`CaCO₃`, `CaSO₄`, brushite, struvite, `ACP`, `OCP`, brucite), `speciate`, `speciateFull` (12 coppie ioniche), `SIT_EPS`/`gammaIon`, EC, acidi/mix, `stimaPhSerbatoio`, solubilità + 10 °C | righe 2186–2889 |
+| Dati di fabbrica & stato | `SALI_DEFAULT` (23 sali), `mergeCatalogoDefaults`, `PIANTE_BUILTIN`, `localStorage`, `statoCalc`, traduzioni dati | righe 2890–3729 |
+| UI Ricette & editor | `initPiante`, selezione pianta/fase, `#ricetta-gear-bar`, editor custom/target, `renderCalcTabella`, `updateRicalcolaBar` + strip riordino | righe 3730–4388 |
+| Solver | `gaussSolve`, `lsq`, `nnls` (Lawson-Hanson), `risolviMacro`, `valutaStabilitaChelatoFe`, `risolviMicro`, `solverTarget`, `ricalcolaConDisponibili` | righe 4389–4873 |
+| Compatibilità & Verifica | `EC_COEFF_GLOBAL`, gruppi ionici, `INCOMPAT_MATRIX`, `assegnaSerbatoi`, `autoRisolvi`, `verificaSicurezza`, `validaInput` | righe 4874–5741 |
+| Calcolo & Rendering | `calcola()` e rendering risultati (`#risultato-stampa`, Info tecniche, procedura, `#calc-gear-strip`) | righe 5742–6556 |
+| Stampa & Catalogo | `stampaMiscela`, `stampaMiscelaDaRisultato`, `stampaCatalogo`, `lanciaStampaIframe`, `renderCatalogo`, CRUD ingredienti, toast Popover, backup/reset | righe 6557–7596 |
+| Monetizzazione, Guide EN & GDPR | `PRIVACY_CONFIG`, `AFFILIATE_CONFIG`, `buildAmazonUrl` (`aitane93-21`), `ATTREZZATURA_ITEMS`, `GUIDES_EN_HTML`, Consent Mode v2, GA4/AdSense, Privacy & Termini, bootstrap SW | righe 7597–8714 |
 
 ### 2.3 Convenzioni
 
@@ -247,7 +247,7 @@ La scheda risultato comprende:
 
 ## Capitolo 7 — Il motore chimico
 
-È la parte che distingue FertiQuota da un foglio di calcolo. Tutto il motore è nelle righe 1186–1889 e usa la termodinamica delle soluzioni con benchmark verso PHREEQC/Visual MINTEQ, non soglie empiriche.
+È la parte che distingue FertiQuota da un foglio di calcolo. Tutto il motore è nelle righe 2186–2889 e usa la termodinamica delle soluzioni con benchmark verso PHREEQC/Visual MINTEQ, non soglie empiriche.
 
 ### 7.1 Costanti e dipendenza dalla temperatura
 
@@ -409,11 +409,11 @@ Il verdetto complessivo `sicuro` è vero solo senza conflitti critici; in caso c
 
 ### 11.1 Il catalogo di fabbrica
 
-**22 prodotti** (`SALI_DEFAULT`) in tre categorie:
+**23 prodotti** (`SALI_DEFAULT`) in tre categorie:
 
 - **Macro**: Ca(NO₃)₂·4H₂O, KNO₃, Mg(NO₃)₂·6H₂O, MgSO₄·7H₂O, KH₂PO₄, MAP, K₂SO₄, NH₄NO₃, CaCl₂·2H₂O;
 - **Micro**: Fe-EDTA 13%, Fe-DTPA 11%, Fe-EDDHA 6%, Mix Chelati (Fe+Mn+Zn+Cu+B+Mo), FeSO₄·7H₂O, MnSO₄·H₂O, ZnSO₄·7H₂O, H₃BO₃, Na₂MoO₄·2H₂O;
-- **pH/Additivi**: HNO₃ 38%, H₃PO₄ 75%, KOH 50%, K₂SiO₃ ~49% (liquidi, con densità per il dosaggio in mL).
+- **pH/Additivi**: HNO₃ 38%, H₃PO₄ 75%, H₂SO₄ 38%, KOH 50%, K₂SiO₃ ~49% (liquidi, con densità per il dosaggio in mL).
 
 Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare in %** (`el`), coefficiente EC (`ecC`), dose tipica g/1000 L, prezzo €/kg e una **nota tecnica** (es. per i chelati di ferro: la scelta EDTA/DTPA/EDDHA in funzione del pH di stabilità).
 
@@ -427,7 +427,7 @@ Ogni prodotto ha: `id`, nome con formula, categoria, **composizione elementare i
 
 ### 11.3 Versioning del catalogo
 
-`CATALOG_VERSION` (oggi 4: `H3PO4` corretto a P = 23.7%, `nh4Frac` esplicito e supporto `_elCustom`) gestisce gli aggiornamenti: quando la chimica dei default cambia in una nuova versione del file, al primo avvio il catalogo salvato viene **ri-basato sui default correnti** conservando prezzi, note, dosi personalizzate, sali custom con ID sicuro (`isSafeId`) ed eventuali composizioni default intenzionalmente personalizzate dall'utente (`_elCustom`). La stessa politica vale per l'import (`cleanNum` sui campi numerici).
+`CATALOG_VERSION` (oggi 5: aggiunta di `H2SO4` 38% e `Na: 19` su `NaMoO4`, oltre a `H3PO4` P = 23.7%, `nh4Frac` esplicito e supporto `_elCustom`) gestisce gli aggiornamenti: quando la chimica dei default cambia in una nuova versione del file, al primo avvio il catalogo salvato viene **ri-basato sui default correnti** conservando prezzi, note, dosi personalizzate, sali custom con ID sicuro (`isSafeId`) ed eventuali composizioni default intenzionalmente personalizzate dall'utente (`_elCustom`). La stessa politica vale per l'import (`cleanNum` sui campi numerici).
 
 ---
 
@@ -477,7 +477,7 @@ Attenzione: `localStorage` è **per browser e per origine** — aprendo il file 
 - **`safeParse`**: ogni lettura da localStorage è protetta — un dato corrotto degrada ai default invece di bloccare lo script a livello top-level (che lascerebbe l'app vuota).
 - **Sanificazione**: `stripTags` rimuove `<`, `>`, `"` da tutti i testi salvati/importati; `esc` fa l'escape in rendering; `sanitizeName` e `isSafeId` validano nomi e ID importati. Obiettivo: nessuna injection HTML da un JSON malevolo o da vecchi dati.
 - **Immutabilità degli input**: la pipeline di calcolo lavora su copie (`wRighe`); i dati di fabbrica (`SALI_DEFAULT`, `PIANTE_BUILTIN`) non vengono mai mutati.
-- **Test a ogni modifica**: la suite (`tests/run-tests.js`, S1–S41) verifica motore chimico, UI, GDPR, SEO, link affiliazione e conformità legale con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
+- **Test a ogni modifica**: la suite (`tests/run-tests.js`, S1–S42) verifica motore chimico, UI, accessibilità, sicurezza/CSP, GDPR, SEO, link affiliazione e conformità legale con l'hook pre-commit (`git config core.hooksPath tests/hooks`) e su GitHub Actions a ogni push/PR.
 - **Privacy by default & Conformità Legale**: font self-hosted in locale (`fonts/OFL.txt`), blocco preventivo totale di GA4/AdSense tramite Google Consent Mode v2 (0 richieste esterne prima del consenso), finestra `<dialog id="dlg-terms">` per Reg. (UE) 2019/1148, CLP/REACH, L. 242/2016 e informativa Amazon Associates.
 
 ---
